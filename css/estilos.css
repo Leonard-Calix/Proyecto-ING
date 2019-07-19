@@ -1,0 +1,55 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.icono{
+	text-align: center;
+	color: red;
+	font-size: 60px;
+}
+
+.marco{
+	padding: 20px;
+	border: 1px solid red;
+	border-radius: 5px;
+	margin: 4px;
+}
+
+.marco{
+	padding: 20px;
+	border: 1px solid red;
+	border-radius: 5px;
+	margin: 4px;
+}
+
+.foto-perfil{
+	height: 40px; 
+	width: 40px;
+}
+
+.input-comentario{
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    width: 85%;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.75rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.color-comentario{
+	background-color: #e0e0e0;
+	border-radius: 15px;
+	width: 100%;
+}
+
+.icono{
+	font-size: 2em;
+	color: #f5ba4b;
+}
