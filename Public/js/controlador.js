@@ -37,7 +37,7 @@ $(document).ready(function(){
 
                 			<!-- Image -->
                 			<div class="card-img-top">
-                  				<img src="../img/01.jpg" alt="App landing" class="img-fluid">
+                  				<img src="../Public/img/01.jpg" alt="App landing" class="img-fluid">
                 			</div>
 
                 			<!-- Body -->
