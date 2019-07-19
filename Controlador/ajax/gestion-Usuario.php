@@ -1,7 +1,7 @@
 <?php 
 
-	include("../clases/clase-Usuario.php");
-	include("../clases/clase-Persona.php");
+	include_once('../../Modelo/clase-Usuario.php');
+	include_once('../../Modelo/clase-Persona.php');
 
 	switch ($_GET["accion"]) {
 		
