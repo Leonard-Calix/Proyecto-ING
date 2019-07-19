@@ -77,24 +77,6 @@ $(document).ready(function(){
 }); // fin de la funcion principal
 
 
-function detalles(id) {
-
-	var param = 'id='+id;
-
-	console.log(param);
-
-	$.ajax({
-		url:"ajax/gestion-Tours.php?accion=obtenerTour",
-		method:'POST',
-		dataType:'json',
-		data: param ,
-		success:function(res){
-			console.log(res);
-		}
-	});
-}
-
-
 
 $('#btn-registro').click(function () {
 	
@@ -136,3 +118,9 @@ $('#btn-sing-in').click(function () {
 		}
 	});
 });
+
+$('#btn-comentar').click(function () {
+	
+	alert('Funciona');
+});
+
