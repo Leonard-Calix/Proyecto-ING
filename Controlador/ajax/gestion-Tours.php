@@ -1,6 +1,6 @@
 <?php 
 
-	include("../clases/clase-Tours.php");
+	include_once('../../Modelo/clase-Tours.php');
 
 	switch ($_GET["accion"]) {
 		

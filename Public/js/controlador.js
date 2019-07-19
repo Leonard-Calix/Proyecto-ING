@@ -7,7 +7,7 @@ $(document).ready(function(){
 		var param = 'id='+$('#tour').val();
 
 		$.ajax({
-			url:"ajax/gestion-Tours.php?accion=obtenerTour",
+			url:"../Controlador/ajax/gestion-Tours.php?accion=obtenerTour",
 			method:'POST',
 			dataType:'json',
 			data: param ,
@@ -19,7 +19,7 @@ $(document).ready(function(){
 	}else{
 
 		$.ajax({
-			url:"ajax/gestion-Tours.php?accion=mostrar",
+			url:"../Controlador/ajax/gestion-Tours.php?accion=mostrar",
 			dataType:'json',
 			success:function(res){
 			console.log(res);
@@ -37,7 +37,7 @@ $(document).ready(function(){
 
                 			<!-- Image -->
                 			<div class="card-img-top">
-                  				<img src="img/01.jpg" alt="App landing" class="img-fluid">
+                  				<img src="../Public/img/01.jpg" alt="App landing" class="img-fluid">
                 			</div>
 
                 			<!-- Body -->
@@ -63,7 +63,7 @@ $(document).ready(function(){
 
 	$.ajax({
 
-		url:"ajax/gestion-Tours.php?accion=obtenerEstado",
+		url:"../Controlador/ajax/gestion-Tours.php?accion=obtenerEstado",
 		dataType:'json',
 		success:function(res){
 			for (var i = 0; i < res.length; i++) {
@@ -89,7 +89,7 @@ $('#btn-registro').click(function () {
 	var parametros = "nombre="+nombre+"&apellido="+apellido+"&correo="+correo+"&usuario="+usuario+"&contrasenia="+contrasenia;
 
 	$.ajax({
-		url:"ajax/gestion-Usuario.php?accion=agregar",
+		url:"../Controlador/ajax/gestion-Usuario.php?accion=agregar",
 		dataType:'json',
 		method: 'POST',
 		data: parametros,
@@ -109,7 +109,7 @@ $('#btn-sing-in').click(function () {
 	console.log(parametros);
 
 	$.ajax({
-		url:"ajax/gestion-Usuario.php?accion=login",
+		url:"../Controlador/ajax/gestion-Usuario.php?accion=login",
 		dataType:'json',
 		method: 'POST',
 		data: parametros,
