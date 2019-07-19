@@ -135,7 +135,7 @@
                 <div class="col-md-8 col-lg-6">
 
                  <!-- Heading -->
-                 <h2 class="text-center mb-4">
+                 <h2 class="text-center mb-4 mt-4">
                   Detalle
               </h2>
 
