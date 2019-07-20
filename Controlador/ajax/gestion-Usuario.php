@@ -8,7 +8,7 @@
 		case 'agregar':
 
 
-			$persona = new Persona(null, $_POST["nombre"], $_POST["apellidos"], $_POST["identidad"], $_POST["direccion"], $_POST["telefono"]);
+			$persona = new Persona($_POST["nombre"], $_POST["apellidos"], $_POST["identidad"], $_POST["direccion"], $_POST["telefono"]);
 
 			$idPersona = $carpeta->agregarPersona();
 

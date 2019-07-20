@@ -2,7 +2,6 @@
 	include 'clase-conexion.php';
 
 	class Persona{
-
 		private $nombre;
 		private $apellidos;
 		private $identidad;
