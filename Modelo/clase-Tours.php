@@ -140,6 +140,23 @@
 			echo json_encode($estados);
 		}
 
+		public static function obtenerImg($id){
+			$conexion = new Conexion();
+
+			$sql = "SELECT * FROM imagenes WHERE idtours='$id'";
+
+			$resultado = $conexion->ejecutarConsulta($sql);
+
+			$imagenes = array();
+
+			while ( $img = $conexion->obtenerFila($resultado) ) {
+				$imagenes[] = $img; 
+			}
+
+			echo json_encode($imagenes);
+		}
+
+
 
 
 

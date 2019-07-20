@@ -12,6 +12,10 @@
 			Tours::obtenerTours($_POST["id"]);
 		break;
 
+		case 'obtenerImagenes':
+			Tours::obtenerImg($_POST["id"]);
+		break;
+
 		case 'obtenerEstado':
 			Tours::obtenerEstados();
 		break;
