@@ -82,7 +82,7 @@
 
 	<div class="row">
    		<div class="col-md-1 col-1 mr-1">
-    		<span><img class="rounded-circle foto-perfil mr-2" src="img/1.jpg"></span>
+    		<span><img class="rounded-circle foto-perfil mr-2" src="../Public/img/1.jpg"></span>
 		</div>
 		<div class="col-md-10  col-10">
     		<div class="p-2 mb-2 color-comentario" >
