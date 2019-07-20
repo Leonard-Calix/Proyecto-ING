@@ -17,7 +17,7 @@
                   <svg class="footer-brand-svg" viewBox="0 0 235 80" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <path d="M0 0 L 20 10 L 0 20 Z" class="text-primary" fill="currentColor"></path>
                     <path d="M0 30 L 20 40 L 0 50 Z M20 45 L 0 55 L 20 65 Z M0 60 L 20 70 L 0 80 Z" fill="currentColor"></path>
-                    <text x="40" y="70" font-family="Arial, sans-serif" font-size="60" font-weight="bold" letter-spacing="-.025em" fill="currentColor">incline.</text>
+                    <text x="40" y="70" font-family="Arial, sans-serif" font-size="60" font-weight="bold" letter-spacing="-.025em" fill="currentColor">Tours</text>
                   </svg>
                 </a>
               </p>
@@ -29,12 +29,12 @@
               <ul class="list-unstyled list-inline text-md-right">
                 <li class="list-inline-item mr-2">
                   <a href="#" class="text-white">
-                    Terms and conditions
+                    Ingenieria de Software
                   </a>
                 </li>
                 <li class="list-inline-item mr-2">
                   <a href="#" class="text-white">
-                    Privacy policy
+                    Agency Tours
                   </a>
                 </li>
                 <li class="list-inline-item">
@@ -52,7 +52,7 @@
               <!-- Copyright -->
               <p class="text-white text-muted">
                 <small>
-                  &copy; Copyright <span class="current-year"></span> Simpleqode. All rights reserved.
+                  &copy; Copyright <span class="current-year"></span> Ingenieria Software. All rights reserved.
                 </small>
               </p>
 

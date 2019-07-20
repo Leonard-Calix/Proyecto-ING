@@ -64,7 +64,7 @@
   </div> <!-- / .form-row -->
   <!-- Link -->
   <p class="text-center text-muted mt-5 mb-0">
-    <small>Not a member yet? <a href="sign-up.html">Sign up</a>.</small>
+    <small>Not a member yet? <a href="sign-up.php">Sign up</a>.</small>
   </p>
 </div>
 </div> <!-- / .row -->
