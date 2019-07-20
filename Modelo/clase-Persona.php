@@ -89,28 +89,34 @@
 			echo json_encode($registo);
 		}
 
-		public static function agregar($nombre, $telefono){
+		public static function agregarPersona(){
 			$conexion = new PDO("mysql:host=localhost;dbname=contactos", "root", "");
 
-			$sql = 'CALL insertarContacto(:in_nombre, :in_telefono, @mensaje)';
+			$sql = 'CALL insertarPersona(:nombre, :telefono, :identidad, :direccion, :telefono, :genero, @mensaje)';
 			$resultado = $conexion->prepare($sql);
 			// enviando parametros al procedimiento
-			$resultado->bindParam(':in_nombre', $nombre, PDO::PARAM_STR, 100);
-			$resultado->bindParam(':in_telefono', $telefono, PDO::PARAM_STR, 100);
+			$resultado->bindParam(':nombre', $this->nombre, PDO::PARAM_STR, 100);
+			$resultado->bindParam(':apellidos', $this->apellidos, PDO::PARAM_STR, 100);
+			$resultado->bindParam(':identidad', $this->identidad, PDO::PARAM_STR, 100);
+			$resultado->bindParam(':direccion', $this->direccion, PDO::PARAM_STR, 100);
+			$resultado->bindParam(':telefono', $this->telefono, PDO::PARAM_STR, 100);
+			$resultado->bindParam(':genero', $this->genero, PDO::PARAM_STR, 100);
+
+
 			// ejecutando la consulta
 			$resultado->execute();
     		$resultado->closeCursor(); 
 
     		// recuperando el parametro de salida del procediiento
     		$salida = $conexion->query('select @mensaje');
-    		$mensaje = $salida->fetchColumn();
+    		$id = $salida->fetchColumn();
     		
 
-    		if ($mensaje!=null) {
-    			$data = array("mensaje" => $mensaje);
-    			echo json_encode($data);
+    		if ($id!=null) {
+    			return $id;
     		}else{
-    			echo '{"resultado": "Error", "codigo": 0 }';
+    			$id=0;
+    			return $id;  
     		}
 		}
 

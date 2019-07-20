@@ -6,7 +6,22 @@
 	switch ($_GET["accion"]) {
 		
 		case 'agregar':
-			echo '{"Opcion": "Agregar" }';
+
+
+			$persona = new Persona(null, $_POST["nombre"], $_POST["apellidos"], $_POST["identidad"], $_POST["direccion"], $_POST["telefono"]);
+
+			$idPersona = $carpeta->agregarPersona();
+
+			if ($idPersona!=null) {
+				
+				$usuario = new Usuario($_POST["nombreUsuario"], $_POST["correo"], $_POST["contrasenia"], $idPersona);
+				$usuario->agregarUsuario();
+
+			}else{
+				echo '{"salida": "Error" }';
+			}
+
+
 		break;
 		
 		case 'login':
@@ -14,7 +29,7 @@
 		break;
 
 		default:
-			
+			echo '{"Opcion": "No valida" }';
 			break;
 	}
 
