@@ -85,7 +85,7 @@ $('#btn-registro').click(function () {
 	var correo = $('#correo').val();
 	var usuario = $('#usuario').val();
 	var contrasenia = $('#contrasenia').val();
-
+	
 	var parametros = "nombre="+nombre+"&apellido="+apellido+"&correo="+correo+"&usuario="+usuario+"&contrasenia="+contrasenia;
 
 	$.ajax({
@@ -95,6 +95,20 @@ $('#btn-registro').click(function () {
 		data: parametros,
 		success:function(respuesta){
 			console.log(respuesta);
+			if (respuesta.codigo == 1) {
+				$("#res").append(
+					`<div class="alert alert-primary" role="alert">
+						<b>Name:</b> ${$("#nombre").val() }<br> <b>last name:</b> ${$("#apellido").val()}
+						<b>email:</b> ${$("#correo").val()}<b>username:</b> ${$("#usuario").val()}
+						<b>password:</b> ${$("#contrasenia").val()}
+				</div>`);
+				$("#nombre").val("");
+				$("#apellido").val("");
+				$("#usuario").val("");
+				$("#contrasenia").val("");
+			}else{
+				alert("Fallo al agregar. Verifique sus datos");	
+			}
 		}
 	});
 });

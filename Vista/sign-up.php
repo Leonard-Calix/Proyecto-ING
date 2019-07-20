@@ -71,7 +71,7 @@
           <!-- User Name -->
           <label>Username</label>
           <div class="input-group">
-            <input type="text" class="form-control order-1" onchange="verificarUsuario()" id="usuario">
+            <input type="text" class="form-control order-1" id="usuario">
             <div class="input-group-append order-0">
                 <div class="input-group-text">
                   <svg class="input-group-icon icon-offset icon icon-person" viewBox="0 0 106 106" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -120,6 +120,7 @@
                 </button>
               </div>
             </div>
+            <div id="res"></div>
         </div> <!-- / .form-row -->
         <!-- Link -->
         <p class="text-center text-muted mt-5 mb-0">
