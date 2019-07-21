@@ -1,6 +1,6 @@
 <?php include_once ('Layouts/header.php'); ?>
 <?php include_once ('Layouts/navbar.php'); ?>
-    <!-- HERO
+    <!-- SLIDERS
       ================================================== -->
       <section class="section section-top section-full">
         <!-- Slider -->
@@ -39,23 +39,28 @@
 
                   <!-- Preheading -->
                   <p class="font-weight-medium text-center text-xs text-uppercase text-white text-muted">
-                    by Simpleqode
+                    IngenieriaSoftware
                   </p>
 
                   <!-- Heading -->
                   <h1 class="text-white text-center mb-4">
-                    Nombre
+                    Tours India
                   </h1>
 
                   <!-- Subheading -->
                   <p class="lead text-white text-muted text-center mb-5">
-                    Incline is set of landing and support pages aimed at helping companies promote new products and business launches.
+                  India is an astonishing land of diverse traditions and cultures. 
+                  its varied landscapes from Kashmir to Kanyakumari and from Gujarat to Arunachal Pradesh, the different
+                  cuisines and so on! India is also a place for Ayurveda, Yoga, learning, amazing arts & crafts,
+                  mountains, backwaters, nature, rivers, deserts, wildlife enthusiasts . 
+                  India is a jigsaw of people - of every faith and religion, living together to create a unique and colorful
+                  mosaic. 
                   </p>
 
                   <!-- Button -->
                   <p class="text-center mb-0">
                     <a href="sign-up.php" class="btn btn-outline-primary text-white">
-                      SIGN UP 
+                      Sign UP
                     </a>
                   </p>
                 </div>
@@ -63,16 +68,18 @@
                 <div class="slider-item">
                   <!-- Preheading -->
                   <p class="font-weight-medium text-center text-xs text-uppercase text-white text-muted">
-                    by Simpleqode
+                  IngenieriaSoftware
                   </p>
                   <!-- Heading -->
                   <h1 class="text-white text-center mb-4">
-                    Powerful design tool 
+                  Tours India
                   </h1>
 
                   <!-- Subheading -->
                   <p class="lead text-white text-muted text-center mb-5">
-                    Create beautiful websites from scratch with multiple pre-built pages and styled components.
+                  There is a festival for every reason and every season.Incredible India tourism enchants 
+                  you with culture and festivals of India, forts and palaces, Beaches and Backwaters, Hill stations, 
+                  Rejuvenation with Ayurveda and Spa, thrilling wildlife and adventure and holy pilgrimage.
                   </p>
                 </div>
 
@@ -80,17 +87,18 @@
 
                   <!-- Preheading -->
                   <p class="font-weight-medium text-center text-xs text-uppercase text-white text-muted">
-                    by Simpleqode
+                  IngenieriaSoftware
                   </p>
 
                   <!-- Heading -->
                   <h1 class="text-white text-center mb-4">
-                    Build anything with Incline
+                  Tours India
                   </h1>
 
                   <!-- Subheading -->
                   <p class="lead text-white text-muted text-center mb-5">
-                    Create beautiful websites from scratch with multiple pre-built pages and styled components.
+                  If I were asked under what sky the human mind has most fully developed  some of its choicest gifts,
+                  has most deeply pondered on the greatest problems  of life, and has found solutions, I should point to India
                   </p>
 
                 </div>
@@ -136,7 +144,10 @@
             </h2>
             <!-- Subheading -->
             <p class="text-muted text-center mb-5">
-              Incline comes with several professionally designed landing pages that can be easily adapted for any project.
+            INDIA, as the world knows, is much more than what it seems.. One of the oldest civilizations in the world,
+            it offers rich cultural heritage at the outset. Although, it is cumbersome to give a thorough description 
+            of this vast, complex, and colourful land especially when it comes to India travels, we are one of those 
+            few India tour organizers that have mastered the heart and soul of India.
             </p>
 
           </div>

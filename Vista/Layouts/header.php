@@ -27,6 +27,6 @@
   <!-- Theme CSS -->
   <link rel="stylesheet" href="../Public/css/theme.min.css">
 
-  <title>Tours India |Welcome</title>
+  <title>Tours India | Welcome</title>
 </head>
 <body>

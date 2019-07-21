@@ -62,46 +62,32 @@
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarLandings" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Estados
+                  States
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarLandings">
-                  <a class="dropdown-item " href="app.html">
-                    App
+                  <a class="dropdown-item " href="#">
+                    Most Populares
                   </a>
-                  <a class="dropdown-item " href="company.html">
-                    Company
+                  <a class="dropdown-item " href="#">
+                    Tours with tourist guide
                   </a>
-                  <a class="dropdown-item " href="fullpage.html">
-                    Fullpage
-                  </a>
-                  <a class="dropdown-item " href="product.html">
-                    Product
-                  </a>
-                  <a class="dropdown-item " href="real-estate.html">
-                    Real estate
-                  </a>
-                  <a class="dropdown-item " href="restaurant.html">
-                    Restaurant
-                  </a>
-                  <a class="dropdown-item " href="service.html">
-                    Service
-                  </a>
+                  
                 </div>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarPages" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Paquetes
+                  Tourist packages
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarPages">
                   <li class="dropright">
                     <a class="dropdown-item dropdown-toggle" href="#" id="pagesBlog" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Blog
+                      Tourist packages by state
                     </a>
                     <div class="dropdown-menu" aria-labelledby="pagesBlog">
                       <a class="dropdown-item " href="#">
                         Blog
                       </a>
-                      <a class="dropdown-item " href="blog-post.html">
+                      <a class="dropdown-item " href="#">
                         Blog: Post
                       </a>
                     </div>
@@ -111,35 +97,31 @@
                       Shop
                     </a>
                     <div class="dropdown-menu" aria-labelledby="pagesShop">
-                      <a class="dropdown-item " href="shop.html">
+                      <a class="dropdown-item " href="#">
                         Shop
                       </a>
-                      <a class="dropdown-item " href="shop-item.html">
+                      <a class="dropdown-item " href="#">
                         Shop: Item
                       </a>
-                      <a class="dropdown-item " href="cart.html">
+                      <a class="dropdown-item " href="#">
                         Shop: Cart
                       </a>
-                      <a class="dropdown-item " href="checkout.html">
+                      <a class="dropdown-item " href="#">
                         Shop: Checkout
                       </a>
                     </div>
                   </li>
                   <li>
-                    <a class="dropdown-item " href="about.html">
+                    <a class="dropdown-item " href="#">
                       About
                     </a>
                   </li>
                   <li>
-                    <a class="dropdown-item " href="contact.html">
+                    <a class="dropdown-item " href="#">
                       Contact
                     </a>
                   </li>
-                  <li>
-                    <a class="dropdown-item " href="faq.html">
-                      FAQ
-                    </a>
-                  </li>
+                  
                   <li>
                     <a class="dropdown-item" href="pricing.html">
                       Pricing
