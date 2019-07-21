@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-07-2019 a las 21:35:47
+-- Tiempo de generación: 21-07-2019 a las 18:34:47
 -- Versión del servidor: 10.3.16-MariaDB
 -- Versión de PHP: 7.3.7
 
@@ -36,18 +36,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ADD_PERSON` (IN `pnombreC` VARCH
 	IF papellidos = '' THEN
 		SET pError = CONCAT(pError, ' ', 'Apellidos vacio');
 	END IF; 
-	IF pnumeroId = '' THEN
-		SET pError = CONCAT(pError, ' ','Nombre identidad vacio');
-	END IF;
-	IF ptelefono = '' THEN
-		SET pError = CONCAT(pError, ' ', 'Telefono vacio');
-	END IF; 
-	IF pgenero = '' THEN
-		SET pError = CONCAT(pError, ' ','Genero vacio');
-	END IF;
-	IF pDireccion = '' THEN
-		SET pError = CONCAT(pError, ' ', 'Direccion vacio');
-	END IF; 
+	
 
 	IF pError = '' THEN
 		/*Insertamos en la tabla persona*/
@@ -245,6 +234,17 @@ CREATE TABLE `imagenes` (
   `idTours` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `imagenes`
+--
+
+INSERT INTO `imagenes` (`idImagenes`, `ruta`, `idTours`) VALUES
+(1, '../Public/img/tours/t1_01.jpg', 1),
+(2, '../Public/img/tours/t1_02.jpg', 1),
+(3, '../Public/img/tours/t1_03.png', 1),
+(4, '../Public/img/tours/t1_04.jpg', 1),
+(5, '../Public/img/tours/t1_05.jpg', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -306,7 +306,9 @@ INSERT INTO `persona` (`idPersona`, `nombreCompleto`, `Apellidos`, `numeroIdenti
 (14, 'Yalitza Uma', 'Nehru Nayak', '001-1976-00125', '+0091 9311-2566', 'F', 'India, Nueva Delhi'),
 (15, 'Priya Rania', 'Grover Sharma', '001-1977-00126', '+0091 9212-2667', 'F', 'India, Nueva Delhi'),
 (16, 'jose maria', 'ortega avila', '', '', '', ''),
-(17, 'personaprueba', 'persona prueba', '0801-1994-00555', '+50486521232', 'M', 'por la pija');
+(17, 'personaprueba', 'persona prueba', '0801-1994-00555', '+50486521232', 'M', 'por la pija'),
+(25, 'maria leonela ', 'fajardo guillen', 'null', 'null', 'null', 'null'),
+(26, 'pamela patricia', 'enamorado fortin', 'null', 'null', 'null', 'null');
 
 -- --------------------------------------------------------
 
@@ -405,7 +407,9 @@ INSERT INTO `turista` (`idTurista`, `idUsuario`) VALUES
 (4, 9),
 (5, 10),
 (6, 16),
-(7, 17);
+(7, 17),
+(9, 19),
+(10, 20);
 
 -- --------------------------------------------------------
 
@@ -442,7 +446,9 @@ INSERT INTO `usuario` (`idUsuario`, `nombreUsuario`, `email`, `contrasena`, `idP
 (14, 'Yalitza', 'UmaNayak@gmail.com', 'guia.789', 14),
 (15, 'Priya', 'raniaSharma@gmail.com', 'guia.101', 15),
 (16, 'jose', 'josemaria@gmail.com', 'turist.jose', 16),
-(17, 'prueba', 'prueba@email.com', 'turist.123', 17);
+(17, 'prueba', 'prueba@email.com', 'turist.123', 17),
+(19, 'leonela', 'fajardomaria@gmail.com', 'turist.007', 25),
+(20, 'patricia', 'fortinpatricia@gmail.com', 'turist.008', 26);
 
 -- --------------------------------------------------------
 
@@ -602,7 +608,7 @@ ALTER TABLE `hotel`
 -- AUTO_INCREMENT de la tabla `imagenes`
 --
 ALTER TABLE `imagenes`
-  MODIFY `idImagenes` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idImagenes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `pagos`
@@ -614,7 +620,7 @@ ALTER TABLE `pagos`
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `populares`
@@ -638,13 +644,13 @@ ALTER TABLE `toursturista`
 -- AUTO_INCREMENT de la tabla `turista`
 --
 ALTER TABLE `turista`
-  MODIFY `idTurista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idTurista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Restricciones para tablas volcadas
