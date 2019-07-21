@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-07-2019 a las 18:34:47
+-- Tiempo de generación: 21-07-2019 a las 21:08:27
 -- Versión del servidor: 10.3.16-MariaDB
 -- Versión de PHP: 7.3.7
 
@@ -26,6 +26,35 @@ DELIMITER $$
 --
 -- Procedimientos
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `INICIAR_SESION` (IN `pemail` VARCHAR(45), IN `pcontrasena` VARCHAR(255), OUT `tipoUsuario` INT)  BEGIN
+	DECLARE existeUsuario, usuarioID, esAdmin, esTurista, esGuia INT;
+	SET existeUsuario = 0;
+	SET esAdmin = 0;
+	SET esTurista = 0;
+	SET esGuia = 0;
+	/*Comprobar que el correo y la contrasena pertenecen a un usuario*/
+	SELECT COUNT(*) INTO existeUsuario FROM Usuario WHERE email = pemail AND contrasena = pcontrasena;
+	IF existeUsuario > 0 THEN
+		/*Obtenemos el id del usuario*/
+		SELECT idUsuario INTO usuarioID FROM Usuario WHERE email = pemail AND contrasena = pcontrasena;
+		/*Comprobamos que tipo de usuario es*/
+		SELECT COUNT(*) INTO esAdmin FROM Administrador WHERE idUsuario = usuarioID;
+		SELECT COUNT(*) INTO esTurista FROM Turista WHERE idUsuario = usuarioID;
+		SELECT COUNT(*) INTO esGuia FROM Guia WHERE idUsuario = usuarioID;
+
+		IF esAdmin > 0 THEN
+			SET tipoUsuario = 1;
+		ELSEIF esTurista > 0 THEN
+			SET tipoUsuario = 2;
+		ELSEIF esGuia > 0 THEN
+			SET tipoUsuario = 3;
+		ELSE
+			SET tipoUsuario = 0;
+		END IF; 
+
+	END IF;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ADD_PERSON` (IN `pnombreC` VARCHAR(55), IN `papellidos` VARCHAR(55), IN `pnumeroId` VARCHAR(55), IN `ptelefono` VARCHAR(55), IN `pgenero` VARCHAR(55), IN `pDireccion` VARCHAR(55), OUT `pidInsertado` INT, OUT `pMensaje` VARCHAR(45))  BEGIN
 	DECLARE pError VARCHAR(45);
 	SET pError = '';
