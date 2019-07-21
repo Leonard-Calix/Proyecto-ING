@@ -15,19 +15,7 @@ BEGIN
 	IF papellidos = '' THEN
 		SET pError = CONCAT(pError, ' ', 'Apellidos vacio');
 	END IF; 
-	IF pnumeroId = '' THEN
-		SET pError = CONCAT(pError, ' ','Nombre identidad vacio');
-	END IF;
-	IF ptelefono = '' THEN
-		SET pError = CONCAT(pError, ' ', 'Telefono vacio');
-	END IF; 
-	IF pgenero = '' THEN
-		SET pError = CONCAT(pError, ' ','Genero vacio');
-	END IF;
-	IF pDireccion = '' THEN
-		SET pError = CONCAT(pError, ' ', 'Direccion vacio');
-	END IF; 
-
+	
 	IF pError = '' THEN
 		/*Insertamos en la tabla persona*/
 		INSERT INTO Persona(nombreCompleto, Apellidos, numeroIdentidad, telefono, genero,direccion)
