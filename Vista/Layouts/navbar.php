@@ -85,10 +85,10 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="pagesBlog">
                       <a class="dropdown-item " href="#">
-                        Blog
+                        Tourist packages
                       </a>
                       <a class="dropdown-item " href="#">
-                        Blog: Post
+                        Tourist packages: Post
                       </a>
                     </div>
                   </li>
@@ -119,12 +119,6 @@
                   <li>
                     <a class="dropdown-item " href="#">
                       Contact
-                    </a>
-                  </li>
-                  
-                  <li>
-                    <a class="dropdown-item" href="pricing.html">
-                      Pricing
                     </a>
                   </li>
                   <li>
