@@ -29,9 +29,9 @@
             <!-- Body -->
             <div class="card-body">
               <!-- Title -->
-              <h4 class="card-title">Company landing <span class="badge badge-danger">New!</span></h4><br> 
+              <h4 class="card-title"></h4> 
               <!-- Body -->
-
+              <div id="descripcion"></div>
 
               <div id="res" class="slider slider-hightlight slider-no-controls" data-slider-binded=".slider">
                 
@@ -53,9 +53,8 @@
                 
               </div>
 
-
-
-              <p class="card-text text-muted">You can use this page to promote your company.</p>
+              <br><br>
+              
               <!-- / .Input Comentarios -->
               <div class="row" id="imput-cometarios" >
                <div class="col-md-1 col-sm-1 col-xs-1 col-1">
