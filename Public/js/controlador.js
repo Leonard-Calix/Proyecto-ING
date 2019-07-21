@@ -107,6 +107,7 @@ $('#btn-registro').click(function () {
 	var contrasenia = $('#contrasenia').val();
 
 	var parametros = "nombre="+nombre+"&apellido="+apellido+"&correo="+correo+"&usuario="+usuario+"&contrasenia="+contrasenia;
+	console.log(parametros);
 
 	$.ajax({
 		url:"../Controlador/ajax/gestion-Usuario.php?accion=agregar",
@@ -115,6 +116,25 @@ $('#btn-registro').click(function () {
 		data: parametros,
 		success:function(respuesta){
 			console.log(respuesta);
+			if(respuesta.codigo != 0){
+				$('#resp').append(
+					`<div class="alert alert-primary" role="alert">
+						${respuesta.resultado}
+					</div>`
+				);
+				$('#nombre').val("");
+				$('#apellido').val("");
+				$('#nombre').val("");
+				$('#correo').val("");
+				$('#usuario').val("");
+				$('#contrasenia').val("");
+			}else{
+				$('#resp').append(
+					`<div class="alert alert-danger" role="alert">
+						${respuesta.resultado}
+					</div>`
+				);
+			}
 		}
 	});
 });
