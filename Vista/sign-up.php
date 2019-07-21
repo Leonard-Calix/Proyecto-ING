@@ -71,7 +71,7 @@
           <!-- User Name -->
           <label>Username</label>
           <div class="input-group">
-            <input type="text" class="form-control order-1" onchange="verificarUsuario()" id="usuario">
+            <input type="text" class="form-control order-1"  id="usuario">
             <div class="input-group-append order-0">
                 <div class="input-group-text">
                   <svg class="input-group-icon icon-offset icon icon-person" viewBox="0 0 106 106" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -108,7 +108,7 @@
               <div class="custom-control custom-checkbox mb-3 mb-md-0">
                 <input type="checkbox" class="custom-control-input" id="sign-in-checkbox">
                 <label class="custom-control-label" for="sign-in-checkbox">
-                  I agree to <a href="#!">terms and conditions</a>
+                  I agree to <a href="#">terms and conditions</a>
                 </label>
               </div>
             </div>
@@ -119,6 +119,7 @@
                   Sign up now
                 </button>
               </div>
+              <div id="resp"></div>
             </div>
         </div> <!-- / .form-row -->
         <!-- Link -->
