@@ -2,12 +2,35 @@
 
 	include_once('../../Modelo/clase-Usuario.php');
 	include_once('../../Modelo/clase-Persona.php');
-
+	include_once('../../Modelo/ControllerPersona.php');
+	include_once('../../Modelo/ControllerUsuario.php');
+	
 	switch ($_GET["accion"]) {
 		
 		case 'agregar':
-			echo '{"Opcion": "Agregar" }';
-		break;
+
+			$nombre =  $_POST["nombre"];
+			$apellido = $_POST["apellido"];
+			$identidad = isset($_POST["identidad"]) ? $_POST["identidad"] : "null";
+			$telefono = isset($_POST["telefono"]) ? $_POST["telefono"] : "null";
+			$genero = isset($_POST["genero"]) ? $_POST["genero"] : "null";
+			$direccion = isset($_POST["direccion"]) ? $_POST["direccion"] : "null";
+
+			$persona = new Persona($nombre, $apellido, $identidad, $direccion, $telefono, $genero);
+			
+			$idPersona = ControllerPersona::agregarPersona($persona);
+			if($idPersona != NULL){
+				$usuario = new Usuario($_POST["usuario"], $_POST["correo"], $_POST["contrasenia"],$idPersona);
+
+				$usuario_insertado = ControllerUsuario::agregarUsuario($usuario);
+				$salida = array("resultado" =>"Agregado exitosamente", "codigo" => $usuario_insertado);
+				echo json_encode($salida);
+
+			}else{
+				$salida = array("resultado" =>"Error. Verfique los datos", "codigo" => 0);
+				echo json_encode($salida);
+			}
+			break;
 		
 		case 'login':
 			echo '{"Opcion": "Login" }';

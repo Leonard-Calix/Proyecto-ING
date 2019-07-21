@@ -9,7 +9,7 @@
 
 		public function __construct($nombreUsuario, $correo, $contrasenia, $idPersona){
 			$this->nombreUsuario = $nombreUsuario;
-			$this->correo	 = $correo	;
+			$this->correo = $correo	;
 			$this->contrasenia = $contrasenia;
 			$this->idPersona = $idPersona;
 		}
@@ -22,12 +22,12 @@
 			$this->nombreUsuario = $nombreUsuario;
 		}
 
-		public function getCorreo	(){
-			return $this->correo	;
+		public function getCorreo(){
+			return $this->correo;
 		}
 
-		public function setCorreo	($correo	){
-			$this->correo	 = $correo	;
+		public function setCorreo($correo){
+			$this->correo = $correo	;
 		}
 
 		public function getContrasenia(){
@@ -46,9 +46,6 @@
 			$this->idPersona = $idPersona;
 		}
 
-		public static function agregarUsuario(){
-			echo "Agregando";
-		}
 
 	}
 ?>

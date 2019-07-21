@@ -69,10 +69,6 @@
 			$this->genero = $genero;
 		}
 
-		public static function agregarPersona($nombre){
-			echo $nombre;
-		}
-
 		public static function datos(){
 			
 			$conexion = new Conexion();
@@ -87,31 +83,6 @@
 			}
 
 			echo json_encode($registo);
-		}
-
-		public static function agregar($nombre, $telefono){
-			$conexion = new PDO("mysql:host=localhost;dbname=contactos", "root", "");
-
-			$sql = 'CALL insertarContacto(:in_nombre, :in_telefono, @mensaje)';
-			$resultado = $conexion->prepare($sql);
-			// enviando parametros al procedimiento
-			$resultado->bindParam(':in_nombre', $nombre, PDO::PARAM_STR, 100);
-			$resultado->bindParam(':in_telefono', $telefono, PDO::PARAM_STR, 100);
-			// ejecutando la consulta
-			$resultado->execute();
-    		$resultado->closeCursor(); 
-
-    		// recuperando el parametro de salida del procediiento
-    		$salida = $conexion->query('select @mensaje');
-    		$mensaje = $salida->fetchColumn();
-    		
-
-    		if ($mensaje!=null) {
-    			$data = array("mensaje" => $mensaje);
-    			echo json_encode($data);
-    		}else{
-    			echo '{"resultado": "Error", "codigo": 0 }';
-    		}
 		}
 
 	}
