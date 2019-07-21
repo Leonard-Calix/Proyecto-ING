@@ -1,25 +1,33 @@
 <?php 
-	include_once('../../Modelo/clase-conexion.php');
+	
+	include_once('../../Modelo/clase-Usuario.php');
+	include_once('../../Modelo/clase-Persona.php');
+	include_once('../../Modelo/ControllerPersona.php');
+	include_once('../../Modelo/ControllerUsuario.php');
+	
+	$nombre = "maria leonela";
+	$apellido = "fajardo guillen";
+	$identidad = "";
+	$telefono = "";
+	$genero = "";
+	$direccion = "";
+	$correo = "fajardomaria@gmail.com";
+	$username = "leonela";
+	$contra = "turist.007";
 
-	$conexion = new Conexion();
+	$persona = new Persona($nombre, $apellido, $identidad, $direccion, $telefono, $genero);
+	$idPersona = ControllerPersona::agregarPersona($persona);
+		
+	echo $idPersona;
+	if($idPersona != NULL){
+		
+		$usuario = new Usuario($username, $correo,$contra,$idPersona);
 
-		$sql = "SELECT * FROM estados";
+		$usuario_insertado = ControllerUsuario::agregarUsuario($usuario);
 
-		$resultado = $conexion->ejecutarConsulta($sql);
-
-		$estados = array();
-
-		while ( $estado = $conexion->obtenerFila($resultado) ) {
-			$estados[] = $estado; 
-		}
-
-		echo json_encode($estados);
-
-
-
-
-
-
-
-
+		echo $usuario_insertado;
+	}else{
+		echo "Fallo";
+	}
+	
  ?>
