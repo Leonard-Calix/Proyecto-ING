@@ -1,5 +1,5 @@
 <?php
-	include 'clase-conexion.php';
+	include 'clase-conexionPDO.php';
 
 	class Persona{
 
@@ -18,8 +18,6 @@
 			$this->telefono = $telefono;
 			$this->genero = $genero;
 		}
-
-		
 
 		public function getNombre(){
 			return $this->nombre;
@@ -71,15 +69,17 @@
 
 		public static function datos(){
 			
-			$conexion = new Conexion();
+			Conexion::abrirConexion();
+  			$conexion = Conexion::obtenerConexion();
 
 			$sql = "SELECT * FROM view_contacto";
-			$resultado = $conexion->ejecutarConsulta($sql);
-
+			$sentencia = $conexion->prepare($sql);
+			$resultado = $sentencia ->execute();
+			
 			$registo = array();
 
-			while ( $contacto = $conexion->obtenerFila($resultado) ) {
-				$registo[] = $contacto; 
+			foreach($resultado as $row) {
+				$registo[] = $row; 
 			}
 
 			echo json_encode($registo);

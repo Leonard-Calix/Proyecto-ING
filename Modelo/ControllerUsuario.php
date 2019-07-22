@@ -1,10 +1,11 @@
 <?php
-    
 class ControllerUsuario{
 
     public static function agregarUsuario($usuario){
-        $conexion = new PDO("mysql:host=localhost;dbname=toursindia", "root", "");
-        
+        include_once 'clase-conexionPDO.php';
+        Conexion::abrirConexion();
+        $conexion = Conexion::obtenerConexion();
+          
         $sql = 'CALL SP_ADD_USER(:in_nombreU, :in_email, :in_contrasena, :in_tipoUsuario, @id, @mensaje)';
         $resultado = $conexion->prepare($sql);
 
@@ -35,10 +36,5 @@ class ControllerUsuario{
             return $id;
         }
     }
-
-   
-
-
-   
 }
 ?>
