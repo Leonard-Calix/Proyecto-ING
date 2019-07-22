@@ -126,6 +126,12 @@ $(document).ready(function(){
 }); // fin de la funcion principal
 
 
+/*===============================================================*/
+	/*Registrar usuarios al sistema*/
+
+function redireccionar(id){
+	document.location.href='perfil.php?id='+id;
+}
 
 $('#btn-registro').click(function () {
 	
@@ -158,7 +164,7 @@ $('#btn-registro').click(function () {
 				$('#usuario').val("");
 				$('#contrasenia').val("");
 
-				window.location="perfil.php?id="+respuesta.codigo;
+				setTimeout(redireccionar(respuesta.codigo), 4000);
 			}else{
 				$('#resp').append(
 					`<div class="alert alert-danger" role="alert">
