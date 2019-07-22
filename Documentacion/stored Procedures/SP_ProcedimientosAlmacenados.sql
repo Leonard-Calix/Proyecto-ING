@@ -7,7 +7,9 @@ CREATE OR REPLACE PROCEDURE SP_ADD_PERSON(IN pnombreC VARCHAR(55), IN papellidos
 
 BEGIN
 	DECLARE pError VARCHAR(45);
+	DECLARE existePersona INT;
 	SET pError = '';
+	SET existePersona = 0;
 
 	IF pnombreC = '' THEN
 		SET pError = CONCAT(pError, ' ','Nombre completo vacio');
@@ -16,7 +18,9 @@ BEGIN
 		SET pError = CONCAT(pError, ' ', 'Apellidos vacio');
 	END IF; 
 	
-	IF pError = '' THEN
+	SELECT COUNT(*) INTO existePersona FROM Persona WHERE nombreCompleto = pnombreC AND Apellidos = papellidos;
+
+	IF pError = '' AND existePersona > 0 THEN
 		/*Insertamos en la tabla persona*/
 		INSERT INTO Persona(nombreCompleto, Apellidos, numeroIdentidad, telefono, genero,direccion)
 				     VALUES(pnombreC,papellidos,pnumeroId,ptelefono,pgenero,pDireccion);
@@ -45,7 +49,7 @@ CREATE OR REPLACE PROCEDURE SP_ADD_USER(IN pnombreU VARCHAR(45), IN pemail VARCH
 BEGIN
 
 	DECLARE pError VARCHAR(45);
-	DECLARE ultimoIDpersona INT;
+	DECLARE existeUsuario, ultimoIDpersona INT;
 	SET pError = '';
 
 	IF pnombreU = '' THEN
@@ -58,7 +62,9 @@ BEGIN
 		SET pError = CONCAT(pError, ' ','contraseña vacia');
 	END IF;
 
-	IF pError = '' THEN
+	SELECT COUNT(*) INTO existeUsuario FROM Usuario WHERE nombreUsaurio = pnombreU AND email = pemail;
+
+	IF pError = '' AND existeUsuario > 0 THEN
 
 		SELECT idPersona INTO ultimoIDpersona FROM Persona ORDER BY idPersona DESC LIMIT 1;
 
