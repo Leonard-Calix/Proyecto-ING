@@ -1,6 +1,7 @@
 $(document).ready(function(){
 	
-	// cargar el detalle del tour
+	/*===============================================================*/
+		/*Detalle de tour*/
 
 	if ($('#tour').val()!=null) {
 
@@ -20,7 +21,8 @@ $(document).ready(function(){
 
 		});
 
-/*Obtener las imgenes por tours*/
+		/*===============================================================*/
+		/*Obtener las imgenes por tours*/
 
 		$.ajax({
 			url:"../Controlador/ajax/gestion-Tours.php?accion=obtenerImagenes",
@@ -36,10 +38,10 @@ $(document).ready(function(){
 			}
 		});
 
-
-
-
 	}else{
+
+		/*===============================================================*/
+		/*obtener tours*/
 
 		$.ajax({
 			url:"../Controlador/ajax/gestion-Tours.php?accion=mostrar",
@@ -84,7 +86,8 @@ $(document).ready(function(){
 		});
 	}
 
-	// obtener estados
+	/*===============================================================*/
+	/*obtener estados*/
 
 	$.ajax({
 
@@ -98,21 +101,26 @@ $(document).ready(function(){
 
 	});
 
-	//obtener usuario para el perfil
+	/*===============================================================*/
+	/*Consulta para la informaciond del perfil*/
+
+	if ( $('#usuario_registrado').val()!=null) {
+		
+		$.ajax({
+			url:"../Controlador/ajax/gestion-Usuario.php?accion=obtenerUsuario",
+			method: 'POST',
+			data: "id="+$('#usuario_registrado').val(),
+			dataType:'json',
+			success:function(res){
+				console.log('Respuesta del servidor para el perfil');
+				console.log(res);
+				$('#nombreUsuario').append(`<h1 class="display-2 text-white">Hello ${res[0].nombreUsuario}</h1>`);
+			}
+
+		});
+	}
 	
-	$.ajax({
-
-		url:"../Controlador/ajax/gestion-Usuario.php?accion=obtenerUsuario",
-		method: 'POST',
-		data: "id="+$('#usuario_registrado').val(),
-		dataType:'json',
-		success:function(res){
-			console.log('Respuesta del servidor para el perfil');
-			console.log(res);
-			$('#nombreUsuario').append(`<h1 class="display-2 text-white">Hello ${res[0].nombreUsuario}</h1>`);
-		}
-
-	});
+	
 
 	
 }); // fin de la funcion principal

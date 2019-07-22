@@ -1,5 +1,5 @@
 <?php
-
+	
 	class Usuario{
 
 		private $nombreUsuario;
@@ -45,6 +45,8 @@
 		public function setIdPersona($idPersona){
 			$this->idPersona = $idPersona;
 		}
+
+		
 
 	}
 ?>

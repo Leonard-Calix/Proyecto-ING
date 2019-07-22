@@ -1,8 +1,9 @@
 <?php
+    include_once 'clase-conexionPDO.php';
 class ControllerUsuario{
 
     public static function agregarUsuario($usuario){
-        include_once 'clase-conexionPDO.php';
+        
         Conexion::abrirConexion();
         $conexion = Conexion::obtenerConexion();
           
@@ -35,6 +36,50 @@ class ControllerUsuario{
             $id = 0;
             return $id;
         }
+    }
+
+    public static function obtenerUsuario($id){
+            Conexion::abrirConexion();
+            $conexion = Conexion::obtenerConexion();
+
+            $sql = "SELECT * FROM usuario WHERE idusuario= :id";
+
+            $sentencia = $conexion->prepare($sql);
+            $sentencia->execute(array("id" => $id));
+            $data = array();
+
+            foreach ($sentencia as $fila) {
+                $data[] = $fila; 
+            }
+
+            echo json_encode($data);
+    }
+
+    public static function login($email, $contrasena){
+        Conexion::abrirConexion();
+        $conexion = Conexion::obtenerConexion();
+
+        $sql = 'CALL SP_LOGIN(:in_pemail, :in_pcontrasena, @tipoUsuario, @usuarioID)';
+        $resultado = $conexion->prepare($sql);
+        $resultado->bindParam(':in_pemail', $email, PDO::PARAM_STR, 100);
+        $resultado->bindParam(':in_pcontrasena', $contrasenia, PDO::PARAM_STR, 100);
+
+        $resultado->execute();
+        $resultado->closeCursor(); 
+
+        $salida = $conexion->query('select @tipoUsuario');
+        $tipo = $salida->fetchColumn();
+
+        $salida = $conexion->query('select @usuarioID');
+        $usuario = $salida->fetchColumn();
+
+       
+
+        $data = array("usuario" => $usuario, "tipo" => $tipo);
+
+        return json_encode($data);
+
+
     }
 }
 ?>

@@ -1,17 +1,4 @@
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 <?php 
 
 	include_once('../../Modelo/clase-Usuario.php');
@@ -51,7 +38,7 @@
 		break;
 
 		case 'obtenerUsuario':
-			 Usuario::obtenerUsuario((int)$_POST["id"]);
+			 ControllerUsuario::obtenerUsuario((int)$_POST["id"]);
 		break;
 
 		default:

@@ -36,9 +36,9 @@
 
 	Usuario::obtenerUsuario(1);
 */
-	include_once('../../Modelo/clase-Usuario.php');
+	include_once('../../Modelo/ControllerUsuario.php');
 
-	Usuario::obtenerUsuario(1);
+	echo ControllerUsuario::login("bcalixvelasquez@gmail.com", "admin.451");
 
 
 

@@ -153,7 +153,7 @@
 			$sql = "SELECT * FROM imagenes WHERE idtours= :id";
 
 			$sentencia = $conexion->prepare($sql);
-			$sentencia -> execute();
+			$sentencia->execute(array("id" => $id));
 			$imagenes = array();
 
 			foreach ($sentencia as $img) {

@@ -89,12 +89,16 @@ END$$
 
 DELIMITER ;
 
-/*PROCEDIMIENTO ALMACENADO PARA INICIAR SESION*/
-DELIMITER $$
 
-CREATE OR REPLACE PROCEDURE INICIAR_SESION(IN pemail VARCHAR(45), IN pcontrasena VARCHAR(255), OUT tipoUsuario INT)
+
+/*=========================================================================*/
+/*PROCEDIMIENTO ALMACENADO PARA INICIAR SESION*/
+
+DELIMITER //
+
+CREATE PROCEDURE SP_LOGIN(IN pemail VARCHAR(45), IN pcontrasena VARCHAR(255), OUT tipoUsuario INT, OUT usuarioID INT )
 BEGIN
-	DECLARE existeUsuario, usuarioID, esAdmin, esTurista, esGuia INT;
+	DECLARE existeUsuario,  esAdmin, esTurista, esGuia INT;
 	SET existeUsuario = 0;
 	SET esAdmin = 0;
 	SET esTurista = 0;
@@ -111,18 +115,26 @@ BEGIN
 
 		IF esAdmin > 0 THEN
 			SET tipoUsuario = 1;
-		ELSEIF esTurista > 0 THEN
+		END IF;
+
+		IF esTurista > 0 THEN
 			SET tipoUsuario = 2;
-		ELSEIF esGuia > 0 THEN
+		END IF;
+
+		IF esGuia > 0 THEN
 			SET tipoUsuario = 3;
-		ELSE
-			SET tipoUsuario = 0;
-		END IF; 
+		END IF;
 
 	END IF;
-END$$
+
+END
+
+//
 
 DELIMITER ;
+
+
+/*=========================================================================*/
 /*PROCEDIMIENTO ALMACENADO PARA CALCULAR EL TOTAL A PAGAR POR UN TOUR*/
 DELIMITER $$
 
