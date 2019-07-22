@@ -84,6 +84,8 @@ $(document).ready(function(){
 		});
 	}
 
+	// obtener estados
+
 	$.ajax({
 
 		url:"../Controlador/ajax/gestion-Tours.php?accion=obtenerEstado",
@@ -96,16 +98,18 @@ $(document).ready(function(){
 
 	});
 
+	//obtener usuario para el perfil
 	
 	$.ajax({
 
 		url:"../Controlador/ajax/gestion-Usuario.php?accion=obtenerUsuario",
 		method: 'POST',
 		data: "id="+$('#usuario_registrado').val(),
-		//dataType:'json',
+		dataType:'json',
 		success:function(res){
-			
+			console.log('Respuesta del servidor para el perfil');
 			console.log(res);
+			$('#nombreUsuario').append(`<h1 class="display-2 text-white">Hello ${res[0].nombreUsuario}</h1>`);
 		}
 
 	});
