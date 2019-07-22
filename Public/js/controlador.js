@@ -17,6 +17,7 @@ $(document).ready(function(){
 
 				$('#descripcion').append(`<p class="card-text text-muted">${res[0].descripcion}</p><br><br>`)
 			}
+
 		});
 
 /*Obtener las imgenes por tours*/
@@ -96,6 +97,20 @@ $(document).ready(function(){
 	});
 
 	
+	$.ajax({
+
+		url:"../Controlador/ajax/gestion-Usuario.php?accion=obtenerUsuario",
+		method: 'POST',
+		data: "id="+$('#usuario_registrado').val(),
+		//dataType:'json',
+		success:function(res){
+			
+			console.log(res);
+		}
+
+	});
+
+	
 }); // fin de la funcion principal
 
 
@@ -130,6 +145,8 @@ $('#btn-registro').click(function () {
 				$('#correo').val("");
 				$('#usuario').val("");
 				$('#contrasenia').val("");
+
+				window.location="perfil.php?id="+respuesta.codigo;
 			}else{
 				$('#resp').append(
 					`<div class="alert alert-danger" role="alert">

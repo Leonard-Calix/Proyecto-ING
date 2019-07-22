@@ -36,10 +36,10 @@
   <!-- Fonts -->
   <link rel="stylesheet" href="css">
   <!-- Icons -->
-  <link rel="stylesheet" href="nucleo.css" type="text/css">
-  <link rel="stylesheet" href="all.min.css" type="text/css">
+  <link rel="stylesheet" href="perfil/nucleo.css" type="text/css">
+  <link rel="stylesheet" href="perfil/all.min.css" type="text/css">
   <!-- Argon CSS -->
-  <link rel="stylesheet" href="argon.min.css" type="text/css">
+  <link rel="stylesheet" href="perfil/argon.min.css" type="text/css">
   <!-- Google Tag Manager -->
   <script type="text/javascript" async="" src="analytics.js.descarga"></script><script src="inferredEvents.js.descarga" async=""></script><script src="111649226022273" async=""></script><script async="" src="fbevents.js.descarga"></script><script async="" src="gtm.js.descarga"></script><script>
     (function(w, d, s, l, i) {
@@ -96,7 +96,7 @@
               <div class="col-lg-3 order-lg-2">
                 <div class="card-profile-image">
                   <a href="https://demos.creative-tim.com/argon-dashboard-pro/pages/examples/profile.html#">
-                    <img src="team-4.jpg" class="rounded-circle">
+                    <img src="perfil/team-4.jpg" class="rounded-circle">
                   </a>
                 </div>
               </div>
@@ -111,6 +111,7 @@
                     <div>
                       <span class="heading">22</span>
                       <span class="description">Friends</span>
+                      <input type="text" id="usuario_registrado" value="<?php echo $_GET['id']; ?>">
                     </div>
                     <div>
                       <span class="heading">10</span>
@@ -277,11 +278,13 @@
   </div>
   <!-- Argon Scripts -->
   <!-- Core -->
-  <script src="jquery.min.js.descarga"></script>
-  <script src="bootstrap.bundle.min.js.descarga"></script>
-  <script src="js.cookie.js.descarga"></script>
-  <script src="jquery.scrollbar.min.js.descarga"></script>
-  <script src="jquery-scrollLock.min.js.descarga"></script>
+  <script src="perfil/jquery.min.js.descarga"></script>
+  <script src="perfil/bootstrap.bundle.min.js.descarga"></script>
+  <script src="perfil/js.cookie.js.descarga"></script>
+  <script src="perfil/jquery.scrollbar.min.js.descarga"></script>
+  <script src="perfil/jquery-scrollLock.min.js.descarga"></script>
+  <script src="../Public/js/controlador.js"></script>
+
   <!-- Argon JS -->
   <script src="argon.min.js.descarga"></script><div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"><div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div></div>
   <!-- Demo JS - remove this in your project -->

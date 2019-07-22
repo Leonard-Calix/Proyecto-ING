@@ -1,5 +1,6 @@
 <?php
 
+	include 'clase-conexion.php';
 	class Usuario{
 
 		private $nombreUsuario;
@@ -45,6 +46,24 @@
 		public function setIdPersona($idPersona){
 			$this->idPersona = $idPersona;
 		}
+
+		public static function obtenerUsuario($id){
+            $conexion = new Conexion();
+
+            $sql = "SELECT * FROM usuario
+                    WHERE idUsuario='$id'";
+
+            $resultado = $conexion->ejecutarConsulta($sql);
+
+            $tours = array();
+
+            while ( $tour = $conexion->obtenerFila($resultado) ) {
+                $tours[] = $tour; 
+            }
+
+            echo json_encode($tours);
+    }
+		
 
 
 	}

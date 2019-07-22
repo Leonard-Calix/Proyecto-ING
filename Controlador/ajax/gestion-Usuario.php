@@ -36,6 +36,10 @@
 			echo '{"Opcion": "Login" }';
 		break;
 
+		case 'obtenerUsuario':
+			 Usuario::obtenerUsuario((int)$_POST["id"]);
+		break;
+
 		default:
 			
 			break;

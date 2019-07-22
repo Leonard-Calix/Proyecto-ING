@@ -1,4 +1,5 @@
 <?php
+    
 class ControllerUsuario{
 
     public static function agregarUsuario($usuario){
@@ -34,5 +35,10 @@ class ControllerUsuario{
             return $id;
         }
     }
+
+   
+
+
+   
 }
 ?>
