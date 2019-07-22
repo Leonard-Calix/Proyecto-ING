@@ -1,5 +1,5 @@
 <?php
-	
+
 	class Usuario{
 
 		private $nombreUsuario;
@@ -45,25 +45,6 @@
 		public function setIdPersona($idPersona){
 			$this->idPersona = $idPersona;
 		}
-
-		public static function obtenerUsuario($id){
-			$conexion = new PDO("mysql:host=localhost;dbname=toursindia", "root", "");
-
-            $sql = "SELECT * FROM usuario WHERE idUsuario=:id";
-
-            $resultado = $conexion->prepare($sql);
-            $resultado->execute(array("id" => $id));
-
-            $usuario = array();
-
-            foreach ($resultado as $fila) {
-                $usuario[] = $fila; 
-            }
-
-            echo json_encode($usuario);
-    }
-		
-
 
 	}
 ?>

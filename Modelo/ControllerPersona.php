@@ -2,8 +2,10 @@
 class ControllerPersona {
 
     public static function agregarPersona($persona){
-        $conexion = new PDO("mysql:host=localhost;dbname=toursindia", "root", "");
-
+        include_once 'clase-conexionPDO.php';
+        Conexion::abrirConexion();
+        $conexion = Conexion::obtenerConexion();
+          
         $sql = 'CALL SP_ADD_PERSON(:in_nombre, :in_apellido, :in_numeroId, :in_telefono, :in_genero, :in_direccion, @id, @mensaje)';
         $resultado = $conexion->prepare($sql);
 
