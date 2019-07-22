@@ -72,7 +72,7 @@
     
     <!-- Header -->
     <!-- Header -->
-    <div class="header pb-6 d-flex align-items-center" style="min-height: 500px; background-image: url(../../assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
+    <div class="header pb-6 d-flex align-items-center" style="min-height: 500px; background-image: url(profile-cover.jpg); background-size: cover; background-position: center top;">
       <!-- Mask -->
       <span class="mask bg-dark opacity-8"></span>
       <!-- Header container -->
@@ -91,11 +91,11 @@
       <div class="row">
         <div class="col-xl-4 order-xl-2">
           <div class="card card-profile">
-            <img src="img-1-1000x600.jpg" alt="Image placeholder" class="card-img-top">
+            <img src="perfil/img-1-1000x600.jpg" alt="Image placeholder" class="card-img-top">
             <div class="row justify-content-center">
               <div class="col-lg-3 order-lg-2">
                 <div class="card-profile-image">
-                  <a href="https://demos.creative-tim.com/argon-dashboard-pro/pages/examples/profile.html#">
+                  <a href="">
                     <img src="perfil/team-4.jpg" class="rounded-circle">
                   </a>
                 </div>

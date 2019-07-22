@@ -1,5 +1,4 @@
 <?php
-	include 'clase-conexion.php';
 	
 	class Tours	{
 
@@ -89,68 +88,69 @@
 		}
 
 		public static function mostrarTours(){
-			$conexion = new Conexion();
+			
+			$conexion = new PDO("mysql:host=localhost;dbname=toursindia", "root", "");
 
-			$sql = "SELECT * FROM view_populares";
-			$resultado = $conexion->ejecutarConsulta($sql);
+			$resultado = $conexion->prepare("SELECT * FROM view_populares");
+			$resultado->execute();
 
-			$tours = array();
+			$data = array();
 
-			while ( $tour = $conexion->obtenerFila($resultado) ) {
-				$tours[] = $tour; 
-			}
-
-			echo json_encode($tours);
+			foreach ($resultado as $fila ) {
+			 	$data[] = $fila; 
+			} 
+				
+			echo json_encode($data);
 		}
 
 		public static function obtenerTours($id){
-			$conexion = new Conexion();
+
+			$conexion = new PDO("mysql:host=localhost;dbname=toursindia", "root", "");
 
 			$sql = "SELECT t.cupos, t.calificacion, t.fechaInicio, t.fechafin, t.nombre, t.descripcion, t.precio, c.comentario, 
 					p.nombreCompleto, p.apellidos FROM comentarios c 
 					INNER JOIN usuario u ON u.idUsuario=c.idUsuario 
 					INNER JOIN tours t ON t.idTours=c.idTours 
 					iNNER JOIN persona p ON p.idpersona=u.idpersona
-					WHERE idComentarios='$id'";
+					WHERE idComentarios=:id";
 
-			$resultado = $conexion->ejecutarConsulta($sql);
+			$resultado = $conexion->prepare($sql);
+			$resultado->execute(array("id" => $id));
+			$data = array();
 
-			$tours = array();
-
-			while ( $tour = $conexion->obtenerFila($resultado) ) {
-				$tours[] = $tour; 
+			foreach ($resultado as $fila ) {
+				$data[] = $fila; 
+			
 			}
 
-			echo json_encode($tours);
+			echo json_encode($data);
 		}
 
 		public static function obtenerEstados(){
-			$conexion = new Conexion();
+			$conexion = new PDO("mysql:host=localhost;dbname=toursindia", "root", "");
+			
+			$resultados = $conexion->prepare("SELECT * FROM estados");
+			$resultados->execute();
+			$datos = array();
 
-			$sql = "SELECT * FROM estados";
-
-			$resultado = $conexion->ejecutarConsulta($sql);
-
-			$estados = array();
-
-			while ( $estado = $conexion->obtenerFila($resultado) ) {
-				$estados[] = $estado; 
+			foreach ($resultados as $fila) {
+				$datos[]=$fila;
 			}
 
-			echo json_encode($estados);
+			echo json_encode($datos);
 		}
 
 		public static function obtenerImg($id){
-			$conexion = new Conexion();
+			$conexion = new PDO("mysql:host=localhost;dbname=toursindia", "root", "");
 
-			$sql = "SELECT * FROM imagenes WHERE idtours='$id'";
-
-			$resultado = $conexion->ejecutarConsulta($sql);
+			$sql = "SELECT * FROM imagenes WHERE idtours=:id";
+			$resultado = $conexion->prepare($sql);
+			$resultado->execute(array("id" => $id));
 
 			$imagenes = array();
 
-			while ( $img = $conexion->obtenerFila($resultado) ) {
-				$imagenes[] = $img; 
+			foreach ($resultado as $fila) {
+				$imagenes[]=$fila;
 			}
 
 			echo json_encode($imagenes);

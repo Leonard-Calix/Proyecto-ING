@@ -30,11 +30,16 @@
 	}else{
 		echo "Fallo";
 	}
-	*/
+	
 
 	include_once('../../Modelo/clase-Usuario.php');
 
 	Usuario::obtenerUsuario(1);
+*/
+	include_once('../../Modelo/clase-Usuario.php');
+
+	Usuario::obtenerUsuario(1);
+
 
 
 	

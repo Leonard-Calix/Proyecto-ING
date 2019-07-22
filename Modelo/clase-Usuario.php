@@ -1,6 +1,5 @@
 <?php
-
-	include 'clase-conexion.php';
+	
 	class Usuario{
 
 		private $nombreUsuario;
@@ -48,20 +47,20 @@
 		}
 
 		public static function obtenerUsuario($id){
-            $conexion = new Conexion();
+			$conexion = new PDO("mysql:host=localhost;dbname=toursindia", "root", "");
 
-            $sql = "SELECT * FROM usuario
-                    WHERE idUsuario='$id'";
+            $sql = "SELECT * FROM usuario WHERE idUsuario=:id";
 
-            $resultado = $conexion->ejecutarConsulta($sql);
+            $resultado = $conexion->prepare($sql);
+            $resultado->execute(array("id" => $id));
 
-            $tours = array();
+            $usuario = array();
 
-            while ( $tour = $conexion->obtenerFila($resultado) ) {
-                $tours[] = $tour; 
+            foreach ($resultado as $fila) {
+                $usuario[] = $fila; 
             }
 
-            echo json_encode($tours);
+            echo json_encode($usuario);
     }
 		
 
