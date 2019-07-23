@@ -2,7 +2,7 @@
 <?php include_once ('Layouts/header.php'); ?>
 <?php include_once ('Layouts/navbar.php'); ?>
     <!-- SLIDERS
- nb nb      ================================================== -->
+      ================================================== -->
       <section class="section section-top section-full">
         <!-- Slider -->
         <div class="bg-slider">
