@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-07-2019 a las 17:51:23
+-- Tiempo de generación: 23-07-2019 a las 18:04:25
 -- Versión del servidor: 10.3.16-MariaDB
 -- Versión de PHP: 7.3.7
 
@@ -270,6 +270,17 @@ CREATE TABLE `imagenes` (
   `ruta` varchar(45) DEFAULT NULL,
   `idTours` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `imagenes`
+--
+
+INSERT INTO `imagenes` (`idImagenes`, `ruta`, `idTours`) VALUES
+(1, '../Public/img/tours/t1_01.jpg', 1),
+(2, '../Public/img/tours/t1_02.jpg', 1),
+(3, '../Public/img/tours/t1_03.png', 1),
+(4, '../Public/img/tours/t1_04.jpg', 1),
+(5, '../Public/img/tours/t1_05.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -622,7 +633,7 @@ ALTER TABLE `hotel`
 -- AUTO_INCREMENT de la tabla `imagenes`
 --
 ALTER TABLE `imagenes`
-  MODIFY `idImagenes` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idImagenes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `pagos`
