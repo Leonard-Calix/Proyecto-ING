@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-07-2019 a las 21:08:27
+-- Tiempo de generación: 23-07-2019 a las 17:51:23
 -- Versión del servidor: 10.3.16-MariaDB
 -- Versión de PHP: 7.3.7
 
@@ -26,38 +26,11 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `INICIAR_SESION` (IN `pemail` VARCHAR(45), IN `pcontrasena` VARCHAR(255), OUT `tipoUsuario` INT)  BEGIN
-	DECLARE existeUsuario, usuarioID, esAdmin, esTurista, esGuia INT;
-	SET existeUsuario = 0;
-	SET esAdmin = 0;
-	SET esTurista = 0;
-	SET esGuia = 0;
-	/*Comprobar que el correo y la contrasena pertenecen a un usuario*/
-	SELECT COUNT(*) INTO existeUsuario FROM Usuario WHERE email = pemail AND contrasena = pcontrasena;
-	IF existeUsuario > 0 THEN
-		/*Obtenemos el id del usuario*/
-		SELECT idUsuario INTO usuarioID FROM Usuario WHERE email = pemail AND contrasena = pcontrasena;
-		/*Comprobamos que tipo de usuario es*/
-		SELECT COUNT(*) INTO esAdmin FROM Administrador WHERE idUsuario = usuarioID;
-		SELECT COUNT(*) INTO esTurista FROM Turista WHERE idUsuario = usuarioID;
-		SELECT COUNT(*) INTO esGuia FROM Guia WHERE idUsuario = usuarioID;
-
-		IF esAdmin > 0 THEN
-			SET tipoUsuario = 1;
-		ELSEIF esTurista > 0 THEN
-			SET tipoUsuario = 2;
-		ELSEIF esGuia > 0 THEN
-			SET tipoUsuario = 3;
-		ELSE
-			SET tipoUsuario = 0;
-		END IF; 
-
-	END IF;
-END$$
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ADD_PERSON` (IN `pnombreC` VARCHAR(55), IN `papellidos` VARCHAR(55), IN `pnumeroId` VARCHAR(55), IN `ptelefono` VARCHAR(55), IN `pgenero` VARCHAR(55), IN `pDireccion` VARCHAR(55), OUT `pidInsertado` INT, OUT `pMensaje` VARCHAR(45))  BEGIN
 	DECLARE pError VARCHAR(45);
+	DECLARE existePersona INT;
 	SET pError = '';
+	SET existePersona = 0;
 
 	IF pnombreC = '' THEN
 		SET pError = CONCAT(pError, ' ','Nombre completo vacio');
@@ -66,8 +39,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ADD_PERSON` (IN `pnombreC` VARCH
 		SET pError = CONCAT(pError, ' ', 'Apellidos vacio');
 	END IF; 
 	
+	SELECT COUNT(*) INTO existePersona FROM Persona WHERE nombreCompleto = pnombreC AND Apellidos = papellidos;
 
-	IF pError = '' THEN
+	IF pError = '' AND existePersona > 0 THEN
 		/*Insertamos en la tabla persona*/
 		INSERT INTO Persona(nombreCompleto, Apellidos, numeroIdentidad, telefono, genero,direccion)
 				     VALUES(pnombreC,papellidos,pnumeroId,ptelefono,pgenero,pDireccion);
@@ -84,7 +58,7 @@ END$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ADD_USER` (IN `pnombreU` VARCHAR(45), IN `pemail` VARCHAR(45), IN `pcontrasena` VARCHAR(45), IN `ptipoUser` INT, OUT `pidInsertado` INT, OUT `pMensaje` VARCHAR(45))  BEGIN
 
 	DECLARE pError VARCHAR(45);
-	DECLARE ultimoIDpersona INT;
+	DECLARE existeUsuario, ultimoIDpersona INT;
 	SET pError = '';
 
 	IF pnombreU = '' THEN
@@ -97,7 +71,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ADD_USER` (IN `pnombreU` VARCHAR
 		SET pError = CONCAT(pError, ' ','contraseña vacia');
 	END IF;
 
-	IF pError = '' THEN
+	SELECT COUNT(*) INTO existeUsuario FROM Usuario WHERE nombreUsaurio = pnombreU AND email = pemail;
+
+	IF pError = '' AND existeUsuario > 0 THEN
 
 		SELECT idPersona INTO ultimoIDpersona FROM Persona ORDER BY idPersona DESC LIMIT 1;
 
@@ -124,6 +100,38 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ADD_USER` (IN `pnombreU` VARCHAR
 	ELSE
 		SET pMensaje = 'Fallo. No se ha registrado';
 	END IF;	
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LOGIN` (IN `pemail` VARCHAR(45), IN `pcontrasena` VARCHAR(255), OUT `tipoUsuario` INT, OUT `usuarioID` INT)  BEGIN
+	DECLARE existeUsuario,  esAdmin, esTurista, esGuia INT;
+	SET existeUsuario = 0;
+	SET esAdmin = 0;
+	SET esTurista = 0;
+	SET esGuia = 0;
+	/*Comprobar que el correo y la contrasena pertenecen a un usuario*/
+	SELECT COUNT(*) INTO existeUsuario FROM Usuario WHERE email = pemail AND contrasena = pcontrasena;
+	IF existeUsuario > 0 THEN
+		/*Obtenemos el id del usuario*/
+		SELECT idUsuario INTO usuarioID FROM Usuario WHERE email = pemail AND contrasena = pcontrasena;
+		/*Comprobamos que tipo de usuario es*/
+		SELECT COUNT(*) INTO esAdmin FROM Administrador WHERE idUsuario = usuarioID;
+		SELECT COUNT(*) INTO esTurista FROM Turista WHERE idUsuario = usuarioID;
+		SELECT COUNT(*) INTO esGuia FROM Guia WHERE idUsuario = usuarioID;
+
+		IF esAdmin > 0 THEN
+			SET tipoUsuario = 1;
+		END IF;
+
+		IF esTurista > 0 THEN
+			SET tipoUsuario = 2;
+		END IF;
+
+		IF esGuia > 0 THEN
+			SET tipoUsuario = 3;
+		END IF;
+
+	END IF;
+
 END$$
 
 DELIMITER ;
@@ -170,11 +178,11 @@ CREATE TABLE `comentarios` (
 --
 
 INSERT INTO `comentarios` (`idComentarios`, `Comentario`, `fechaComentario`, `horaComentario`, `idUsuario`, `idTours`) VALUES
-(1, 'Excelente lugar, lo envuelve una gran historia', '2019-07-19', '2019-07-19 21:50:53.00', 6, 1),
-(2, 'Clima extremo, grandioso contemplar el everest', '2019-07-19', '2019-07-19 21:50:53.00', 7, 2),
-(3, 'Playas exoticas, paraiso soleado', '2019-07-19', '2019-07-19 21:50:53.00', 8, 3),
-(4, 'Bahia Bengala, grandioso sitio', '2019-07-19', '2019-07-19 21:50:53.00', 9, 4),
-(5, 'Excelente exhibicion de arte y arquitectura', '2019-07-19', '2019-07-19 21:50:53.00', 10, 5);
+(1, 'Excelente lugar, lo envuelve una gran historia', '2019-07-23', '2019-07-23 15:49:47.00', 6, 1),
+(2, 'Clima extremo, grandioso contemplar el everest', '2019-07-23', '2019-07-23 15:49:47.00', 7, 2),
+(3, 'Playas exoticas, paraiso soleado', '2019-07-23', '2019-07-23 15:49:47.00', 8, 3),
+(4, 'Bahia Bengala, grandioso sitio', '2019-07-23', '2019-07-23 15:49:47.00', 9, 4),
+(5, 'Excelente exhibicion de arte y arquitectura', '2019-07-23', '2019-07-23 15:49:47.00', 10, 5);
 
 -- --------------------------------------------------------
 
@@ -246,10 +254,10 @@ CREATE TABLE `hotel` (
 
 INSERT INTO `hotel` (`idHotel`, `nombreHotel`, `descripcion`, `precio`, `idEstados`, `idTours`) VALUES
 (1, 'Hotel Taj Resorts', 'Free parking, Free Internet, Cleaning Service', 750, 1, 1),
-(2, 'Hotel Caravan Center', 'Free Parking, Free Breakfast, Free Internet, ', 728, 2, 2),
-(3, 'Hotel Goa Woodlands', 'Free Internet, Pool, Free Parking, SPA, Free ', 486, 3, 3),
+(2, 'Hotel Caravan Center', 'Free Parking, Free Breakfast, Free Internet', 728, 2, 2),
+(3, 'Hotel Goa Woodlands', 'Free Internet, Pool, Free Parking, SPA', 486, 3, 3),
 (4, 'Sparsa Resorts Kanyakumari', 'Free Internet, Pool, Free Parking, Free Break', 560, 4, 4),
-(5, 'The Oberoi Rajvilas Jaipur', 'Extremely Clean, Excellent Service, SPA, Free', 372, 5, 5);
+(5, 'The Oberoi Rajvilas Jaipur', 'Extremely Clean, Excellent Service, SPA', 372, 5, 5);
 
 -- --------------------------------------------------------
 
@@ -262,17 +270,6 @@ CREATE TABLE `imagenes` (
   `ruta` varchar(45) DEFAULT NULL,
   `idTours` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `imagenes`
---
-
-INSERT INTO `imagenes` (`idImagenes`, `ruta`, `idTours`) VALUES
-(1, '../Public/img/tours/t1_01.jpg', 1),
-(2, '../Public/img/tours/t1_02.jpg', 1),
-(3, '../Public/img/tours/t1_03.png', 1),
-(4, '../Public/img/tours/t1_04.jpg', 1),
-(5, '../Public/img/tours/t1_05.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -319,7 +316,7 @@ CREATE TABLE `persona` (
 --
 
 INSERT INTO `persona` (`idPersona`, `nombreCompleto`, `Apellidos`, `numeroIdentidad`, `telefono`, `genero`, `direccion`) VALUES
-(1, 'Bryan Leonardo', 'Calix Velasquez', '0801-1996-00999', '+504 9685-0749', 'M', 'Honduras, Tegucigalpa Col. San Miguel'),
+(1, 'Bryan Leonardo', 'Calix Velasquez', '0611-1996-00999', '+504 9685-0749', 'M', 'Honduras, Tegucigalpa Col. San Miguel'),
 (2, 'Catherine Giselle', 'Valdez', '0801-1996-00666', '+504 9679-4499', 'F', 'Honduras, Tegucigalpa Col. San Miguel'),
 (3, 'Cesar Jacobo', 'Puerto', '0801-1996-00777', '+504 9863-6831', 'M', 'Honduras, Tegucigalpa Padros Universitarios'),
 (4, 'Elvin Moises', 'Sanchez Medina', '0611-1995-00555', '+504 9943-9493', 'M', 'Honduras, Comayaguela Col. Cerro Grande'),
@@ -333,11 +330,7 @@ INSERT INTO `persona` (`idPersona`, `nombreCompleto`, `Apellidos`, `numeroIdenti
 (12, 'Yamir Sarayu', 'Anjali Kapoor', '001-1974-00123', '+0091 3312-1878', 'M', 'India, Nueva Delhi'),
 (13, 'Denali Indira', 'Khan Rao', '001-1975-00124', '+0091 9412-3456', 'F', 'India, Nueva Delhi'),
 (14, 'Yalitza Uma', 'Nehru Nayak', '001-1976-00125', '+0091 9311-2566', 'F', 'India, Nueva Delhi'),
-(15, 'Priya Rania', 'Grover Sharma', '001-1977-00126', '+0091 9212-2667', 'F', 'India, Nueva Delhi'),
-(16, 'jose maria', 'ortega avila', '', '', '', ''),
-(17, 'personaprueba', 'persona prueba', '0801-1994-00555', '+50486521232', 'M', 'por la pija'),
-(25, 'maria leonela ', 'fajardo guillen', 'null', 'null', 'null', 'null'),
-(26, 'pamela patricia', 'enamorado fortin', 'null', 'null', 'null', 'null');
+(15, 'Priya Rania', 'Grover Sharma', '001-1977-00126', '+0091 9212-2667', 'F', 'India, Nueva Delhi');
 
 -- --------------------------------------------------------
 
@@ -434,11 +427,7 @@ INSERT INTO `turista` (`idTurista`, `idUsuario`) VALUES
 (2, 7),
 (3, 8),
 (4, 9),
-(5, 10),
-(6, 16),
-(7, 17),
-(9, 19),
-(10, 20);
+(5, 10);
 
 -- --------------------------------------------------------
 
@@ -473,11 +462,7 @@ INSERT INTO `usuario` (`idUsuario`, `nombreUsuario`, `email`, `contrasena`, `idP
 (12, 'Yamir', 'yamirKapoor@gmail.com', 'guia.234', 12),
 (13, 'Denali', 'IndiraKhan@gmail.com', 'guia.456', 13),
 (14, 'Yalitza', 'UmaNayak@gmail.com', 'guia.789', 14),
-(15, 'Priya', 'raniaSharma@gmail.com', 'guia.101', 15),
-(16, 'jose', 'josemaria@gmail.com', 'turist.jose', 16),
-(17, 'prueba', 'prueba@email.com', 'turist.123', 17),
-(19, 'leonela', 'fajardomaria@gmail.com', 'turist.007', 25),
-(20, 'patricia', 'fortinpatricia@gmail.com', 'turist.008', 26);
+(15, 'Priya', 'raniaSharma@gmail.com', 'guia.101', 15);
 
 -- --------------------------------------------------------
 
@@ -637,7 +622,7 @@ ALTER TABLE `hotel`
 -- AUTO_INCREMENT de la tabla `imagenes`
 --
 ALTER TABLE `imagenes`
-  MODIFY `idImagenes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idImagenes` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `pagos`
@@ -649,7 +634,7 @@ ALTER TABLE `pagos`
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `populares`
@@ -673,13 +658,13 @@ ALTER TABLE `toursturista`
 -- AUTO_INCREMENT de la tabla `turista`
 --
 ALTER TABLE `turista`
-  MODIFY `idTurista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idTurista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Restricciones para tablas volcadas
