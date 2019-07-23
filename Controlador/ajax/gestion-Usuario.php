@@ -34,7 +34,11 @@
 			break;
 		
 		case 'login':
-			echo '{"Opcion": "Login" }';
+			$email = $_POST['correo'];
+			$contrasena = $_POST['contrasenia'];
+
+			$login = ControllerUsuario::login($email, $contrasena);
+			echo $login;
 		break;
 
 		case 'obtenerUsuario':

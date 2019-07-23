@@ -129,8 +129,32 @@ $(document).ready(function(){
 /*===============================================================*/
 	/*Registrar usuarios al sistema*/
 
-function redireccionar(id){
-	document.location.href='perfil.php?id='+id;
+function redireccionar(id, tipo){
+	/*switch(tipo){
+		case 1:
+			document.location.href='admin.php?id='+id;
+			break;
+		case 2:
+			document.location.href='perfil.php?id='+id;
+			break;
+		case 3:
+			document.location.href='perfil.php?id='+id;
+			break;
+		default:
+			document.location.href='perfil.php?id='+id;
+			break;
+	}*/
+	if(tipo == 1){
+		document.location.href='admin.php?id='+id;
+	}else if(tipo == 2){
+		document.location.href='perfil.php?id='+id;
+	}else if(tipo == 3){
+		document.location.href='perfil.php?id='+id;
+	}else{
+		document.location.href='perfil.php?id='+id;
+	}
+	
+	
 }
 
 $('#btn-registro').click(function () {
@@ -192,6 +216,7 @@ $('#btn-sing-in').click(function () {
 		data: parametros,
 		success:function(respuesta){
 			console.log(respuesta);
+			setTimeout(redireccionar(respuesta.usuario, respuesta.tipo), 4000);
 		}
 	});
 });
