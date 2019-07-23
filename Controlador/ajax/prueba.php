@@ -38,8 +38,8 @@
 */
 	include_once('../../Modelo/ControllerUsuario.php');
 
-	echo ControllerUsuario::login("bcalixvelasquez@gmail.com", "admin.451");
-
+	$u = ControllerUsuario::login("bcalixvelasquez@gmail.com", "admin.451");
+	echo $u;
 
 
 	

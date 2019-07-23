@@ -56,29 +56,25 @@ class ControllerUsuario{
     }
 
     public static function login($email, $contrasena){
+
         Conexion::abrirConexion();
         $conexion = Conexion::obtenerConexion();
 
-        $sql = 'CALL SP_LOGIN(:in_pemail, :in_pcontrasena, @tipoUsuario, @usuarioID)';
+        $sql = 'CALL SP_LOGIN(:pemail, :pcontrasena, @tipo, @id)';
         $resultado = $conexion->prepare($sql);
-        $resultado->bindParam(':in_pemail', $email, PDO::PARAM_STR, 100);
-        $resultado->bindParam(':in_pcontrasena', $contrasenia, PDO::PARAM_STR, 100);
-
+        $resultado->bindParam(':pemail', $email, PDO::PARAM_STR, 45);
+        $resultado->bindParam(':pcontrasena', $contrasena, PDO::PARAM_STR, 255);
         $resultado->execute();
+
         $resultado->closeCursor(); 
-
-        $salida = $conexion->query('select @tipoUsuario');
-        $tipo = $salida->fetchColumn();
-
-        $salida = $conexion->query('select @usuarioID');
-        $usuario = $salida->fetchColumn();
-
-       
+      
+        $salida = $conexion->query('select @tipo, @id')->fetch();
+        $tipo = $salida['@tipo'];
+        $usuario = $salida['@id'];
 
         $data = array("usuario" => $usuario, "tipo" => $tipo);
 
         return json_encode($data);
-
 
     }
 }
