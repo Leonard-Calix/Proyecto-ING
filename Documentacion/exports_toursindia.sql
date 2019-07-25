@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.6.6deb4
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 23-07-2019 a las 18:04:25
--- Versión del servidor: 10.3.16-MariaDB
--- Versión de PHP: 7.3.7
+-- Host: localhost:3306
+-- Generation Time: Jul 25, 2019 at 02:15 PM
+-- Server version: 5.7.26
+-- PHP Version: 7.0.33-0+deb9u3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,12 +17,12 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `toursindia`
+-- Database: `toursindia`
 --
 
 DELIMITER $$
 --
--- Procedimientos
+-- Procedures
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ADD_PERSON` (IN `pnombreC` VARCHAR(55), IN `papellidos` VARCHAR(55), IN `pnumeroId` VARCHAR(55), IN `ptelefono` VARCHAR(55), IN `pgenero` VARCHAR(55), IN `pDireccion` VARCHAR(55), OUT `pidInsertado` INT, OUT `pMensaje` VARCHAR(45))  BEGIN
 	DECLARE pError VARCHAR(45);
@@ -39,19 +37,21 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ADD_PERSON` (IN `pnombreC` VARCH
 		SET pError = CONCAT(pError, ' ', 'Apellidos vacio');
 	END IF; 
 	
-	SELECT COUNT(*) INTO existePersona FROM Persona WHERE nombreCompleto = pnombreC AND Apellidos = papellidos;
+	SELECT COUNT(*) INTO existePersona FROM persona WHERE nombreCompleto = pnombreC AND Apellidos = papellidos;
 
-	IF pError = '' AND existePersona > 0 THEN
-		/*Insertamos en la tabla persona*/
-		INSERT INTO Persona(nombreCompleto, Apellidos, numeroIdentidad, telefono, genero,direccion)
+	IF pError = '' AND existePersona = 0 THEN
+		
+		INSERT INTO persona(nombreCompleto, Apellidos, numeroIdentidad, telefono, genero,direccion)
 				     VALUES(pnombreC,papellidos,pnumeroId,ptelefono,pgenero,pDireccion);
 	
-		/*Obtenemos el ultimo id insertado en la tabla persona*/
-		SELECT idPersona INTO pidInsertado FROM Persona ORDER BY idPersona DESC LIMIT 1;
+		
+		SELECT idPersona INTO pidInsertado FROM persona ORDER BY idPersona DESC LIMIT 1;
 		
 		SET pMensaje = 'Agregado exitosamente.'; 
+		
 	ELSE
 		SET pMensaje = 'Fallo. Verifique sus datos a almacenar';
+		
 	END IF;
 END$$
 
@@ -71,31 +71,31 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ADD_USER` (IN `pnombreU` VARCHAR
 		SET pError = CONCAT(pError, ' ','contraseña vacia');
 	END IF;
 
-	SELECT COUNT(*) INTO existeUsuario FROM Usuario WHERE nombreUsaurio = pnombreU AND email = pemail;
+	SELECT COUNT(*) INTO existeUsuario FROM usuario WHERE nombreUsuario = pnombreU AND email = pemail;
 
-	IF pError = '' AND existeUsuario > 0 THEN
+	IF pError = '' AND existeUsuario = 0 THEN
 
-		SELECT idPersona INTO ultimoIDpersona FROM Persona ORDER BY idPersona DESC LIMIT 1;
+		SELECT idPersona INTO ultimoIDpersona FROM persona ORDER BY idPersona DESC LIMIT 1;
 
-		/*Insertamos en la tabla usuario*/
-		INSERT INTO Usuario(nombreUsuario,email,contrasena,idPersona) VALUES(pnombreU,pemail, pcontrasena,ultimoIDpersona);
-		/*Obtenemos el ultimo id inserado en la tabla usuario*/
-		SELECT idUsuario INTO pidInsertado FROM Usuario ORDER BY idUsuario DESC LIMIT 1;
+		
+		INSERT INTO usuario(nombreUsuario,email,contrasena,idPersona) VALUES(pnombreU,pemail, pcontrasena,ultimoIDpersona);
+		
+		SELECT idUsuario INTO pidInsertado FROM usuario ORDER BY idUsuario DESC LIMIT 1;
 
-		CASE ptipouser 
-
-			WHEN 1 THEN 
-				INSERT INTO Administrador(idUsuario) VALUES(pidInsertado);
-				SET pMensaje = 'Registrado exitosamente administrador';
-	
-			WHEN 2 THEN 
-				INSERT INTO Turista(idUsuario) VALUES(pidInsertado);
-				SET pMensaje = 'Registrado exitosamente turista';
-
-			WHEN 3 THEN 
-				INSERT INTO Guia(idUsuario) VALUES(pidInsertado);
-				SET pMensaje = 'Registrado exitosamente guia';	
-		END CASE;
+		IF ptipoUser = 1 THEN
+			INSERT INTO administrador(idUsuario) VALUES(pidInsertado);
+			SET pMensaje = 'Registrado exitosamente administrador';
+		END IF;
+		
+		IF ptipoUser = 2 THEN 
+			INSERT INTO turista(idUsuario) VALUES(pidInsertado);
+			SET pMensaje = 'Registrado exitosamente turista';
+		END IF;
+		
+		IF ptipoUser = 3 THEN 
+			INSERT INTO guia(idUsuario) VALUES(pidInsertado);
+			SET pMensaje = 'Registrado exitosamente guia';	
+		END IF;
 
 	ELSE
 		SET pMensaje = 'Fallo. No se ha registrado';
@@ -108,15 +108,15 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LOGIN` (IN `pemail` VARCHAR(45),
 	SET esAdmin = 0;
 	SET esTurista = 0;
 	SET esGuia = 0;
-	/*Comprobar que el correo y la contrasena pertenecen a un usuario*/
-	SELECT COUNT(*) INTO existeUsuario FROM Usuario WHERE email = pemail AND contrasena = pcontrasena;
+	
+	SELECT COUNT(*) INTO existeUsuario FROM usuario WHERE email = pemail AND contrasena = pcontrasena;
 	IF existeUsuario > 0 THEN
-		/*Obtenemos el id del usuario*/
-		SELECT idUsuario INTO usuarioID FROM Usuario WHERE email = pemail AND contrasena = pcontrasena;
-		/*Comprobamos que tipo de usuario es*/
-		SELECT COUNT(*) INTO esAdmin FROM Administrador WHERE idUsuario = usuarioID;
-		SELECT COUNT(*) INTO esTurista FROM Turista WHERE idUsuario = usuarioID;
-		SELECT COUNT(*) INTO esGuia FROM Guia WHERE idUsuario = usuarioID;
+		
+		SELECT idUsuario INTO usuarioID FROM usuario WHERE email = pemail AND contrasena = pcontrasena;
+		
+		SELECT COUNT(*) INTO esAdmin FROM administrador WHERE idUsuario = usuarioID;
+		SELECT COUNT(*) INTO esTurista FROM turista WHERE idUsuario = usuarioID;
+		SELECT COUNT(*) INTO esGuia FROM guia WHERE idUsuario = usuarioID;
 
 		IF esAdmin > 0 THEN
 			SET tipoUsuario = 1;
@@ -139,7 +139,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `administrador`
+-- Table structure for table `administrador`
 --
 
 CREATE TABLE `administrador` (
@@ -148,7 +148,7 @@ CREATE TABLE `administrador` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `administrador`
+-- Dumping data for table `administrador`
 --
 
 INSERT INTO `administrador` (`idAdministrador`, `idUsuario`) VALUES
@@ -161,20 +161,20 @@ INSERT INTO `administrador` (`idAdministrador`, `idUsuario`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `comentarios`
+-- Table structure for table `comentarios`
 --
 
 CREATE TABLE `comentarios` (
   `idComentarios` int(11) NOT NULL,
   `Comentario` varchar(255) DEFAULT NULL,
   `fechaComentario` date DEFAULT NULL,
-  `horaComentario` timestamp(2) NOT NULL DEFAULT current_timestamp(2) ON UPDATE current_timestamp(2),
+  `horaComentario` timestamp(2) NOT NULL DEFAULT CURRENT_TIMESTAMP(2) ON UPDATE CURRENT_TIMESTAMP(2),
   `idUsuario` int(11) NOT NULL,
   `idTours` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `comentarios`
+-- Dumping data for table `comentarios`
 --
 
 INSERT INTO `comentarios` (`idComentarios`, `Comentario`, `fechaComentario`, `horaComentario`, `idUsuario`, `idTours`) VALUES
@@ -187,7 +187,7 @@ INSERT INTO `comentarios` (`idComentarios`, `Comentario`, `fechaComentario`, `ho
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `estados`
+-- Table structure for table `estados`
 --
 
 CREATE TABLE `estados` (
@@ -196,7 +196,7 @@ CREATE TABLE `estados` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `estados`
+-- Dumping data for table `estados`
 --
 
 INSERT INTO `estados` (`idEstados`, `nombre`) VALUES
@@ -214,7 +214,7 @@ INSERT INTO `estados` (`idEstados`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `guia`
+-- Table structure for table `guia`
 --
 
 CREATE TABLE `guia` (
@@ -223,7 +223,7 @@ CREATE TABLE `guia` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `guia`
+-- Dumping data for table `guia`
 --
 
 INSERT INTO `guia` (`idGuia`, `idUsuario`) VALUES
@@ -236,7 +236,7 @@ INSERT INTO `guia` (`idGuia`, `idUsuario`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `hotel`
+-- Table structure for table `hotel`
 --
 
 CREATE TABLE `hotel` (
@@ -249,7 +249,7 @@ CREATE TABLE `hotel` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `hotel`
+-- Dumping data for table `hotel`
 --
 
 INSERT INTO `hotel` (`idHotel`, `nombreHotel`, `descripcion`, `precio`, `idEstados`, `idTours`) VALUES
@@ -262,7 +262,7 @@ INSERT INTO `hotel` (`idHotel`, `nombreHotel`, `descripcion`, `precio`, `idEstad
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `imagenes`
+-- Table structure for table `imagenes`
 --
 
 CREATE TABLE `imagenes` (
@@ -272,7 +272,7 @@ CREATE TABLE `imagenes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `imagenes`
+-- Dumping data for table `imagenes`
 --
 
 INSERT INTO `imagenes` (`idImagenes`, `ruta`, `idTours`) VALUES
@@ -285,7 +285,7 @@ INSERT INTO `imagenes` (`idImagenes`, `ruta`, `idTours`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `pagos`
+-- Table structure for table `pagos`
 --
 
 CREATE TABLE `pagos` (
@@ -296,7 +296,7 @@ CREATE TABLE `pagos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `pagos`
+-- Dumping data for table `pagos`
 --
 
 INSERT INTO `pagos` (`idPagos`, `impuestoSV`, `idTours`, `idHotel`) VALUES
@@ -309,7 +309,7 @@ INSERT INTO `pagos` (`idPagos`, `impuestoSV`, `idTours`, `idHotel`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `persona`
+-- Table structure for table `persona`
 --
 
 CREATE TABLE `persona` (
@@ -323,7 +323,7 @@ CREATE TABLE `persona` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `persona`
+-- Dumping data for table `persona`
 --
 
 INSERT INTO `persona` (`idPersona`, `nombreCompleto`, `Apellidos`, `numeroIdentidad`, `telefono`, `genero`, `direccion`) VALUES
@@ -341,12 +341,13 @@ INSERT INTO `persona` (`idPersona`, `nombreCompleto`, `Apellidos`, `numeroIdenti
 (12, 'Yamir Sarayu', 'Anjali Kapoor', '001-1974-00123', '+0091 3312-1878', 'M', 'India, Nueva Delhi'),
 (13, 'Denali Indira', 'Khan Rao', '001-1975-00124', '+0091 9412-3456', 'F', 'India, Nueva Delhi'),
 (14, 'Yalitza Uma', 'Nehru Nayak', '001-1976-00125', '+0091 9311-2566', 'F', 'India, Nueva Delhi'),
-(15, 'Priya Rania', 'Grover Sharma', '001-1977-00126', '+0091 9212-2667', 'F', 'India, Nueva Delhi');
+(15, 'Priya Rania', 'Grover Sharma', '001-1977-00126', '+0091 9212-2667', 'F', 'India, Nueva Delhi'),
+(16, 'karen melisa', 'valladares casco', '0801-1995-00201', '+504 9852 4747', 'F', 'Honduras, Tegucigalpa Col. El Carrizail');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `populares`
+-- Table structure for table `populares`
 --
 
 CREATE TABLE `populares` (
@@ -355,7 +356,7 @@ CREATE TABLE `populares` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `populares`
+-- Dumping data for table `populares`
 --
 
 INSERT INTO `populares` (`idPopulares`, `idTours`) VALUES
@@ -368,7 +369,7 @@ INSERT INTO `populares` (`idPopulares`, `idTours`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tours`
+-- Table structure for table `tours`
 --
 
 CREATE TABLE `tours` (
@@ -385,7 +386,7 @@ CREATE TABLE `tours` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `tours`
+-- Dumping data for table `tours`
 --
 
 INSERT INTO `tours` (`idTours`, `nombre`, `descripcion`, `fechaInicio`, `fechaFin`, `precio`, `cupos`, `calificacion`, `idEstados`, `idGuia`) VALUES
@@ -398,7 +399,7 @@ INSERT INTO `tours` (`idTours`, `nombre`, `descripcion`, `fechaInicio`, `fechaFi
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `toursturista`
+-- Table structure for table `toursturista`
 --
 
 CREATE TABLE `toursturista` (
@@ -408,7 +409,7 @@ CREATE TABLE `toursturista` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `toursturista`
+-- Dumping data for table `toursturista`
 --
 
 INSERT INTO `toursturista` (`idToursTurista`, `idTours`, `idTurista`) VALUES
@@ -421,7 +422,7 @@ INSERT INTO `toursturista` (`idToursTurista`, `idTours`, `idTurista`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `turista`
+-- Table structure for table `turista`
 --
 
 CREATE TABLE `turista` (
@@ -430,7 +431,7 @@ CREATE TABLE `turista` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `turista`
+-- Dumping data for table `turista`
 --
 
 INSERT INTO `turista` (`idTurista`, `idUsuario`) VALUES
@@ -438,12 +439,13 @@ INSERT INTO `turista` (`idTurista`, `idUsuario`) VALUES
 (2, 7),
 (3, 8),
 (4, 9),
-(5, 10);
+(5, 10),
+(6, 16);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuario`
+-- Table structure for table `usuario`
 --
 
 CREATE TABLE `usuario` (
@@ -455,7 +457,7 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `usuario`
+-- Dumping data for table `usuario`
 --
 
 INSERT INTO `usuario` (`idUsuario`, `nombreUsuario`, `email`, `contrasena`, `idPersona`) VALUES
@@ -473,13 +475,14 @@ INSERT INTO `usuario` (`idUsuario`, `nombreUsuario`, `email`, `contrasena`, `idP
 (12, 'Yamir', 'yamirKapoor@gmail.com', 'guia.234', 12),
 (13, 'Denali', 'IndiraKhan@gmail.com', 'guia.456', 13),
 (14, 'Yalitza', 'UmaNayak@gmail.com', 'guia.789', 14),
-(15, 'Priya', 'raniaSharma@gmail.com', 'guia.101', 15);
+(15, 'Priya', 'raniaSharma@gmail.com', 'guia.101', 15),
+(16, 'meli', 'melivalladares@gmail.com', 'turist.000', 16);
 
 -- --------------------------------------------------------
 
 --
--- Estructura Stand-in para la vista `view_populares`
--- (Véase abajo para la vista actual)
+-- Stand-in structure for view `view_populares`
+-- (See below for the actual view)
 --
 CREATE TABLE `view_populares` (
 `idTours` int(11)
@@ -491,25 +494,25 @@ CREATE TABLE `view_populares` (
 -- --------------------------------------------------------
 
 --
--- Estructura para la vista `view_populares`
+-- Structure for view `view_populares`
 --
 DROP TABLE IF EXISTS `view_populares`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_populares`  AS  select `t`.`idTours` AS `idTours`,`t`.`nombre` AS `nombre`,`t`.`descripcion` AS `descripcion`,`t`.`calificacion` AS `calificacion` from (`tours` `t` join `populares` `p` on(`p`.`idPopulares` = `t`.`idTours`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_populares`  AS  select `t`.`idTours` AS `idTours`,`t`.`nombre` AS `nombre`,`t`.`descripcion` AS `descripcion`,`t`.`calificacion` AS `calificacion` from (`tours` `t` join `populares` `p` on((`p`.`idPopulares` = `t`.`idTours`))) ;
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `administrador`
+-- Indexes for table `administrador`
 --
 ALTER TABLE `administrador`
   ADD PRIMARY KEY (`idAdministrador`),
   ADD KEY `FK_Usuario_Administrador` (`idUsuario`);
 
 --
--- Indices de la tabla `comentarios`
+-- Indexes for table `comentarios`
 --
 ALTER TABLE `comentarios`
   ADD PRIMARY KEY (`idComentarios`),
@@ -517,20 +520,20 @@ ALTER TABLE `comentarios`
   ADD KEY `FK_COMENTARIOS_TOURS` (`idTours`);
 
 --
--- Indices de la tabla `estados`
+-- Indexes for table `estados`
 --
 ALTER TABLE `estados`
   ADD PRIMARY KEY (`idEstados`);
 
 --
--- Indices de la tabla `guia`
+-- Indexes for table `guia`
 --
 ALTER TABLE `guia`
   ADD PRIMARY KEY (`idGuia`),
   ADD KEY `FK_Usuario_Guia` (`idUsuario`);
 
 --
--- Indices de la tabla `hotel`
+-- Indexes for table `hotel`
 --
 ALTER TABLE `hotel`
   ADD PRIMARY KEY (`idHotel`),
@@ -538,14 +541,14 @@ ALTER TABLE `hotel`
   ADD KEY `FK_HOTEL_ESTADOS` (`idEstados`);
 
 --
--- Indices de la tabla `imagenes`
+-- Indexes for table `imagenes`
 --
 ALTER TABLE `imagenes`
   ADD PRIMARY KEY (`idImagenes`),
   ADD KEY `FK_IMAGENES_TOURS` (`idTours`);
 
 --
--- Indices de la tabla `pagos`
+-- Indexes for table `pagos`
 --
 ALTER TABLE `pagos`
   ADD PRIMARY KEY (`idPagos`),
@@ -553,20 +556,20 @@ ALTER TABLE `pagos`
   ADD KEY `FK_PAGOS_TOURS` (`idTours`);
 
 --
--- Indices de la tabla `persona`
+-- Indexes for table `persona`
 --
 ALTER TABLE `persona`
   ADD PRIMARY KEY (`idPersona`);
 
 --
--- Indices de la tabla `populares`
+-- Indexes for table `populares`
 --
 ALTER TABLE `populares`
   ADD PRIMARY KEY (`idPopulares`),
   ADD KEY `FK_POPULARES_TOURS` (`idTours`);
 
 --
--- Indices de la tabla `tours`
+-- Indexes for table `tours`
 --
 ALTER TABLE `tours`
   ADD PRIMARY KEY (`idTours`),
@@ -574,7 +577,7 @@ ALTER TABLE `tours`
   ADD KEY `FK_TOURS_GUIA` (`idGuia`);
 
 --
--- Indices de la tabla `toursturista`
+-- Indexes for table `toursturista`
 --
 ALTER TABLE `toursturista`
   ADD PRIMARY KEY (`idToursTurista`),
@@ -582,176 +585,162 @@ ALTER TABLE `toursturista`
   ADD KEY `FK_TOURSTURISTA_TURISTA02` (`idTurista`);
 
 --
--- Indices de la tabla `turista`
+-- Indexes for table `turista`
 --
 ALTER TABLE `turista`
   ADD PRIMARY KEY (`idTurista`),
   ADD KEY `FK_Usuario_Turista` (`idUsuario`);
 
 --
--- Indices de la tabla `usuario`
+-- Indexes for table `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`idUsuario`),
   ADD KEY `FK_Persona_Usuario` (`idPersona`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `administrador`
+-- AUTO_INCREMENT for table `administrador`
 --
 ALTER TABLE `administrador`
   MODIFY `idAdministrador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
--- AUTO_INCREMENT de la tabla `comentarios`
+-- AUTO_INCREMENT for table `comentarios`
 --
 ALTER TABLE `comentarios`
   MODIFY `idComentarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
--- AUTO_INCREMENT de la tabla `estados`
+-- AUTO_INCREMENT for table `estados`
 --
 ALTER TABLE `estados`
   MODIFY `idEstados` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
 --
--- AUTO_INCREMENT de la tabla `guia`
+-- AUTO_INCREMENT for table `guia`
 --
 ALTER TABLE `guia`
   MODIFY `idGuia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
--- AUTO_INCREMENT de la tabla `hotel`
+-- AUTO_INCREMENT for table `hotel`
 --
 ALTER TABLE `hotel`
   MODIFY `idHotel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
--- AUTO_INCREMENT de la tabla `imagenes`
+-- AUTO_INCREMENT for table `imagenes`
 --
 ALTER TABLE `imagenes`
   MODIFY `idImagenes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
--- AUTO_INCREMENT de la tabla `pagos`
+-- AUTO_INCREMENT for table `pagos`
 --
 ALTER TABLE `pagos`
   MODIFY `idPagos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
--- AUTO_INCREMENT de la tabla `persona`
+-- AUTO_INCREMENT for table `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
+  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
--- AUTO_INCREMENT de la tabla `populares`
+-- AUTO_INCREMENT for table `populares`
 --
 ALTER TABLE `populares`
   MODIFY `idPopulares` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
--- AUTO_INCREMENT de la tabla `tours`
+-- AUTO_INCREMENT for table `tours`
 --
 ALTER TABLE `tours`
   MODIFY `idTours` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
--- AUTO_INCREMENT de la tabla `toursturista`
+-- AUTO_INCREMENT for table `toursturista`
 --
 ALTER TABLE `toursturista`
   MODIFY `idToursTurista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
--- AUTO_INCREMENT de la tabla `turista`
+-- AUTO_INCREMENT for table `turista`
 --
 ALTER TABLE `turista`
-  MODIFY `idTurista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
+  MODIFY `idTurista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
--- AUTO_INCREMENT de la tabla `usuario`
+-- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+--
+-- Constraints for dumped tables
+--
 
 --
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `administrador`
+-- Constraints for table `administrador`
 --
 ALTER TABLE `administrador`
   ADD CONSTRAINT `FK_Usuario_Administrador` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
 
 --
--- Filtros para la tabla `comentarios`
+-- Constraints for table `comentarios`
 --
 ALTER TABLE `comentarios`
   ADD CONSTRAINT `FK_COMENTARIOS_TOURS` FOREIGN KEY (`idTours`) REFERENCES `tours` (`idTours`),
   ADD CONSTRAINT `FK_COMENTARIOS_USUARIO` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
 
 --
--- Filtros para la tabla `guia`
+-- Constraints for table `guia`
 --
 ALTER TABLE `guia`
   ADD CONSTRAINT `FK_Usuario_Guia` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
 
 --
--- Filtros para la tabla `hotel`
+-- Constraints for table `hotel`
 --
 ALTER TABLE `hotel`
   ADD CONSTRAINT `FK_HOTEL_ESTADOS` FOREIGN KEY (`idEstados`) REFERENCES `estados` (`idEstados`),
   ADD CONSTRAINT `FK_TOURS_HOTEL` FOREIGN KEY (`idTours`) REFERENCES `tours` (`idTours`);
 
 --
--- Filtros para la tabla `imagenes`
+-- Constraints for table `imagenes`
 --
 ALTER TABLE `imagenes`
   ADD CONSTRAINT `FK_IMAGENES_TOURS` FOREIGN KEY (`idTours`) REFERENCES `tours` (`idTours`);
 
 --
--- Filtros para la tabla `pagos`
+-- Constraints for table `pagos`
 --
 ALTER TABLE `pagos`
   ADD CONSTRAINT `FK_PAGOS_HOTEL` FOREIGN KEY (`idHotel`) REFERENCES `hotel` (`idHotel`),
   ADD CONSTRAINT `FK_PAGOS_TOURS` FOREIGN KEY (`idTours`) REFERENCES `tours` (`idTours`);
 
 --
--- Filtros para la tabla `populares`
+-- Constraints for table `populares`
 --
 ALTER TABLE `populares`
   ADD CONSTRAINT `FK_POPULARES_TOURS` FOREIGN KEY (`idTours`) REFERENCES `tours` (`idTours`);
 
 --
--- Filtros para la tabla `tours`
+-- Constraints for table `tours`
 --
 ALTER TABLE `tours`
   ADD CONSTRAINT `FK_TOURS_ESTADOS` FOREIGN KEY (`idEstados`) REFERENCES `estados` (`idEstados`),
   ADD CONSTRAINT `FK_TOURS_GUIA` FOREIGN KEY (`idGuia`) REFERENCES `guia` (`idGuia`);
 
 --
--- Filtros para la tabla `toursturista`
+-- Constraints for table `toursturista`
 --
 ALTER TABLE `toursturista`
   ADD CONSTRAINT `FK_TOURSTURISTA_TURISTA01` FOREIGN KEY (`idTours`) REFERENCES `tours` (`idTours`),
   ADD CONSTRAINT `FK_TOURSTURISTA_TURISTA02` FOREIGN KEY (`idTurista`) REFERENCES `turista` (`idTurista`);
 
 --
--- Filtros para la tabla `turista`
+-- Constraints for table `turista`
 --
 ALTER TABLE `turista`
   ADD CONSTRAINT `FK_Usuario_Turista` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
 
 --
--- Filtros para la tabla `usuario`
+-- Constraints for table `usuario`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `FK_Persona_Usuario` FOREIGN KEY (`idPersona`) REFERENCES `persona` (`idPersona`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
