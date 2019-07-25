@@ -46,7 +46,5 @@
 			$this->idPersona = $idPersona;
 		}
 
-		
-
 	}
 ?>

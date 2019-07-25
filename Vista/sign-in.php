@@ -12,6 +12,8 @@
         <h4 class="text-center mb-4">Welcome Tours for the India</h4>
         <!-- Subheading -->
         <p class="text-center text-muted mb-5">Please fill out the form below to sign in to your account.</p>
+        <!-- COMENTARIO -->
+        <div id="error-login" class="alert alert-danger"><br><p>Datos incorrectos</p></div>
         <!-- FORMULARIO -->
       <div class="form-group">
         <!-- Email -->
@@ -65,7 +67,8 @@
   <!-- Link -->
   <p class="text-center text-muted mt-5 mb-0">
     <small>Not a member yet? <a href="sign-up.php">Sign up</a>.</small>
-  </p>
+  </p><br><br>
+    
 </div>
 </div> <!-- / .row -->
 </div> <!-- / .container -->

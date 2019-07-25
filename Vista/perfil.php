@@ -96,7 +96,7 @@
               <div class="col-lg-3 order-lg-2">
                 <div class="card-profile-image">
                   <a href="">
-                    <img src="perfil/team-4.jpg" class="rounded-circle">
+                    <img src="perfil/perfil.jpg" class="rounded-circle" alt="foto-perfil">
                   </a>
                 </div>
               </div>
@@ -111,7 +111,7 @@
                     <div>
                       <span class="heading">22</span>
                       <span class="description">Friends</span>
-                      <input type="text" id="usuario_registrado" value="<?php echo $_GET['id']; ?>">
+                      <input type="hidden" id="usuario_registrado" value="<?php echo $_GET['id']; ?>">
                     </div>
                     <div>
                       <span class="heading">10</span>
@@ -126,7 +126,7 @@
               </div>
               <div class="text-center">
                 <h5 class="h3">
-                  USuario<span class="font-weight-light">, 22</span>
+                  USuario<span class="font-weight-light"></span>
                 </h5>
                 <div class="h5 font-weight-300">
                   <i class="ni location_pin mr-2"></i>Tegucigalpa, Honduras
@@ -140,7 +140,7 @@
               </div>
               <div class="d-flex justify-content-between">
                 <a href="" class=""></a>
-                <a href="#" class="btn btn-sm btn-default float-right">Logout</a>
+                <a href="index.php" class="btn btn-sm btn-default float-right">Logout</a>
               </div>
             </div>
           </div>

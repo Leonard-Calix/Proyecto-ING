@@ -145,7 +145,7 @@ function redireccionar(id, tipo){
 			break;
 	}*/
 	if(tipo == 1){
-		document.location.href='admin.php?id='+id;
+		document.location.href='perfil.php?id='+id;
 	}else if(tipo == 2){
 		document.location.href='perfil.php?id='+id;
 	}else if(tipo == 3){
@@ -200,10 +200,18 @@ $('#btn-registro').click(function () {
 	});
 });
 
+$('#error-login').hide();
+
 $('#btn-sing-in').click(function () {
 	
 	var correo = $('#correo').val();
 	var contrasenia = $('#contrasenia').val();
+
+	if(correo==" " && contrasenia==" "){
+		alert('Datos vacios');
+		return;
+	}
+
 
 	var parametros = "correo="+correo+"&contrasenia="+contrasenia;
 
@@ -216,7 +224,14 @@ $('#btn-sing-in').click(function () {
 		data: parametros,
 		success:function(respuesta){
 			console.log(respuesta);
-			setTimeout(redireccionar(respuesta.usuario, respuesta.tipo), 4000);
+			if(respuesta.usuario!=null){
+				setTimeout(redireccionar(respuesta.usuario, respuesta.tipo), 3000);
+			}else{
+				//alert('Datos incorrectos');
+				$('#error-login').show();
+
+			}
+
 		}
 	});
 });
