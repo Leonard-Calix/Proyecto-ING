@@ -110,10 +110,10 @@
 			$conexion = Conexion::obtenerConexion();
 
 			$sql = "SELECT t.cupos, t.calificacion, t.fechaInicio, t.fechafin, t.nombre, t.descripcion, t.precio, c.comentario, 
-					p.nombreCompleto, p.apellidos FROM comentarios c 
+					p.nombreCompleto, p.Apellidos FROM comentarios c 
 					INNER JOIN usuario u ON u.idUsuario=c.idUsuario 
 					INNER JOIN tours t ON t.idTours=c.idTours 
-					iNNER JOIN persona p ON p.idpersona=u.idpersona
+					iNNER JOIN persona p ON p.idPersona=u.idPersona
 					WHERE idComentarios= :id";
 
 			$sentencia = $conexion->prepare($sql);
