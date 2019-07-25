@@ -1,7 +1,7 @@
 /*PROCEDIMIENTO ALMACENADO PARA AGREGAR PERSONAS*/
 DELIMITER $$
 
-CREATE OR REPLACE PROCEDURE SP_ADD_PERSON(IN pnombreC VARCHAR(55), IN papellidos VARCHAR(55), IN pnumeroId VARCHAR(55),
+CREATE PROCEDURE SP_ADD_PERSON(IN pnombreC VARCHAR(55), IN papellidos VARCHAR(55), IN pnumeroId VARCHAR(55),
 								IN ptelefono VARCHAR(55),IN pgenero VARCHAR(55), IN pDireccion VARCHAR(55),
 								OUT pidInsertado INT, OUT pMensaje VARCHAR(45))
 
@@ -18,19 +18,21 @@ BEGIN
 		SET pError = CONCAT(pError, ' ', 'Apellidos vacio');
 	END IF; 
 	
-	SELECT COUNT(*) INTO existePersona FROM Persona WHERE nombreCompleto = pnombreC AND Apellidos = papellidos;
+	SELECT COUNT(*) INTO existePersona FROM persona WHERE nombreCompleto = pnombreC AND Apellidos = papellidos;
 
-	IF pError = '' AND existePersona > 0 THEN
+	IF pError = '' AND existePersona = 0 THEN
 		/*Insertamos en la tabla persona*/
-		INSERT INTO Persona(nombreCompleto, Apellidos, numeroIdentidad, telefono, genero,direccion)
+		INSERT INTO persona(nombreCompleto, Apellidos, numeroIdentidad, telefono, genero,direccion)
 				     VALUES(pnombreC,papellidos,pnumeroId,ptelefono,pgenero,pDireccion);
 	
 		/*Obtenemos el ultimo id insertado en la tabla persona*/
-		SELECT idPersona INTO pidInsertado FROM Persona ORDER BY idPersona DESC LIMIT 1;
+		SELECT idPersona INTO pidInsertado FROM persona ORDER BY idPersona DESC LIMIT 1;
 		
 		SET pMensaje = 'Agregado exitosamente.'; 
+		
 	ELSE
 		SET pMensaje = 'Fallo. Verifique sus datos a almacenar';
+		
 	END IF;
 END$$
 
@@ -44,7 +46,7 @@ TIPOS DE USUARIO:
 */
 DELIMITER $$
 
-CREATE OR REPLACE PROCEDURE SP_ADD_USER(IN pnombreU VARCHAR(45), IN pemail VARCHAR(45), IN pcontrasena VARCHAR(45),
+CREATE PROCEDURE SP_ADD_USER(IN pnombreU VARCHAR(45), IN pemail VARCHAR(45), IN pcontrasena VARCHAR(45),
 										IN ptipoUser INT, OUT pidInsertado INT, OUT pMensaje VARCHAR(45))
 BEGIN
 
@@ -62,31 +64,31 @@ BEGIN
 		SET pError = CONCAT(pError, ' ','contraseña vacia');
 	END IF;
 
-	SELECT COUNT(*) INTO existeUsuario FROM Usuario WHERE nombreUsaurio = pnombreU AND email = pemail;
+	SELECT COUNT(*) INTO existeUsuario FROM usuario WHERE nombreUsuario = pnombreU AND email = pemail;
 
-	IF pError = '' AND existeUsuario > 0 THEN
+	IF pError = '' AND existeUsuario = 0 THEN
 
-		SELECT idPersona INTO ultimoIDpersona FROM Persona ORDER BY idPersona DESC LIMIT 1;
+		SELECT idPersona INTO ultimoIDpersona FROM persona ORDER BY idPersona DESC LIMIT 1;
 
 		/*Insertamos en la tabla usuario*/
-		INSERT INTO Usuario(nombreUsuario,email,contrasena,idPersona) VALUES(pnombreU,pemail, pcontrasena,ultimoIDpersona);
-		/*Obtenemos el ultimo id inserado en la tabla usuario*/
-		SELECT idUsuario INTO pidInsertado FROM Usuario ORDER BY idUsuario DESC LIMIT 1;
+		INSERT INTO usuario(nombreUsuario,email,contrasena,idPersona) VALUES(pnombreU,pemail, pcontrasena,ultimoIDpersona);
+		/*Obtenemos el ultimo id insertado en la tabla usuario*/
+		SELECT idUsuario INTO pidInsertado FROM usuario ORDER BY idUsuario DESC LIMIT 1;
 
-		CASE ptipouser 
-
-			WHEN 1 THEN 
-				INSERT INTO Administrador(idUsuario) VALUES(pidInsertado);
-				SET pMensaje = 'Registrado exitosamente administrador';
-	
-			WHEN 2 THEN 
-				INSERT INTO Turista(idUsuario) VALUES(pidInsertado);
-				SET pMensaje = 'Registrado exitosamente turista';
-
-			WHEN 3 THEN 
-				INSERT INTO Guia(idUsuario) VALUES(pidInsertado);
-				SET pMensaje = 'Registrado exitosamente guia';	
-		END CASE;
+		IF ptipoUser = 1 THEN
+			INSERT INTO administrador(idUsuario) VALUES(pidInsertado);
+			SET pMensaje = 'Registrado exitosamente administrador';
+		END IF;
+		
+		IF ptipoUser = 2 THEN 
+			INSERT INTO turista(idUsuario) VALUES(pidInsertado);
+			SET pMensaje = 'Registrado exitosamente turista';
+		END IF;
+		
+		IF ptipoUser = 3 THEN 
+			INSERT INTO guia(idUsuario) VALUES(pidInsertado);
+			SET pMensaje = 'Registrado exitosamente guia';	
+		END IF;
 
 	ELSE
 		SET pMensaje = 'Fallo. No se ha registrado';
@@ -110,14 +112,14 @@ BEGIN
 	SET esTurista = 0;
 	SET esGuia = 0;
 	/*Comprobar que el correo y la contrasena pertenecen a un usuario*/
-	SELECT COUNT(*) INTO existeUsuario FROM Usuario WHERE email = pemail AND contrasena = pcontrasena;
+	SELECT COUNT(*) INTO existeUsuario FROM usuario WHERE email = pemail AND contrasena = pcontrasena;
 	IF existeUsuario > 0 THEN
 		/*Obtenemos el id del usuario*/
-		SELECT idUsuario INTO usuarioID FROM Usuario WHERE email = pemail AND contrasena = pcontrasena;
+		SELECT idUsuario INTO usuarioID FROM usuario WHERE email = pemail AND contrasena = pcontrasena;
 		/*Comprobamos que tipo de usuario es*/
-		SELECT COUNT(*) INTO esAdmin FROM Administrador WHERE idUsuario = usuarioID;
-		SELECT COUNT(*) INTO esTurista FROM Turista WHERE idUsuario = usuarioID;
-		SELECT COUNT(*) INTO esGuia FROM Guia WHERE idUsuario = usuarioID;
+		SELECT COUNT(*) INTO esAdmin FROM administrador WHERE idUsuario = usuarioID;
+		SELECT COUNT(*) INTO esTurista FROM turista WHERE idUsuario = usuarioID;
+		SELECT COUNT(*) INTO esGuia FROM guia WHERE idUsuario = usuarioID;
 
 		IF esAdmin > 0 THEN
 			SET tipoUsuario = 1;
