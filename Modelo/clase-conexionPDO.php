@@ -6,7 +6,7 @@ class Conexion {
       if (!isset(self::$conexion)) {
         try {
           $usuario = "root";
-          $contrasena = "";
+          $contrasena = ""; /*contrasena del servidor: X8ezdMc2dceSFT*/
           $dsn = 'mysql:host=localhost;dbname=toursindia';
           self::$conexion = new PDO($dsn, $usuario, $contrasena);
           self::$conexion -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
