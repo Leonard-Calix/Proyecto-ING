@@ -14,6 +14,8 @@
           <h4 class="text-center mb-4">Create an account</h4>
           <!-- Subheading -->
           <p class="text-center text-muted mb-5">Please fill out the form below to sign up.</p>
+          <div id="error-login" class="alert alert-danger"><br><p>Datos incorrectos</p></div>
+          <div id="mensaje" class="alert alert-primary"><br><p>Usuario Registrado</p></div>
           <!-- FORMULARIO -->
           <div class="form-group">      
             <!-- Name -->
@@ -119,7 +121,7 @@
                   Sign up now
                 </button>
               </div>
-              <div id="resp"></div>
+              
             </div>
         </div> <!-- / .form-row -->
         <!-- Link -->

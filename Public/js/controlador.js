@@ -115,6 +115,10 @@ $(document).ready(function(){
 				console.log('Respuesta del servidor para el perfil');
 				console.log(res);
 				$('#nombreUsuario').append(`<h1 class="display-2 text-white">Hello ${res[0].nombreUsuario}</h1>`);
+				$('#usuario').append(`<h5 class="h3">${res[0].nombreUsuario}<span class="font-weight-light"></span></p>`);
+                
+
+
 			}
 
 		});
@@ -145,18 +149,18 @@ function redireccionar(id, tipo){
 			break;
 	}*/
 	if(tipo == 1){
-		document.location.href='perfil.php?id='+id;
+		document.location.href='perfil.php';
 	}else if(tipo == 2){
-		document.location.href='perfil.php?id='+id;
+		document.location.href='perfil.php';
 	}else if(tipo == 3){
-		document.location.href='perfil.php?id='+id;
+		document.location.href='perfil.php';
 	}else{
-		document.location.href='perfil.php?id='+id;
+		document.location.href='perfil.php';
 	}
 	
 	
 }
-
+$('#mensaje').hide();
 $('#btn-registro').click(function () {
 	
 	var nombre = $('#nombre').val();
@@ -168,19 +172,20 @@ $('#btn-registro').click(function () {
 	var parametros = "nombre="+nombre+"&apellido="+apellido+"&correo="+correo+"&usuario="+usuario+"&contrasenia="+contrasenia;
 	console.log(parametros);
 
-	$.ajax({
+	if (nombre==" " || apellido=="" || correo==" " || usuario==" " || contrasenia==" ") {
+		$('#error-login').fadeIn(500);
+	}else{
+
+		$.ajax({
 		url:"../Controlador/ajax/gestion-Usuario.php?accion=agregar",
 		dataType:'json',
 		method: 'POST',
 		data: parametros,
 		success:function(respuesta){
 			console.log(respuesta);
+
 			if(respuesta.codigo != 0){
-				$('#resp').append(
-					`<div class="alert alert-primary" role="alert">
-						${respuesta.resultado}
-					</div>`
-				);
+
 				$('#nombre').val("");
 				$('#apellido').val("");
 				$('#nombre').val("");
@@ -188,16 +193,16 @@ $('#btn-registro').click(function () {
 				$('#usuario').val("");
 				$('#contrasenia').val("");
 
-				setTimeout(redireccionar(respuesta.codigo), 4000);
-			}else{
-				$('#resp').append(
-					`<div class="alert alert-danger" role="alert">
-						${respuesta.resultado}
-					</div>`
-				);
+				//setTimeout(redireccionar(respuesta.codigo), 3000);
+				$('#mensaje').fadeIn(500);
+
 			}
 		}
-	});
+		});
+
+	}
+
+	
 });
 
 $('#error-login').hide();
@@ -224,11 +229,11 @@ $('#btn-sing-in').click(function () {
 		data: parametros,
 		success:function(respuesta){
 			console.log(respuesta);
-			if(respuesta.usuario!=null){
+			if(respuesta.usuario !=null){
 				setTimeout(redireccionar(respuesta.usuario, respuesta.tipo), 3000);
 			}else{
 				//alert('Datos incorrectos');
-				$('#error-login').show();
+				$('#error-login').fadeIn(500);
 
 			}
 

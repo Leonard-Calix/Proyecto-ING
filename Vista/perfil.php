@@ -1,3 +1,18 @@
+<?php 
+  session_start();
+   
+  if (isset($_SESSION["usuario"]) ) {
+    
+     $usr = $_SESSION["usuario"];
+
+
+    }else {
+      header('Location: index.php');
+  }
+
+ ?>
+
+
 <!DOCTYPE html>
 <!-- saved from url=(0078)https://demos.creative-tim.com/argon-dashboard-pro/pages/examples/profile.html -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -81,7 +96,6 @@
           <div class="col-lg-7 col-md-10">
             <div id="nombreUsuario" ></div>
             <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
-            <button class="btn btn-secondary" >Edite profile</button>
           </div>
         </div>
       </div>
@@ -96,7 +110,7 @@
               <div class="col-lg-3 order-lg-2">
                 <div class="card-profile-image">
                   <a href="">
-                    <img src="perfil/perfil.jpg" class="rounded-circle" alt="foto-perfil">
+                    <img src="perfil/perfil.png" class="rounded-circle" alt="foto-perfil">
                   </a>
                 </div>
               </div>
@@ -105,28 +119,28 @@
 
             </div>
             <div class="card-body pt-0">
+              
               <div class="row">
                 <div class="col">
                   <div class="card-profile-stats d-flex justify-content-center">
+                    
                     <div>
-                      <span class="heading">22</span>
-                      <span class="description">Friends</span>
-                      <input type="hidden" id="usuario_registrado" value="<?php echo $_GET['id']; ?>">
+                     
+                      <input type="hidden" id="usuario_registrado" value="<?php echo $usr; ?>">
                     </div>
                     <div>
-                      <span class="heading">10</span>
-                      <span class="description">Photos</span>
+                      
                     </div>
                     <div>
-                      <span class="heading">89</span>
-                      <span class="description">Comments</span>
+                      
                     </div>
                   </div>
+                  
                 </div>
               </div>
+
               <div class="text-center">
-                <h5 class="h3">
-                  USuario<span class="font-weight-light"></span>
+                <div id="usuario"></div>
                 </h5>
                 <div class="h5 font-weight-300">
                   <i class="ni location_pin mr-2"></i>Tegucigalpa, Honduras
@@ -140,7 +154,7 @@
               </div>
               <div class="d-flex justify-content-between">
                 <a href="" class=""></a>
-                <a href="index.php" class="btn btn-sm btn-default float-right">Logout</a>
+                <a href="logout.php" class="btn btn-sm btn-danger float-right">Logout</a>
               </div>
             </div>
           </div>
@@ -166,7 +180,8 @@
               </div>
             </div>
           </div>
-          <div class="card">
+          
+          <div  class="card">
             <div class="card-header">
               <div class="row align-items-center">
                 <div class="col-8">
@@ -224,28 +239,35 @@
                   <div class="row">
                     <div class="col-lg-4">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-city">City</label>
-                        <input type="text" id="input-city" class="form-control" placeholder="City" value="New York">
+                        <label class="form-control-label" for="input-city">Phone</label>
+                        <input type="text" id="input-city" class="form-control" placeholder="City" value="+504 0000-0000">
                       </div>
                     </div>
                     <div class="col-lg-4">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-country">Country</label>
-                        <input type="text" id="input-country" class="form-control" placeholder="Country" value="United States">
+                        <label class="form-control-label" for="input-country">Id</label>
+                        <input type="text" id="input-country" class="form-control" placeholder="Country" value="0801-0000-0000">
                       </div>
                     </div>
                     <div class="col-lg-4">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-country">Postal code</label>
-                        <input type="number" id="input-postal-code" class="form-control" placeholder="Postal code">
+                        <label class="form-control-label" for="input-country">Gender</label>
+                        <select class="form-control" placeholder="Genere">
+                          <option value="M" >Select gender</option>
+                          <option value="M" >M</option>
+                          <option value="F" >F</option>
+                        </select>
                       </div>
                     </div>
                   </div>
+                  <button class="btn btn-success" >Save</button>
+
                 </div>
                 <hr class="my-4">
               </form>
             </div>
-          </div>
+          </div> 
+
         </div>
       </div>
       <!-- Footer -->

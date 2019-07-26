@@ -1,5 +1,7 @@
 <?php
     include_once 'clase-conexionPDO.php';
+    session_start();
+
 class ControllerUsuario{
 
     public static function agregarUsuario($usuario){
@@ -29,9 +31,14 @@ class ControllerUsuario{
         $salida = $conexion->query('select @id');
         $id = $salida->fetchColumn();
         
-
         if ($id!=null) {
-           return $id;
+
+            $_SESSION["usuario"] = $usuario;
+            $_SESSION["tipo"] = 2;
+
+            
+            return $id;
+
         }else{
             $id = 0;
             return $id;
@@ -72,10 +79,14 @@ class ControllerUsuario{
         $tipo = $salida['@tipo'];
         $usuario = $salida['@id'];
 
+        if ( $tipo!=null && $usuario != null ) {
+           $_SESSION["usuario"] = $usuario;
+           $_SESSION["tipo"] = $tipo;
+        }
+
         $data = array("usuario" => $usuario, "tipo" => $tipo);
 
         return json_encode($data);
-
     }
 }
 ?>
