@@ -14,7 +14,7 @@ class Tours	{
 	private $IdEstados;
 	private $idGuia;
 
-	public function __construct($idTours,$nombre,$descripcion,$fechaInicio,$fechaFin,$precio,$cupos,$calificacion,$IdEstado,$idGuia){
+	public function __construct($idTours,$nombre,$descripcion,$fechaInicio,$fechaFin,$precio,$cupos,$calificacion,$IdEstados,$idGuia){
 		$this->idTours	 = $idTours	;
 		$this->nombre	 = $nombre	;
 		$this->descripcion = $descripcion;
@@ -218,21 +218,34 @@ class Tours	{
 		Conexion::abrirConexion();
 		$conexion = Conexion::obtenerConexion();
 
-		$sql = 'CALL SP_NUEVO_TOURS(p_nombre, p_descripcion, p_fechai, p_fechaf, p_precio, p_cupos, p_calificacion, p_estado, p_guia, @mensaje)';
-		/*
+		$sql = 'CALL ADD_TOURS(:pnombre, :pdescripcion, :pfechaInicio, :pfechaFin, :pprecio, :pcupos, :pcalificacion, :pidEstados, :pidGuia, @pidInsertado, @pmensaje)';
+		
 		$resultado = $conexion->prepare($sql);
 
         // enviando parametros al procedimiento
-		$resultado->bindParam('p_nombre', $this->nombre, PDO::PARAM_STR, 100);
-		$resultado->bindParam('p_descripcion', $this->descripcion, PDO::PARAM_STR, 100);
-		$resultado->bindParam('p_fechai', $this->fechaInicio, PDO::PARAM_STR, 255);
-		$resultado->bindParam('p_fechaf', $this->fechafin, PDO::PARAM_STR);
-		$resultado->bindParam('p_precio', $this->precio, PDO::PARAM_INT);
-		$resultado->bindParam('p_cupos', $this->cupos, PDO::PARAM_INT);
-		$resultado->bindParam('p_calificacion', $this->calificacion, PDO::PARAM_INT);
-		$resultado->bindParam('p_estado', $this->idEstado, PDO::PARAM_INT);
-		$resultado->bindParam('p_guia', $this->idGuia, PDO::PARAM_INT);
-*/
+		$resultado->bindParam(':pnombre', $this->nombre, PDO::PARAM_STR,100);
+		$resultado->bindParam(':pdescripcion', $this->descripcion, PDO::PARAM_STR,100);
+		$resultado->bindParam(':pfechaInicio', $this->fechaInicio );
+		$resultado->bindParam(':pfechaFin',$this->fechaFin);
+		$resultado->bindParam(':pprecio', $this->precio, PDO::PARAM_INT);
+		$resultado->bindParam(':pcupos', $this->cupos, PDO::PARAM_INT);
+		$resultado->bindParam(':pcalificacion', $this->calificacion, PDO::PARAM_INT);
+		$resultado->bindParam(':pidEstados', $this->idEstados, PDO::PARAM_INT);
+		$resultado->bindParam(':pidGuia', $this->idGuia, PDO::PARAM_INT);
+
+		$resultado->execute();
+		$resultado->closeCursor(); 
+
+		//":date"=>date("Y-m-d H:i:s", strtotime($date)), PDO::PARAM_STR)
+      
+        $salida = $conexion->query('select @pidInsertado, @pmensaje')->fetch();
+        $id = $salida['@pidInsertado'];
+        $mensaje = $salida['@pmensaje'];
+
+        $data = array('id' => $id, 'mensaje' => $mensaje);
+
+        echo json_encode($data);
+
      
 	}
 

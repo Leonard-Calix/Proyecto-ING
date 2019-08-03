@@ -31,6 +31,8 @@
 		echo "Fallo";
 	}
 	
+	Tours::tours();
+
 
 	include_once('../../Modelo/clase-Usuario.php');
 
@@ -43,7 +45,18 @@
 */
 	include_once('../../Modelo/clase-Tours.php');
 
-	Tours::tours();
+	$fechaI = date("Y-m-d H:i:s", strtotime("2011-02-01") );
+
+	$fechaF = date("Y-m-d H:i:s", strtotime("2011-01-01") );
+
+	
+	$tours = new TOURS(null,"prueba","prueba",$fechaI,$fechaF,25,25,5,1,1);
+
+	$tours->agregar();
+
+	//echo date('Y-m-d H:m:s', strtotime("2019/12/12"))
+
+
 
 
 	

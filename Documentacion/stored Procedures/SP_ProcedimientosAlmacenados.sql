@@ -336,29 +336,62 @@ DELIMITER ;
 /*=========================================================================*/
 /*PROCEDIMIENTO ALMACENADO PARA AGREGAR UN NUEVO TOUR*/
 
-DELIMITER //
-CREATE PROCEDURE SP_NUEVO_TOURS(IN p_nombre VARCHAR(45), IN p_descripcion VARCHAR(45), IN p_fechai DATE, IN p_fechaf DATE, IN p_precio INT, IN p_cupos INT, IN p_calificacion INT, IN p_estado INT, IN p_guia INT, OUT respuesta INT  )
+
+DELIMITER $$
+
+CREATE PROCEDURE ADD_TOURS(IN pnombre VARCHAR(45),IN pdescripcion VARCHAR(255),IN pfechaInicio DATETIME, IN pfechaFin DATETIME, IN pprecio DOUBLE,IN pcupos INT(11), IN pcalificacion INT(11),IN pidEstados INT(11), IN pidGuia INT(11),OUT pidInsertado INT, OUT pMensaje VARCHAR(45))
 
 BEGIN
+	DECLARE pError VARCHAR(45);
+	DECLARE existetours INT;
+	SET pError = '';
+	SET existetours = 0;
 
-    DECLARE cantidad INT;
-    DECLARE cantidad2 INT;
+	IF pnombre = '' THEN
+		SET pError = CONCAT(pError, ' ','Nombre completo vacio');
+	END IF;
+	IF pdescripcion = '' THEN
+		SET pError = CONCAT(pError, ' ', 'Descripcion del Tour vacia');
+	END IF;
+    IF pfechaInicio = '' THEN
+		SET pError = CONCAT(pError, ' ','Fecha inicio del Tour no definida');
+	END IF;
+    IF pfechaFin = '' THEN
+		SET pError = CONCAT(pError, ' ','Fecha de finalizacion del Tour no definida');
+	END IF;
+    IF pprecio = '' THEN
+		SET pError = CONCAT(pError, ' ','Precio no definido');
+	END IF;
+    IF pcupos = '' THEN
+		SET pError = CONCAT(pError, ' ','Los cupos no estan definidos para el Tour');
+	END IF;
+    IF pcalificacion = '' THEN
+		SET pError = CONCAT(pError, ' ','Calificacion esta vacia');
+	END IF;
+    IF pidEstados = '' THEN
+		SET pError = CONCAT(pError, ' ','Estado Vacio');
+	END IF;
+    IF pidGuia = '' THEN
+		SET pError = CONCAT(pError, ' ','IdGuia esta vacio');
+	END IF;
 
-    SELECT COUNT(*) INTO cantidad FROM tours;
+	SELECT COUNT(*) INTO existetours FROM tours WHERE nombre = pnombre;
 
-    INSERT INTO TOURS (nombre, descripcion, fechainicio, fechafin, precio, cupos, calificacion, idEstados, idGuia )
-    VALUES ( p_nombre,  p_descripcion,  p_fechai,  p_fechaf,  p_precio,  p_cupos,  p_calificacion,  p_estado,  p_guia);
+	IF pError = '' AND existetours = 0 THEN
+		/*Insertamos en la tabla tours*/
+		INSERT INTO tours(nombre, descripcion, fechaInicio, fechaFin, precio, cupos, calificacion, idEstados, idGuia)
+		VALUES(pnombre, pdescripcion, pfechaInicio, pfechaFin, pprecio, pcupos, pcalificacion, pidEstados, pidGuia);
 
-    SELECT COUNT(*) INTO cantidad2 FROM tours;
+		/*Obtenemos el ultimo id insertado en la tabla tours*/
+		SELECT idTours INTO pidInsertado FROM tours ORDER BY idTours DESC LIMIT 1;
 
+		SET pMensaje = 'Agregado exitosamente.';
 
-    IF (cantidad+1) = cantidad2 THEN
-        SET respuesta = 1;
-    ELSE
-        SET respuesta = 0;
-    END IF;
+	ELSE
+		SET pMensaje = 'Fallo. Verifique sus datos a almacenar';
 
-END
+	END IF;
+END$$
 
-//
 DELIMITER ;
+
