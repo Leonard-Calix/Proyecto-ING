@@ -174,3 +174,33 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+/*=========================================================================*/
+/*PROCEDIMIENTO ALMACENADO PARA AGREGAR UN NUEVO TOUR*/
+
+DELIMITER //
+CREATE PROCEDURE SP_NUEVO_TOURS(IN p_nombre VARCHAR(45), IN p_descripcion VARCHAR(45), IN p_fechai DATE, IN p_fechaf DATE, IN p_precio INT, IN p_cupos INT, IN p_calificacion INT, IN p_estado INT, IN p_guia INT, OUT respuesta INT  )
+
+BEGIN
+
+    DECLARE cantidad INT;
+    DECLARE cantidad2 INT;
+
+    SELECT COUNT(*) INTO cantidad FROM tours;
+
+    INSERT INTO TOURS (nombre, descripcion, fechainicio, fechafin, precio, cupos, calificacion, idEstados, idGuia )
+    VALUES ( p_nombre,  p_descripcion,  p_fechai,  p_fechaf,  p_precio,  p_cupos,  p_calificacion,  p_estado,  p_guia);
+
+    SELECT COUNT(*) INTO cantidad2 FROM tours;
+
+
+    IF (cantidad+1) = cantidad2 THEN
+        SET respuesta = 1;
+    ELSE
+        SET respuesta = 0;
+    END IF;
+
+END
+
+//
+DELIMITER ;
