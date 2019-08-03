@@ -11,7 +11,10 @@
       <th scope="col">#</th>
       <th scope="col">First name</th>
       <th scope="col">Last</th>
+      <th scope="col">User name</th>
       <th scope="col">Gender</th>
+      <th scope="col">email</th>
+      <th scope="col">Address</th>
       <th scope="col">Action</th>
       <th scope="col"></th>
     </tr>
@@ -22,8 +25,11 @@
       <td>Mark</td>
       <td>Otto</td>
       <td>@mdo</td>
+      <td>@mdo</td>
+      <td>@mdo</td>
+      <td>@mdo</td>
       <td><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">Edit</button></td>
-      <td><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal2">Detail</button></td>
+      <td><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal2">Delete</button></td>
     </tr>
   </tbody>
 </table>
@@ -114,7 +120,7 @@
              </div>
           </div>
           <br>
-          <button  type="button" class="btn btn-secondary" data-dismiss="modal">Add</button>
+         <div> <button  type="button" class="btn btn-secondary" data-dismiss="modal">Add</button></div>
 
           </div>
       </div> 
