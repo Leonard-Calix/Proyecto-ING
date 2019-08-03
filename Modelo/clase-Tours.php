@@ -139,6 +139,23 @@ class Tours	{
 		echo json_encode($tours);
 	}
 
+	public static function detalleTours($id){
+		Conexion::abrirConexion();
+		$conexion = Conexion::obtenerConexion();
+
+		$sql = "SELECT * FROM detalles_tours WHERE id='$id'";
+		$resultado = $conexion->prepare($sql);
+		$resultado ->execute();
+
+		$tours = array();
+
+		foreach ($resultado as $tour) {
+			$tours[] = $tour; 
+		}
+
+		echo json_encode($tours);
+	}
+
 	public static function obtenerTours($id){
 		Conexion::abrirConexion();
 		$conexion = Conexion::obtenerConexion();
@@ -196,12 +213,13 @@ class Tours	{
 
 		echo json_encode($imagenes);
 	}
-/*
+
 	public function agregar(){
 		Conexion::abrirConexion();
 		$conexion = Conexion::obtenerConexion();
 
 		$sql = 'CALL SP_NUEVO_TOURS(p_nombre, p_descripcion, p_fechai, p_fechaf, p_precio, p_cupos, p_calificacion, p_estado, p_guia, @mensaje)';
+		/*
 		$resultado = $conexion->prepare($sql);
 
         // enviando parametros al procedimiento
@@ -214,10 +232,9 @@ class Tours	{
 		$resultado->bindParam('p_calificacion', $this->calificacion, PDO::PARAM_INT);
 		$resultado->bindParam('p_estado', $this->idEstado, PDO::PARAM_INT);
 		$resultado->bindParam('p_guia', $this->idGuia, PDO::PARAM_INT);
-
-
+*/
      
 	}
-*/
+
 }
 ?>

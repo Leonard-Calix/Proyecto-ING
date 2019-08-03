@@ -45,6 +45,10 @@
 			 ControllerUsuario::obtenerUsuario((int)$_POST["id"]);
 		break;
 
+		case 'obtenerGuias':
+			 ControllerUsuario::obtenerGuias();
+		break;
+
 		default:
 			
 			break;

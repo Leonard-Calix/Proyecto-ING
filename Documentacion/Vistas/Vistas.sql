@@ -61,3 +61,12 @@ CREATE VIEW tours_dashboard  AS
 SELECT t.idtours id, t.nombre Nombre_Tour, e.nombre Nombre_Estado, t.precio Precio_Tours, h.nombreHotel Nombre_Hotel FROM 
 tours t INNER JOIN estados e ON e.idEstados=t.idestados 
 INNER JOIN hotel h ON h.idtours=t.idtours
+
+/*VISTAS DEL DASHBOARD-DETALLES*/
+drop view detalles_tours
+CREATE VIEW detalles_tours AS
+SELECT t.idtours id, t.descripcion, t.nombre Nombre_Tour, e.nombre Nombre_Estado, t.precio Precio_Tours, h.nombreHotel Nombre_Hotel, t.cupos, u.nombreUsuario Usuario, t.fechaInicio, t.fechaFin FROM tours t
+INNER JOIN estados e ON e.idEstados=t.idestados
+INNER JOIN hotel h ON h.idtours=t.idtours
+INNER JOIN guia g ON g.idguia=t.idguia
+INNER JOIN usuario u ON u.idusuario=g.idusuario

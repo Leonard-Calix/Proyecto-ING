@@ -88,5 +88,24 @@ class ControllerUsuario{
 
         return json_encode($data);
     }
+
+    public static function obtenerGuias(){
+        Conexion::abrirConexion();
+        $conexion = Conexion::obtenerConexion();
+
+        $sql = "SELECT u.idUsuario, u.nombreUsuario FROM guia g
+                INNER JOIN usuario u ON u.idusuario=g.idusuario";
+
+        $sentencia = $conexion->prepare($sql);
+        $sentencia->execute();
+
+        $guias = array();
+        
+        foreach ($sentencia as $guia) {
+            $guias[] = $guia; 
+        }
+
+        echo json_encode($guias);
+    }
 }
 ?>

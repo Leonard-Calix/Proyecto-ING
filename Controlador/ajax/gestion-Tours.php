@@ -28,20 +28,30 @@
 			Tours::obtenerHoteles();
 		break;
 
-		case 'agregar':
+		case 'detalleTours':
+			Tours::detalleTours($_POST["id"]);
+		break;
+
+		case 'agregarTours':
 		/*
 			$tours = new Tours();
-			$resultado = $tours->agregar(null, $_POST["nombre"], $_POST["descripcion"], $_POST["fechai"], $_POST["fechaf"], $_POST["precio"],
-										$_POST["cupos"], $_POST["calificacion"],$_POST["estado"],$_POST["guia"] );
-
-			$salida = new array("resultado" => $resultado);
-			echo json_encode($salida);
-			*/
+			$resultado = $tours->agregar(null, $_POST["nombre"], 
+											   $_POST["descripcion"], 
+											   $_POST["fechaF"], 
+											   $_POST["fechaF"], 
+											   $_POST["precio"],
+										       $_POST["cupos"], 
+										       $_POST["calificacion"],
+										       (int)$_POST["estado"],
+										       (int)$_POST["guia"] 
+										   );
+*/
+			
 		break;
 
 		default:
 			
-			break;
+		break;
 	}
 
  ?>
