@@ -55,3 +55,9 @@ create or replace view view_turistaTourGuia  as select
 	where tourt.idTurista  is not null;
     
 
+/*========================================================================*/
+/*VISTAS DEL DASHBOARD*/
+CREATE VIEW tours_dashboard  AS 
+SELECT t.idtours id, t.nombre Nombre_Tour, e.nombre Nombre_Estado, t.precio Precio_Tours, h.nombreHotel Nombre_Hotel FROM 
+tours t INNER JOIN estados e ON e.idEstados=t.idestados 
+INNER JOIN hotel h ON h.idtours=t.idtours

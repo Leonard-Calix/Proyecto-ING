@@ -21,6 +21,8 @@
   <!-- CSS THEME-->
   <link href="../Public/css/theme.min.css" rel="stylesheet" />
 
+  
+
 </head>
 
 <body class="">
@@ -45,25 +47,25 @@
       <div class="sidebar-wrapper bg-dark">
         <ul class="nav">
           <li >
-            <a href="index.html">
+            <a href="main.php">
               <i class="nc-icon nc-bank"></i>
               <p class="text-white" >Resume</p>
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="manager.php">
               <i class="nc-icon nc-diamond"></i>
               <p class="text-white" >Manager</p>
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="guide.php">
               <i class="nc-icon nc-tile-56"></i>
               <p class="text-white" >Guide</p>
             </a>
           </li>
-          <li class="active " >
-            <a href="tours.html">
+          <li class="">
+            <a href="tours.php">
               <i class="nc-icon nc-bell-55"></i>
               <p class="text-white" >Tours</p>
             </a>
@@ -117,7 +119,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                   <a class="dropdown-item" href="user.html">Perfil</a>
-                  <a class="dropdown-item" href="#">Logout</a>
+                  <a class="dropdown-item" href="logout.php">Logout</a>
                 </div>
               </li>
               <li class="nav-item">
@@ -132,3 +134,4 @@
           </div>
         </div>
       </nav>
+ 
