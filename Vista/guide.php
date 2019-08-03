@@ -120,7 +120,7 @@
              </div>
           </div>
           <br>
-         <div> <button  type="button" class="btn btn-secondary" data-dismiss="modal">Add</button></div>
+         <div><br><button type="button" class="btn btn-primary">Add</button></div>
 
           </div>
       </div> 
