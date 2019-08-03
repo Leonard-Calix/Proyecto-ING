@@ -16,6 +16,10 @@
   <meta name="msapplication-config" content="img/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
 
+    <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+
   <!-- Plugins CSS -->
   <link rel="stylesheet" href="../Public/css/flickity.min.css">
   <link rel="stylesheet" href="../Public/css/flickity-fade.css">

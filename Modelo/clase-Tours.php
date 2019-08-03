@@ -105,6 +105,40 @@ class Tours	{
 		echo json_encode($tours);
 	}
 
+	public static function obtenerHoteles(){
+		Conexion::abrirConexion();
+		$conexion = Conexion::obtenerConexion();
+
+		$sql = "SELECT idhotel, nombreHotel FROM hoteles";
+		$resultado = $conexion->prepare($sql);
+		$resultado ->execute();
+
+		$tours = array();
+
+		foreach ($resultado as $tour) {
+			$tours[] = $tour; 
+		}
+
+		echo json_encode($tours);
+	}
+
+	public static function tours(){
+		Conexion::abrirConexion();
+		$conexion = Conexion::obtenerConexion();
+
+		$sql = "SELECT * FROM tours_dashboard";
+		$resultado = $conexion->prepare($sql);
+		$resultado ->execute();
+
+		$tours = array();
+
+		foreach ($resultado as $tour) {
+			$tours[] = $tour; 
+		}
+
+		echo json_encode($tours);
+	}
+
 	public static function obtenerTours($id){
 		Conexion::abrirConexion();
 		$conexion = Conexion::obtenerConexion();
@@ -162,7 +196,7 @@ class Tours	{
 
 		echo json_encode($imagenes);
 	}
-
+/*
 	public function agregar(){
 		Conexion::abrirConexion();
 		$conexion = Conexion::obtenerConexion();
@@ -175,28 +209,15 @@ class Tours	{
 		$resultado->bindParam('p_descripcion', $this->descripcion, PDO::PARAM_STR, 100);
 		$resultado->bindParam('p_fechai', $this->fechaInicio, PDO::PARAM_STR, 255);
 		$resultado->bindParam('p_fechaf', $this->fechafin, PDO::PARAM_STR);
-		$resultado->bindParam('p_precio', $this->, PDO::PARAM_INT);
+		$resultado->bindParam('p_precio', $this->precio, PDO::PARAM_INT);
 		$resultado->bindParam('p_cupos', $this->cupos, PDO::PARAM_INT);
 		$resultado->bindParam('p_calificacion', $this->calificacion, PDO::PARAM_INT);
 		$resultado->bindParam('p_estado', $this->idEstado, PDO::PARAM_INT);
 		$resultado->bindParam('p_guia', $this->idGuia, PDO::PARAM_INT);
 
 
-        // ejecutando la consulta
-		$resultado->execute();
-		$resultado->closeCursor(); 
-
-        // recuperando el parametro de salida del procedimiento
-		$salida = $conexion->query('select @mensaje');
-		$mensaje = $salida->fetchColumn();
-
-		if ($mensaje!=null) {
-			return $mensaje;
-		}else{
-			$mensaje = 0;
-			return $mensaje;
-		}
+     
 	}
-
+*/
 }
 ?>

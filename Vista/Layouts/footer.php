@@ -81,7 +81,7 @@
             </div>
           </div> <!-- / .row -->
         </div> <!-- / .container -->
-    </footer>
+      </footer>
 
     <!-- JAVASCRIPT
       ================================================== -->
@@ -89,6 +89,8 @@
       <script src="../Public/js/jquery.min.js"></script>
       <!-- Plugins JS -->
       <script src="../Public/js/bootstrap.bundle.min.js"></script>
+      <script src="../Public/js/perfect-scrollbar.jquery.min.js"></script>
+      
       <script src="../Public/js/flickity.pkgd.min.js"></script>
       <script src="../Public/js/flickity-fade.js"></script>
       <script src="../Public/js/parallax.min.js"></script>
@@ -98,8 +100,21 @@
       <script src="../Public/js/dist/fullpage.min.js"></script>
       <script src="../Public/js/highlight.pack.min.js"></script>
       <script src="../Public/js/controlador.js"></script>
-      <!-- Theme JS -->
+      <script src="../Public/js/demo.js"></script>
+      <script src="../Public/js/poper.js"></script>
       <script src="../Public/js/theme.min.js"></script>
+       <script src="../Public/js/dashboard.js"></script>
+      <script src="../Public/js/paper-dashboard.js"></script>
 
-    </body>
-    </html>
+      <script type="text/javascript">
+       $(document).ready(function() {
+          // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
+          demo.initChartsPages();
+      });
+
+      </script>
+
+
+
+</body>
+</html>

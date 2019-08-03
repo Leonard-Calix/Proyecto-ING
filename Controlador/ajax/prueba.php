@@ -35,11 +35,15 @@
 	include_once('../../Modelo/clase-Usuario.php');
 
 	Usuario::obtenerUsuario(1);
-*/
+
 	include_once('../../Modelo/ControllerUsuario.php');
 
 	$u = ControllerUsuario::login("bcalixvelasquez@gmail.com", "admin.451");
 	echo $u;
+*/
+	include_once('../../Modelo/clase-Tours.php');
+
+	Tours::tours();
 
 
 	
