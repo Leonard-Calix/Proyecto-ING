@@ -45,19 +45,19 @@
 */
 	include_once('../../Modelo/clase-Tours.php');
 
-	$fechaI = date("Y-m-d H:i:s", strtotime("2011-02-01") );
+	$fechaI = date("Y-m-d", strtotime("2011-02-01") );
 
-	$fechaF = date("Y-m-d H:i:s", strtotime("2011-01-01") );
+	$fechaF = date("Y-m-d", strtotime("2011-01-01") );
 
 	
-	$tours = new TOURS(null,"prueba","prueba",$fechaI,$fechaF,25,25,5,1,1);
+	$tours = new TOURS(null,"prueba4","prueba",$fechaI,$fechaF,25,25,5,1,1);
 
-	$tours->agregar();
+	//echo $tours->agregar();
 
 	//echo date('Y-m-d H:m:s', strtotime("2019/12/12"))
 
+	//echo $tours->toString();
 
-
-
+	echo Tours::asignarHotel(12,2);
 	
  ?>

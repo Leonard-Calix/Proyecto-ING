@@ -218,19 +218,19 @@ class Tours	{
 		Conexion::abrirConexion();
 		$conexion = Conexion::obtenerConexion();
 
-		$sql = 'CALL ADD_TOURS(:pnombre, :pdescripcion, :pfechaInicio, :pfechaFin, :pprecio, :pcupos, :pcalificacion, :pidEstados, :pidGuia, @pidInsertado, @pmensaje)';
+		$sql = 'CALL ADD_TOURS(:pnombre, :pdescripcion, :pfechaInicio, :pfechaFin, :pprecio, :pcupos, :pcalificacion, :pidEstados, :pidGuia, @pidInsertado, @pMensaje)';
 		
 		$resultado = $conexion->prepare($sql);
 
         // enviando parametros al procedimiento
-		$resultado->bindParam(':pnombre', $this->nombre, PDO::PARAM_STR,100);
-		$resultado->bindParam(':pdescripcion', $this->descripcion, PDO::PARAM_STR,100);
-		$resultado->bindParam(':pfechaInicio', $this->fechaInicio );
-		$resultado->bindParam(':pfechaFin',$this->fechaFin);
+		$resultado->bindParam(':pnombre', $this->nombre, PDO::PARAM_STR,45);
+		$resultado->bindParam(':pdescripcion', $this->descripcion, PDO::PARAM_STR,255);
+		$resultado->bindParam(':pfechaInicio', $this->fechaInicio, PDO::PARAM_STR );
+		$resultado->bindParam(':pfechaFin',$this->fechaFin, PDO::PARAM_STR);
 		$resultado->bindParam(':pprecio', $this->precio, PDO::PARAM_INT);
 		$resultado->bindParam(':pcupos', $this->cupos, PDO::PARAM_INT);
 		$resultado->bindParam(':pcalificacion', $this->calificacion, PDO::PARAM_INT);
-		$resultado->bindParam(':pidEstados', $this->idEstados, PDO::PARAM_INT);
+		$resultado->bindParam(':pidEstados', $this->IdEstados, PDO::PARAM_INT);
 		$resultado->bindParam(':pidGuia', $this->idGuia, PDO::PARAM_INT);
 
 		$resultado->execute();
@@ -238,16 +238,56 @@ class Tours	{
 
 		//":date"=>date("Y-m-d H:i:s", strtotime($date)), PDO::PARAM_STR)
       
-        $salida = $conexion->query('select @pidInsertado, @pmensaje')->fetch();
+        $salida = $conexion->query('select @pidInsertado, @pMensaje')->fetch();
         $id = $salida['@pidInsertado'];
-        $mensaje = $salida['@pmensaje'];
+        $mensaje = $salida['@pMensaje'];
 
-        $data = array('id' => $id, 'mensaje' => $mensaje);
-
-        echo json_encode($data);
+        
+        if ($mensaje!= null && $id!=null) {
+        	return $id;
+        }else{
+        	return 0;
+        }
 
      
 	}
+
+	public static function asignarHotel($id, $estado){
+		Conexion::abrirConexion();
+		$conexion = Conexion::obtenerConexion();
+
+		$sql = 'CALL ASIGNAR_HOTEL(:p_idTour, :p_idEstado,  @pMensaje)';
+		$resultado = $conexion->prepare($sql);
+
+		$resultado->bindParam(':p_idTour', $estado, PDO::PARAM_INT);
+		$resultado->bindParam(':p_idEstado', $id, PDO::PARAM_INT);
+
+		$resultado->execute();
+		$resultado->closeCursor(); 
+
+		$salida = $conexion->query('select @pMensaje');
+        $id = $salida->fetchColumn();
+
+        if ($id!=null) {
+        	return $id;
+        }else{
+        	return 0;
+        }
+		
+	} 
+
+	public function toString(){
+			return "IdTours: " . $this->idTours . 
+				" Nombre: " . $this->nombre . 
+				" Descripcion: " . $this->descripcion . 
+				" FechaInicio: " . $this->fechaInicio . 
+				" FechaFin: " . $this->fechaFin . 
+				" Precio: " . $this->precio . 
+				" Cupos: " . $this->cupos . 
+				" Calificacion: " . $this->calificacion . 
+				" iDEstados: " . $this->IdEstados . 
+				" iDGuia: " . $this->idGuia;
+		}
 
 }
 ?>

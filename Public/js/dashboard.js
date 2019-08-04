@@ -145,17 +145,26 @@ function agregar() {
 
 	var data = {
 		nombre : $("#nombre").val(),
+		descripcion : $("#descripcion").val(),
 		precio : $("#precio").val(),
 		guia   : $("#guia").val(),
 		estado : $("#estado").val(),
 		fechaI : $("#fechaI").val(),
-		fechaf : $("#fechaF").val(),
+		fechaF : $("#fechaF").val(),
 		calificacion : $("#calificacion").val(),
 		cupos : $("#cupos").val()
 	};
 
-	//$("#fechaI").val("2019-07-20");
-
 	console.log(data);
 
+	$.ajax({
+		url: '../Controlador/ajax/gestion-Tours.php?accion=agregarTours',
+		method: 'post',
+		//dataType: 'json',
+		data: data,
+		success:function(res){
+			console.log(res);	
+		}
+	});
+	//$("#fechaI").val("2019-07-20");
 }

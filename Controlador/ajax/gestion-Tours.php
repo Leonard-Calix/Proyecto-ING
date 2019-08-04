@@ -33,19 +33,32 @@
 		break;
 
 		case 'agregarTours':
-		/*
-			$tours = new Tours();
-			$resultado = $tours->agregar(null, $_POST["nombre"], 
+		
+			$tours = new Tours(null, $_POST["nombre"], 
 											   $_POST["descripcion"], 
-											   $_POST["fechaF"], 
-											   $_POST["fechaF"], 
-											   $_POST["precio"],
-										       $_POST["cupos"], 
-										       $_POST["calificacion"],
+											   date("Y-m-d", strtotime($_POST["fechaI"])), 
+											   date("Y-m-d", strtotime($_POST["fechaF"])), 
+											   (int)$_POST["precio"],
+										       (int)$_POST["cupos"], 
+										       (int)$_POST["calificacion"],
 										       (int)$_POST["estado"],
 										       (int)$_POST["guia"] 
 										   );
-*/
+
+			$id = $tours->agregar();
+
+			if ($id!=null) {
+				$res = Tours::asignarHotel($id, (int)$_POST["estado"] );
+
+				$data = array("res" => $res);
+
+				echo json_encode($data);
+
+			}else{
+				echo "{'Resultado ' : 'Fallo'}";
+			}
+			
+
 			
 		break;
 
