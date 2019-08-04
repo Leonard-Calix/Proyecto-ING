@@ -38,10 +38,7 @@
           </div>
         </a>
         <a href="#" class="simple-text logo-normal">
-          India Tours
-          <!-- <div class="logo-image-big">
-            <img src="img/logo-big.png">
-          </div> -->
+          <img src="../Public/img/logo.png">          
         </a>
       </div>
       <div class="sidebar-wrapper bg-dark">
@@ -102,17 +99,9 @@
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
 
             <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link btn-magnify" href="#pablo">
-                  <i class="nc-icon nc-layout-11"></i>
-                  <p>
-                    <span class="d-lg-none d-md-block">Stats</span>
-                  </p>
-                </a>
-              </li>
               <li class="nav-item btn-rotate dropdown">
                 <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="nc-icon nc-bell-55"></i>
+                  <i class="nc-icon nc-settings-gear-65"></i>
                   <p>
                     <span class="d-lg-none d-md-block">Some Actions</span>
                   </p>
@@ -121,14 +110,6 @@
                   <a class="dropdown-item" href="user.php">Perfil</a>
                   <a class="dropdown-item" href="logout.php">Logout</a>
                 </div>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link btn-rotate" href="#pablo">
-                  <i class="nc-icon nc-settings-gear-65"></i>
-                  <p>
-                    <span class="d-lg-none d-md-block">Account</span>
-                  </p>
-                </a>
               </li>
             </ul>
           </div>

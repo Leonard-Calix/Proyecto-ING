@@ -7,14 +7,12 @@
 		<div class="col-md-4">
 			<div class="card card-user">
 				<div class="image">
-					<img src="img/damir-bosnjak.jpg" alt="...">
+					
 				</div>
 				<div class="card-body">
 					<div class="author">
-						<a href="#">
-							<img class="avatar border-gray" src="img/mike.jpg" alt="...">
-							<h5 class="title">Chet Faker</h5>
-						</a>
+						<img class="avata border-gray" src="../Public/img/1.jpg" alt="..."><br><br>
+						
 						<p class="description">
 							@chetfaker
 						</p>
@@ -27,96 +25,10 @@
 				</div>
 				<div class="card-footer">
 					<hr>
-					<div class="button-container">
-						<div class="row">
-							<div class="col-lg-3 col-md-6 col-6 ml-auto">
-								<h5>12
-									<br>
-									<small>Files</small>
-								</h5>
-							</div>
-							<div class="col-lg-4 col-md-6 col-6 ml-auto mr-auto">
-								<h5>2GB
-									<br>
-									<small>Used</small>
-								</h5>
-							</div>
-							<div class="col-lg-3 mr-auto">
-								<h5>24,6$
-									<br>
-									<small>Spent</small>
-								</h5>
-							</div>
-						</div>
-					</div>
+					
 				</div>
 			</div>
-			<div class="card">
-				<div class="card-header">
-					<h4 class="card-title">Team Members</h4>
-				</div>
-				<div class="card-body">
-					<ul class="list-unstyled team-members">
-						<li>
-							<div class="row">
-								<div class="col-md-2 col-2">
-									<div class="avatar">
-										<img src="img/faces/ayo-ogunseinde-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-									</div>
-								</div>
-								<div class="col-md-7 col-7">
-									DJ Khaled
-									<br />
-									<span class="text-muted">
-										<small>Offline</small>
-									</span>
-								</div>
-								<div class="col-md-3 col-3 text-right">
-									<btn class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></btn>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="row">
-								<div class="col-md-2 col-2">
-									<div class="avatar">
-										<img src="img/faces/joe-gardner-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-									</div>
-								</div>
-								<div class="col-md-7 col-7">
-									Creative Tim
-									<br />
-									<span class="text-success">
-										<small>Available</small>
-									</span>
-								</div>
-								<div class="col-md-3 col-3 text-right">
-									<btn class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></btn>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="row">
-								<div class="col-md-2 col-2">
-									<div class="avatar">
-										<img src="img/faces/clem-onojeghuo-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-									</div>
-								</div>
-								<div class="col-ms-7 col-7">
-									Flume
-									<br />
-									<span class="text-danger">
-										<small>Busy</small>
-									</span>
-								</div>
-								<div class="col-md-3 col-3 text-right">
-									<btn class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></btn>
-								</div>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</div>
+
 		</div>
 		<div class="col-md-8">
 			<div class="card card-user">

@@ -6,6 +6,7 @@ $(document).ready(function($) {
 			method:'POST',
 			dataType:'json',
 			success:function(res){
+				console.log("respuesta de la tabla de tours");
 				console.log(res);
 				for (var i = 0; i < res.length; i++) {
 					$('#t-res').append(` 
@@ -30,6 +31,7 @@ $(document).ready(function($) {
 			method:'POST',
 			dataType:'json',
 			success:function(res){
+				console.log("respuesta de Guias");
 				console.log(res);
 				for (var i = 0; i < res.length; i++) {
 					$("#guia").append(`<option value="${res[i].idUsuario}" >${res[i].nombreUsuario}</option>`);
@@ -42,6 +44,7 @@ $(document).ready(function($) {
 			method:'POST',
 			dataType:'json',
 			success:function(res){
+				console.log("respuesta de Estados");
 				console.log(res);
 				for (var i = 0; i < res.length; i++) {
 					$("#estado").append(`<option value="${res[i].idEstados}" >${res[i].nombre}</option>`);
@@ -167,4 +170,15 @@ function agregar() {
 		}
 	});
 	//$("#fechaI").val("2019-07-20");
+}
+
+/*?=======================GUIAS=====================================*/
+
+function editarGuia(id) {
+	console.log(id);
+	
+}
+
+function agregarGuia(id) {
+	console.log(id);
 }

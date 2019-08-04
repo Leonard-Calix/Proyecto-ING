@@ -50,14 +50,14 @@
 	$fechaF = date("Y-m-d", strtotime("2011-01-01") );
 
 	
-	$tours = new TOURS(null,"prueba4","prueba",$fechaI,$fechaF,25,25,5,1,1);
+	$tours = new TOURS(null,"Tegus","Lindo Lugar",$fechaI,$fechaF,25,25,5,1,1);
 
-	//echo $tours->agregar();
+	$id = $tours->agregar();
 
 	//echo date('Y-m-d H:m:s', strtotime("2019/12/12"))
 
 	//echo $tours->toString();
 
-	echo Tours::asignarHotel(12,2);
+	echo Tours::asignarHotel($id,1);
 	
  ?>

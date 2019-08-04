@@ -23,6 +23,7 @@
          </div> <!-- / .row -->
 
          <div class="row">
+
           <div  class="col-md-12">
             <!-- Image -->
             <div class="card-img-top" id="img-p"></div>
@@ -33,27 +34,7 @@
               <!-- Body -->
               <div id="descripcion"></div>
 
-              <div id="res" class="slider slider-hightlight slider-no-controls" data-slider-binded=".slider">
-                
-                 <div class="slider-item col-lg-3 col-6 col-md-3">
-                  <img src="../Public/img/tours/t1_01.jpg" class="img-fluid" alt="...">
-                </div>
-                 <div class="slider-item col-lg-3 col-6 col-md-3">
-                  <img src="../Public/img/tours/t1_02.jpg" class="img-fluid" alt="...">
-                </div>
-                 <div class="slider-item col-lg-3 col-6 col-md-3">
-                  <img src="../Public/img/tours/t1_03.png" class="img-fluid" alt="...">
-                </div>
-                 <div class="slider-item col-lg-3 col-6 col-md-3">
-                  <img src="../Public/img/tours/t1_04.jpg" class="img-fluid" alt="...">
-                </div>
-                 <div class="slider-item col-lg-3 col-6 col-md-3">
-                  <img src="../Public/img/tours/t1_05.jpg" class="img-fluid" alt="...">
-                </div>
-                
-              </div>
-
-              <br><br>
+           
               
               <!-- / .Input Comentarios -->
               <div class="row" id="imput-cometarios" >

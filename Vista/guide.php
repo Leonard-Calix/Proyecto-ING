@@ -1,9 +1,14 @@
 <?php include_once ('Layouts/header_2.php'); ?>
 
+<!-- Button trigger modal -->
+<br><br><br>
+<button type="button" class=" ml-3 btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  New
+</button>
 
 <!-- Page content -->
-<br><br>
-<div class="container mt-5">
+
+<div class="container mt-3">
   
   <table class="table">
   <thead class="thead-dark">
@@ -12,14 +17,13 @@
       <th scope="col">First name</th>
       <th scope="col">Last</th>
       <th scope="col">User name</th>
-      <th scope="col">Gender</th>
       <th scope="col">email</th>
       <th scope="col">Address</th>
       <th scope="col">Action</th>
       <th scope="col"></th>
     </tr>
   </thead>
-  <tbody id="res" >
+  <tbody id="res">
     <tr>
       <th scope="row">1</th>
       <td>Mark</td>
@@ -27,9 +31,8 @@
       <td>@mdo</td>
       <td>@mdo</td>
       <td>@mdo</td>
-      <td>@mdo</td>
-      <td><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">Edit</button></td>
-      <td><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal2">Delete</button></td>
+      <td><button onclick="editarGuia();" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">Edit</button></td>
+      <td><button onclick="EliminarGuia();" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal2">Delete</button></td>
     </tr>
   </tbody>
 </table>
@@ -38,13 +41,8 @@
 
 
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch demo modal
-</button>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">
-  Launch demo modal
-</button>
+
+
 
 
 <!-- Modal -->
@@ -120,9 +118,6 @@
              </div>
           </div>
           <br>
-         <div><br><button type="button" class="btn btn-primary">Add</button></div>
-
-          </div>
       </div> 
       <div class="modal-footer">
         <button  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -132,10 +127,6 @@
   </div>
 </div>
 
-
-
-
-<br>
   <?php include_once ('Layouts/footer.php'); ?>
 
  </div>

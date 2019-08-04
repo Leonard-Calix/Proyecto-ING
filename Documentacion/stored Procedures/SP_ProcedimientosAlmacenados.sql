@@ -339,7 +339,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-CREATE PROCEDURE ADD_TOURS(IN pnombre VARCHAR(45),IN pdescripcion VARCHAR(255),IN pfechaInicio DATETIME, IN pfechaFin DATETIME, IN pprecio DOUBLE,IN pcupos INT(11), IN pcalificacion INT(11),IN pidEstados INT(11), IN pidGuia INT(11),OUT pidInsertado INT, OUT pMensaje VARCHAR(45))
+CREATE PROCEDURE ADD_TOURS(IN pnombre VARCHAR(45),IN pdescripcion VARCHAR(255),IN pfechaInicio DATE, IN pfechaFin DATE, IN pprecio DOUBLE,IN pcupos INT(11), IN pcalificacion INT(11),IN pidEstados INT(11), IN pidGuia INT(11),OUT pidInsertado INT, OUT pMensaje VARCHAR(45))
 
 BEGIN
 	DECLARE pError VARCHAR(45);
