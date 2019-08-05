@@ -74,7 +74,7 @@
           <div class="col-md-6">
              <div class="form-group">
                <label>User name</label>
-               <input type="text" id="usarname" class="form-control">
+               <input type="text" id="username" class="form-control">
              </div>
           </div>
           <div class="col-md-6">
@@ -121,7 +121,7 @@
       </div> 
       <div class="modal-footer">
         <button  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button  onclick="agregarGuia();" type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
