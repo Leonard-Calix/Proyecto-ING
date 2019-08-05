@@ -33,22 +33,28 @@
 		break;
 
 		case 'agregarTours':
+			$nombre = $_POST["nombre"];
+			$descripcion = $_POST["descripcion"];
+			$precio = intval($_POST["precio"]);
+			$cupos = intval($_POST["cupos"]);
+			$calificacion = intval($_POST["calificacion"]);
+			$estado = intval($_POST["estado"]);
+			$guia = intval($_POST["guia"]);
+			$fechaI = date("Y-m-d", strtotime( $_POST["fechaI"] ));
+			$fechaF = date("Y-m-d", strtotime( $_POST["fechaF"] ));
 		
-			$tours = new Tours(null, $_POST["nombre"], 
-											   $_POST["descripcion"], 
-											   date("Y-m-d", strtotime($_POST["fechaI"])), 
-											   date("Y-m-d", strtotime($_POST["fechaF"])), 
-											   (int)$_POST["precio"],
-										       (int)$_POST["cupos"], 
-										       (int)$_POST["calificacion"],
-										       (int)$_POST["estado"],
-										       (int)$_POST["guia"] 
-										   );
+			$tours = new Tours(null, $nombre, $descripcion, $fechaI, $fechaF, $precio, $cupos, $calificacion, $estado, $guia ); 
+											  
+			$idtours = $tours->agregar();
 
-			$id = $tours->agregar();
+			//echo $idtours;
+			//echo $estado;
 
-			if ($id!=null) {
-				$res = Tours::asignarHotel($id, (int)$_POST["estado"] );
+			//$tours->toString();
+/*
+
+			if ($idtours!=null) {
+				$res = Tours::asignarHotel($idtours, $estado);
 
 				$data = array("res" => $res);
 
@@ -58,7 +64,7 @@
 				echo "{'Resultado ' : 'Fallo'}";
 			}
 			
-
+*/
 			
 		break;
 

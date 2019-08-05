@@ -34,7 +34,7 @@ $(document).ready(function($) {
 				console.log("respuesta de Guias");
 				console.log(res);
 				for (var i = 0; i < res.length; i++) {
-					$("#guia").append(`<option value="${res[i].idUsuario}" >${res[i].nombreUsuario}</option>`);
+					$("#guia").append(`<option value="${res[i].idguia}" >${res[i].nombreCompleto}</option>`);
 				}		
 			}
 		});
