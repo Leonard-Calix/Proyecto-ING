@@ -395,3 +395,47 @@ END$$
 
 DELIMITER ;
 
+/*=====================================================================================================*/
+
+DELIMITER $$
+
+CREATE PROCEDURE SP_ASIGNA_HOTEL(IN pidTours INT, IN pidEstados INT, OUT pMensaje VARCHAR(45), OUT res INT)
+BEGIN
+
+	DECLARE v_nombreHotel VARCHAR(45);
+   	DECLARE v_descripcion VARCHAR(45);
+    DECLARE pError VARCHAR(255);
+	DECLARE v_precio INT;
+
+	SET v_nombreHotel  = '';
+	SET v_descripcion  = '';
+    SET v_precio = 0 ;
+
+
+	IF pidTours = '' THEN
+		SET pError = CONCAT(pError, ' ', 'IdTours vacio');
+	END IF;
+	IF pidEstados = '' THEN 
+		SET pError = CONCAT(pError, ' ', 'IdEstado vacio');
+	END IF;
+	
+	SELECT nombreHotel INTO v_nombreHotel FROM hotel WHERE idEstados = pidEstados;
+   	SELECT descripcion INTO v_descripcion FROM hotel WHERE idEstados = pidEstados;
+	SELECT precio INTO v_precio FROM hotel WHERE idEstados = pidEstados;
+
+
+	IF pError = '' THEN
+	
+    	INSERT INTO hotel(idHotel, nombreHotel, descripcion, precio, idEstados, idTours)
+        VALUES (null, v_nombreHotel, v_descripcion, v_precio, pidEstados,pidTours );
+        SET pMensaje = 'Agregado con exito' ;
+        SET res = 1;
+		
+	ELSE
+		SET pMensaje = CONCAT( 'Error en: ' , ' ', pError); 
+        SET res = 0;
+
+	END IF;	
+END$$
+
+DELIMITER ;

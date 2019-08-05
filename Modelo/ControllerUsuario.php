@@ -93,8 +93,7 @@ class ControllerUsuario{
         Conexion::abrirConexion();
         $conexion = Conexion::obtenerConexion();
 
-        $sql = "SELECT u.idUsuario, u.nombreUsuario FROM guia g
-                INNER JOIN usuario u ON u.idusuario=g.idusuario";
+        $sql = "SELECT * FROM view_guia";
 
         $sentencia = $conexion->prepare($sql);
         $sentencia->execute();
