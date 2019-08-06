@@ -68,9 +68,18 @@ class ControllerUsuario{
         Conexion::abrirConexion();
         $conexion = Conexion::obtenerConexion();
           
-        $sql = 'CALL SP_UPDATE_PERSON_USER(:in_nombreU, :in_email, :in_contrasena, :in_tipoUsuario, @id, @mensaje)';
+        $sql = 'CALL SP_UPDATE_PERSON_USER(:in_nombreC,in_apellidos,in_identidad,:in_telefono,:in_genero,:in_direccion, 
+                                           :in_nombreU, :in_email,:in_tipoUsuario, :idUpdate, @mensaje)';
         $resultado = $conexion->prepare($sql);
 
+        $resultado->execute();
+
+        $resultado->closeCursor(); 
+        
+        $salida = $conexion->query('select @mensaje');
+        $mensaje = $salida['@mensaje'];
+
+        return json_encode($mensaje);
 
     }
 
