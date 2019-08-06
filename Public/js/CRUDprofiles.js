@@ -10,21 +10,18 @@ $(document).ready(function(){
         console.log(idUser);
 
         var id = $('#'+idUser).remove();
+
+        $.ajax({
+            url: '../Controlador/ajax/gestion-Usuario.php?accion=delete',
+            method: 'post',
+            dataType: 'json',
+            data: {id: id },
+            success:function(res){
+                console.log(res)
+
+            }
+        });
         
-        if(confirm('Are you sure you want to delete it?')) {
-            $.ajax({
-                url: '../Controlador/ajax/gestion-Usuario.php?accion=delete',
-                method: 'post',
-                dataType: 'json',
-                data: {id: id },
-                success:function(res){
-                    console.log(res)
-
-                }
-
-
-            });
-        }
     }
     
     function editarUser(id){
