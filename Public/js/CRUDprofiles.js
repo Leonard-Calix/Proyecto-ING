@@ -58,6 +58,7 @@ function agregarUser(){
     var parametros = "nombre="+nombre+"&apellido="+apellido+"&identidad="+identidadUser+
                     "&phone="+phone+"&genero="+genero+"&direccion="+direccion+"&usuario="+usuario+
                     "&correo="+correo+"&contrasenia="+contrasenia+"&typeUser="+typeUser;
+    
     console.log(parametros);
     
     if (nombre==" " || apellido=="" || correo==" " || usuario==" " || contrasenia==" ") {
@@ -111,5 +112,30 @@ function EliminarUser(idUser){
 }
 
 function editarUser(idUpdate){
-    console.log(idUpdate);    
+    console.log(idUpdate);
+    var datos = {
+        idUpdate: $('#idUpdate').val(idUpdate),
+        nombre : $('#nameUser').val(),
+        apellido : $('#apellidoUser').val(),
+        correo : $('#correo').val(),
+        usuario : $('#username').val(),
+        identidadUser : $('#identidad').val(),
+        phone : $('#phone').val(),
+        genero : $('#genero').val(),
+        direccion : $('#direccion').val(),
+        contrasenia : $('#contrasenia').val(),
+        typeUser : $('input[name="typeUser"]:checked').val()
+    }
+
+    $.ajax({
+		url: '../Controlador/ajax/gestion-Usuario.php?accion=update',
+		method: 'POST',
+		dataType: 'json',
+		data: {id: idUpdate},
+		success:function(res){
+			console.log(res);	
+		}
+	});
+
+
 }

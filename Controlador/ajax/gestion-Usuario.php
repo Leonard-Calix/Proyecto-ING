@@ -35,15 +35,19 @@
 				$salida = array("resultado" =>"Error. Verfique los datos", "codigo" => 0);
 				echo json_encode($salida);
 			}
-			break;
+		break;
 		
 		
 		case 'delete':
 			$id = $_POST['idUser'];
 			$salida = ControllerUsuario::borrarUsuario($id);
 			echo json_encode($salida);
-			break;
+		break;
+		
+		case 'update':
 
+			
+		break;
 		
 		case 'login':
 			$email = $_POST['correo'];
