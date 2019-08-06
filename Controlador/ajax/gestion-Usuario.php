@@ -8,6 +8,10 @@
 	
 	switch ($_GET["accion"]) {
 		
+		case 'getProfiles':
+			ControllerUsuario::obtenerProfiles();
+			break;
+		
 		case 'agregar':
 
 			$nombre =  $_POST["nombre"];
@@ -23,7 +27,7 @@
 			if($idPersona != NULL){
 				$usuario = new Usuario($_POST["usuario"], $_POST["correo"], $_POST["contrasenia"],$idPersona);
 
-				$usuario_insertado = ControllerUsuario::agregarUsuario($usuario);
+				$usuario_insertado = ControllerUsuario::agregarUsuario($usuario, $_POST['typeUser']);
 				$salida = array("resultado" =>"Agregado exitosamente", "codigo" => $usuario_insertado);
 				echo json_encode($salida);
 
@@ -31,7 +35,19 @@
 				$salida = array("resultado" =>"Error. Verfique los datos", "codigo" => 0);
 				echo json_encode($salida);
 			}
-			break;
+		break;
+		
+		
+		case 'delete':
+			$id = $_POST['idUser'];
+			$salida = ControllerUsuario::borrarUsuario($id);
+			echo json_encode($salida);
+		break;
+		
+		case 'update':
+
+			
+		break;
 		
 		case 'login':
 			$email = $_POST['correo'];
@@ -47,6 +63,36 @@
 
 		case 'obtenerGuias':
 			 ControllerUsuario::obtenerGuias();
+		break;
+
+		case 'agregarGuias':
+
+			$nombre =  $_POST["nombre"];
+			$apellido = $_POST["apellido"];
+			$identidad = isset($_POST["identidad"]) ? $_POST["identidad"] : "null";
+			$telefono = isset($_POST["phone"]) ? $_POST["phone"] : "null";
+			$genero = isset($_POST["gender"]) ? $_POST["gender"] : "null";
+			$direccion = isset($_POST["address"]) ? $_POST["address"] : "null";
+
+			$persona = new Persona($nombre, $apellido, $identidad, $direccion, $telefono, $genero);
+
+			//echo $persona->toString();
+			
+			$idPersona = ControllerPersona::agregarPersona($persona);
+
+			if($idPersona != NULL){
+				$usuario = new Usuario($_POST["username"], $_POST["correo"], $_POST["contrasenia"],$idPersona);
+
+				$usuario_insertado = ControllerUsuario::agregarUsuario($usuario);
+				
+				$salida = array("resultado" =>"Agregado exitosamente", "codigo" => $usuario_insertado);
+				echo json_encode($salida);
+
+			}else{
+				$salida = array("resultado" =>"Error. Verfique los datos", "codigo" => 0);
+				echo json_encode($salida);
+			}
+
 		break;
 
 		default:

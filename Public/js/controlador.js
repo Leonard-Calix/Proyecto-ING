@@ -117,8 +117,6 @@ $(document).ready(function(){
 				$('#nombreUsuario').append(`<h1 class="display-2 text-white">Hello ${res[0].nombreUsuario}</h1>`);
 				$('#usuario').append(`<h5 class="h3">${res[0].nombreUsuario}<span class="font-weight-light"></span></p>`);
                 
-
-
 			}
 
 		});
@@ -134,28 +132,15 @@ $(document).ready(function(){
 	/*Registrar usuarios al sistema*/
 
 function redireccionar(id, tipo){
-	/*switch(tipo){
-		case 1:
-			document.location.href='admin.php?id='+id;
-			break;
-		case 2:
-			document.location.href='perfil.php?id='+id;
-			break;
-		case 3:
-			document.location.href='perfil.php?id='+id;
-			break;
-		default:
-			document.location.href='perfil.php?id='+id;
-			break;
-	}*/
+	
 	if(tipo == 1){
-		document.location.href='perfil.php';
+		document.location.href='main.php';
 	}else if(tipo == 2){
 		document.location.href='perfil.php';
 	}else if(tipo == 3){
 		document.location.href='perfil.php';
 	}else{
-		document.location.href='perfil.php';
+		document.location.href='index.php';
 	}
 	
 	
@@ -240,6 +225,7 @@ $('#btn-sing-in').click(function () {
 		}
 	});
 });
+
 
 $('#btn-comentar').click(function () {
 	
