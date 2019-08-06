@@ -115,7 +115,8 @@
       </div> 
       <div class="modal-footer">
         <button  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button"  onclick="agregarUser();" class="btn btn-primary">Save changes</button>
+        <button type="button"  id="btn-add" onclick="agregarUser();" class="btn btn-primary">Save changes</button>
+        <button id="btn-edit" onclick="editarUser();" data-dismiss="modal" type="button" class="btn btn-primary">Edit</button>
       </div>
     </div>
   </div>

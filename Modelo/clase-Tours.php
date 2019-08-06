@@ -297,10 +297,7 @@ class Tours	{
         $salida = $conexion->query('select @pres, @pMensaje')->fetch();
         $pres = $salida['@pres'];
         $mensaje = $salida['@pMensaje'];
-  
-
-
-        
+     
         if ($mensaje!= null && $pres!=null) {
         	return $pres;
         }else{

@@ -115,6 +115,10 @@ function EliminarUser(idUser){
 
 function editarUser(idUpdate){
     console.log(idUpdate);
+    
+    $("#btn-add").hide();
+    $("#btn-edit").show();
+    
     var datos = {
         idUpdate: $('#idUpdate').val(idUpdate),
         nombre : $('#nameUser').val(),
@@ -136,9 +140,18 @@ function editarUser(idUpdate){
 		data: {id: idUpdate},
 		success:function(res){
             console.log(res);
-            if(resp == 1){
-                fetchProfiles();
-            }	
+            $('#idUpdate').val(res[0].idUsuario),
+            $('#nameUser').val(res[0].nombre),
+            $('#apellidoUser').val(res[0].apellido),
+            $('#correo').val(),
+            $('#username').val(),
+            $('#identidad').val(),
+            $('#phone').val(),
+            $('#genero').val(),
+            $('#direccion').val(),
+            $('#contrasenia').val(),
+            $('input[name="typeUser"]:checked').val()
+	
 		}
 	});
 

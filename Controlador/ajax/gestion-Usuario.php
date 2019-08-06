@@ -57,7 +57,7 @@
 			$email = $_POST['correo'];
 			$tipoUser = $_POST['typeUser'];
 
-			$profiles = new Profiles($nombre, $apellido, $identidad, $direccion, $telefono, $genero, 
+			$profiles = new Profiles($idUpdate, $nombre, $apellido, $identidad, $direccion, $telefono, $genero, 
 									 $nombreUsuario, $email, $tipoUser);
 
 			$result = ControllerUsuario::editarUsuario($profiles);
