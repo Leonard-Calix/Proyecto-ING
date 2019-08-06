@@ -100,6 +100,7 @@
       <script src="../Public/js/dist/fullpage.min.js"></script>
       <script src="../Public/js/highlight.pack.min.js"></script>
       <script src="../Public/js/controlador.js"></script>
+      <script src="../Public/js/CRUDprofiles.js"></script>
       <script src="../Public/js/demo.js"></script>
       <script src="../Public/js/poper.js"></script>
       <script src="../Public/js/theme.min.js"></script>

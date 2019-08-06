@@ -19,32 +19,16 @@
       <th scope="col">User name</th>
       <th scope="col">email</th>
       <th scope="col">Address</th>
-      <th scope="col">Type User</th>
       <th scope="col">Action</th>
       <th scope="col"></th>
     </tr>
   </thead>
   <tbody id="res">
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
-      <td>
-          
-      </td>
-      <td><button onclick="editarUser();" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">Edit</button></td>
-      <td><button onclick="EliminarUser();" type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal2">Delete</button></td>
-    </tr>
+    
   </tbody>
 </table>
 
 </div>
-
-
-
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -62,20 +46,20 @@
           <div class="col-md-6">
               <div class="form-group">
                <label>First Name</label>
-               <input type="text" id="nameguide" class="form-control">
+               <input type="text" id="nameUser" class="form-control">
              </div>
           </div>
             <div class="col-md-6">
              <div class="form-group">
                <label>Last Name</label>
-               <input type="text" id="apellido" class="form-control">
+               <input type="text" id="apellidoUser" class="form-control">
              </div>
           </div>
 
           <div class="col-md-6">
              <div class="form-group">
                <label>User name</label>
-               <input type="text" id="usarname" class="form-control">
+               <input type="text" id="username" class="form-control">
              </div>
           </div>
           <div class="col-md-6">
