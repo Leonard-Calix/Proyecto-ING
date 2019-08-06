@@ -67,6 +67,15 @@
 			$this->genero = $genero;
 		}
 
+		public function toString(){
+			return "Nombre: " . $this->nombre . 
+				" Apellido: " . $this->apellidos . 
+				" Identidad: " . $this->identidad . 
+				" Direccion: " . $this->direccion . 
+				" Telefono: " . $this->telefono . 
+				" Genero: " . $this->genero;
+		}
+
 		public static function datos(){
 			
 			Conexion::abrirConexion();

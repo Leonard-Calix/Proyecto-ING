@@ -61,6 +61,36 @@
 			 ControllerUsuario::obtenerGuias();
 		break;
 
+		case 'agregarGuias':
+
+			$nombre =  $_POST["nombre"];
+			$apellido = $_POST["apellido"];
+			$identidad = isset($_POST["identidad"]) ? $_POST["identidad"] : "null";
+			$telefono = isset($_POST["phone"]) ? $_POST["phone"] : "null";
+			$genero = isset($_POST["gender"]) ? $_POST["gender"] : "null";
+			$direccion = isset($_POST["address"]) ? $_POST["address"] : "null";
+
+			$persona = new Persona($nombre, $apellido, $identidad, $direccion, $telefono, $genero);
+
+			//echo $persona->toString();
+			
+			$idPersona = ControllerPersona::agregarPersona($persona);
+
+			if($idPersona != NULL){
+				$usuario = new Usuario($_POST["username"], $_POST["correo"], $_POST["contrasenia"],$idPersona);
+
+				$usuario_insertado = ControllerUsuario::agregarUsuario($usuario);
+				
+				$salida = array("resultado" =>"Agregado exitosamente", "codigo" => $usuario_insertado);
+				echo json_encode($salida);
+
+			}else{
+				$salida = array("resultado" =>"Error. Verfique los datos", "codigo" => 0);
+				echo json_encode($salida);
+			}
+
+		break;
+
 		default:
 			
 			break;
