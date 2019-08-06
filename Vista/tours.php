@@ -16,8 +16,6 @@
         <tr>
           <th  scope="col">#</th>
           <th scope="col">Name</th>
-          <th scope="col">Estate</th>
-          <th scope="col">Hotel</th>
           <th scope="col">Price</th>
           <th scope="col">Detall</th>
           <th scope="col">Edite</th>
@@ -75,7 +73,7 @@
               <div class="form-group col-md-3">
                 <label for="nombre">Name</label>
                 <input type="email" class="form-control" id="nombre" placeholder="tours name">
-                <input type="hidden" name="" id="idT" >
+                <input type="hidden" name="" id="idtours" >
               </div>
               <div class="form-group col-md-3">
                 <label for="inputPassword4">Price</label>
@@ -90,7 +88,6 @@
               <div class="form-group col-md-3">
                 <label for="inputPassword4">state</label>
                 <select id="estado" class="form-control">
-                  
                 </select>
               </div>
             </div>
@@ -110,7 +107,11 @@
               <div class="form-group col-md-3">
                 <label for="calificacion">Calificacion</label>
                 <select id="calificacion" class="form-control">
-                  <option>1</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
                 </select>
               </div>
               <div class="form-group col-md-3">
@@ -123,7 +124,8 @@
 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button onclick="agregar();" type="button" class="btn btn-primary">Save</button>
+            <button id="btn-G" onclick="agregar();"  data-dismiss="modal" type="button" class="btn btn-primary">Add</button>
+            <button id="btn-E" onclick="editarReguistro();" data-dismiss="modal" type="button" class="btn btn-primary">Save</button>
           </div>
 
         </div>

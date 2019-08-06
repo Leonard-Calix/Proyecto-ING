@@ -156,6 +156,23 @@ class Tours	{
 		echo json_encode($tours);
 	}
 
+	public static function obtenerTours_editar($id){
+		Conexion::abrirConexion();
+		$conexion = Conexion::obtenerConexion();
+
+		$sql = "SELECT * FROM detalles_tours  WHERE id='$id'";
+		$resultado = $conexion->prepare($sql);
+		$resultado ->execute();
+
+		$tours = array();
+
+		foreach ($resultado as $tour) {
+			$tours[] = $tour; 
+		}
+
+		echo json_encode($tours);
+	}
+
 	public static function obtenerTours($id){
 		Conexion::abrirConexion();
 		$conexion = Conexion::obtenerConexion();
@@ -251,6 +268,70 @@ class Tours	{
 
      
 	}
+
+	public function editarTours(){
+		Conexion::abrirConexion();
+		$conexion = Conexion::obtenerConexion();
+
+		$sql = 'CALL EDITAR_TOURS(:pidActualizar, :pnombre, :pdescripcion, :pfechaInicio, :pfechaFin, :pprecio, :pcupos, :pcalificacion, :pidEstados, :pidGuia, @pres, @pMensaje)';
+		
+		$resultado = $conexion->prepare($sql);
+
+        // enviando parametros al procedimiento
+		$resultado->bindParam(':pidActualizar', $this->idTours, PDO::PARAM_INT);
+		$resultado->bindParam(':pnombre', $this->nombre, PDO::PARAM_STR,45);
+		$resultado->bindParam(':pdescripcion', $this->descripcion, PDO::PARAM_STR,255);
+		$resultado->bindParam(':pfechaInicio', $this->fechaInicio, PDO::PARAM_STR );
+		$resultado->bindParam(':pfechaFin',$this->fechaFin, PDO::PARAM_STR);
+		$resultado->bindParam(':pprecio', $this->precio, PDO::PARAM_INT);
+		$resultado->bindParam(':pcupos', $this->cupos, PDO::PARAM_INT);
+		$resultado->bindParam(':pcalificacion', $this->calificacion, PDO::PARAM_INT);
+		$resultado->bindParam(':pidEstados', $this->IdEstados, PDO::PARAM_INT);
+		$resultado->bindParam(':pidGuia', $this->idGuia, PDO::PARAM_INT);
+
+		$resultado->execute();
+		$resultado->closeCursor(); 
+
+		//":date"=>date("Y-m-d H:i:s", strtotime($date)), PDO::PARAM_STR)
+      
+        $salida = $conexion->query('select @pres, @pMensaje')->fetch();
+        $pres = $salida['@pres'];
+        $mensaje = $salida['@pMensaje'];
+  
+
+
+        
+        if ($mensaje!= null && $pres!=null) {
+        	return $pres;
+        }else{
+        	return 0;
+        }
+     
+	}
+
+	public static function removeTours($id){
+		Conexion::abrirConexion();
+		$conexion = Conexion::obtenerConexion();
+
+		$sql = 'CALL DELETE_TOURS(:pidBorrar, @pMensaje)';
+		
+		$resultado = $conexion->prepare($sql);
+
+		$resultado->bindParam(':pidBorrar', $id, PDO::PARAM_INT);
+		$resultado->execute();
+		$resultado->closeCursor(); 
+		
+		$salida = $conexion->query('select @pMensaje');
+        $mensaje = $salida->fetchColumn();
+
+         if ($mensaje!=null ) {
+        	return 1;
+        }else{
+        	return 0;
+        }
+
+	}
+
 
 	public static function asignarHotel($idTours, $estado){
 		Conexion::abrirConexion();
