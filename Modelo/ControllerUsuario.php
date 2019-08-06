@@ -64,7 +64,7 @@ class ControllerUsuario{
 
     }
 
-    public static function editarUsuario($usuario){
+    public static function editarUsuario($profiles){
         Conexion::abrirConexion();
         $conexion = Conexion::obtenerConexion();
           
@@ -72,14 +72,37 @@ class ControllerUsuario{
                                            :in_nombreU, :in_email,:in_tipoUsuario, :idUpdate, @mensaje)';
         $resultado = $conexion->prepare($sql);
 
-        $resultado->execute();
+        $nombre = $profiles->getNombre();
+        $apellido = $profiles->getApellidos();
+        $numeroId = $profiles->getIdentidad();
+        $telefono = $profiles->getTelefono();
+        $genero = $profiles->getGenero();
+        $direccion = $profiles->getDireccion();
+        $nombreU = $profiles->getNombreUsuario();
+        $email = $profiles->getCorreo();
+        $tipoUsuario = $profiles->getTypeUser();
 
+        $resultado->bindParam(':in_nombreC', $nombre, PDO::PARAM_STR, 100);
+        $resultado->bindParam(':in_apellidos', $apellido, PDO::PARAM_STR, 100);
+        $resultado->bindParam(':in_identidad', $numeroId, PDO::PARAM_STR, 100);
+        $resultado->bindParam(':in_telefono', $telefono, PDO::PARAM_STR, 100);
+        $resultado->bindParam(':in_genero', $genero, PDO::PARAM_STR, 100);
+        $resultado->bindParam(':in_direccion', $direccion, PDO::PARAM_STR, 100);
+        $resultado->bindParam(':in_nombreU', $nombreU, PDO::PARAM_STR, 100);
+        $resultado->bindParam(':in_email', $email, PDO::PARAM_STR, 100);
+        $resultado->bindParam(':in_tipoUsuario', $tipoUsuario, PDO::PARAM_INT);
+
+        $resultado->execute();
         $resultado->closeCursor(); 
         
         $salida = $conexion->query('select @mensaje');
-        $mensaje = $salida['@mensaje'];
+        $mensaje = $salida->fetchColumn();
 
-        return json_encode($mensaje);
+       if($mensaje!=NULL){
+           return $mensaje;
+       }else{
+           return 0;
+       }
 
     }
 
@@ -97,9 +120,14 @@ class ControllerUsuario{
         $resultado->closeCursor(); 
         
         $salida = $conexion->query('select @mensaje');
-        $mensaje = $salida['@mensaje'];
+        $mensaje = $salida->fetchColumn();
 
-        return json_encode($mensaje);
+        if($mensaje!=NULL){
+            return 1;
+        }else{
+            return 0;
+        }
+        
 
     }
 

@@ -96,16 +96,18 @@ function agregarUser(){
 function EliminarUser(idUser){
     console.log(idUser);
 
-    var id = $("#"+idUser).remove();
-
     $.ajax({
         url: '../Controlador/ajax/gestion-Usuario.php?accion=delete',
         method: 'POST',
         dataType: 'json',
-        data: {id: id},
+        data: {id: idUser},
         success:function(res){
             console.log(res);
-            fetchProfiles();
+            if(res == 1){
+                $("#"+idUser).remove();
+                fetchProfiles();
+            }
+            
         }
     });
 
@@ -133,7 +135,10 @@ function editarUser(idUpdate){
 		dataType: 'json',
 		data: {id: idUpdate},
 		success:function(res){
-			console.log(res);	
+            console.log(res);
+            if(resp == 1){
+                fetchProfiles();
+            }	
 		}
 	});
 

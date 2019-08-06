@@ -5,6 +5,7 @@
 	include_once('../../Modelo/clase-Persona.php');
 	include_once('../../Modelo/ControllerPersona.php');
 	include_once('../../Modelo/ControllerUsuario.php');
+	include_once('../../Modelo/clase-Profiles.php');
 	
 	switch ($_GET["accion"]) {
 		
@@ -41,11 +42,31 @@
 		case 'delete':
 			$id = $_POST['idUser'];
 			$salida = ControllerUsuario::borrarUsuario($id);
-			echo json_encode($salida);
+			echo json_encode(array("resp" => $salida));
 		break;
 		
 		case 'update':
+			$nombre =  $_POST["nameUser"];
+			$apellido = $_POST["apellidoUser"];
+			$identidad = $_POST["identidad"];
+			$telefono = $_POST["phone"];
+			$genero = $_POST["genero"];
+			$direccion = $_POST["direccion"];
+			$nombreUsuario = $_POST['username'];
+			$email = $_POST['correo'];
+			$contrasena = $_POST['contrasenia'];
+			$tipoUser = $_POST['typeUser'];
 
+			$profiles = new Profiles($nombre, $apellido, $identidad, $direccion, $telefono, $genero, 
+									 $nombreUsuario, $email, $contrasena, $tipoUser);
+
+			$result = ControllerUsuario::editarUsuario($profiles);
+			
+			if ($result!=null) {
+				echo '{ "respuesta" :  1 }';
+			}else{
+				echo '{ "respuesta" :  0 }';
+			}
 			
 		break;
 		
