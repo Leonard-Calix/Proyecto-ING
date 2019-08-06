@@ -45,6 +45,55 @@ class ControllerUsuario{
         }
     }
 
+    public static function obtenerProfiles(){
+        Conexion::abrirConexion();
+        $conexion = Conexion::obtenerConexion();
+        
+        $sql = 'SELECT * FROM VIEW_Perfil_Usuarios';
+        
+        $sentencia = $conexion->prepare($sql);
+        $sentencia->execute();
+        
+        $json = array();
+
+        foreach ($sentencia as $fila) {
+            $json[] = $fila; 
+        }
+
+        echo json_encode($json);
+
+    }
+
+    public static function editarUsuario($usuario){
+        Conexion::abrirConexion();
+        $conexion = Conexion::obtenerConexion();
+          
+        $sql = 'CALL SP_UPDATE_PERSON_USER(:in_nombreU, :in_email, :in_contrasena, :in_tipoUsuario, @id, @mensaje)';
+        $resultado = $conexion->prepare($sql);
+
+
+    }
+
+    public static function borrarUsuario($idUsuario){
+        Conexion::abrirConexion();
+        $conexion = Conexion::obtenerConexion();
+
+        $sql = 'CALL SP_DELETE_USER(:id, @mensaje)';
+        
+        $resultado = $conexion->prepare($sql);
+        $resultado->bindParam(':id',$idUsuario,PDO::PARAM_INT);
+
+        $resultado->execute();
+
+        $resultado->closeCursor(); 
+        
+        $salida = $conexion->query('select @mensaje');
+        $mensaje = $salida['@mensaje'];
+
+        echo json_encode($mensaje);
+
+    }
+
     public static function obtenerUsuario($id){
             Conexion::abrirConexion();
             $conexion = Conexion::obtenerConexion();
