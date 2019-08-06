@@ -2,7 +2,7 @@
 <?php include_once('Layouts/header_2.php'); ?>
 <!-- Button trigger modal -->
 <br><br><br>
-<button type="button" class=" ml-3 btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+<button type="button"  id="agregar" class=" ml-3 btn btn-primary" data-toggle="modal" data-target="#exampleModal">
   New
 </button>
 

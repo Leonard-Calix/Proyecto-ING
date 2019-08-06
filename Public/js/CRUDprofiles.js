@@ -1,6 +1,37 @@
 $(document).ready(function(){
     fetchProfiles();
 
+    function agregar(){
+
+
+    }
+
+    function EliminarUser(idUser){
+        console.log(idUser);
+
+        var id = $('#'+idUser).remove();
+        
+        if(confirm('Are you sure you want to delete it?')) {
+            $.ajax({
+                url: '../Controlador/ajax/gestion-Usuario.php?accion=delete',
+                method: 'post',
+                dataType: 'json',
+                data: {id: id },
+                success:function(res){
+                    console.log(res)
+
+                }
+
+
+            });
+        }
+    }
+    
+    function editarUser(id){
+        
+    }
+    
+
     function fetchProfiles() {
         $.ajax({
           url: '../Controlador/ajax/gestion-Usuario.php?accion=getProfiles',
@@ -19,12 +50,12 @@ $(document).ready(function(){
                       <td>${profiles.email}</td>
                       <td>${profiles.direccion}</td>
                       <td>
-                        <button onclick="editarUser();" type="button" class="btn btn-secondary" data-toggle="modal" 
+                        <button onclick="editarUser(${profiles.idUsuario});" type="button" class="btn btn-secondary" data-toggle="modal" 
                         data-target="#exampleModal">Edit</button>
                       </td>
                       <td>
-                        <button onclick="EliminarUser();" type="button" class="btn btn-danger" data-toggle="modal"
-                         data-target="#exampleModal2" id="delete">Delete</button>
+                        <button onclick="EliminarUser(${profiles.idUsuario});" type="button" class="btn btn-danger" data-toggle="modal"
+                         data-target="#exampleModal2">Delete</button>
                       </td>
                     </tr>
                     `
@@ -34,19 +65,5 @@ $(document).ready(function(){
         });
     }
 
-    function editarUser($id){
-        
-    }
     
-    function EliminarUser(){
-        let id = $('idUser').val();
-
-        if(confirm('Are you sure you want to delete it?')) {
-              $.post('../Controlador/gestion-Usuario.php?accion=detete', {id}, (response) => {
-                fetchProfiles();
-              });
-        }
-    }
-   
-
 });
