@@ -1,6 +1,7 @@
 <?php 
 
 class Profiles {
+    private $id;
     private $nombre;
 	private $apellidos;
 	private $identidad;
@@ -9,12 +10,12 @@ class Profiles {
     private $genero;
     private $nombreUsuario;
 	private $correo;
-	private $contrasenia;
     private $typeUser;
     
-    public function __construct($nombreC, $apellidos, $identidad, $direccion, $telefono, $genero,
-                                $nombreUser, $correo, $contrasena, $typeUser)
+    public function __construct($id, $nombreC, $apellidos, $identidad, $direccion, $telefono, $genero,
+                                $nombreUser, $correo,$typeUser)
     {
+        $this->id = $id;
         $this->nombre = $nombreC;
         $this->apellidos = $apellidos;
         $this->identidad = $identidad;
@@ -23,10 +24,12 @@ class Profiles {
         $this->genero = $genero;
         $this->nombreUsuario = $nombreUser;
         $this->correo = $correo;
-        $this->contrasenia = $contrasena;
         $this->typeUser = $typeUser;
     }
 
+    public function getId(){
+        return $this->id;
+    }
     public function getNombre(){
         return $this->nombre;
     }
@@ -59,10 +62,6 @@ class Profiles {
 		return $this->correo;
 	}
 
-	public function getContrasenia(){
-		return $this->contrasenia;
-    }
-    
     public function getTypeUser(){
         return $this->typeUser;
     }

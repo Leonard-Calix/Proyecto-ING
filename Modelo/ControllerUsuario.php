@@ -68,8 +68,8 @@ class ControllerUsuario{
         Conexion::abrirConexion();
         $conexion = Conexion::obtenerConexion();
           
-        $sql = 'CALL SP_UPDATE_PERSON_USER(:in_nombreC,in_apellidos,in_identidad,:in_telefono,:in_genero,:in_direccion, 
-                                           :in_nombreU, :in_email,:in_tipoUsuario, :idUpdate, @mensaje)';
+        $sql = 'CALL SP_UPDATE_PERSON_USER(:in_nombreC, :in_apellidos, :in_identidad, :in_telefono, :in_genero, :in_direccion,
+                :in_nombreU,:in_email,:in_tipoUsuario,:idUpdate,@mensaje)';
         $resultado = $conexion->prepare($sql);
 
         $nombre = $profiles->getNombre();
@@ -81,16 +81,18 @@ class ControllerUsuario{
         $nombreU = $profiles->getNombreUsuario();
         $email = $profiles->getCorreo();
         $tipoUsuario = $profiles->getTypeUser();
+        $idUpdate = $profiles->getId();
 
-        $resultado->bindParam(':in_nombreC', $nombre, PDO::PARAM_STR, 100);
-        $resultado->bindParam(':in_apellidos', $apellido, PDO::PARAM_STR, 100);
-        $resultado->bindParam(':in_identidad', $numeroId, PDO::PARAM_STR, 100);
-        $resultado->bindParam(':in_telefono', $telefono, PDO::PARAM_STR, 100);
-        $resultado->bindParam(':in_genero', $genero, PDO::PARAM_STR, 100);
-        $resultado->bindParam(':in_direccion', $direccion, PDO::PARAM_STR, 100);
+        $resultado->bindParam(':in_nombreC',$nombre, PDO::PARAM_STR, 100);
+        $resultado->bindParam(':in_apellidos',$apellido, PDO::PARAM_STR, 100);
+        $resultado->bindParam(':in_identidad',$numeroId, PDO::PARAM_STR, 100);
+        $resultado->bindParam(':in_telefono',$telefono, PDO::PARAM_STR, 100);
+        $resultado->bindParam(':in_genero',$genero, PDO::PARAM_STR, 100);
+        $resultado->bindParam(':in_direccion',$direccion, PDO::PARAM_STR, 100);
         $resultado->bindParam(':in_nombreU', $nombreU, PDO::PARAM_STR, 100);
-        $resultado->bindParam(':in_email', $email, PDO::PARAM_STR, 100);
-        $resultado->bindParam(':in_tipoUsuario', $tipoUsuario, PDO::PARAM_INT);
+        $resultado->bindParam(':in_email',$email, PDO::PARAM_STR, 100);
+        $resultado->bindParam(':in_tipoUsuario',$tipoUsuario, PDO::PARAM_INT);
+        $resultado->bindParam(':idUpdate', $idUpdate, PDO::PARAM_INT);
 
         $resultado->execute();
         $resultado->closeCursor(); 

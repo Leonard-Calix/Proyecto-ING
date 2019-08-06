@@ -27,8 +27,8 @@
 			$idPersona = ControllerPersona::agregarPersona($persona);
 			if($idPersona != NULL){
 				$usuario = new Usuario($_POST["usuario"], $_POST["correo"], $_POST["contrasenia"],$idPersona);
-
-				$usuario_insertado = ControllerUsuario::agregarUsuario($usuario, $_POST['typeUser']);
+				$typeUser = isset($_POST['typeUser']) ? $_POST['typeUser'] : 2;
+				$usuario_insertado = ControllerUsuario::agregarUsuario($usuario, $typeUser);
 				$salida = array("resultado" =>"Agregado exitosamente", "codigo" => $usuario_insertado);
 				echo json_encode($salida);
 
@@ -46,6 +46,7 @@
 		break;
 		
 		case 'update':
+			$idUpdate = $_POST['idUpdate'];
 			$nombre =  $_POST["nameUser"];
 			$apellido = $_POST["apellidoUser"];
 			$identidad = $_POST["identidad"];
@@ -54,11 +55,10 @@
 			$direccion = $_POST["direccion"];
 			$nombreUsuario = $_POST['username'];
 			$email = $_POST['correo'];
-			$contrasena = $_POST['contrasenia'];
 			$tipoUser = $_POST['typeUser'];
 
 			$profiles = new Profiles($nombre, $apellido, $identidad, $direccion, $telefono, $genero, 
-									 $nombreUsuario, $email, $contrasena, $tipoUser);
+									 $nombreUsuario, $email, $tipoUser);
 
 			$result = ControllerUsuario::editarUsuario($profiles);
 			
