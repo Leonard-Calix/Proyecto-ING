@@ -8,6 +8,10 @@
 	
 	switch ($_GET["accion"]) {
 		
+		case 'getProfiles':
+			ControllerUsuario::obtenerProfiles();
+			break;
+		
 		case 'agregar':
 
 			$nombre =  $_POST["nombre"];
@@ -32,6 +36,14 @@
 				echo json_encode($salida);
 			}
 			break;
+		
+		
+		case 'delete':
+			$id = $_POST['idUser'];
+			$salida = ControllerUsuario::borrarUsuario($id);
+			echo json_encode($salida);
+			break;
+
 		
 		case 'login':
 			$email = $_POST['correo'];

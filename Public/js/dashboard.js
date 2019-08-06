@@ -1,6 +1,5 @@
 $(document).ready(function($) {
 
-
 		$.ajax({
 			url:"../Controlador/ajax/gestion-Tours.php?accion=tours",
 			method:'POST',
