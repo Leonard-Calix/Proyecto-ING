@@ -134,7 +134,7 @@ $(document).ready(function(){
 function redireccionar(id, tipo){
 	
 	if(tipo == 1){
-		document.location.href='manager.php';
+		document.location.href='main.php';
 	}else if(tipo == 2){
 		document.location.href='perfil.php';
 	}else if(tipo == 3){
