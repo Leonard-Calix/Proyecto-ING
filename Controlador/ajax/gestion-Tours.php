@@ -32,6 +32,10 @@
 			Tours::detalleTours($_POST["id"]);
 		break;
 
+		case 'infoTours':
+			Tours::obtenerTours_editar($_POST["id"]);
+		break;
+
 		case 'agregarTours':
 			$nombre = $_POST["nombre"];
 			$descripcion = $_POST["descripcion"];
@@ -47,25 +51,47 @@
 											  
 			$idtours = $tours->agregar();
 
-			//echo $idtours;
-			//echo $estado;
-
-			//$tours->toString();
-/*
-
 			if ($idtours!=null) {
-				$res = Tours::asignarHotel($idtours, $estado);
-
-				$data = array("res" => $res);
-
-				echo json_encode($data);
-
+				echo json_encode(array("respuesta" => $idtours));
 			}else{
-				echo "{'Resultado ' : 'Fallo'}";
+				echo '{ "respuesta" :  0 }';
 			}
 			
-*/
+		break;
+
+		case 'editarTours':
+
+			$id = $_POST["id"];
+			$nombre = $_POST["nombre"];
+			$descripcion = $_POST["descripcion"];
+			$precio = intval($_POST["precio"]);
+			$cupos = intval($_POST["cupos"]);
+			$calificacion = intval($_POST["calificacion"]);
+			$estado = intval($_POST["estado"]);
+			$guia = intval($_POST["guia"]);
+			$fechaI = date("Y-m-d", strtotime( $_POST["fechaI"] ));
+			$fechaF = date("Y-m-d", strtotime( $_POST["fechaF"] ));
+		
+			$tours = new Tours($id, $nombre, $descripcion, $fechaI, $fechaF, $precio, $cupos, $calificacion, $estado, $guia ); 
+											  
+			$res = $tours->editarTours();
+
+			if ($res!=null) {
+				echo '{ "respuesta" :  1 }';
+			}else{
+				echo '{ "respuesta" :  0 }';
+			}
 			
+		break;
+
+		case 'eliminarTours':
+
+			$id = intval($_POST["id"]);
+
+			$res = Tours::removeTours($id);
+
+			echo json_encode(array("respuesta" => $res));
+
 		break;
 
 		default:

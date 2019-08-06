@@ -53,9 +53,11 @@
 	$tours = 20;
 
 	
-	//$tours = new TOURS(null,"San pedro Sula","Lindo Lugar",$fechaI,$fechaF,25,25,5,1,1);
+	echo TOURS::removeTours(30);
 
-	//$id = $tours->agregar();
+	//$tours = new TOURS(null,"Sula 10","Lindo Lugar",$fechaI,$fechaF,25,25,5,1,1);
+
+	//echo $tours->agregar();
 
 	//echo "IDTours" . $id;
 
@@ -63,6 +65,6 @@
 
 	//echo $tours->toString();
 
-	echo Tours::asignarHotel($tours,$estado);
+	//echo Tours::asignarHotel($tours,$estado);
 	
  ?>
