@@ -5,6 +5,13 @@ FROM `tours` t inner join populares p oN p.idpopulares=t.idtours
 
 /*VISTA DE LOS PERFILES DE USUARIO*/
 
+/*TODOS LOS USUARIOS*/
+CREATE VIEW VIEW_Perfil_Usuarios AS
+SELECT u.idUsuario, p.nombreCompleto, p.Apellidos, p.numeroIdentidad, p.telefono, p.genero, p.direccion,
+	   u.nombreUsuario, u.email
+FROM persona p 
+INNER JOIN usuario u ON p.idPersona = u.idUsuario;
+
 /*ADMINISTRADOR*/
 CREATE VIEW VIEW_Perfil_Usuario_Admin AS
 SELECT p.idPersona, u.idUsuario, p.nombreCompleto, p.Apellidos, p.numeroIdentidad, p.telefono, p.genero, p.direccion,
