@@ -90,7 +90,7 @@ class ControllerUsuario{
         $salida = $conexion->query('select @mensaje');
         $mensaje = $salida['@mensaje'];
 
-        echo json_encode($mensaje);
+        return json_encode($mensaje);
 
     }
 

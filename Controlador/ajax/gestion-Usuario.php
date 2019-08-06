@@ -39,8 +39,9 @@
 		
 		
 		case 'delete':
-			$id = $_POST['id'];
-			ControllerUsuario::borrarUsuario($id);
+			$id = $_POST['idUser'];
+			$salida = ControllerUsuario::borrarUsuario($id);
+			echo json_encode($salida);
 			break;
 
 		
