@@ -4,7 +4,7 @@
 
 class ControllerUsuario{
 
-    public static function agregarUsuario($usuario){
+    public static function agregarUsuario($usuario,$tipoUsuario){
         
         Conexion::abrirConexion();
         $conexion = Conexion::obtenerConexion();
@@ -15,7 +15,7 @@ class ControllerUsuario{
         $nombreU = $usuario->getNombreUsuario();
         $email = $usuario->getCorreo();
         $contrasena = $usuario->getContrasenia();
-        $tipoUsuario = 2; /*TURISTA*/ 
+        #$tipoUsuario = 2; /*TURISTA*/ 
     
         // enviando parametros al procedimiento
         $resultado->bindParam(':in_nombreU', $nombreU, PDO::PARAM_STR, 100);

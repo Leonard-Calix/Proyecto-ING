@@ -27,7 +27,7 @@
 			if($idPersona != NULL){
 				$usuario = new Usuario($_POST["usuario"], $_POST["correo"], $_POST["contrasenia"],$idPersona);
 
-				$usuario_insertado = ControllerUsuario::agregarUsuario($usuario);
+				$usuario_insertado = ControllerUsuario::agregarUsuario($usuario, $_POST['typeUser']);
 				$salida = array("resultado" =>"Agregado exitosamente", "codigo" => $usuario_insertado);
 				echo json_encode($salida);
 

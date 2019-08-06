@@ -36,37 +36,35 @@ function fetchProfiles() {
     });
 }    
 
-function agregar(){
-
-    $('#agregar').click(function () {
+function agregarUser(){
 	
-        var nombre = $('#nameUser').val();
-        var apellido = $('#apellidoUser').val();
-        var correo = $('#correo').val();
-        var usuario = $('#username').val();
-        var identidadUser = $('#identidad').val();
-        var phone = $('#phone').val();
-        var genero = $('#genero').val();
-        var direccion = $('#direccion').val();
-        var contrasenia = $('#contrasenia').val();
+    var nombre = $('#nameUser').val();
+    var apellido = $('#apellidoUser').val();
+    var correo = $('#correo').val();
+    var usuario = $('#username').val();
+    var identidadUser = $('#identidad').val();
+    var phone = $('#phone').val();
+    var genero = $('#genero').val();
+    var direccion = $('#direccion').val();
+    var contrasenia = $('#contrasenia').val();
 
-        if ($('input[name="typeUser"]').is(':checked')) {
-            var typeUser = $('input[name="typeUser"]:checked').val();
-        } else {
-            alert('Se debe seleccionar un tipo de usuario');
-        }
+    if ($('input[name="typeUser"]').is(':checked')) {
+        var typeUser = $('input[name="typeUser"]:checked').val();
+    } else {
+        alert('Se debe seleccionar un tipo de usuario');
+    }
 
     
-        var parametros = "nombre="+nombre+"&apellido="+apellido+"&usuario="+usuario+"&identidad="+identidadUser+
-                         "&phone="+phone+"&genero="+genero+"&direccion="+direccion+"&correo="+correo+
-                         "&contrasenia="+contrasenia+"&typeUser="+typeUser;
-        console.log(parametros);
+    var parametros = "nombre="+nombre+"&apellido="+apellido+"&identidad="+identidadUser+
+                    "&phone="+phone+"&genero="+genero+"&direccion="+direccion+"&usuario="+usuario+
+                    "&correo="+correo+"&contrasenia="+contrasenia+"&typeUser="+typeUser;
+    console.log(parametros);
     
-        if (nombre==" " || apellido=="" || correo==" " || usuario==" " || contrasenia==" ") {
-            $('#error-login').fadeIn(500);
-        }else{
+    if (nombre==" " || apellido=="" || correo==" " || usuario==" " || contrasenia==" ") {
+        alert('Datos Vacios');
+    }else{
     
-            $.ajax({
+        $.ajax({
             url:"../Controlador/ajax/gestion-Usuario.php?accion=agregar",
             dataType:'json',
             method: 'POST',
@@ -76,23 +74,22 @@ function agregar(){
     
                 if(respuesta.codigo != 0){
     
-                    $('#nombre').val("");
-                    $('#apellido').val("");
-                    $('#nombre').val("");
+                    $('#nameUser').val("");
+                    $('#apellidoUser').val("");
                     $('#correo').val("");
-                    $('#usuario').val("");
+                    $('#username').val("");
+                    $('#identidad').val("");
+                    $('#phone').val("");
+                    $('#genero').val("");
+                    $('#direccion').val("");
                     $('#contrasenia').val("");
                     
                     fetchProfiles();
                 }
             }
-            });
+        });
     
-        }
-    
-        
-    });
-
+    }
 }
 
 function EliminarUser(idUser){
