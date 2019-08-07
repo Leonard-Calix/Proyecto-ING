@@ -21,8 +21,6 @@
   <!-- CSS THEME-->
   <link href="../Public/css/theme.min.css" rel="stylesheet" />
 
-  
-
 </head>
 
 <body class="">
@@ -84,7 +82,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <p class="navbar-brand">Tour manage</p>
+            <p class="navbar-brand">Tours Manager</p>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>

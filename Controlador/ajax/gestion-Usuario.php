@@ -12,11 +12,6 @@
 		case 'getProfiles':
 			ControllerUsuario::obtenerProfiles();
 			break;
-		
-		case 'infoProfiles':
-			$id = $_POST['id'];
-			ControllerUsuario::obtenerProfile($id);
-		break;
 
 		case 'agregar':
 
@@ -42,12 +37,16 @@
 				echo json_encode($salida);
 			}
 		break;
-		
-		
+			
 		case 'delete':
 			$id = intval($_POST['idUser']);
 			$salida = ControllerUsuario::borrarUsuario($id);
 			echo json_encode(array("resp" => $salida));
+		break;
+
+		case 'infoProfiles':
+			$id = $_POST['idUser'];
+			ControllerUsuario::obtenerProfile($id);
 		break;
 		
 		case 'update':

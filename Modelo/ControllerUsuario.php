@@ -64,7 +64,7 @@ class ControllerUsuario{
 
     }
 
-    public static function obtenerProfile($idUpadate){
+    public static function obtenerProfile($idUpdate){
         Conexion::abrirConexion();
         $conexion = Conexion::obtenerConexion();
 

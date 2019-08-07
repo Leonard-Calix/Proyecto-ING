@@ -2,6 +2,16 @@ $(document).ready(function(){
     fetchProfiles();
 });
 
+function cambio() {
+	$(".detalle").hide(); 
+	$(".edite").hide();
+	$("#info").hide();
+	$(".new").show();
+	$("#registro_profiles").show();
+	$("#btn-edit").hide();
+	$("#btn-add").show();
+}
+
 function fetchProfiles() {
     $.ajax({
       url: '../Controlador/ajax/gestion-Usuario.php?accion=getProfiles',
@@ -126,18 +136,10 @@ function fetchEditar(idEdit){
     $.ajax({
         url: '../Controlador/ajax/gestion-Usuario.php?accion=infoProfiles',
         method: 'POST',
-        data: {id: idEdit},
+        data: {idEdit: idEdit},
         success:function(resp){
             console.log(resp);
-            $("#idUser").val(resp[0].idUsuario);
-            $("#nameUser").val(resp[0].nombreCompleto);
-            $("#apellidoUser").val(resp[0].Apellidos);
-            $("#username").val(resp[0].nombreUsuario);
-            $("#identidad").val(resp[0].numeroIdentidad);
-            $("#phone").val(resp[0].telefono);
-            $("#genero").val(resp[0].genero);
-            $("#direccion").val(resp[0].direccion);
-            $("#correo").val(resp[0].email);
+            
         }
 
     });
