@@ -177,6 +177,26 @@ class ControllerUsuario{
         return json_encode($data);
     }
 
+    public static function ObtenerGuias_D(){
+        Conexion::abrirConexion();
+        $conexion = Conexion::obtenerConexion();
+
+        $sql = "SELECT u.nombreUsuario,  p.nombreCompleto, p.Apellidos, u.email, idGuia, p.idPersona FROM guia g
+                INNER JOIN usuario u ON u.idUsuario=g.idUsuario
+                INNER JOIN persona p ON p.idPersona=u.idPersona;";
+
+        $sentencia = $conexion->prepare($sql);
+        $sentencia->execute();
+
+        $guias = array();
+        
+        foreach ($sentencia as $guia) {
+            $guias[] = $guia; 
+        }
+
+        echo json_encode($guias);
+    } 
+
     public static function obtenerGuias(){
         Conexion::abrirConexion();
         $conexion = Conexion::obtenerConexion();

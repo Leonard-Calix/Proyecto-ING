@@ -24,6 +24,34 @@ $(document).ready(function($) {
 		});
 
 		$.ajax({
+			url:"../Controlador/ajax/gestion-Tours.php?accion=GuiasD",
+			dataType:'json',
+			success:function(res){
+				console.log("respuesta de la tabla de guias");
+				console.log(res);
+
+				for (var i = 0; i < res.length; i++) {
+					
+					$("#res-guide").append(`
+						<tr>
+     					 <th scope="row">1</th>
+     					 <td>${res[i].nombreCompleto}</td>
+     					 <td>Otto</td>
+     					 <td>@mdo</td>
+     					 <td>@mdo</td>
+     					 <td>@mdo</td>
+     					 <td><button onclick="editarGuia();" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">Edit</button></td>
+     					 <td><button onclick="EliminarGuia();" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal2">Delete</button></td>
+   					 </tr>
+
+					`);
+				}
+						
+			}
+
+		});
+
+		$.ajax({
 			url:"../Controlador/ajax/gestion-Usuario.php?accion=obtenerGuias",
 			method:'POST',
 			dataType:'json',

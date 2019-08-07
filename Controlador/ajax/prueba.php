@@ -100,5 +100,7 @@
 	$result = ControllerUsuario::editarUsuario($profiles);
 			
 	echo $result;*/
+
+	ControllerUsuario::obtenerGuias_D();
 	
  ?>

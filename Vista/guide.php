@@ -23,17 +23,8 @@
       <th scope="col"></th>
     </tr>
   </thead>
-  <tbody id="res">
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
-      <td><button onclick="editarGuia();" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">Edit</button></td>
-      <td><button onclick="EliminarGuia();" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal2">Delete</button></td>
-    </tr>
+  <tbody id="res-guide">
+    
   </tbody>
 </table>
 
