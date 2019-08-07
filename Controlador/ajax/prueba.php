@@ -99,6 +99,10 @@
 
 	$result = ControllerUsuario::editarUsuario($profiles);
 			
+	echo $result;
+	$idBorrar = 20;
+
+	$result = ControllerUsuario::borrarUsuario($idBorrar);
+
 	echo $result;*/
-	
  ?>

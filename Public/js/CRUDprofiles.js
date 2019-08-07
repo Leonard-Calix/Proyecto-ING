@@ -37,7 +37,9 @@ function fetchProfiles() {
 }    
 
 function agregarUser(){
-	
+    
+    $("#btn-edit").hide();
+    
     var nombre = $('#nameUser').val();
     var apellido = $('#apellidoUser').val();
     var correo = $('#correo').val();
@@ -100,18 +102,47 @@ function EliminarUser(idUser){
         url: '../Controlador/ajax/gestion-Usuario.php?accion=delete',
         method: 'POST',
         dataType: 'json',
-        data: {id: idUser},
+        data: {idUser: idUser},
         success:function(res){
-            console.log(res);
-            if(res == 1){
+            console.log(res.resp);
+            if(res.resp==1){
                 $("#"+idUser).remove();
-                fetchProfiles();
+                alert("The user profile has been deleted successfully");
+                $(document).ajaxStop(function(){ window.location.reload(); }); 
             }
             
         }
     });
 
 }
+
+function fetchEditar(idEdit){
+    $("#info").hide();
+    $("#registro_profiles").show();
+    $("#idUser").val(idEdit);
+    $("#btn-add").hide();
+    $("#btn-edit").show();
+
+    $.ajax({
+        url: '../Controlador/ajax/gestion-Usuario.php?accion=infoProfiles',
+        method: 'POST',
+        data: {id: idEdit},
+        success:function(resp){
+            console.log(resp);
+            $("#idUser").val(resp[0].idUsuario);
+            $("#nameUser").val(resp[0].nombreCompleto);
+            $("#apellidoUser").val(resp[0].Apellidos);
+            $("#username").val(resp[0].nombreUsuario);
+            $("#identidad").val(resp[0].numeroIdentidad);
+            $("#phone").val(resp[0].telefono);
+            $("#genero").val(resp[0].genero);
+            $("#direccion").val(resp[0].direccion);
+            $("#correo").val(resp[0].email);
+        }
+
+    });
+}
+
 
 function editarUser(idUpdate){
     console.log(idUpdate);
@@ -137,23 +168,29 @@ function editarUser(idUpdate){
 		url: '../Controlador/ajax/gestion-Usuario.php?accion=update',
 		method: 'POST',
 		dataType: 'json',
-		data: {id: idUpdate},
+		data: {idUpdate: idUpdate},
 		success:function(res){
             console.log(res);
-            $('#idUpdate').val(res[0].idUsuario),
-            $('#nameUser').val(res[0].nombre),
-            $('#apellidoUser').val(res[0].apellido),
-            $('#correo').val(),
-            $('#username').val(),
-            $('#identidad').val(),
-            $('#phone').val(),
-            $('#genero').val(),
-            $('#direccion').val(),
-            $('#contrasenia').val(),
-            $('input[name="typeUser"]:checked').val()
+  
+			if (res.respuesta==1) {
+				$("#"+data.idUpdate).html(`
+				<th scope="row">${data.idUpdate}</th>
+          		<td>${ $("#nameUser").val() }</td>
+                <td>${ $("#apellidoUser").val() }</td>
+                <td>${ $("#correo").val() }</td>
+                <td>${ $("#username").val() }</td>
+                <td>${ $("#identidad").val() }</td>
+                <td>${ $("#phone").val() }</td>
+                <td>${ $("#genero").val() }</td>  
+                <td>${ $("#direccion").val() }</td>
+                <td>${ $("#contrasenia").val() }</td>
+                <td>${ $("input[name='typeUser']:checked").val() }</td>
+          		<td scope="col"> <button onclick="editar(${data.idUpdate});" class="btn btn-outline-success" data-toggle="modal" data-target="#modal-video" >Edit</button> </td>
+          		<td scope="col"> <button onclick="eliminar(${data.idUpdate})";" class="btn btn-outline-danger" >Remove</button> </td>
+				`);
+			}
 	
 		}
 	});
-
 
 }

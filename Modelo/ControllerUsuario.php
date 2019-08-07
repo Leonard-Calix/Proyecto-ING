@@ -64,6 +64,23 @@ class ControllerUsuario{
 
     }
 
+    public static function obtenerProfile($idUpadate){
+        Conexion::abrirConexion();
+        $conexion = Conexion::obtenerConexion();
+
+        $sql = "SELECT * FROM VIEW_Perfil_Usuarios WHERE idUsuario = '$idUpdate'";
+        $result = $conexion->prepare($sql);
+        $result->execute();
+
+        $profiles = array();
+        
+        foreach($result as $profile){
+            $profiles[] = $profile;
+        }
+        
+        echo json_encode($profiles);
+    }
+
     public static function editarUsuario($profiles){
         Conexion::abrirConexion();
         $conexion = Conexion::obtenerConexion();
@@ -129,8 +146,6 @@ class ControllerUsuario{
         }else{
             return 0;
         }
-        
-
     }
 
     public static function obtenerUsuario($id){
