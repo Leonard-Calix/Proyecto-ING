@@ -45,6 +45,25 @@ class ControllerUsuario{
         }
     }
 
+    public static function obtenerProfile_id($id){
+        Conexion::abrirConexion();
+        $conexion = Conexion::obtenerConexion();
+        
+        $sql = "SELECT * FROM VIEW_Perfil_Usuarios WHERE idUsuario ='$id'";
+        
+        $sentencia = $conexion->prepare($sql);
+        $sentencia->execute();
+        
+        $json = array();
+
+        foreach ($sentencia as $fila) {
+            $json[] = $fila; 
+        }
+
+        echo json_encode($json);
+    }
+
+
     public static function obtenerProfiles(){
         Conexion::abrirConexion();
         $conexion = Conexion::obtenerConexion();

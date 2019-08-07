@@ -133,7 +133,7 @@ function fetchEditar(idEdit){
     $("#idUser").val(idEdit);
     $("#btn-add").hide();
     $("#btn-edit").show();
-    console.log("ID = " + idEdit );
+    //console.log("ID = " + idEdit );
 
     $.ajax({
         url: '../Controlador/ajax/gestion-Usuario.php?accion=infoProfiles',
@@ -142,23 +142,29 @@ function fetchEditar(idEdit){
         data: { idEdit: idEdit },
         success:function(resp){
             console.log(resp);
-            
+            $("#idUser").val(resp[0].idUsuario);
+            $("#nameUser").val(resp[0].nombreCompleto);
+            $("#apellidoUser").val(resp[0].Apellidos);
+            $("#username").val(resp[0].nombreUsuario);
+            $("#identidad").val(resp[0].numeroIdentidad);
+            $("#phone").val(resp[0].telefono);
+            $("#genero").val(resp[0].genero);
+            $("#direccion").val(resp[0].direccion);
+            $("#correo").val(resp[0].email);
+            $("contrasenia").val(resp[0].contrasena);
         }
 
     });
-
     
 }
 
+function editarUser(){
 
-function editarUser(idUpdate){
-    console.log(idUpdate);
-    
     $("#btn-add").hide();
     $("#btn-edit").show();
     
     var datos = {
-        idUpdate: $('#idUpdate').val(idUpdate),
+        idUpdate: $('#idUser').val(),
         nombre : $('#nameUser').val(),
         apellido : $('#apellidoUser').val(),
         correo : $('#correo').val(),
@@ -170,18 +176,19 @@ function editarUser(idUpdate){
         contrasenia : $('#contrasenia').val(),
         typeUser : $('input[name="typeUser"]:checked').val()
     }
+    
+    //console.log(datos);
 
     $.ajax({
 		url: '../Controlador/ajax/gestion-Usuario.php?accion=update',
 		method: 'POST',
 		dataType: 'json',
-		data: {idUpdate: idUpdate},
+		data: datos,
 		success:function(res){
             console.log(res);
-  
 			if (res.respuesta==1) {
-				$("#"+data.idUpdate).html(`
-				<th scope="row">${data.idUpdate}</th>
+				$("#"+datos.idUpdate).html(`
+				<th scope="row">${datos.idUpdate}</th>
           		<td>${ $("#nameUser").val() }</td>
                 <td>${ $("#apellidoUser").val() }</td>
                 <td>${ $("#correo").val() }</td>
@@ -192,11 +199,13 @@ function editarUser(idUpdate){
                 <td>${ $("#direccion").val() }</td>
                 <td>${ $("#contrasenia").val() }</td>
                 <td>${ $("input[name='typeUser']:checked").val() }</td>
-          		<td scope="col"> <button onclick="editar(${data.idUpdate});" class="btn btn-outline-success" data-toggle="modal" data-target="#modal-video" >Edit</button> </td>
-          		<td scope="col"> <button onclick="eliminar(${data.idUpdate})";" class="btn btn-outline-danger" >Remove</button> </td>
-				`);
+          		<td scope="col"> <button onclick="editarUser(${datos.idUpdate});" class="btn btn-outline-success" data-toggle="modal" data-target="#modal-video" >Edit</button> </td>
+          		<td scope="col"> <button onclick="EliminarUser(${datos.idUpdate})";" class="btn btn-outline-danger" >Remove</button> </td>
+                `);
+                alert("The user profile has been updated successfully");
+                $(document).ajaxStop(function(){ window.location.reload(); }); 
 			}
-	
+            
 		}
 	});
 

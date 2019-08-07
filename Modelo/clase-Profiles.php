@@ -9,11 +9,12 @@ class Profiles {
 	private $telefono;
     private $genero;
     private $nombreUsuario;
-	private $correo;
+    private $correo;
+    private $contrasena;
     private $typeUser;
     
     public function __construct($id, $nombreC, $apellidos, $identidad, $direccion, $telefono, $genero,
-                                $nombreUser, $correo,$typeUser)
+                                $nombreUser, $correo, $contrasena, $typeUser)
     {
         $this->id = $id;
         $this->nombre = $nombreC;
@@ -24,6 +25,7 @@ class Profiles {
         $this->genero = $genero;
         $this->nombreUsuario = $nombreUser;
         $this->correo = $correo;
+        $this->contrasena = $contrasena;
         $this->typeUser = $typeUser;
     }
 
@@ -62,6 +64,9 @@ class Profiles {
 		return $this->correo;
 	}
 
+    public function getContrasena(){
+        return $this->contrasena;
+    }
     public function getTypeUser(){
         return $this->typeUser;
     }

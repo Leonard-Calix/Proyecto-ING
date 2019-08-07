@@ -46,23 +46,24 @@
 
 		case 'infoProfiles':
 			$id = $_POST['idEdit'];
-			ControllerUsuario::obtenerProfile($id);
+			ControllerUsuario::obtenerProfile_id($id);
 		break;
 		
 		case 'update':
 			$idUpdate = $_POST['idUpdate'];
-			$nombre =  $_POST["nameUser"];
-			$apellido = $_POST["apellidoUser"];
-			$identidad = $_POST["identidad"];
+			$nombre =  $_POST["nombre"];
+			$apellido = $_POST["apellido"];
+			$identidad = $_POST["identidadUser"];
 			$telefono = $_POST["phone"];
 			$genero = $_POST["genero"];
 			$direccion = $_POST["direccion"];
-			$nombreUsuario = $_POST['username'];
+			$nombreUsuario = $_POST['usuario'];
 			$email = $_POST['correo'];
+			$contrasena = $_POST['contrasenia'];
 			$tipoUser = $_POST['typeUser'];
 
 			$profiles = new Profiles($idUpdate, $nombre, $apellido, $identidad, $direccion, $telefono, $genero, 
-									 $nombreUsuario, $email, $tipoUser);
+									 $nombreUsuario, $email, $contrasena, $tipoUser);
 
 			$result = ControllerUsuario::editarUsuario($profiles);
 			

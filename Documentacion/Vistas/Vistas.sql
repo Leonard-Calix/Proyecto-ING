@@ -8,7 +8,7 @@ FROM `tours` t inner join populares p oN p.idpopulares=t.idtours
 /*TODOS LOS USUARIOS*/
 CREATE VIEW VIEW_Perfil_Usuarios AS
 SELECT u.idUsuario, p.nombreCompleto, p.Apellidos, p.numeroIdentidad, p.telefono, p.genero, p.direccion,
-	   u.nombreUsuario, u.email
+	   u.nombreUsuario, u.email, u.contrasena
 FROM persona p 
 INNER JOIN usuario u ON p.idPersona = u.idUsuario;
 
