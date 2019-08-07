@@ -33,8 +33,6 @@ $(document).ready(function(){
 				console.log(res);
 				$('#img-p').append(`<img style="width: 100%;" src="${res[0].ruta}" alt="App landing" class="img-fluid">`);
 
-						
-				
 			}
 		});
 

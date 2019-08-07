@@ -242,7 +242,7 @@ function editarReguistro(){
 		fechaF : $("#fechaF").val(),
 		calificacion : $("#calificacion").val(),
 		cupos : $("#cupos").val()
-	};
+};
 
 	//console.log(data);
 
