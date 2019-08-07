@@ -181,7 +181,7 @@ class ControllerUsuario{
         Conexion::abrirConexion();
         $conexion = Conexion::obtenerConexion();
 
-        $sql = "SELECT u.nombreUsuario,  p.nombreCompleto, p.Apellidos, u.email, idGuia, p.idPersona FROM guia g
+        $sql = "SELECT u.nombreUsuario,  p.nombreCompleto, p.Apellidos, u.email, idGuia, p.idPersona, p.direccion FROM guia g
                 INNER JOIN usuario u ON u.idUsuario=g.idUsuario
                 INNER JOIN persona p ON p.idPersona=u.idPersona;";
 

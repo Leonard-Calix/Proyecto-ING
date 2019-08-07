@@ -42,14 +42,20 @@
       </div>
       <div class="modal-body">
 
+        <div id="info">
+
+        </div>
+
+        <div id="registro_profiles">
         <div class="row">
           <div class="col-md-6">
               <div class="form-group">
                <label>First Name</label>
                <input type="text" id="nameUser" class="form-control">
+               <input type="hidden" name="" id="idUser">
              </div>
           </div>
-            <div class="col-md-6">
+          <div class="col-md-6">
              <div class="form-group">
                <label>Last Name</label>
                <input type="text" id="apellidoUser" class="form-control">
@@ -110,7 +116,6 @@
                 <input type="radio" name="typeUser" class="radio-inline" value=3>Guia
             </div>
           </div>
-
           <br>
       </div> 
       <div class="modal-footer">
@@ -121,6 +126,9 @@
     </div>
   </div>
 </div>
+</div>
+
+        
 
 <?php include_once('Layouts/footer.php'); ?>
 </div>

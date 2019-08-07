@@ -68,7 +68,7 @@
 	//echo $tours->toString();
 
 	//echo Tours::asignarHotel($tours,$estado);
-	/*$id = 20;
+	$id = 26;
 	$nombre =  "pruebanombre";
 	$apellido = "pruebaapellido";
 	$identidad = "pruebaidentidad";
@@ -99,8 +99,17 @@
 
 	$result = ControllerUsuario::editarUsuario($profiles);
 			
+	echo $result;
+	/*
+	$idBorrar = 20;
+
+	$result = ControllerUsuario::borrarUsuario($idBorrar);
+
 	echo $result;*/
+<<<<<<< HEAD
 
 	ControllerUsuario::obtenerGuias_D();
 	
+=======
+>>>>>>> 58ea2e2c720f237324dea63108b8d124b388dfd1
  ?>

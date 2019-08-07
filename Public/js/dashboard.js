@@ -105,8 +105,6 @@ function cambio() {
 
 function eliminar(id) {
 	console.log(id);
-
-	
 	
 	$.ajax({
 		url: '../Controlador/ajax/gestion-Tours.php?accion=eliminarTours',
