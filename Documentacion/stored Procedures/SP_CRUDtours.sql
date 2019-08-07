@@ -190,3 +190,5 @@ BEGIN
 		SET pMensaje = 'No se puede borrar. Verifique sus datos';
 	END IF; 
 END$$
+
+DELIMITER ;

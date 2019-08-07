@@ -49,9 +49,9 @@
       <div class="modal-header" >
 
         <!-- Title -->
-        <h4 class="modal-title detalle text-uppercase" id="modal-video-header">Detalle Tours</h4>
-        <h4 class="modal-title new text-uppercase" id="modal-video-header">New Tours</h4>
-        <h4 class="modal-title edite text-uppercase" id="modal-video-header">Edite Tours</h4>
+        <h4 class="modal-title text-uppercase" id="modal-video-header"> <span id="detalle-tour" >Detalle Tours</span> </h4>
+        <h4 class="modal-title text-uppercase" id="modal-video-header"><span id="new-tour" >New Tours</span> </h4>
+        <h4 class="modal-title text-uppercase" id="modal-video-header"><span id="edite-tour" >Edite Tours</span> </h4>
 
 
         <!-- Close -->

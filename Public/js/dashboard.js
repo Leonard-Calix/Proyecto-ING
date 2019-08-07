@@ -7,6 +7,7 @@ $(document).ready(function($) {
 			success:function(res){
 				console.log("respuesta de la tabla de tours");
 				console.log(res);
+				$('#t-res').html(" ");
 				for (var i = 0; i < res.length; i++) {
 					$('#t-res').append(` 
 					<tr id="${res[i].id}" >
@@ -23,34 +24,7 @@ $(document).ready(function($) {
 
 		});
 
-		$.ajax({
-			url:"../Controlador/ajax/gestion-Tours.php?accion=GuiasD",
-			dataType:'json',
-			success:function(res){
-				console.log("respuesta de la tabla de guias");
-				console.log(res);
-
-				for (var i = 0; i < res.length; i++) {
-					
-					$("#res-guide").append(`
-						<tr>
-     					 <th scope="row">1</th>
-     					 <td>${res[i].nombreCompleto}</td>
-     					 <td>Otto</td>
-     					 <td>@mdo</td>
-     					 <td>@mdo</td>
-     					 <td>@mdo</td>
-     					 <td><button onclick="editarGuia();" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">Edit</button></td>
-     					 <td><button onclick="EliminarGuia();" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal2">Delete</button></td>
-   					 </tr>
-
-					`);
-				}
-						
-			}
-
-		});
-
+		
 		$.ajax({
 			url:"../Controlador/ajax/gestion-Usuario.php?accion=obtenerGuias",
 			method:'POST',
@@ -59,7 +33,7 @@ $(document).ready(function($) {
 				console.log("respuesta de Guias");
 				console.log(res);
 				for (var i = 0; i < res.length; i++) {
-					$("#guia").append(`<option value="${res[i].idguia}" >${res[i].nombreCompleto}</option>`);
+					$("#guia").append(`<option value="${res[i].idGuia}" >${res[i].nombreCompleto}</option>`);
 				}		
 			}
 		});
@@ -81,25 +55,28 @@ $(document).ready(function($) {
 });
 
 function cambio() {
-	$(".detalle").hide(); 
-	$(".edite").hide();
-	$("#info").hide();
-	$(".new").show();
+	$("#new-tour").show();
 	$("#registro_tours").show();
+
+	$("#detalle-tour").hide(); 
+	$("#info").hide();
+
+	$("#edite-tour").hide();
+	
 	$("#btn-E").hide();
 	$("#btn-G").show();
 	//$("#fechaI").val("2019-07-20");
 	//$("#estado").val('2');
-	$("#idtours").val("")
-	$("#nombre").val("")
-	$("#descripcion").val("")
-	$("#precio").val("")
-	$("#guia").val("")
-	$("#estado").val("")
-	$("#fechaI").val("")
-	$("#fechaF").val("")
-	$("#calificacion").val("")
-	$("#cupos").val("")
+	$("#idtours").val("");
+	$("#nombre").val("");
+	$("#descripcion").val("");
+	$("#precio").val("");
+	$("#guia").val("");
+	$("#estado").val("");
+	$("#fechaI").val("");
+	$("#fechaF").val("");
+	$("#calificacion").val("");
+	$("#cupos").val("");
 }
 
 
@@ -123,9 +100,9 @@ function eliminar(id) {
 
 function editar(id) { // solo muestra informacion
 	$("#info").hide();
-	$(".new").hide();
-	$(".detalle").hide();
-	$(".edite").show();
+	$("#new-tour").hide();
+	$("#detalle-tour").hide();
+	$("#edite-tour").show();
 	$("#registro_tours").show();
 	$("#idT").val(id);
 	$("#btn-G").hide();
@@ -158,12 +135,12 @@ function editar(id) { // solo muestra informacion
 
 function detalles(id) {
 	$("#info").html(" ");
-	$(".detalle").show(); 
-	$(".new").hide();
 	$("#info").show();
+	$("#detalle-tour").show(); 
+	$("#new-tour").hide();
+	$("#edite-tour").hide();
 	$("#registro_tours").hide();
 
-	$("#header").html('<h4 class="modal-title" id="modal-video-header"></h4>');
 
 	$.ajax({
 		url: '../Controlador/ajax/gestion-Tours.php?accion=detalleTours',
@@ -179,7 +156,7 @@ function detalles(id) {
 			$("#info").append(`<h5 class="card-title"> <span class="text-primary font-weight-bold">Precio</span> ${res[0].Precio_Tours} </h5>`);
 			$("#info").append(`<h5 class="card-title"> <span class="text-primary font-weight-bold">Guia</span> ${res[0].Usuario} </h5>`);
 			$("#info").append(`<h5 class="card-title"> <span class="text-primary font-weight-bold">Cupos</span> ${res[0].cupos} </h5>`);
-			$("#info").append(`<h5 class="card-title"> <span class="text-primary font-weight-bold">Fecha</span> ${res[0].calificacion} </h5>`);
+			$("#info").append(`<h5 class="card-title"> <span class="text-primary font-weight-bold">Calificacion</span> ${res[0].calificacion} </h5>`);
 
 		}
 	});

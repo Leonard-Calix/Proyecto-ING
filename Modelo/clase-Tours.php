@@ -355,6 +355,26 @@ class Tours	{
 		
 	} 
 
+	public static function obtenerGias(){
+		Conexion::abrirConexion();
+		$conexion = Conexion::obtenerConexion();
+
+		$sql = "SELECT g.idGuia, p.nombreCompleto FROM guia g
+				INNER JOIN usuario u ON u.idUsuario=g.idUsuario 
+				INNER JOIN persona p ON p.idPersona=u.idUsuario";
+
+		$sentencia = $conexion->prepare($sql);
+		
+		$guias = array();
+
+		foreach ($sentencia as $img) {
+			$guias[] = $img; 
+		}
+
+		echo json_encode($guias);
+	}
+
+
 	public function toString(){
 			return "IdTours: " . $this->idTours . 
 				" Nombre: " . $this->nombre . 
