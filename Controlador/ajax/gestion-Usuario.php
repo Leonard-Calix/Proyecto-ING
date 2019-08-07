@@ -120,6 +120,10 @@
 
 		break;
 
+		case 'GuiasD':
+			ControllerUsuario::obtenerGuias_D();
+		break;
+		
 		default:
 			
 			break;

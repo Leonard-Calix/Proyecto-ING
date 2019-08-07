@@ -64,23 +64,6 @@ class ControllerUsuario{
 
     }
 
-    public static function obtenerProfile($idUpdate){
-        Conexion::abrirConexion();
-        $conexion = Conexion::obtenerConexion();
-
-        $sql = "SELECT * FROM VIEW_Perfil_Usuarios WHERE idUsuario = '$idUpdate'";
-        $result = $conexion->prepare($sql);
-        $result->execute();
-
-        $profiles = array();
-        
-        foreach($result as $profile){
-            $profiles[] = $profile;
-        }
-        
-        echo json_encode($profiles);
-    }
-
     public static function editarUsuario($profiles){
         Conexion::abrirConexion();
         $conexion = Conexion::obtenerConexion();
@@ -146,6 +129,8 @@ class ControllerUsuario{
         }else{
             return 0;
         }
+        
+
     }
 
     public static function obtenerUsuario($id){
@@ -191,6 +176,26 @@ class ControllerUsuario{
 
         return json_encode($data);
     }
+
+    public static function ObtenerGuias_D(){
+        Conexion::abrirConexion();
+        $conexion = Conexion::obtenerConexion();
+
+        $sql = "SELECT u.nombreUsuario,  p.nombreCompleto, p.Apellidos, u.email, idGuia, p.idPersona, p.direccion FROM guia g
+                INNER JOIN usuario u ON u.idUsuario=g.idUsuario
+                INNER JOIN persona p ON p.idPersona=u.idPersona;";
+
+        $sentencia = $conexion->prepare($sql);
+        $sentencia->execute();
+
+        $guias = array();
+        
+        foreach ($sentencia as $guia) {
+            $guias[] = $guia; 
+        }
+
+        echo json_encode($guias);
+    } 
 
     public static function obtenerGuias(){
         Conexion::abrirConexion();

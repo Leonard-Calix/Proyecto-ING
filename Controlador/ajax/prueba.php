@@ -110,6 +110,3 @@
 	$result = ControllerUsuario::borrarUsuario($idBorrar);
 
 	echo $result;*/
-
-	ControllerUsuario::obtenerProfile(1);
- ?>
