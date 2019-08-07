@@ -105,6 +105,7 @@
       <script src="../Public/js/poper.js"></script>
       <script src="../Public/js/theme.min.js"></script>
        <script src="../Public/js/dashboard.js"></script>
+        <script src="../Public/js/crudGuias.js"></script>
       <script src="../Public/js/paper-dashboard.js"></script>
 
       <script type="text/javascript">

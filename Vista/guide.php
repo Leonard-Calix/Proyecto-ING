@@ -2,7 +2,7 @@
 
 <!-- Button trigger modal -->
 <br><br><br>
-<button type="button" class=" ml-3 btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+<button type="button" onclick="cambio();" class=" ml-3 btn btn-primary" data-toggle="modal" data-target="#exampleModal">
   New
 </button>
 
@@ -48,6 +48,10 @@
               <div class="form-group">
                <label>First Name</label>
                <input type="text" id="nameguide" class="form-control">
+				       <input type="hidden" name="" id="idGuia">
+               <input type="hidden" name="" id="idUsuario">
+               <input type="hidden" name="" id="idPersona">
+
              </div>
           </div>
             <div class="col-md-6">
@@ -107,7 +111,10 @@
       </div> 
       <div class="modal-footer">
         <button  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button  onclick="agregarGuia();" type="button" class="btn btn-primary">Save changes</button>
+        <button  onclick="agregarGuia();" type="button" class="btn btn-primary save">Save changes</button>
+        <button  onclick="editarGuia();" type="button" class="btn btn-primary update">Update</button>
+        
+        
       </div>
     </div>
   </div>
