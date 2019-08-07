@@ -98,7 +98,8 @@ function agregarUser(){
                     $('#direccion').val("");
                     $('#contrasenia').val("");
                     
-                    fetchProfiles();
+                    alert("The user profile has been add successfully");
+                    $(document).ajaxStop(function(){ window.location.reload(); });
                 }
             }
         });
