@@ -37,15 +37,7 @@ INNER JOIN usuario u ON p.idPersona = u.idUsuario
 INNER JOIN guia g ON g.idUsuario = u.idUsuario;
 
 
-#vista turistas
-create or replace view view_turista as select P.nombreCompleto, T.idTurista as idTurista from persona as P
-	inner join usuario as U on P.idPersona=U.idPersona
-	inner join turista as T on U.idUsuario=T.idUsuario;
-#vista de guia    
-create or replace view view_guia as select P.nombreCompleto, G.idguia as idguia from persona as P
-	inner join usuario as U on P.idPersona=U.idPersona
-	inner join guia as G on U.idUsuario=G.idUsuario;  
-#vista de guia y el tour    
+/*vista de guia y el tour   */ 
 create or replace view view_guiaTours as select T.nombre as nombreTour, Gu.nombreCompleto as Guia, idTours as idTours from tours as T
 	inner join view_guia as Gu
 	on T.idGuia= Gu.idguia;
