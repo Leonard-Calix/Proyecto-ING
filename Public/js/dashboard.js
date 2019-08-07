@@ -143,12 +143,16 @@ function detalles(id) {
 		dataType: 'json',
 		data: {id: id },
 		success:function(res){
+			
 			console.log(res);	
 			$("#info").append(`<h5 class="card-title"> <span class="text-primary font-weight-bold">Tours</span> ${res[0].Nombre_Tour} </h5>`);
+			$("#info").append(`<h5 class="card-title"> <span class="text-primary font-weight-bold">Estado</span> ${res[0].Nombre_Estado} </h5>`);
 			$("#info").append(`<h5 class="card-title"> <span class="text-primary font-weight-bold">Descripcion</span> ${res[0].descripcion} </h5>`);
 			$("#info").append(`<h5 class="card-title"> <span class="text-primary font-weight-bold">Precio</span> ${res[0].Precio_Tours} </h5>`);
 			$("#info").append(`<h5 class="card-title"> <span class="text-primary font-weight-bold">Guia</span> ${res[0].Usuario} </h5>`);
 			$("#info").append(`<h5 class="card-title"> <span class="text-primary font-weight-bold">Cupos</span> ${res[0].cupos} </h5>`);
+			$("#info").append(`<h5 class="card-title"> <span class="text-primary font-weight-bold">Fecha</span> ${res[0].calificacion} </h5>`);
+
 		}
 	});
 	

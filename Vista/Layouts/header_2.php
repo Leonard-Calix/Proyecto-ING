@@ -20,6 +20,8 @@
   <link href="../Public/demo.cs" rel="stylesheet" />
   <!-- CSS THEME-->
   <link href="../Public/css/theme.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
 
 </head>
 

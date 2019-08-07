@@ -20,18 +20,19 @@ function fetchProfiles() {
       success: function(response) {
         //const profiles = JSON.parse(response);
         let template = '';
-        console.log(response);
+        console.log(response[0].idUsuario);
+
         for (var i=0; i<response.length; i++){
             template += `
             <tr>
-              <th idUser = "${response[i].idUsuario}" scope="row">${response[i].idUsuario}</th>
+              <th idUser="${response[i].idUsuario}" scope="row">${response[i].idUsuario}</th>
               <td>${response[i].nombreCompleto}</td>
               <td>${response[i].Apellidos}</td>
               <td>${response[i].nombreUsuario}</td>
               <td>${response[i].email}</td>
               <td>${response[i].direccion}</td>
               <td>
-                <button onclick="editarUser(${response[i].idUsuario});" type="button" class="btn btn-secondary" data-toggle="modal" 
+                <button onclick="fetchEditar(${response[i].idUsuario});" type="button" class="btn btn-secondary" data-toggle="modal" 
                 data-target="#exampleModal">Edit</button>
               </td>
               <td>
@@ -132,17 +133,21 @@ function fetchEditar(idEdit){
     $("#idUser").val(idEdit);
     $("#btn-add").hide();
     $("#btn-edit").show();
+    console.log("ID = " + idEdit );
 
     $.ajax({
         url: '../Controlador/ajax/gestion-Usuario.php?accion=infoProfiles',
         method: 'POST',
-        data: {idEdit: idEdit},
+        dataType: 'json',
+        data: { idEdit: idEdit },
         success:function(resp){
             console.log(resp);
             
         }
 
     });
+
+    
 }
 
 

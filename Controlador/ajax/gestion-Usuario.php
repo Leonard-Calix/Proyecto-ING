@@ -45,7 +45,7 @@
 		break;
 
 		case 'infoProfiles':
-			$id = $_POST['idUser'];
+			$id = $_POST['idEdit'];
 			ControllerUsuario::obtenerProfile($id);
 		break;
 		

@@ -109,7 +109,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-CREATE PROCEDURE EDITAR_TOURS(IN pidActualizar INT, IN pnombre VARCHAR(45),IN pdescripcion VARCHAR(255),IN pfechaInicio DATETIME, IN pfechaFin DATETIME, IN pprecio DOUBLE,IN pcupos INT(11), IN pcalificacion INT(11),IN pidEstados INT(11), IN pidGuia INT(11),OUT pres INT, OUT pMensaje VARCHAR(45), OUT estado VARCHAR(45))
+CREATE PROCEDURE EDITAR_TOURS(IN pidActualizar INT, IN pnombre VARCHAR(45),IN pdescripcion VARCHAR(255),IN pfechaInicio DATETIME, IN pfechaFin DATETIME, IN pprecio DOUBLE,IN pcupos INT(11), IN pcalificacion INT(11),IN pidEstados INT(11), IN pidGuia INT(11),OUT pres INT, OUT pMensaje VARCHAR(45) )
 
 BEGIN
 	DECLARE pError VARCHAR(45);
@@ -149,8 +149,6 @@ BEGIN
 		/*Editamos en la tabla tours*/
 		UPDATE tours SET nombre=pnombre, descripcion=pdescripcion, fechaInicio=pfechaInicio, fechaFin=pfechaFin, precio=pprecio, cupos=pcupos, calificacion=pcalificacion, idEstados=pidEstados, idGuia=pidGuia WHERE idTours=pidActualizar;
 	
-		SELECT nombre INTO estado FROM estados;
-
 		/*Obtenemos el ultimo id insertado en la tabla tours*/
 		SET pres = 1;
 		
