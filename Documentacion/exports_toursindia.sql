@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6deb4
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Jul 25, 2019 at 02:15 PM
--- Server version: 5.7.26
--- PHP Version: 7.0.33-0+deb9u3
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 07-08-2019 a las 17:33:46
+-- Versión del servidor: 10.3.16-MariaDB
+-- Versión de PHP: 7.3.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,13 +19,137 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `toursindia`
+-- Base de datos: `toursindia`
 --
 
 DELIMITER $$
 --
--- Procedures
+-- Procedimientos
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ADD_TOURS` (IN `pnombre` VARCHAR(45), IN `pdescripcion` VARCHAR(255), IN `pfechaInicio` DATE, IN `pfechaFin` DATE, IN `pprecio` DOUBLE, IN `pcupos` INT(11), IN `pcalificacion` INT(11), IN `pidEstados` INT(11), IN `pidGuia` INT(11), OUT `pidInsertado` INT, OUT `pMensaje` VARCHAR(45))  BEGIN
+	DECLARE pError VARCHAR(45);
+	DECLARE existetours INT;
+	SET pError = '';
+	SET existetours = 0;
+
+	IF pnombre = '' THEN
+		SET pError = CONCAT(pError, ' ','Nombre completo vacio');
+	END IF;
+	IF pdescripcion = '' THEN
+		SET pError = CONCAT(pError, ' ', 'Descripcion del Tour vacia');
+	END IF;
+    IF pfechaInicio = '' THEN
+		SET pError = CONCAT(pError, ' ','Fecha inicio del Tour no definida');
+	END IF;
+    IF pfechaFin = '' THEN
+		SET pError = CONCAT(pError, ' ','Fecha de finalizacion del Tour no definida');
+	END IF;
+    IF pprecio = '' THEN
+		SET pError = CONCAT(pError, ' ','Precio no definido');
+	END IF;
+    IF pcupos = '' THEN
+		SET pError = CONCAT(pError, ' ','Los cupos no estan definidos para el Tour');
+	END IF;
+    IF pcalificacion = '' THEN
+		SET pError = CONCAT(pError, ' ','Calificacion esta vacia');
+	END IF;
+    IF pidEstados = '' THEN
+		SET pError = CONCAT(pError, ' ','Estado Vacio');
+	END IF;
+    IF pidGuia = '' THEN
+		SET pError = CONCAT(pError, ' ','IdGuia esta vacio');
+	END IF;
+
+	SELECT COUNT(*) INTO existetours FROM tours WHERE nombre = pnombre;
+
+	IF pError = '' AND existetours = 0 THEN
+		/*Insertamos en la tabla tours*/
+		INSERT INTO tours(nombre, descripcion, fechaInicio, fechaFin, precio, cupos, calificacion, idEstados, idGuia)
+		VALUES(pnombre, pdescripcion, pfechaInicio, pfechaFin, pprecio, pcupos, pcalificacion, pidEstados, pidGuia);
+
+		/*Obtenemos el ultimo id insertado en la tabla tours*/
+		SELECT idTours INTO pidInsertado FROM tours ORDER BY idTours DESC LIMIT 1;
+
+		SET pMensaje = 'Agregado exitosamente.';
+
+	ELSE
+		SET pMensaje = 'Fallo. Verifique sus datos a almacenar';
+
+	END IF;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `DELETE_TOURS` (IN `pidBorrar` INT, OUT `pMensaje` VARCHAR(55))  BEGIN
+	DECLARE existeID INT;
+	DECLARE idUser INT;
+	DECLARE esGuia INT;
+	SET existeID = 0;
+	SET idUser = 0;
+	SET esGuia = 0;
+
+	SELECT COUNT(*) INTO existeID FROM tours WHERE idTours = pidBorrar;
+
+	IF existeID > 0 THEN
+		/*Buscamos el id del tours*/
+		SELECT idTours INTO idUser  FROM tours WHERE idTours = pidBorrar;
+	
+		/*Borramos el tours*/
+		DELETE FROM tours WHERE idTours = pidBorrar;
+
+		SET pMensaje = 'Datos borrados satisfactoriamente';
+	ELSE
+		SET pMensaje = 'No se puede borrar. Verifique sus datos';
+	END IF; 
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `EDITAR_TOURS` (IN `pidActualizar` INT, IN `pnombre` VARCHAR(45), IN `pdescripcion` VARCHAR(255), IN `pfechaInicio` DATETIME, IN `pfechaFin` DATETIME, IN `pprecio` DOUBLE, IN `pcupos` INT(11), IN `pcalificacion` INT(11), IN `pidEstados` INT(11), IN `pidGuia` INT(11), OUT `pres` INT, OUT `pMensaje` VARCHAR(45))  BEGIN
+	DECLARE pError VARCHAR(45);
+	DECLARE existetours INT;
+	SET pError = '';
+
+	IF pnombre = '' THEN
+		SET pError = CONCAT(pError, ' ','Nombre completo vacio');
+	END IF;
+	IF pdescripcion = '' THEN
+		SET pError = CONCAT(pError, ' ', 'Descripcion del Tour vacia');
+	END IF; 
+    IF pfechaInicio = '' THEN
+		SET pError = CONCAT(pError, ' ','Fecha inicio del Tour no definida');
+	END IF;
+    IF pfechaFin = '' THEN
+		SET pError = CONCAT(pError, ' ','Fecha de finalizacion del Tour no definida');
+	END IF;
+    IF pprecio = '' THEN
+		SET pError = CONCAT(pError, ' ','Precio no definido');
+	END IF;
+    IF pcupos = '' THEN
+		SET pError = CONCAT(pError, ' ','Los cupos no estan definidos para el Tour');
+	END IF;
+    IF pcalificacion = '' THEN
+		SET pError = CONCAT(pError, ' ','Calificacion esta vacia');
+	END IF;
+    IF pidEstados = '' THEN
+		SET pError = CONCAT(pError, ' ','Estado Vacio');
+	END IF;
+    IF pidGuia = '' THEN
+		SET pError = CONCAT(pError, ' ','IdGuia esta vacio');
+	END IF;
+	
+
+	IF pError = '' THEN
+		/*Editamos en la tabla tours*/
+		UPDATE tours SET nombre=pnombre, descripcion=pdescripcion, fechaInicio=pfechaInicio, fechaFin=pfechaFin, precio=pprecio, cupos=pcupos, calificacion=pcalificacion, idEstados=pidEstados, idGuia=pidGuia WHERE idTours=pidActualizar;
+	
+		/*Obtenemos el ultimo id insertado en la tabla tours*/
+		SET pres = 1;
+		
+		SET pMensaje = 'Agregado exitosamente.'; 
+		
+	ELSE
+		SET pMensaje = 'Fallo. Verifique sus datos a almacenar';
+		
+	END IF;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ADD_PERSON` (IN `pnombreC` VARCHAR(55), IN `papellidos` VARCHAR(55), IN `pnumeroId` VARCHAR(55), IN `ptelefono` VARCHAR(55), IN `pgenero` VARCHAR(55), IN `pDireccion` VARCHAR(55), OUT `pidInsertado` INT, OUT `pMensaje` VARCHAR(45))  BEGIN
 	DECLARE pError VARCHAR(45);
 	DECLARE existePersona INT;
@@ -40,11 +166,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ADD_PERSON` (IN `pnombreC` VARCH
 	SELECT COUNT(*) INTO existePersona FROM persona WHERE nombreCompleto = pnombreC AND Apellidos = papellidos;
 
 	IF pError = '' AND existePersona = 0 THEN
-		
+		/*Insertamos en la tabla persona*/
 		INSERT INTO persona(nombreCompleto, Apellidos, numeroIdentidad, telefono, genero,direccion)
 				     VALUES(pnombreC,papellidos,pnumeroId,ptelefono,pgenero,pDireccion);
 	
-		
+		/*Obtenemos el ultimo id insertado en la tabla persona*/
 		SELECT idPersona INTO pidInsertado FROM persona ORDER BY idPersona DESC LIMIT 1;
 		
 		SET pMensaje = 'Agregado exitosamente.'; 
@@ -77,9 +203,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ADD_USER` (IN `pnombreU` VARCHAR
 
 		SELECT idPersona INTO ultimoIDpersona FROM persona ORDER BY idPersona DESC LIMIT 1;
 
-		
+		/*Insertamos en la tabla usuario*/
 		INSERT INTO usuario(nombreUsuario,email,contrasena,idPersona) VALUES(pnombreU,pemail, pcontrasena,ultimoIDpersona);
-		
+		/*Obtenemos el ultimo id insertado en la tabla usuario*/
 		SELECT idUsuario INTO pidInsertado FROM usuario ORDER BY idUsuario DESC LIMIT 1;
 
 		IF ptipoUser = 1 THEN
@@ -102,18 +228,101 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ADD_USER` (IN `pnombreU` VARCHAR
 	END IF;	
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ASIGNA_HOTEL` (IN `pidTours` INT, IN `pidEstados` INT, OUT `pMensaje` VARCHAR(45), OUT `res` INT)  BEGIN
+
+	DECLARE v_nombreHotel VARCHAR(45);
+   	DECLARE v_descripcion VARCHAR(45);
+    DECLARE pError VARCHAR(255);
+	DECLARE v_precio INT;
+
+	SET v_nombreHotel  = '';
+	SET v_descripcion  = '';
+    SET v_precio = 0 ;
+
+
+	IF pidTours = '' THEN
+		SET pError = CONCAT(pError, ' ', 'IdTours vacio');
+	END IF;
+	IF pidEstados = '' THEN 
+		SET pError = CONCAT(pError, ' ', 'IdEstado vacio');
+	END IF;
+	
+	SELECT nombreHotel INTO v_nombreHotel FROM hotel WHERE idEstados = pidEstados;
+   	SELECT descripcion INTO v_descripcion FROM hotel WHERE idEstados = pidEstados;
+	SELECT precio INTO v_precio FROM hotel WHERE idEstados = pidEstados;
+
+
+	IF pError = '' THEN
+	
+    	INSERT INTO hotel(idHotel, nombreHotel, descripcion, precio, idEstados, idTours)
+        VALUES (null, v_nombreHotel, v_descripcion, v_precio, pidEstados,pidTours );
+        SET pMensaje = 'Agregado con exito' ;
+        SET res = 1;
+		
+	ELSE
+		SET pMensaje = CONCAT( 'Error en: ' , ' ', pError); 
+        SET res = 0;
+
+	END IF;	
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_DELETE_USER` (IN `pidBorrar` INT, OUT `pMensaje` VARCHAR(55))  BEGIN
+	DECLARE existeID INT;
+	DECLARE idUser INT;
+	DECLARE esAdmin INT;
+	DECLARE esTurista INT;
+	DECLARE esGuia INT;
+	SET existeID = 0;
+	SET idUser = 0;
+	SET esAdmin = 0;
+	SET esTurista = 0;
+	SET esGuia = 0;
+
+	SELECT COUNT(*) INTO existeID FROM persona WHERE idPersona = pidBorrar;
+
+	IF existeID > 0 THEN
+		/*Buscamos el id del usuario*/
+		SELECT idUsuario INTO idUser FROM usuario WHERE idPersona = pidBorrar;
+		/*Comprobamos que tipo de usuario es */
+		SELECT COUNT(*) INTO esAdmin FROM administrador WHERE idUsuario = idUser;
+		SELECT COUNT(*) INTO esTurista FROM turista WHERE idUsuario = idUser;
+		SELECT COUNT(*) INTO esGuia FROM Guia WHERE idUsuario = idUser;
+
+		/*Borramos el tipo de Usuario*/
+		IF esAdmin > 0 THEN 
+			DELETE FROM administrador WHERE idUsuario = idUser;
+		END IF;
+		
+		IF esTurista > 0 THEN
+			DELETE FROM turista WHERE idUsuario = idUser;
+		END IF;
+
+		IF esGuia > 0 THEN
+			DELETE FROM guia WHERE idUsuario = idUser;
+		END IF;
+
+		/*Borramos persona y usuario*/
+		DELETE FROM usuario WHERE idUsuario = idUser;
+		DELETE FROM persona WHERE idPersona = pidBorrar;
+
+		SET pMensaje = 'Datos borrados satisfactoriamente';
+	ELSE
+		SET pMensaje = 'No se puede borrar. Verifique sus datos';
+	END IF; 
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LOGIN` (IN `pemail` VARCHAR(45), IN `pcontrasena` VARCHAR(255), OUT `tipoUsuario` INT, OUT `usuarioID` INT)  BEGIN
 	DECLARE existeUsuario,  esAdmin, esTurista, esGuia INT;
 	SET existeUsuario = 0;
 	SET esAdmin = 0;
 	SET esTurista = 0;
 	SET esGuia = 0;
-	
+	/*Comprobar que el correo y la contrasena pertenecen a un usuario*/
 	SELECT COUNT(*) INTO existeUsuario FROM usuario WHERE email = pemail AND contrasena = pcontrasena;
 	IF existeUsuario > 0 THEN
-		
+		/*Obtenemos el id del usuario*/
 		SELECT idUsuario INTO usuarioID FROM usuario WHERE email = pemail AND contrasena = pcontrasena;
-		
+		/*Comprobamos que tipo de usuario es*/
 		SELECT COUNT(*) INTO esAdmin FROM administrador WHERE idUsuario = usuarioID;
 		SELECT COUNT(*) INTO esTurista FROM turista WHERE idUsuario = usuarioID;
 		SELECT COUNT(*) INTO esGuia FROM guia WHERE idUsuario = usuarioID;
@@ -134,12 +343,111 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LOGIN` (IN `pemail` VARCHAR(45),
 
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_UPDATE_PERSON_USER` (IN `pnombreC` VARCHAR(55), IN `papellidos` VARCHAR(55), IN `pnumeroId` VARCHAR(55), IN `ptelefono` VARCHAR(55), IN `pgenero` VARCHAR(55), IN `pDireccion` VARCHAR(55), IN `pnombreUsuario` VARCHAR(55), IN `pemail` VARCHAR(55), IN `ptipoUserCambiar` INT, IN `pidActualizar` INT, OUT `pMensaje` VARCHAR(45))  BEGIN
+	DECLARE existeID INT;
+	DECLARE idUser INT;
+	DECLARE esAdmin INT;
+	DECLARE esTurista INT;
+	DECLARE esGuia INT;
+	SET existeID = 0;
+	SET idUser = 0;
+
+	SELECT COUNT(*) INTO existeID FROM persona WHERE idPersona = pidActualizar;
+
+	IF existeID > 0 THEN
+		SELECT idUsuario INTO idUser FROM usuario WHERE idPersona = pidActualizar;
+
+		IF pnombreC = '' THEN
+			SELECT nombreCompleto INTO pnombreC FROM persona WHERE idPersona = pidActualizar;
+		END IF;
+		
+		IF papellidos = '' THEN
+			SELECT Apellidos INTO papellidos FROM persona WHERE idPersona = pidActualizar;
+		END IF;
+
+		IF pnumeroId = '' THEN 
+			SELECT numeroIdentidad INTO pnumeroId FROM persona WHERE idPersona = pidActualizar;
+		END IF;
+
+		IF ptelefono = '' THEN 
+			SELECT telefono INTO ptelefono FROM persona WHERE idPersona = pidActualizar;
+		END IF;
+
+		IF pgenero = '' THEN 
+			SELECT genero INTO pgenero FROM persona WHERE idPersona = pidActualizar;
+		END IF;
+
+		IF pDireccion = '' THEN
+			SELECT direccion INTO pdireccion FROM persona WHERE idPersona = pidActualizar;
+		END IF;
+
+		IF pnombreUsuario = '' THEN
+			SELECT nombreUsuario INTO pnombreUsuario FROM usuario WHERE idUsuario = idUser;
+		END IF;
+
+		IF pemail = '' THEN 
+			SELECT email INTO pemail FROM usuario WHERE idUsuario = idUser;
+		END IF; 
+		/*Editamos los datos de persona*/
+		UPDATE persona SET nombreCompleto = pnombreC, Apellidos = papellidos, numeroIdentidad = pnumeroId,
+						   telefono = ptelefono, genero = pgenero, direccion = pDireccion
+					WHERE idPersona = pidActualizar;
+		/*Editamos los datos de usuario*/
+		UPDATE usuario SET nombreUsuario = pnombreUsuario, email = pemail WHERE idUsuario = idUser;
+		
+		/*Verificamos que usuario es */
+		SELECT COUNT(*) INTO esAdmin FROM administrador WHERE idUsuario = idUser;
+		SELECT COUNT(*) INTO esTurista FROM turista WHERE idUsuario = idUser;
+		SELECT COUNT(*) INTO esGuia FROM Guia WHERE idUsuario = idUser;
+
+		/*Editamos el tipo de Usuario*/
+		IF ptipoUserCambiar = 1 THEN
+			IF esTurista > 0 THEN
+				DELETE FROM turista WHERE idUsuario = idUser;
+			END IF;
+			IF esGuia > 0 THEN
+				DELETE FROM guia WHERE idUsuario = idUser;
+			END IF;
+
+			INSERT INTO administrador(idUsuario) VALUES(idUser);
+
+		END IF;
+
+		IF ptipoUserCambiar = 2 THEN
+			IF esAdmin > 0 THEN
+				DELETE FROM administrador WHERE idUsuario = idUser;
+			END IF;
+
+			IF esGuia > 0 THEN
+				DELETE FROM guia WHERE idUsuario = idUser;
+			END IF;
+
+			INSERT INTO turista(idUsuario) VALUES(idUser);
+
+		END IF;
+
+		IF ptipoUserCambiar = 3 THEN
+			IF esAdmin > 0 THEN
+				DELETE FROM administrador WHERE idUsuario = idUser;
+			END IF;
+			IF esTurista > 0 THEN
+				DELETE FROM turista WHERE idUsuario = idUser;
+			END IF;	
+			INSERT INTO guia(idUsuario) VALUES(idUser);
+		END IF;
+
+		SET pMensaje = 'Actualizados sus datos con exito.';			
+	ELSE 
+		SET pMensaje = 'No se puede Actualizar. ID no existe';
+	END IF;	  
+END$$
+
 DELIMITER ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `administrador`
+-- Estructura de tabla para la tabla `administrador`
 --
 
 CREATE TABLE `administrador` (
@@ -148,7 +456,7 @@ CREATE TABLE `administrador` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `administrador`
+-- Volcado de datos para la tabla `administrador`
 --
 
 INSERT INTO `administrador` (`idAdministrador`, `idUsuario`) VALUES
@@ -161,33 +469,54 @@ INSERT INTO `administrador` (`idAdministrador`, `idUsuario`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comentarios`
+-- Estructura de tabla para la tabla `comentarios`
 --
 
 CREATE TABLE `comentarios` (
   `idComentarios` int(11) NOT NULL,
   `Comentario` varchar(255) DEFAULT NULL,
   `fechaComentario` date DEFAULT NULL,
-  `horaComentario` timestamp(2) NOT NULL DEFAULT CURRENT_TIMESTAMP(2) ON UPDATE CURRENT_TIMESTAMP(2),
+  `horaComentario` timestamp(2) NOT NULL DEFAULT current_timestamp(2) ON UPDATE current_timestamp(2),
   `idUsuario` int(11) NOT NULL,
   `idTours` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `comentarios`
+-- Volcado de datos para la tabla `comentarios`
 --
 
 INSERT INTO `comentarios` (`idComentarios`, `Comentario`, `fechaComentario`, `horaComentario`, `idUsuario`, `idTours`) VALUES
-(1, 'Excelente lugar, lo envuelve una gran historia', '2019-07-23', '2019-07-23 15:49:47.00', 6, 1),
-(2, 'Clima extremo, grandioso contemplar el everest', '2019-07-23', '2019-07-23 15:49:47.00', 7, 2),
-(3, 'Playas exoticas, paraiso soleado', '2019-07-23', '2019-07-23 15:49:47.00', 8, 3),
-(4, 'Bahia Bengala, grandioso sitio', '2019-07-23', '2019-07-23 15:49:47.00', 9, 4),
-(5, 'Excelente exhibicion de arte y arquitectura', '2019-07-23', '2019-07-23 15:49:47.00', 10, 5);
+(1, 'Excelente lugar, lo envuelve una gran historia', '2019-08-07', '2019-08-07 14:05:41.00', 6, 1),
+(2, 'Clima extremo, grandioso contemplar el everest', '2019-08-07', '2019-08-07 14:05:41.00', 7, 2),
+(3, 'Playas exoticas, paraiso soleado', '2019-08-07', '2019-08-07 14:05:41.00', 8, 3),
+(4, 'Bahia Bengala, grandioso sitio', '2019-08-07', '2019-08-07 14:05:41.00', 9, 4),
+(5, 'Excelente exhibicion de arte y arquitectura', '2019-08-07', '2019-08-07 14:05:41.00', 10, 5);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `estados`
+-- Estructura Stand-in para la vista `detalles_tours`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `detalles_tours` (
+`id` int(11)
+,`descripcion` varchar(255)
+,`Nombre_Tour` varchar(45)
+,`Nombre_Estado` varchar(45)
+,`calificacion` int(11)
+,`Precio_Tours` double
+,`cupos` int(11)
+,`Usuario` varchar(45)
+,`fechaInicio` datetime
+,`fechaFin` datetime
+,`idGuia` int(11)
+,`idEstados` int(11)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estados`
 --
 
 CREATE TABLE `estados` (
@@ -196,7 +525,7 @@ CREATE TABLE `estados` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `estados`
+-- Volcado de datos para la tabla `estados`
 --
 
 INSERT INTO `estados` (`idEstados`, `nombre`) VALUES
@@ -214,7 +543,7 @@ INSERT INTO `estados` (`idEstados`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `guia`
+-- Estructura de tabla para la tabla `guia`
 --
 
 CREATE TABLE `guia` (
@@ -223,7 +552,7 @@ CREATE TABLE `guia` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `guia`
+-- Volcado de datos para la tabla `guia`
 --
 
 INSERT INTO `guia` (`idGuia`, `idUsuario`) VALUES
@@ -236,7 +565,7 @@ INSERT INTO `guia` (`idGuia`, `idUsuario`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hotel`
+-- Estructura de tabla para la tabla `hotel`
 --
 
 CREATE TABLE `hotel` (
@@ -249,7 +578,7 @@ CREATE TABLE `hotel` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `hotel`
+-- Volcado de datos para la tabla `hotel`
 --
 
 INSERT INTO `hotel` (`idHotel`, `nombreHotel`, `descripcion`, `precio`, `idEstados`, `idTours`) VALUES
@@ -262,7 +591,7 @@ INSERT INTO `hotel` (`idHotel`, `nombreHotel`, `descripcion`, `precio`, `idEstad
 -- --------------------------------------------------------
 
 --
--- Table structure for table `imagenes`
+-- Estructura de tabla para la tabla `imagenes`
 --
 
 CREATE TABLE `imagenes` (
@@ -272,7 +601,7 @@ CREATE TABLE `imagenes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `imagenes`
+-- Volcado de datos para la tabla `imagenes`
 --
 
 INSERT INTO `imagenes` (`idImagenes`, `ruta`, `idTours`) VALUES
@@ -285,7 +614,7 @@ INSERT INTO `imagenes` (`idImagenes`, `ruta`, `idTours`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pagos`
+-- Estructura de tabla para la tabla `pagos`
 --
 
 CREATE TABLE `pagos` (
@@ -296,7 +625,7 @@ CREATE TABLE `pagos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `pagos`
+-- Volcado de datos para la tabla `pagos`
 --
 
 INSERT INTO `pagos` (`idPagos`, `impuestoSV`, `idTours`, `idHotel`) VALUES
@@ -309,7 +638,7 @@ INSERT INTO `pagos` (`idPagos`, `impuestoSV`, `idTours`, `idHotel`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `persona`
+-- Estructura de tabla para la tabla `persona`
 --
 
 CREATE TABLE `persona` (
@@ -323,7 +652,7 @@ CREATE TABLE `persona` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `persona`
+-- Volcado de datos para la tabla `persona`
 --
 
 INSERT INTO `persona` (`idPersona`, `nombreCompleto`, `Apellidos`, `numeroIdentidad`, `telefono`, `genero`, `direccion`) VALUES
@@ -341,13 +670,12 @@ INSERT INTO `persona` (`idPersona`, `nombreCompleto`, `Apellidos`, `numeroIdenti
 (12, 'Yamir Sarayu', 'Anjali Kapoor', '001-1974-00123', '+0091 3312-1878', 'M', 'India, Nueva Delhi'),
 (13, 'Denali Indira', 'Khan Rao', '001-1975-00124', '+0091 9412-3456', 'F', 'India, Nueva Delhi'),
 (14, 'Yalitza Uma', 'Nehru Nayak', '001-1976-00125', '+0091 9311-2566', 'F', 'India, Nueva Delhi'),
-(15, 'Priya Rania', 'Grover Sharma', '001-1977-00126', '+0091 9212-2667', 'F', 'India, Nueva Delhi'),
-(16, 'karen melisa', 'valladares casco', '0801-1995-00201', '+504 9852 4747', 'F', 'Honduras, Tegucigalpa Col. El Carrizail');
+(15, 'Priya Rania', 'Grover Sharma', '001-1977-00126', '+0091 9212-2667', 'F', 'India, Nueva Delhi');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `populares`
+-- Estructura de tabla para la tabla `populares`
 --
 
 CREATE TABLE `populares` (
@@ -356,7 +684,7 @@ CREATE TABLE `populares` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `populares`
+-- Volcado de datos para la tabla `populares`
 --
 
 INSERT INTO `populares` (`idPopulares`, `idTours`) VALUES
@@ -369,7 +697,7 @@ INSERT INTO `populares` (`idPopulares`, `idTours`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tours`
+-- Estructura de tabla para la tabla `tours`
 --
 
 CREATE TABLE `tours` (
@@ -386,7 +714,7 @@ CREATE TABLE `tours` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `tours`
+-- Volcado de datos para la tabla `tours`
 --
 
 INSERT INTO `tours` (`idTours`, `nombre`, `descripcion`, `fechaInicio`, `fechaFin`, `precio`, `cupos`, `calificacion`, `idEstados`, `idGuia`) VALUES
@@ -394,12 +722,13 @@ INSERT INTO `tours` (`idTours`, `nombre`, `descripcion`, `fechaInicio`, `fechaFi
 (2, 'Flying over the Himalayas', 'Being close to the largest mountain in the world and contemplating it, in the region of Leh Kashmir', '2019-07-17 00:00:00', '2019-07-19 00:00:00', 791, 5, 4, 2, 2),
 (3, 'Goa Beach', 'Exotic Beaches Small excursion from Arambol beach, passing through Kalacha Beach', '2019-07-18 00:00:00', '2019-07-23 00:00:00', 779, 20, 5, 3, 3),
 (4, 'Kanyakumari Tours', 'This place is also known as Cabo Comorin; a place where the Indian Ocean, the Arabian Sea and the Bay of Bengal meet', '2019-07-18 00:00:00', '2019-07-21 00:00:00', 550, 20, 4, 4, 4),
-(5, 'Rajastan Tours', 'Rajasthan called the land of the Kings is one of the most beautiful states of India in its best colorful and exotic. The state hosts an incredible exhibition of art and architecture', '2019-07-18 00:00:00', '2019-07-24 00:00:00', 763, 20, 5, 5, 5);
+(5, 'Rajastan Tours', 'Rajasthan called the land of the Kings is one of the most beautiful states of India in its best colorful and exotic. The state hosts an incredible exhibition of art and architecture', '2019-07-18 00:00:00', '2019-07-24 00:00:00', 763, 20, 5, 5, 5),
+(6, 'prueba', 'prueba', '2019-08-06 00:00:00', '2019-08-08 00:00:00', 5, 5, 5, 1, 2);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `toursturista`
+-- Estructura de tabla para la tabla `toursturista`
 --
 
 CREATE TABLE `toursturista` (
@@ -409,7 +738,7 @@ CREATE TABLE `toursturista` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `toursturista`
+-- Volcado de datos para la tabla `toursturista`
 --
 
 INSERT INTO `toursturista` (`idToursTurista`, `idTours`, `idTurista`) VALUES
@@ -422,7 +751,19 @@ INSERT INTO `toursturista` (`idToursTurista`, `idTours`, `idTurista`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `turista`
+-- Estructura Stand-in para la vista `tours_dashboard`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `tours_dashboard` (
+`id` int(11)
+,`Nombre_Tour` varchar(45)
+,`Precio_Tours` double
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `turista`
 --
 
 CREATE TABLE `turista` (
@@ -431,7 +772,7 @@ CREATE TABLE `turista` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `turista`
+-- Volcado de datos para la tabla `turista`
 --
 
 INSERT INTO `turista` (`idTurista`, `idUsuario`) VALUES
@@ -439,13 +780,12 @@ INSERT INTO `turista` (`idTurista`, `idUsuario`) VALUES
 (2, 7),
 (3, 8),
 (4, 9),
-(5, 10),
-(6, 16);
+(5, 10);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuario`
+-- Estructura de tabla para la tabla `usuario`
 --
 
 CREATE TABLE `usuario` (
@@ -457,7 +797,7 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `usuario`
+-- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`idUsuario`, `nombreUsuario`, `email`, `contrasena`, `idPersona`) VALUES
@@ -475,14 +815,89 @@ INSERT INTO `usuario` (`idUsuario`, `nombreUsuario`, `email`, `contrasena`, `idP
 (12, 'Yamir', 'yamirKapoor@gmail.com', 'guia.234', 12),
 (13, 'Denali', 'IndiraKhan@gmail.com', 'guia.456', 13),
 (14, 'Yalitza', 'UmaNayak@gmail.com', 'guia.789', 14),
-(15, 'Priya', 'raniaSharma@gmail.com', 'guia.101', 15),
-(16, 'meli', 'melivalladares@gmail.com', 'turist.000', 16);
+(15, 'Priya', 'raniaSharma@gmail.com', 'guia.101', 15);
 
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `view_populares`
--- (See below for the actual view)
+-- Estructura Stand-in para la vista `view_perfil_usuarios`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `view_perfil_usuarios` (
+`idUsuario` int(11)
+,`nombreCompleto` varchar(55)
+,`Apellidos` varchar(55)
+,`numeroIdentidad` varchar(55)
+,`telefono` varchar(55)
+,`genero` varchar(45)
+,`direccion` varchar(55)
+,`nombreUsuario` varchar(45)
+,`email` varchar(45)
+,`contrasena` varchar(255)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `view_perfil_usuario_admin`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `view_perfil_usuario_admin` (
+`idPersona` int(11)
+,`idUsuario` int(11)
+,`nombreCompleto` varchar(55)
+,`Apellidos` varchar(55)
+,`numeroIdentidad` varchar(55)
+,`telefono` varchar(55)
+,`genero` varchar(45)
+,`direccion` varchar(55)
+,`nombreUsuario` varchar(45)
+,`email` varchar(45)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `view_perfil_usuario_guia`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `view_perfil_usuario_guia` (
+`idPersona` int(11)
+,`idUsuario` int(11)
+,`nombreCompleto` varchar(55)
+,`Apellidos` varchar(55)
+,`numeroIdentidad` varchar(55)
+,`telefono` varchar(55)
+,`genero` varchar(45)
+,`direccion` varchar(55)
+,`nombreUsuario` varchar(45)
+,`email` varchar(45)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `view_perfil_usuario_turista`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `view_perfil_usuario_turista` (
+`idPersona` int(11)
+,`idUsuario` int(11)
+,`nombreCompleto` varchar(55)
+,`Apellidos` varchar(55)
+,`numeroIdentidad` varchar(55)
+,`telefono` varchar(55)
+,`genero` varchar(45)
+,`direccion` varchar(55)
+,`nombreUsuario` varchar(45)
+,`email` varchar(45)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `view_populares`
+-- (Véase abajo para la vista actual)
 --
 CREATE TABLE `view_populares` (
 `idTours` int(11)
@@ -494,25 +909,79 @@ CREATE TABLE `view_populares` (
 -- --------------------------------------------------------
 
 --
--- Structure for view `view_populares`
+-- Estructura para la vista `detalles_tours`
+--
+DROP TABLE IF EXISTS `detalles_tours`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `detalles_tours`  AS  select `t`.`idTours` AS `id`,`t`.`descripcion` AS `descripcion`,`t`.`nombre` AS `Nombre_Tour`,`e`.`nombre` AS `Nombre_Estado`,`t`.`calificacion` AS `calificacion`,`t`.`precio` AS `Precio_Tours`,`t`.`cupos` AS `cupos`,`u`.`nombreUsuario` AS `Usuario`,`t`.`fechaInicio` AS `fechaInicio`,`t`.`fechaFin` AS `fechaFin`,`g`.`idGuia` AS `idGuia`,`e`.`idEstados` AS `idEstados` from (((`tours` `t` join `estados` `e` on(`e`.`idEstados` = `t`.`idEstados`)) join `guia` `g` on(`g`.`idGuia` = `t`.`idGuia`)) join `usuario` `u` on(`u`.`idUsuario` = `g`.`idUsuario`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `tours_dashboard`
+--
+DROP TABLE IF EXISTS `tours_dashboard`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `tours_dashboard`  AS  select `t`.`idTours` AS `id`,`t`.`nombre` AS `Nombre_Tour`,`t`.`precio` AS `Precio_Tours` from (`tours` `t` join `hotel` `h` on(`h`.`idTours` = `t`.`idTours`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `view_perfil_usuarios`
+--
+DROP TABLE IF EXISTS `view_perfil_usuarios`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_perfil_usuarios`  AS  select `u`.`idUsuario` AS `idUsuario`,`p`.`nombreCompleto` AS `nombreCompleto`,`p`.`Apellidos` AS `Apellidos`,`p`.`numeroIdentidad` AS `numeroIdentidad`,`p`.`telefono` AS `telefono`,`p`.`genero` AS `genero`,`p`.`direccion` AS `direccion`,`u`.`nombreUsuario` AS `nombreUsuario`,`u`.`email` AS `email`,`u`.`contrasena` AS `contrasena` from (`persona` `p` join `usuario` `u` on(`p`.`idPersona` = `u`.`idUsuario`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `view_perfil_usuario_admin`
+--
+DROP TABLE IF EXISTS `view_perfil_usuario_admin`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_perfil_usuario_admin`  AS  select `p`.`idPersona` AS `idPersona`,`u`.`idUsuario` AS `idUsuario`,`p`.`nombreCompleto` AS `nombreCompleto`,`p`.`Apellidos` AS `Apellidos`,`p`.`numeroIdentidad` AS `numeroIdentidad`,`p`.`telefono` AS `telefono`,`p`.`genero` AS `genero`,`p`.`direccion` AS `direccion`,`u`.`nombreUsuario` AS `nombreUsuario`,`u`.`email` AS `email` from ((`persona` `p` join `usuario` `u` on(`p`.`idPersona` = `u`.`idUsuario`)) join `administrador` `a` on(`a`.`idUsuario` = `u`.`idUsuario`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `view_perfil_usuario_guia`
+--
+DROP TABLE IF EXISTS `view_perfil_usuario_guia`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_perfil_usuario_guia`  AS  select `p`.`idPersona` AS `idPersona`,`u`.`idUsuario` AS `idUsuario`,`p`.`nombreCompleto` AS `nombreCompleto`,`p`.`Apellidos` AS `Apellidos`,`p`.`numeroIdentidad` AS `numeroIdentidad`,`p`.`telefono` AS `telefono`,`p`.`genero` AS `genero`,`p`.`direccion` AS `direccion`,`u`.`nombreUsuario` AS `nombreUsuario`,`u`.`email` AS `email` from ((`persona` `p` join `usuario` `u` on(`p`.`idPersona` = `u`.`idUsuario`)) join `guia` `g` on(`g`.`idUsuario` = `u`.`idUsuario`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `view_perfil_usuario_turista`
+--
+DROP TABLE IF EXISTS `view_perfil_usuario_turista`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_perfil_usuario_turista`  AS  select `p`.`idPersona` AS `idPersona`,`u`.`idUsuario` AS `idUsuario`,`p`.`nombreCompleto` AS `nombreCompleto`,`p`.`Apellidos` AS `Apellidos`,`p`.`numeroIdentidad` AS `numeroIdentidad`,`p`.`telefono` AS `telefono`,`p`.`genero` AS `genero`,`p`.`direccion` AS `direccion`,`u`.`nombreUsuario` AS `nombreUsuario`,`u`.`email` AS `email` from ((`persona` `p` join `usuario` `u` on(`p`.`idPersona` = `u`.`idUsuario`)) join `turista` `t` on(`t`.`idUsuario` = `u`.`idUsuario`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `view_populares`
 --
 DROP TABLE IF EXISTS `view_populares`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_populares`  AS  select `t`.`idTours` AS `idTours`,`t`.`nombre` AS `nombre`,`t`.`descripcion` AS `descripcion`,`t`.`calificacion` AS `calificacion` from (`tours` `t` join `populares` `p` on((`p`.`idPopulares` = `t`.`idTours`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_populares`  AS  select `t`.`idTours` AS `idTours`,`t`.`nombre` AS `nombre`,`t`.`descripcion` AS `descripcion`,`t`.`calificacion` AS `calificacion` from (`tours` `t` join `populares` `p` on(`p`.`idPopulares` = `t`.`idTours`)) ;
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `administrador`
+-- Indices de la tabla `administrador`
 --
 ALTER TABLE `administrador`
   ADD PRIMARY KEY (`idAdministrador`),
   ADD KEY `FK_Usuario_Administrador` (`idUsuario`);
 
 --
--- Indexes for table `comentarios`
+-- Indices de la tabla `comentarios`
 --
 ALTER TABLE `comentarios`
   ADD PRIMARY KEY (`idComentarios`),
@@ -520,20 +989,20 @@ ALTER TABLE `comentarios`
   ADD KEY `FK_COMENTARIOS_TOURS` (`idTours`);
 
 --
--- Indexes for table `estados`
+-- Indices de la tabla `estados`
 --
 ALTER TABLE `estados`
   ADD PRIMARY KEY (`idEstados`);
 
 --
--- Indexes for table `guia`
+-- Indices de la tabla `guia`
 --
 ALTER TABLE `guia`
   ADD PRIMARY KEY (`idGuia`),
   ADD KEY `FK_Usuario_Guia` (`idUsuario`);
 
 --
--- Indexes for table `hotel`
+-- Indices de la tabla `hotel`
 --
 ALTER TABLE `hotel`
   ADD PRIMARY KEY (`idHotel`),
@@ -541,14 +1010,14 @@ ALTER TABLE `hotel`
   ADD KEY `FK_HOTEL_ESTADOS` (`idEstados`);
 
 --
--- Indexes for table `imagenes`
+-- Indices de la tabla `imagenes`
 --
 ALTER TABLE `imagenes`
   ADD PRIMARY KEY (`idImagenes`),
   ADD KEY `FK_IMAGENES_TOURS` (`idTours`);
 
 --
--- Indexes for table `pagos`
+-- Indices de la tabla `pagos`
 --
 ALTER TABLE `pagos`
   ADD PRIMARY KEY (`idPagos`),
@@ -556,20 +1025,20 @@ ALTER TABLE `pagos`
   ADD KEY `FK_PAGOS_TOURS` (`idTours`);
 
 --
--- Indexes for table `persona`
+-- Indices de la tabla `persona`
 --
 ALTER TABLE `persona`
   ADD PRIMARY KEY (`idPersona`);
 
 --
--- Indexes for table `populares`
+-- Indices de la tabla `populares`
 --
 ALTER TABLE `populares`
   ADD PRIMARY KEY (`idPopulares`),
   ADD KEY `FK_POPULARES_TOURS` (`idTours`);
 
 --
--- Indexes for table `tours`
+-- Indices de la tabla `tours`
 --
 ALTER TABLE `tours`
   ADD PRIMARY KEY (`idTours`),
@@ -577,7 +1046,7 @@ ALTER TABLE `tours`
   ADD KEY `FK_TOURS_GUIA` (`idGuia`);
 
 --
--- Indexes for table `toursturista`
+-- Indices de la tabla `toursturista`
 --
 ALTER TABLE `toursturista`
   ADD PRIMARY KEY (`idToursTurista`),
@@ -585,162 +1054,176 @@ ALTER TABLE `toursturista`
   ADD KEY `FK_TOURSTURISTA_TURISTA02` (`idTurista`);
 
 --
--- Indexes for table `turista`
+-- Indices de la tabla `turista`
 --
 ALTER TABLE `turista`
   ADD PRIMARY KEY (`idTurista`),
   ADD KEY `FK_Usuario_Turista` (`idUsuario`);
 
 --
--- Indexes for table `usuario`
+-- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`idUsuario`),
   ADD KEY `FK_Persona_Usuario` (`idPersona`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `administrador`
+-- AUTO_INCREMENT de la tabla `administrador`
 --
 ALTER TABLE `administrador`
   MODIFY `idAdministrador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
--- AUTO_INCREMENT for table `comentarios`
+-- AUTO_INCREMENT de la tabla `comentarios`
 --
 ALTER TABLE `comentarios`
   MODIFY `idComentarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
--- AUTO_INCREMENT for table `estados`
+-- AUTO_INCREMENT de la tabla `estados`
 --
 ALTER TABLE `estados`
   MODIFY `idEstados` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
--- AUTO_INCREMENT for table `guia`
+-- AUTO_INCREMENT de la tabla `guia`
 --
 ALTER TABLE `guia`
   MODIFY `idGuia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
--- AUTO_INCREMENT for table `hotel`
+-- AUTO_INCREMENT de la tabla `hotel`
 --
 ALTER TABLE `hotel`
   MODIFY `idHotel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
--- AUTO_INCREMENT for table `imagenes`
+-- AUTO_INCREMENT de la tabla `imagenes`
 --
 ALTER TABLE `imagenes`
   MODIFY `idImagenes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
--- AUTO_INCREMENT for table `pagos`
+-- AUTO_INCREMENT de la tabla `pagos`
 --
 ALTER TABLE `pagos`
   MODIFY `idPagos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
--- AUTO_INCREMENT for table `persona`
+-- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
 --
--- AUTO_INCREMENT for table `populares`
+-- AUTO_INCREMENT de la tabla `populares`
 --
 ALTER TABLE `populares`
   MODIFY `idPopulares` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
--- AUTO_INCREMENT for table `tours`
+-- AUTO_INCREMENT de la tabla `tours`
 --
 ALTER TABLE `tours`
-  MODIFY `idTours` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idTours` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
--- AUTO_INCREMENT for table `toursturista`
+-- AUTO_INCREMENT de la tabla `toursturista`
 --
 ALTER TABLE `toursturista`
   MODIFY `idToursTurista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
--- AUTO_INCREMENT for table `turista`
+-- AUTO_INCREMENT de la tabla `turista`
 --
 ALTER TABLE `turista`
-  MODIFY `idTurista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idTurista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
--- AUTO_INCREMENT for table `usuario`
+-- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `administrador`
+-- Filtros para la tabla `administrador`
 --
 ALTER TABLE `administrador`
   ADD CONSTRAINT `FK_Usuario_Administrador` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
 
 --
--- Constraints for table `comentarios`
+-- Filtros para la tabla `comentarios`
 --
 ALTER TABLE `comentarios`
   ADD CONSTRAINT `FK_COMENTARIOS_TOURS` FOREIGN KEY (`idTours`) REFERENCES `tours` (`idTours`),
   ADD CONSTRAINT `FK_COMENTARIOS_USUARIO` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
 
 --
--- Constraints for table `guia`
+-- Filtros para la tabla `guia`
 --
 ALTER TABLE `guia`
   ADD CONSTRAINT `FK_Usuario_Guia` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
 
 --
--- Constraints for table `hotel`
+-- Filtros para la tabla `hotel`
 --
 ALTER TABLE `hotel`
   ADD CONSTRAINT `FK_HOTEL_ESTADOS` FOREIGN KEY (`idEstados`) REFERENCES `estados` (`idEstados`),
   ADD CONSTRAINT `FK_TOURS_HOTEL` FOREIGN KEY (`idTours`) REFERENCES `tours` (`idTours`);
 
 --
--- Constraints for table `imagenes`
+-- Filtros para la tabla `imagenes`
 --
 ALTER TABLE `imagenes`
   ADD CONSTRAINT `FK_IMAGENES_TOURS` FOREIGN KEY (`idTours`) REFERENCES `tours` (`idTours`);
 
 --
--- Constraints for table `pagos`
+-- Filtros para la tabla `pagos`
 --
 ALTER TABLE `pagos`
   ADD CONSTRAINT `FK_PAGOS_HOTEL` FOREIGN KEY (`idHotel`) REFERENCES `hotel` (`idHotel`),
   ADD CONSTRAINT `FK_PAGOS_TOURS` FOREIGN KEY (`idTours`) REFERENCES `tours` (`idTours`);
 
 --
--- Constraints for table `populares`
+-- Filtros para la tabla `populares`
 --
 ALTER TABLE `populares`
   ADD CONSTRAINT `FK_POPULARES_TOURS` FOREIGN KEY (`idTours`) REFERENCES `tours` (`idTours`);
 
 --
--- Constraints for table `tours`
+-- Filtros para la tabla `tours`
 --
 ALTER TABLE `tours`
   ADD CONSTRAINT `FK_TOURS_ESTADOS` FOREIGN KEY (`idEstados`) REFERENCES `estados` (`idEstados`),
   ADD CONSTRAINT `FK_TOURS_GUIA` FOREIGN KEY (`idGuia`) REFERENCES `guia` (`idGuia`);
 
 --
--- Constraints for table `toursturista`
+-- Filtros para la tabla `toursturista`
 --
 ALTER TABLE `toursturista`
   ADD CONSTRAINT `FK_TOURSTURISTA_TURISTA01` FOREIGN KEY (`idTours`) REFERENCES `tours` (`idTours`),
   ADD CONSTRAINT `FK_TOURSTURISTA_TURISTA02` FOREIGN KEY (`idTurista`) REFERENCES `turista` (`idTurista`);
 
 --
--- Constraints for table `turista`
+-- Filtros para la tabla `turista`
 --
 ALTER TABLE `turista`
   ADD CONSTRAINT `FK_Usuario_Turista` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
 
 --
--- Constraints for table `usuario`
+-- Filtros para la tabla `usuario`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `FK_Persona_Usuario` FOREIGN KEY (`idPersona`) REFERENCES `persona` (`idPersona`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
