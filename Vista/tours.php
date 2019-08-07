@@ -60,9 +60,9 @@
         </button>
 
       </div>
-      <div class="modal-body">
+      <div class="modal-body ">
 
-        <div id="info">
+        <div id="info" class="p-3">
 
 
         </div>
