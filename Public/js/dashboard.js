@@ -270,32 +270,3 @@ function editarReguistro(){
 
 /*?=======================GUIAS=====================================*/
 
-
-function agregarGuia() {
-
-	var data = {
-		nombre : $("#nameguide").val(),
-		apellido : $("#apellido").val(),
-		username : $("#username").val(),
-		identidad   : $("#identidad").val(),
-		phone : $("#phone").val(),
-		gender : $("#genero").val(),
-		address : $("#direccion").val(),
-		email : $("#correo").val(),
-		contrasenia : $("#contrasenia").val()
-	};
-
-	//console.log(data);
-
-	$.ajax({
-		url: '../Controlador/ajax/gestion-Usuario.php?accion=agregarGuias',
-		method: 'post',
-		//dataType: 'json',
-		data: data,
-		success:function(res){
-			console.log(res);	
-		}
-	});
-
-}
-
