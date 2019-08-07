@@ -2,7 +2,7 @@ $(document).ready(function(){
     fetchProfiles();
 });
 
-function cambio() {
+function cambioprofiles() {
 	$(".detalle").hide(); 
 	$(".edite").hide();
 	$("#info").hide();
