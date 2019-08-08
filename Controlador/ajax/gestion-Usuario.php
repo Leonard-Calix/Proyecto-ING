@@ -37,8 +37,8 @@
 				$idPersona = ControllerPersona::agregarPersona($persona);
 				
 				if($idPersona != NULL){
-					$usuario = new Usuario($_POST["usuario"], $_POST["correo"], $_POST["contrasenia"],$idPersona);
-					$typeUser = isset($_POST['typeUser']) ? $_POST['typeUser'] : 2;
+					$usuario = new Usuario($nombreUsuario, $correo, $contrasena,$idPersona);
+					
 					$usuario_insertado = ControllerUsuario::agregarUsuario($usuario, $typeUser);
 					$salida = array("resultado" =>"Agregado exitosamente", "codigo" => $usuario_insertado);
 					echo json_encode($salida);
@@ -50,8 +50,6 @@
 				$salida = array("resultado" =>"Error. Verfique los datos", "codigo" => 0);
 				echo json_encode($salida);
 			}
-
-			
 		break;
 			
 		case 'delete':

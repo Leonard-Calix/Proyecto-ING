@@ -64,7 +64,6 @@ function fetchProfiles() {
 }    
 
 function agregarUser(){
-    limpiarInputs();
     $("#btn-edit").hide();
     
     var nombre = $('#nameUser').val();
@@ -88,7 +87,7 @@ function agregarUser(){
                     "&phone="+phone+"&genero="+genero+"&direccion="+direccion+"&usuario="+usuario+
                     "&correo="+correo+"&contrasenia="+contrasenia+"&typeUser="+typeUser;
     
-    //console.log(parametros);
+    console.log(parametros);
     
     if (nombre==" " || apellido=="" || correo==" " || usuario==" " || contrasenia==" ") {
         alert('Datos Vacios');
@@ -100,7 +99,7 @@ function agregarUser(){
             method: 'POST',
             data: parametros,
             success:function(respuesta){
-                //console.log(respuesta);
+                console.log(respuesta);
     
                 if(respuesta.codigo != 0){
     

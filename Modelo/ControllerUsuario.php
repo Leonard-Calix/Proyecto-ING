@@ -9,7 +9,7 @@ class ControllerUsuario{
         
         if (isset($conexion)) {
             try {
-                $sql = "SELECT * FROM usuarios WHERE nombreUsuario = :nombre";
+                $sql = "SELECT * FROM usuario WHERE nombreUsuario = :nombre";
                 
                 $sentencia = $conexion -> prepare($sql);
                 
@@ -59,6 +59,7 @@ class ControllerUsuario{
         
         return $email_existe;
     }
+
     public static function agregarUsuario($usuario,$tipoUsuario){
         
         Conexion::abrirConexion();
