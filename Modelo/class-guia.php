@@ -54,9 +54,6 @@ class Guia{
 		echo json_encode($guias);
     }
     
-    public static function UpdateGuia($idGuia, ){
-
-    }
 
 }
 
