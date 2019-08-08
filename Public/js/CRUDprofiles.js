@@ -72,7 +72,7 @@ function agregarUser(){
                     "&phone="+phone+"&genero="+genero+"&direccion="+direccion+"&usuario="+usuario+
                     "&correo="+correo+"&contrasenia="+contrasenia+"&typeUser="+typeUser;
     
-    console.log(parametros);
+    //console.log(parametros);
     
     if (nombre==" " || apellido=="" || correo==" " || usuario==" " || contrasenia==" ") {
         alert('Datos Vacios');

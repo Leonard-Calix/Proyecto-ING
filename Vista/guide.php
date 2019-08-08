@@ -14,11 +14,10 @@
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
-      <th scope="col">First name</th>
-      <th scope="col">Last</th>
-      <th scope="col">User name</th>
-      <th scope="col">email</th>
-      <th scope="col">Address</th>
+      <th scope="col">Name Tour</th>
+      <th scope="col">Name Hotel</th>
+      <th scope="col">Name Guide</th>
+      <th scope="col">Email</th>
       <th scope="col">Action</th>
       <th scope="col"></th>
     </tr>
