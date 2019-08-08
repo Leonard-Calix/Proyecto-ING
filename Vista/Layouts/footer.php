@@ -109,6 +109,10 @@
       <script src="../Public/js/CRUDprofiles.js"></script>
       <script src="../Public/js/dashboard.js"></script>
 
+	    <script src="../Public/js/jquery.form-validator.min.js"></script>
+
+
+
       <script type="text/javascript">
        $(document).ready(function() {
           // Javascript method's body can be found in assets/assets-for-demo/js/demo.js

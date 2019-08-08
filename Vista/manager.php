@@ -51,61 +51,61 @@
           <div class="col-md-6">
               <div class="form-group">
                <label>First Name</label>
-               <input type="text" id="nameUser" class="form-control">
+               <input type="text" id="nameUser" data-validation="alphanumeric" class="form-control">
                <input type="hidden" name="" id="idUser">
              </div>
           </div>
           <div class="col-md-6">
              <div class="form-group">
                <label>Last Name</label>
-               <input type="text" id="apellidoUser" class="form-control">
+               <input type="text" id="apellidoUser" data-validation="alphanumeric" class="form-control">
              </div>
           </div>
 
           <div class="col-md-6">
              <div class="form-group">
                <label>User name</label>
-               <input type="text" id="username" class="form-control">
+               <input type="text" id="username" data-validation="alphanumeric" class="form-control">
              </div>
           </div>
           <div class="col-md-6">
              <div class="form-group">
                <label>ID</label>
-               <input type="text" id="identidad" class="form-control">
+               <input type="text" id="identidad" data-validation="alphanumeric" class="form-control">
              </div>
           </div>
 
           <div class="col-md-6">
              <div class="form-group">
                <label>Phone</label>
-               <input type="text" id="phone" class="form-control">
+               <input type="text" id="phone" data-validation="alphanumeric" class="form-control">
              </div>
           </div>
         
         <div class="col-md-6">
              <div class="form-group">
                <label>Gender</label>
-               <input type="text" id="genero" class="form-control">
+               <input type="text" id="genero" data-validation="alphanumeric" class="form-control">
              </div>
           </div>
 
           <div class="col-md-6">
              <div class="form-group">
                <label>Address</label>
-               <input type="text" id="direccion" class="form-control">
+               <input type="text" id="direccion" data-validation="alphanumeric" class="form-control">
              </div>
           </div>
         <div class="col-md-6">
              <div class="form-group">
                <label>Email</label>
-               <input type="text" id="correo" class="form-control">
+               <input type="email" id="correo" data-validation="email" class="form-control">
              </div>
           </div>
 
           <div class="col-md-6">
              <div class="form-group">
                <label>Password</label>
-               <input type="text" id="contrasenia" class="form-control">
+               <input type="password" id="contrasenia" data-validation="alphanumeric" class="form-control">
              </div>
           </div>
           <div class="col-md-6">

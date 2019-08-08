@@ -1,161 +1,123 @@
 $(document).ready(function () {
-	$.ajax({
-			url:"../Controlador/ajax/gestion-guia.php?accion=obtener",
-			method:'POST',
-			dataType:'json',
-			success:function(res){
-				console.log("respuesta de la tabla de guias");
-				console.log(res);
-				for (var i = 0; i < res.length; i++) {
-					$('#t-res').append(` 
-					<tr id="${res[i].idGuia}" >
-          				<th scope="row">${res[i].id}</th>
-          				<td>${res[i].nombreCompleto}</td>
-          				<td>${res[i].Apellidos}</td>
-          				<td>${res[i].nombreUsuario}</td>
-          				<td>${res[i].email}</td>
-          				<td>${res[i].direccion}</td>
-          				<td scope="col"> <button onclick="infoGuia(${res[i].idPersona}, ${res[i].idUsuario});" class="btn btn-outline-success" data-toggle="modal" data-target="#modal-video" >Edit</button> </td>
-          				<td scope="col"> <button onclick="eliminar(${res[i].idPersona}, ${res[i].idUsuario},${res[i].idGuia} )";" class="btn btn-outline-danger" >Remove</button> </td>
-        			</tr>`);
-				}
-				
-			}
+  fetchGuides();
+  fetchGuiaOpt();
 
-		});
 });
 
+function fetchGuiaOpt(){
+  $.ajax({
+    url:"../Controlador/ajax/gestion-guia.php?accion=obtenerGuias",
+    method:'POST',
+    dataType:'json',
+    success:function(res){
+      console.log("respuesta de Guias");
+      console.log(res);
+      for (var i = 0; i < res.length; i++) {
+        $("#guiasOption").append(`<option value="${res[i].idGuia}">${res[i].nombreCompleto}</option>`);
+      }		
+    }
+  });
+}
 
-function infoGuia(idPersona, idUsuario, idGuia){
+function fetchGuides() {
+    $.ajax({
+      url: '../Controlador/ajax/gestion-guia.php?accion=obtener',
+      method: 'POST',
+      dataType:'json',
+      success: function(response) {
+        //console.log(response);
+        let template = '';
+        console.log(response[0].idTours);
 
-	var dato = {
-		idPersona : idPersona,
-		idUsuario : idUsuario,
-		idGuia : idGuia
+        for (var i=0; i<response.length; i++){
+            template += `
+            <tr>
+              <th idTours="${response[i].idTours}" scope="row">${response[i].idTours}</th>
+              <td>${response[i].nombre}</td>
+              <td>${response[i].nombreHotel}</td>
+              <td>${response[i].nombreGuia}</td>
+              <td>${response[i].email}</td>
+              <td>
+                <button onclick="fetchGuideID(${response[i].idGuia});" type="button" class="btn btn-secondary" data-toggle="modal" 
+                data-target="#exampleModal">Edit</button>
+              </td>
+              <td>
+                <button onclick="NotificarGuia(${response[i].idGuia});" type="button" class="btn btn-info" data-toggle="modal"
+                 data-target="#exampleModal2">Notificar</button>
+              </td>
+            </tr>
+            `
+        }
+        $('#res-guide').append(template);
+      }
+    });
+} 
 
-	};
 
-	$(".update").show();
-	$(".save").hide();
+function fetchGuideID(idguia){
+  $("#infoGuia").hide();
+  $("#btn-addGuia").hide();
+  $("#btn-editGuia").show();
 
-	$.ajax({
-		url: '../Controlador/ajax/gestion-guia.php?accion=infoGuia',
-		method: 'post',
-		dataType: 'json',
-		data: data,
-		success:function(res){
-			console.log(res);
-			if (res.respuesta==1) {
-				$("#idGuia").val(idGuia);
-				$("#idPersona").val(idPersona);
-				$("#idUsuario").val(idUsuario);
-				$("#nameguide").val();
-				$("#apellido").val();
-				$("#username").val();
-				$("#identidad").val();
-				$("#phone").val();
-				$("#genero").val();
-				$("#direccion").val();
-				$("#correo").val();
-				$("#contrasenia").val();
+  console.log(idguia);
 
-			}
+  $.ajax({
+    url: '../Controlador/ajax/gestion-guia.php?accion=tours_id',
+    method: 'POST',
+    dataType: 'json',
+    data: {idguia: idguia},
+    success:function(resp){
+      console.log(resp);
+      $("#idTours").val(resp[0].idTour);
+      $("#nameTour").val(resp[0].nombre);
+      $("#hotel").val(resp[0].nombreHotel);
+      $("#nameguide").val(resp[0].nombreGuia);
+      $("#correo").val(resp[0].email);
+      $("#guiasOption").val(resp[0].idGuia);
+      $("#idGuia").val(resp[0].idGuia);
+      $("#idUsuario").val(resp[0].idUsuario);
+      $("#idPersona").val(resp[0].idPersona);
+      
+    }
 
-		}
-	});
-
+  });
 }
 
 function editarGuia(){
-	var data = {
-		idGuia : $("#idGuia").val(),
-		idPersona : $("#idPersona").val(),
-		idUsuario : $("#idUsuario").val(),
-		nombre : $("#nameguide").val(),
-		apellido : $("#apellido").val(),
-		username : $("#username").val(),
-		identidad   : $("#identidad").val(),
-		telefono : $("#phone").val(),
-		genero : $("#genero").val(),
-		direccion : $("#direccion").val(),
-		email : $("#correo").val(),
-		contrasenia : $("#contrasenia").val()
-	};
+  var datos = {
+    idPersona: $("#idPersona").val(),
+    idGuia: $("#idGuia").val(),
+    idUsuario: $("#idUsuario").val(),
+    guiaCambio: $("#guiasOption").val()
+  };
 
-	console.log(data);
-
-	$.ajax({
-		url: '../Controlador/ajax/gestion-guia.php?accion=editarGuia',
-		method: 'post',
-		//dataType: 'json',
-		//data: data,
+  console.log(datos);
+  $.ajax({
+		url: '../Controlador/ajax/gestion-guia.php?accion=update',
+		method: 'POST',
+		dataType: 'json',
+		data: datos,
 		success:function(res){
-			console.log(res);
+            console.log(res);
 			if (res.respuesta==1) {
-					$('#'+id).html(` 
-          				<th scope="row">${res[i].id}</th>
-          				<td>${res[i].nombreCompleto}</td>
-          				<td>${res[i].Apellidos}</td>
-          				<td>${res[i].nombreUsuario}</td>
-          				<td>${res[i].email}</td>
-          				<td>${res[i].direccion}</td>
-          				<td scope="col"> <button onclick="infoGuia(${$("#idPersona").val()}, ${$("#idUsuario").val()}, ${$("#idGuia").val()});" class="btn btn-outline-success" data-toggle="modal" data-target="#modal-video" >Edit</button> </td>
-          				<td scope="col"> <button onclick="eliminar(${$("#idPersona").val()}, ${$("#idUsuario").val()}, ${$("#idGuia").val()} )";" class="btn btn-outline-danger" >Remove</button> </td>
-        			`);
-
-			}		
-		}
-	});
-}
-
-function agregarGuia() {
-
-	var data = {
-		nombre : $("#nameguide").val(),
-		apellido : $("#apellido").val(),
-		username : $("#username").val(),
-		identidad   : $("#identidad").val(),
-		telefono : $("#phone").val(),
-		genero : $("#genero").val(),
-		direccion : $("#direccion").val(),
-		email : $("#correo").val(),
-		contrasenia : $("#contrasenia").val()
-	};
-
-	console.log(data);
-	
-	$.ajax({
-		url: '../Controlador/ajax/gestion-guia.php?accion=agregarGuias',
-		method: 'post',
-		//dataType: 'json',
-		data: data,
-		success:function(res){
-			console.log(res);
-			if (res.respuesta==1) {
-				$('#t-res').append(` 
-					<tr id="${res[i].idGuia}" >
-          				<th scope="row">${res[i].id}</th>
-          				<td>${$("#nameguide").val()}</td>
-          				<td>${$("#apellido").val()}</td>
-          				<td>${$("#username").val()}</td>
-          				<td>${$("#correo").val()}</td>
-          				<td>${$("#direccion").val()}</td>
-          				<td scope="col"> <button onclick="infoGuia(${res[i].idPersona}, ${res[i].idUsuario});" class="btn btn-outline-success" data-toggle="modal" data-target="#modal-video" >Edit</button> </td>
-          				<td scope="col"> <button onclick="eliminar(${res[i].idPersona}, ${res[i].idUsuario},${res[i].idGuia} )";" class="btn btn-outline-danger" >Remove</button> </td>
-        			</tr>`);
+				$("#"+datos.idGuia).html(`
+				<th scope="row">${datos.idTours}</th>
+          		<td>${ $("#nameTour").val() }</td>
+                <td>${ $("#hotel").val() }</td>
+                <td>${ $("#nameguide").val() }</td>
+                <td>${ $("#correo").val() }</td>
+          		<td scope="col"> <button onclick="fetchGuideID(${datos.idGuia});" class="btn btn-outline-success" data-toggle="modal" data-target="#modal-video" >Edit</button> </td>
+          		<td scope="col"> <button onclick="NotificarGuia(${datos.idGuia})";" class="btn btn-outline-danger" >Remove</button> </td>
+                `);
+                alert("The user profile has been updated successfully");
+                $(document).ajaxStop(function(){ window.location.reload(); }); 
 			}
-
-
+            
 		}
 	});
 
 }
 
-
-function cambio(){
-
-	$(".update").hide();
-	$(".save").show();
-
+function NotificarGuia(){
+  
 }
-

@@ -47,7 +47,7 @@
           <li>
             <a href="manager.php">
               <i class="nc-icon nc-diamond"></i>
-              <p class="text-white" >Manager</p>
+              <p class="text-white" >Profiles</p>
             </a>
           </li>
           <li>

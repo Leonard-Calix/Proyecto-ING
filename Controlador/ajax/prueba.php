@@ -1,7 +1,9 @@
 <?php 
 	include_once('../../Modelo/ControllerUsuario.php');
 	include_once('../../Modelo/clase-Profiles.php');
-	
+	include_once('../../Modelo/class-guia.php');
+
+	echo Guia::obtenerGuiasOption();
 	/*
 	include_once('../../Modelo/clase-Usuario.php');
 	include_once('../../Modelo/clase-Persona.php');

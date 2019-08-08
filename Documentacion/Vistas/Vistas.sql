@@ -76,9 +76,15 @@ INNER JOIN guia g ON g.idguia=t.idguia
 INNER JOIN usuario u ON u.idusuario=g.idusuario
 
 /*GUIAS PARA EL FORMULARIO*/
-
 SELECT g.idGuia, p.nombreCompleto FROM guia g
 INNER JOIN usuario u ON u.idUsuario=g.idUsuario 
-INNER JOIN persona p ON p.idPersona=u.idUsuario
+INNER JOIN persona p ON p.idPersona=u.idUsuario;
 
-
+/*===================================================================================================================*/
+/*TOURS ASIGNADOS A GUIAS*/
+CREATE VIEW VW_TOURS_GUIA AS
+SELECT  t.idTours, t.nombre, h.nombreHotel, CONCAT(p.nombreCompleto," ", p.Apellidos) as nombreGuia, u.email, p.idPersona, u.idUsuario, g.idGuia FROM persona p 
+INNER JOIN usuario u ON p.idPersona = u.idPersona
+INNER JOIN guia g ON g.idUsuario = u.idUsuario
+INNER JOIN tours t ON g.idGuia = t.idGuia
+INNER JOIN hotel h ON h.idTours = t.idTours;
