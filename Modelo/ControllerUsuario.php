@@ -4,6 +4,61 @@
 
 class ControllerUsuario{
 
+    public static function nombre_existe($conexion, $nombreU){
+        $nombre_existe = true;
+        
+        if (isset($conexion)) {
+            try {
+                $sql = "SELECT * FROM usuarios WHERE nombreUsuario = :nombre";
+                
+                $sentencia = $conexion -> prepare($sql);
+                
+                $sentencia -> bindParam(':nombre', $nombreU, PDO::PARAM_STR);
+                
+                $sentencia -> execute();
+                
+                $resultado = $sentencia -> fetchAll();
+                
+                if (count($resultado)) {
+                    $nombre_existe = true;
+                } else {
+                    $nombre_existe = false;
+                }
+            } catch (PDOException $ex) {
+                print 'ERROR' . $ex -> getMessage();
+            }
+        }
+        
+        return $nombre_existe;
+    }
+
+    public static function email_existe($conexion, $email){
+        $email_existe = true;
+        
+        if (isset($conexion)) {
+            try {
+                $sql = "SELECT * FROM usuario WHERE email = :email";
+                
+                $sentencia = $conexion -> prepare($sql);
+                
+                $sentencia -> bindParam(':email', $email, PDO::PARAM_STR);
+                
+                $sentencia -> execute();
+                
+                $resultado = $sentencia -> fetchAll();
+                
+                if (count($resultado)) {
+                    $email_existe = true;
+                } else {
+                    $email_existe = false;
+                }
+            } catch (PDOException $ex) {
+                print 'ERROR' . $ex -> getMessage();
+            }
+        }
+        
+        return $email_existe;
+    }
     public static function agregarUsuario($usuario,$tipoUsuario){
         
         Conexion::abrirConexion();
