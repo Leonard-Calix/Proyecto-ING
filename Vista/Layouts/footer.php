@@ -108,6 +108,7 @@
       <script src="../Public/js/crudGuias.js"></script>
       <script src="../Public/js/paper-dashboard.js"></script>
       <script src="../Public/js/dashboard.js"></script>
+	    <script src="../Public/js/jquery.form-validator.min.js"></script>
 
 
       <script type="text/javascript">

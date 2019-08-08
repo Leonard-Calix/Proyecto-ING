@@ -9,6 +9,14 @@ include_once('../../Modelo/class-guia.php');
 			
 		break;
 
+		case 'tours_id':
+			$id = $_POST['idguia'];
+			Guia::obtenerTours_por_GuiaID($id);
+		break;
+
+		case 'obtenerGuias':
+			Guia::obtenerGuiasOption();
+		break;
 		
 		default:
 			

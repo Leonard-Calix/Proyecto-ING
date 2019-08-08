@@ -2,7 +2,7 @@
 
 <!-- Button trigger modal -->
 <br><br><br>
-<button type="button" onclick="cambio();" class=" ml-3 btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+<button type="button" onclick="" class=" ml-3 btn btn-primary" data-toggle="modal" data-target="#exampleModal">
   New
 </button>
 
@@ -41,12 +41,15 @@
         </button>
       </div>
       <div class="modal-body">
+        <div id="infoGuia"></div>
 
+        <div id="registro-guia">
         <div class="row">
           <div class="col-md-6">
               <div class="form-group">
-               <label>First Name</label>
-               <input type="text" id="nameguide" class="form-control">
+               <label>Name Tour</label>
+               <input type="text" id="nameTour" readonly="readonly" class="form-control">
+               <input type="hidden" id="idTours">
 				       <input type="hidden" name="" id="idGuia">
                <input type="hidden" name="" id="idUsuario">
                <input type="hidden" name="" id="idPersona">
@@ -55,69 +58,42 @@
           </div>
             <div class="col-md-6">
              <div class="form-group">
-               <label>Last Name</label>
-               <input type="text" id="apellido" class="form-control">
+               <label>Name Hotel</label>
+               <input type="text" id="hotel" readonly="readonly" class="form-control">
              </div>
           </div>
 
           <div class="col-md-6">
              <div class="form-group">
-               <label>User name</label>
-               <input type="text" id="username" class="form-control">
-             </div>
-          </div>
-          <div class="col-md-6">
-             <div class="form-group">
-               <label>ID</label>
-               <input type="text" id="identidad" class="form-control">
+               <label>Name Guide</label>
+               <input type="text" id="nameguide" readonly="readonly"  class="form-control">
              </div>
           </div>
 
-          <div class="col-md-6">
-             <div class="form-group">
-               <label>Phone</label>
-               <input type="text" id="phone" class="form-control">
-             </div>
-          </div>
-        
-        <div class="col-md-6">
-             <div class="form-group">
-               <label>Gender</label>
-               <input type="text" id="genero" class="form-control">
-             </div>
-          </div>
-
-          <div class="col-md-6">
-             <div class="form-group">
-               <label>Address</label>
-               <input type="text" id="direccion" class="form-control">
-             </div>
-          </div>
         <div class="col-md-6">
              <div class="form-group">
                <label>Email</label>
-               <input type="text" id="correo" class="form-control">
+               <input type="text" id="correo" readonly="readonly" class="form-control">
              </div>
           </div>
-
           <div class="col-md-6">
-             <div class="form-group">
-               <label>contraseña</label>
-               <input type="text" id="contrasenia" class="form-control">
-             </div>
+            <label for="guiasOptionx">Changes Guide</label>
+            <select id="guiasOption" class="form-control">
+                  
+            </select>
           </div>
           <br>
       </div> 
       <div class="modal-footer">
         <button  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button  onclick="agregarGuia();" type="button" class="btn btn-primary save">Save changes</button>
-        <button  onclick="editarGuia();" type="button" class="btn btn-primary update">Update</button>
-        
-        
+        <button id="btn-addGuia"  onclick="asignarGuia();" type="button" class="btn btn-primary save">Save changes</button>
+        <button id="btn-editGuia" onclick="notificarGuia();" type="button" class="btn btn-primary update">Update</button>
       </div>
     </div>
   </div>
+</div>     
 </div>
+        
 
   <?php include_once ('Layouts/footer.php'); ?>
 
