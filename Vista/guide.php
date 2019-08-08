@@ -85,7 +85,7 @@
           <br>
       </div> 
       <div class="modal-footer">
-        <button  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button  type="button" onclick="limpiarInput();" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button id="btn-addGuia"  onclick="asignarGuia();" type="button" class="btn btn-primary save">Save changes</button>
         <button id="btn-editGuia" onclick="notificarGuia();" type="button" class="btn btn-primary update">Update</button>
       </div>

@@ -4,6 +4,18 @@ $(document).ready(function () {
 
 });
 
+function limpiarInput(){
+  $("#idTours").val("");
+  $("#nameTour").val("");
+  $("#hotel").val("");
+  $("#nameguide").val("");
+  $("#correo").val("");
+  $("#guiasOption").val("");
+  $("#idGuia").val("");
+  $("#idUsuario").val("");
+  $("#idPersona").val("");
+}
+
 function fetchGuiaOpt(){
   $.ajax({
     url:"../Controlador/ajax/gestion-guia.php?accion=obtenerGuias",
@@ -124,14 +136,3 @@ function NotificarGuia(){
   
 }
 
-function limpiarInput(){
-  $("#idTours").val("");
-  $("#nameTour").val("");
-  $("#hotel").val("");
-  $("#nameguide").val("");
-  $("#correo").val("");
-  $("#guiasOption").val("");
-  $("#idGuia").val("");
-  $("#idUsuario").val("");
-  $("#idPersona").val("");
-}
