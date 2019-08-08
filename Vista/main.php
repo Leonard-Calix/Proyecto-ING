@@ -15,8 +15,8 @@
             </div>
             <div class="col-7 col-md-8">
               <div class="numbers">
-                <p class="card-category">Capacity</p>
-                <p class="card-title">150GB
+                <p class="card-category">Tours</p>
+                <p class="card-title">20
                   <p>
                   </div>
                 </div>
@@ -41,8 +41,8 @@
                 </div>
                 <div class="col-7 col-md-8">
                   <div class="numbers">
-                    <p class="card-category">Revenue</p>
-                    <p class="card-title">$ 1,345
+                    <p class="card-category">Guias</p>
+                    <p class="card-title">15
                       <p>
                       </div>
                     </div>
@@ -67,8 +67,8 @@
                     </div>
                     <div class="col-7 col-md-8">
                       <div class="numbers">
-                        <p class="card-category">Errors</p>
-                        <p class="card-title">23
+                        <p class="card-category">Visit</p>
+                        <p class="card-title">500
                           <p>
                           </div>
                         </div>
@@ -93,8 +93,8 @@
                         </div>
                         <div class="col-7 col-md-8">
                           <div class="numbers">
-                            <p class="card-category">Followers</p>
-                            <p class="card-title">+45K
+                            <p class="card-category">Coments</p>
+                            <p class="card-title">10,000
                               <p>
                               </div>
                             </div>

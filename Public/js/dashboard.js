@@ -24,6 +24,30 @@ $(document).ready(function($) {
 
 		});
 
+/*INFORMACION DE PERFIL DE GUIA*/
+
+	$.ajax({
+		url: '../Controlador/ajax/gestion-Usuario.php?accion=infoProfiles',
+		method: 'post',
+		dataType: 'json',
+		data: { idEdit : $("#idUsuario").val() },
+		success:function(res){
+			console.log("Usuario");
+			console.log(res);
+			$("#username").val(res[0].nombreUsuario);
+			$("#email").val(res[0].email);
+			$("#nombre").val(res[0].nombreCompleto);
+			$("#apellido").val(res[0].Apellidos);
+			$("#direccion").val(res[0].direccion);
+			$("#telefono").val(res[0].telefono);
+			$("#identidad").val(res[0].numeroIdentidad);
+
+            $("#div-usuario-email").html(`<p class="description" > <span class="text-primary">Email :</span> ${res[0].email}</p>`);
+            $("#div-usuario").html(`<p class="description" > <span class="text-primary">Username :</span> ${res[0].nombreUsuario}</p>`);
+
+		}
+	});
+
 		
 		$.ajax({
 			url:"../Controlador/ajax/gestion-Usuario.php?accion=obtenerGuias",

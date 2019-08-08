@@ -6,6 +6,7 @@ $(document).ready(function(){
 	if ($('#tour').val()!=null) {
 
 		var param = 'id='+$('#tour').val();
+		var img = '../Public/img/tours/' + $('#tour').val() + '_01.png';
 
 		$.ajax({
 			url:"../Controlador/ajax/gestion-Tours.php?accion=obtenerTour",
@@ -47,7 +48,10 @@ $(document).ready(function(){
 			success:function(res){
 			console.log(res);
 			var estrella='';
+			var img = '';
 			for (var i = 0; i < res.length; i++) {
+
+				img = '../Public/img/tours/' + res[i].idTours + '_01.png';
 
 				for (var j = 0; j < res[i].calificacion; j++) {
 					estrella+='<i class="text-primary fas fa-star"></i> ';
@@ -60,7 +64,7 @@ $(document).ready(function(){
 
                 			<!-- Image -->
                 			<div class="card-img-top">
-                  				<img src="../Public/img/01.jpg" alt="App landing" class="img-fluid">
+                  				<img src="${img}" alt="App landing" class="img-fluid">
                 			</div>
 
                 			<!-- Body -->
@@ -79,6 +83,7 @@ $(document).ready(function(){
 
             		</div>`);
 					estrella='';
+					img='';
 				}
 			}
 		});
