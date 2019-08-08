@@ -42,7 +42,12 @@
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <label for="email-guia" class="col-form-label">Recipient:</label>
+            <label for="email-guia" class="col-form-label">Email Administrador:</label>
+            <input type="text" class="form-control" id="email-admin">
+            <input type="hidden" name="id-admin">
+          </div>
+          <div class="form-group">
+            <label for="email-guia" class="col-form-label">Email del Guia:</label>
             <input type="text" class="form-control" id="email-guia">
           </div>
           <div class="form-group">

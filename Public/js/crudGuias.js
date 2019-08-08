@@ -134,8 +134,12 @@ function editarGuia(){
 
 }
 
-function NotificarGuia(id){
-  console.log(id +" notificar");
+function NotificarGuia(idGuia){
+  console.log(idGuia +" id del guia a enviar correo para notificar");
+
+  //obtener el correo del administrador
+  //obtener todos los datos a enviar
+  //pintar la informacion del tour en info-tourguia
   
 
 }
