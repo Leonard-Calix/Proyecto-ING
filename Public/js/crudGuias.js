@@ -70,6 +70,7 @@ function fetchGuideID(idguia){
       $("#hotel").val(resp[0].nombreHotel);
       $("#nameguide").val(resp[0].nombreGuia);
       $("#correo").val(resp[0].email);
+      $("#guiasOption").val(resp[0].idGuia);
       $("#idGuia").val(resp[0].idGuia);
       $("#idUsuario").val(resp[0].idUsuario);
       $("#idPersona").val(resp[0].idPersona);
