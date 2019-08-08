@@ -118,13 +118,15 @@ function editarGuia(){
                 <td>${ $("#hotel").val() }</td>
                 <td>${ $("#nameguide").val() }</td>
                 <td>${ $("#correo").val() }</td>
-          		<td scope="col"> <button onclick="fetchGuideID(${datos.idGuia});" class="btn btn-outline-success" data-toggle="modal" data-target="#modal-update" >Edit</button> </td>
-          		<td scope="col"> <button id="btn-notific" onclick="NotificarGuia(${datos.idGuia})";" class="btn btn-outline-danger" data-toggle="modal" data-target="#modal-notific" >Notificar</button> </td>
-                `);
+              <td scope="col"> <button onclick="fetchGuideID(${datos.idGuia});" 
+              class="btn btn-outline-success" data-toggle="modal" data-target="#modal-update" >Edit</button> </td>      
+              <td scope="col"> <button onclick="NotificarGuia(${datos.idGuia})";" 
+              class="btn btn-outline-danger" data-toggle="modal" data-target="#modal-notific" >Notificar</button> </td>
+        `);
               
-              limpiarInput();
-              alert("The user profile has been updated successfully");
-              $(document).ajaxStop(function(){ window.location.reload(); }); 
+        limpiarInput();
+        alert("The user profile has been updated successfully");
+        $(document).ajaxStop(function(){ window.location.reload(); }); 
 			}
             
 		}
@@ -133,11 +135,9 @@ function editarGuia(){
 }
 
 function NotificarGuia(id){
-  console.log(id +"notificar");
-  $('#btn-notific').on('click', function (event) { 
-    $('#modal-notific').modal;
-  });  
-  //$('#modal-notific').modal();
+  console.log(id +" notificar");
+   
+  $('#modal-notific').show();
 
 }
 
