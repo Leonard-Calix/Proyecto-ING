@@ -2,7 +2,7 @@
 
 <!-- Button trigger modal -->
 <br><br><br>
-<button type="button" onclick="" class=" ml-3 btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+<button type="button" onclick="" class=" ml-3 btn btn-primary" data-toggle="modal" data-target="#modal-update">
   New
 </button>
 
@@ -31,7 +31,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-update" tabindex="-1" role="dialog" aria-labelledby="modal-update" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -87,14 +87,42 @@
       <div class="modal-footer">
         <button  type="button" onclick="limpiarInput();" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button id="btn-addGuia"  onclick="asignarGuia();" type="button" class="btn btn-primary save">Save changes</button>
-        <button id="btn-editGuia" onclick="notificarGuia();" type="button" class="btn btn-primary update">Update</button>
+        <button id="btn-editGuia" onclick="editarGuia();" type="button" class="btn btn-primary update">Update</button>
       </div>
     </div>
   </div>
 </div>     
 </div>
         
+<div class="modal fade" id="modal-notific" tabindex="-1" role="dialog" aria-labelledby="modal-notific" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Email Notifications</h5>
+        <button class="close" data-dismiss="modal" aria-label="Cerrar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="email-guia" class="col-form-label">Recipient:</label>
+            <input type="text" class="form-control" id="email-guia">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="info-tourguia"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send notifications</button>
+      </div>
+    </div>
+  </div>
 
+</div>
   <?php include_once ('Layouts/footer.php'); ?>
 
  </div>
