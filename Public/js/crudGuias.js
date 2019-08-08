@@ -109,8 +109,10 @@ function editarGuia(){
           		<td scope="col"> <button onclick="fetchGuideID(${datos.idGuia});" class="btn btn-outline-success" data-toggle="modal" data-target="#modal-video" >Edit</button> </td>
           		<td scope="col"> <button onclick="NotificarGuia(${datos.idGuia})";" class="btn btn-outline-danger" >Remove</button> </td>
                 `);
-                alert("The user profile has been updated successfully");
-                $(document).ajaxStop(function(){ window.location.reload(); }); 
+              
+              limpiarInput();
+              alert("The user profile has been updated successfully");
+              $(document).ajaxStop(function(){ window.location.reload(); }); 
 			}
             
 		}
@@ -120,4 +122,16 @@ function editarGuia(){
 
 function NotificarGuia(){
   
+}
+
+function limpiarInput(){
+  $("#idTours").val("");
+  $("#nameTour").val("");
+  $("#hotel").val("");
+  $("#nameguide").val("");
+  $("#correo").val("");
+  $("#guiasOption").val("");
+  $("#idGuia").val("");
+  $("#idUsuario").val("");
+  $("#idPersona").val("");
 }

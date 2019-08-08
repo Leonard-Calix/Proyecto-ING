@@ -91,15 +91,7 @@ function agregarUser(){
     
                 if(respuesta.codigo != 0){
     
-                    $('#nameUser').val("");
-                    $('#apellidoUser').val("");
-                    $('#correo').val("");
-                    $('#username').val("");
-                    $('#identidad').val("");
-                    $('#phone').val("");
-                    $('#genero').val("");
-                    $('#direccion').val("");
-                    $('#contrasenia').val("");
+                    limpiarInputs();
                     
                     alert("The user profile has been add successfully");
                     $(document).ajaxStop(function(){ window.location.reload(); });
@@ -206,6 +198,8 @@ function editarUser(){
           		<td scope="col"> <button onclick="editarUser(${datos.idUpdate});" class="btn btn-outline-success" data-toggle="modal" data-target="#modal-video" >Edit</button> </td>
           		<td scope="col"> <button onclick="EliminarUser(${datos.idUpdate})";" class="btn btn-outline-danger" >Remove</button> </td>
                 `);
+
+                limpiarInputs();
                 alert("The user profile has been updated successfully");
                 $(document).ajaxStop(function(){ window.location.reload(); }); 
 			}
@@ -213,4 +207,17 @@ function editarUser(){
 		}
 	});
 
+}
+
+
+function limpiarInputs(){
+    $('#nameUser').val("");
+    $('#apellidoUser').val("");
+    $('#correo').val("");
+    $('#username').val("");
+    $('#identidad').val("");
+    $('#phone').val("");
+    $('#genero').val("");
+    $('#direccion').val("");
+    $('#contrasenia').val("");
 }
