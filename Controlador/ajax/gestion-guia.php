@@ -5,8 +5,7 @@ include_once('../../Modelo/class-guia.php');
 	switch ($_GET["accion"]) {
 
 		case 'obtener':
-			Guia::obtenerTours_por_Guia();
-			
+			Guia::obtenerTours_por_Guia();	
 		break;
 
 		case 'tours_id':
@@ -18,6 +17,9 @@ include_once('../../Modelo/class-guia.php');
 			Guia::obtenerGuiasOption();
 		break;
 		
+		case 'updateguia':
+			
+		break;
 		default:
 			
 			break;

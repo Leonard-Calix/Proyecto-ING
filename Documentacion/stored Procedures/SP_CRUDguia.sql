@@ -42,7 +42,7 @@ BEGIN
     
         UPDATE tours SET idGuia = pidGuia WHERE idTours = pIdTour;
     ELSE
-        pMensaje = 'No se puede actualizar. Verifique sus datos';
+        SET pMensaje = 'No se puede actualizar. Verifique sus datos';
     END IF;
 
 END$$

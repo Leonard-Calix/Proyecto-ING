@@ -355,20 +355,18 @@ class Tours	{
 		
 	} 
 
-	public static function obtenerGias(){
+	public static function obtenerGuiasT(){
 		Conexion::abrirConexion();
 		$conexion = Conexion::obtenerConexion();
 
-		$sql = "SELECT g.idGuia, p.nombreCompleto FROM guia g
-				INNER JOIN usuario u ON u.idUsuario=g.idUsuario 
-				INNER JOIN persona p ON p.idPersona=u.idUsuario";
-
-		$sentencia = $conexion->prepare($sql);
+		$sql = "SELECT * FROM VIEW_Perfil_Usuario_Guia";
+        $sentencia = $conexion->prepare($sql);
+        $sentencia->execute();
 		
 		$guias = array();
 
-		foreach ($sentencia as $img) {
-			$guias[] = $img; 
+		foreach ($sentencia as $guia) {
+			$guias[] = $guia; 
 		}
 
 		echo json_encode($guias);

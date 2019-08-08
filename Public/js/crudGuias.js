@@ -1,6 +1,10 @@
 $(document).ready(function () {
   fetchGuides();
-  
+  fetchGuiaOpt();
+
+});
+
+function fetchGuiaOpt(){
   $.ajax({
     url:"../Controlador/ajax/gestion-guia.php?accion=obtenerGuias",
     method:'POST',
@@ -13,8 +17,7 @@ $(document).ready(function () {
       }		
     }
   });
-
-});
+}
 
 function fetchGuides() {
     $.ajax({

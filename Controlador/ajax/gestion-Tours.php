@@ -28,6 +28,10 @@
 			Tours::obtenerHoteles();
 		break;
 
+		case 'getGuias':
+			Tours::obtenerGuiasT();
+		break;
+
 		case 'detalleTours':
 			Tours::detalleTours($_POST["id"]);
 		break;

@@ -23,17 +23,16 @@ $(document).ready(function($) {
 			}
 
 		});
-
 		
 		$.ajax({
-			url:"../Controlador/ajax/gestion-Usuario.php?accion=obtenerGuias",
+			url:"../Controlador/ajax/gestion-Usuario.php?accion=getGuias",
 			method:'POST',
 			dataType:'json',
 			success:function(res){
 				console.log("respuesta de Guias");
 				console.log(res);
 				for (var i = 0; i < res.length; i++) {
-					$("#guia").append(`<option value="${res[i].idGuia}" >${res[i].nombreCompleto}</option>`);
+					$("#guiaOpt").append(`<option value="${res[i].idGuia}" >${res[i].nombreCompleto}</option>`);
 				}		
 			}
 		});

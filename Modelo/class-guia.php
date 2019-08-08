@@ -42,8 +42,8 @@ class Guia{
 		$conexion = Conexion::obtenerConexion();
 
 		$sql = "SELECT * FROM VIEW_Perfil_Usuario_Guia";
-
-		$sentencia = $conexion->prepare($sql);
+        $sentencia = $conexion->prepare($sql);
+        $sentencia->execute();
 		
 		$guias = array();
 
@@ -52,7 +52,11 @@ class Guia{
 		}
 
 		echo json_encode($guias);
-	}
+    }
+    
+    public static function UpdateGuia($idGuia, ){
+
+    }
 
 }
 
