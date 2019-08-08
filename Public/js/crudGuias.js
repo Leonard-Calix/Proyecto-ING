@@ -136,8 +136,7 @@ function editarGuia(){
 
 function NotificarGuia(id){
   console.log(id +" notificar");
-   
-  $('#modal-notific').show();
+  
 
 }
 

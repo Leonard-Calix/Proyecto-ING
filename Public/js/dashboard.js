@@ -32,8 +32,8 @@ $(document).ready(function($) {
 		dataType: 'json',
 		data: { idEdit : $("#idUsuario").val() },
 		success:function(res){
-			console.log("Usuario");
-			console.log(res);
+			//console.log("Usuario");
+			//console.log(res);
 			$("#username").val(res[0].nombreUsuario);
 			$("#email").val(res[0].email);
 			$("#nombre").val(res[0].nombreCompleto);
