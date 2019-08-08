@@ -86,6 +86,11 @@
 		case 'obtenerUsuario':
 			 ControllerUsuario::obtenerUsuario((int)$_POST["id"]);
 		break;
+
+		case 'getGuias':
+			 ControllerUsuario::obtenerGuias();
+		break;
+	
 	
 	}
 

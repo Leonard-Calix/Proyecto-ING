@@ -11,6 +11,8 @@ function cambioprofiles() {
 	$("#registro_profiles").show();
 	$("#btn-edit").hide();
 	$("#btn-add").show();
+
+    $('#nameUser').val("");
 }
 
 function fetchProfiles() {
