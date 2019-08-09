@@ -1,5 +1,6 @@
 <?php 
 include_once('ControllerUsuario.php');
+
 class ValidadorProfiles{
     private $nombre;
 	private $apellidos;
@@ -67,7 +68,7 @@ class ValidadorProfiles{
         }
 
         if (strlen($nombre) < 2) {
-            return "El nombre debe ser más largo que 3 caracteres.";
+            return "El nombre debe ser más largo que 2 caracteres.";
         }
 
         if (strlen($nombre) > 24) {
@@ -84,12 +85,30 @@ class ValidadorProfiles{
             $this -> apellidos = $apellidos;
         }
 
-        if (strlen($apellidos) < 2) {
+        if (strlen($apellidos) < 3) {
             return "Los apellidos debe ser más largo que 3 caracteres.";
         }
 
         if (strlen($apellidos) > 55) {
             return "Los apellidos no puede ocupar más de 55 caracteres.";
+        }
+
+        return "";
+    }
+
+    private function validar_identidad($identidad){
+        if (!$this -> variable_iniciada($identidad)) {
+            return "Debes escribir numero de identidad.";
+        } else {
+            $this -> identidad = $identidad;
+        }
+
+        if (strlen($identidad) < 3) {
+            return "El numero de identidad debe ser más largo que 3 caracteres.";
+        }
+
+        if (strlen($identidad) > 20) {
+            return "El numero de identidad no puede ocupar más de 20 caracteres.";
         }
 
         return "";
@@ -102,7 +121,7 @@ class ValidadorProfiles{
             $this -> direccion = $direccion;
         }
 
-        if (strlen($direccion) < 2) {
+        if (strlen($direccion) < 3) {
             return "Las direcciones debe ser más largo que 3 caracteres.";
         }
 

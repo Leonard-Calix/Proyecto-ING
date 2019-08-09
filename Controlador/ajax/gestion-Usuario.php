@@ -17,11 +17,11 @@
 		$apellido = $_POST["apellido"];
 		$identidad = isset($_POST["identidad"]) ? $_POST["identidad"] : "null";
 		$telefono = isset($_POST["telefono"]) ? $_POST["telefono"] : "null";
-		$genero = isset($_POST["genero"]) ? $_POST["genero"] : "null";
+		$genero = isset($_POST["genero"]) ? $_POST["genero"] : "n";
 		$direccion = isset($_POST["direccion"]) ? $_POST["direccion"] : "null";
 		$nombreUsuario = $_POST["usuario"];
 		$correo = $_POST["correo"];
-		$contrasenia = $_POST["contrasenia"];
+		$contrasena = $_POST["contrasenia"];
 		$typeUser = isset($_POST['typeUser']) ? $_POST['typeUser'] : 2;
 		
 		$validador = new ValidadorProfiles($nombre, $apellido, $identidad, $direccion, $telefono, $genero, 

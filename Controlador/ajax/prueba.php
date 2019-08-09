@@ -3,8 +3,24 @@
 	include_once('../../Modelo/clase-Profiles.php');
 	include_once('../../Modelo/class-guia.php');
 	include_once('../../Modelo/clase-conexionPDO.php');
-	echo ControllerUsuario::login('bcalixvelasquez@gmail.com', 'admin.451');
-	/*Conexion::abrirConexion();
+	include_once('../../Modelo/clase-validadorProfiles.php');
+	/*
+	$nombre =  "maria fernando";
+		$apellido = "funez mori";
+		$identidad = isset($_POST["identidad"]) ? $_POST["identidad"] : "camnulos";
+		$telefono = isset($_POST["telefono"]) ? $_POST["telefono"] : "camnulos";
+		$genero = isset($_POST["genero"]) ? $_POST["genero"] : "n";
+		$direccion = isset($_POST["direccion"]) ? $_POST["direccion"] : "nulos";
+		$nombreUsuario = "fer";
+		$correo = "funezfer@gmail.com";
+		$contrasena = "turist.000";
+		$typeUser = isset($_POST['typeUser']) ? $_POST['typeUser'] : 2;
+		
+		$validador = new ValidadorProfiles($nombre, $apellido, $identidad, $direccion, $telefono, $genero, 
+										   $nombreUsuario, $correo, $contrasena, $typeUser);
+		
+		echo $validador->registro_valido();
+	Conexion::abrirConexion();
 	$conexion = Conexion::obtenerConexion();
 	echo ControllerUsuario::obtenerProfiles();
 	
