@@ -1,6 +1,5 @@
 <?php 
-include_once('../Modelo/clase-conexionPDO.php');
-include_once('../Modelo/ControllerUsuario.php');
+include_once('ControllerUsuario.php');
 class ValidadorProfiles{
     private $nombre;
 	private $apellidos;
@@ -26,7 +25,7 @@ class ValidadorProfiles{
     private $error_typeUser;
 
     public function __construct($nombreC, $apellidos, $identidad, $direccion, $telefono, $genero,
-                                $nombreUser, $correo, $contrasena, $typeUser, $conexion)
+                                $nombreUser, $correo, $contrasena, $typeUser)
     {
         $this -> aviso_inicio = "<br><div class='alert alert-danger' role='alert'>";
         $this -> aviso_cierre = "</div>";
@@ -46,8 +45,8 @@ class ValidadorProfiles{
         $this -> error_direccion = $this -> validar_direccion($direccion);
         $this -> error_telefono = $this -> validar_telefono($telefono);
         $this -> error_genero = $this -> validar_genero($genero);
-        $this -> error_nombreUsuario = $this -> validar_nombreUsuario($conexion, $nombreUser);
-        $this -> error_correo = $this -> validar_correo($conexion, $correo);
+        $this -> error_nombreUsuario = $this -> validar_nombreUsuario($nombreUser);
+        $this -> error_correo = $this -> validar_correo($correo);
         $this -> error_contrasena = $this -> validar_contrasena($contrasena);
         $this -> error_typeUser = $this -> validar_typeUser($typeUser);
     }
@@ -146,7 +145,7 @@ class ValidadorProfiles{
         return "";
     }
 
-    private function validar_nombreUsuario($conexion, $nombreUser) {
+    private function validar_nombreUsuario($nombreUser) {
         if (!$this -> variable_iniciada($nombreUser)) {
             return "Debes escribir un nombre de usuario.";
         } else {
@@ -161,21 +160,21 @@ class ValidadorProfiles{
             return "El nombre no puede ocupar más de 24 caracteres.";
         }
 
-        if (ControllerUsuario::nombre_existe($conexion, $nombreUser)) {
+        if (ControllerUsuario::nombre_existe($nombreUser)) {
             return "Este nombre de usuario ya está en uso. Por favor, prueba otro nombre.";
         }
 
         return "";
     }
 
-    private function validar_correo($conexion, $email) {
+    private function validar_correo($email) {
         if (!$this -> variable_iniciada($email)) {
             return "Debes proporcionar un email.";
         } else {
             $this -> email = $email;
         }
 
-        if (ControllerUsuario::email_existe($conexion, $email)) {
+        if (ControllerUsuario::email_existe($email)) {
             return "Este email ya está en uso. Por favor, pruebe otro email";
         }
         return "";

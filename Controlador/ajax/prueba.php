@@ -3,6 +3,7 @@
 	include_once('../../Modelo/clase-Profiles.php');
 	include_once('../../Modelo/class-guia.php');
 	include_once('../../Modelo/clase-conexionPDO.php');
+	echo ControllerUsuario::login('bcalixvelasquez@gmail.com', 'admin.451');
 	/*Conexion::abrirConexion();
 	$conexion = Conexion::obtenerConexion();
 	echo ControllerUsuario::obtenerProfiles();

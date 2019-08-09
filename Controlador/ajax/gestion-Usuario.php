@@ -1,6 +1,4 @@
-	
 <?php 
-	include_once('../../Modelo/clase-conexionPDO.php');
 	include_once('../../Modelo/clase-Usuario.php');
 	include_once('../../Modelo/clase-Persona.php');
 	include_once('../../Modelo/ControllerPersona.php');
@@ -12,44 +10,42 @@
 		
 		case 'getProfiles':
 			ControllerUsuario::obtenerProfiles();
-			break;
+		break;
 
 		case 'agregar':
-
-			$nombre =  $_POST["nombre"];
-			$apellido = $_POST["apellido"];
-			$identidad = isset($_POST["identidad"]) ? $_POST["identidad"] : "null";
-			$telefono = isset($_POST["telefono"]) ? $_POST["telefono"] : "null";
-			$genero = isset($_POST["genero"]) ? $_POST["genero"] : "null";
-			$direccion = isset($_POST["direccion"]) ? $_POST["direccion"] : "null";
-			$nombreUsuario = $_POST["usuario"];
-			$correo = $_POST["correo"];
-			$contrasenia = $_POST["contrasenia"];
-			$typeUser = isset($_POST['typeUser']) ? $_POST['typeUser'] : 2;
-			Conexion::abrirConexion();
-			$conexion = Conexion::obtenerConexion();
-
-			$validador = new ValidadorProfiles($nombre, $apellido, $identidad, $direccion, $telefono, $genero, 
-											   $nombreUsuario, $correo, $contrasena, $typeUser,$conexion);
+		$nombre =  $_POST["nombre"];
+		$apellido = $_POST["apellido"];
+		$identidad = isset($_POST["identidad"]) ? $_POST["identidad"] : "null";
+		$telefono = isset($_POST["telefono"]) ? $_POST["telefono"] : "null";
+		$genero = isset($_POST["genero"]) ? $_POST["genero"] : "null";
+		$direccion = isset($_POST["direccion"]) ? $_POST["direccion"] : "null";
+		$nombreUsuario = $_POST["usuario"];
+		$correo = $_POST["correo"];
+		$contrasenia = $_POST["contrasenia"];
+		$typeUser = isset($_POST['typeUser']) ? $_POST['typeUser'] : 2;
+		
+		$validador = new ValidadorProfiles($nombre, $apellido, $identidad, $direccion, $telefono, $genero, 
+										   $nombreUsuario, $correo, $contrasena, $typeUser);
+		
+		if($validador->registro_valido()){
+			$persona = new Persona($nombre, $apellido, $identidad, $direccion, $telefono, $genero);
+			$idPersona = ControllerPersona::agregarPersona($persona);
 			
-			if($validador->registro_valido()){
-				$persona = new Persona($nombre, $apellido, $identidad, $direccion, $telefono, $genero);
-				$idPersona = ControllerPersona::agregarPersona($persona);
+			if($idPersona != NULL){
+				$usuario = new Usuario($nombreUsuario, $correo, $contrasena,$idPersona);
 				
-				if($idPersona != NULL){
-					$usuario = new Usuario($nombreUsuario, $correo, $contrasena,$idPersona);
-					
-					$usuario_insertado = ControllerUsuario::agregarUsuario($usuario, $typeUser);
-					$salida = array("resultado" =>"Agregado exitosamente", "codigo" => $usuario_insertado);
-					echo json_encode($salida);
-				}else{
-					$salida = array("resultado" =>"Error. Verfique los datos", "codigo" => 0);
-					echo json_encode($salida);
-				}
+				$usuario_insertado = ControllerUsuario::agregarUsuario($usuario, $typeUser);
+				$salida = array("resultado" =>"Agregado exitosamente", "codigo" => $usuario_insertado);
+				echo json_encode($salida);
 			}else{
 				$salida = array("resultado" =>"Error. Verfique los datos", "codigo" => 0);
 				echo json_encode($salida);
 			}
+		}else{
+			$salida = array("resultado" =>"Error. Verfique los datos", "codigo" => 0);
+			echo json_encode($salida);
+		}
+			
 		break;
 			
 		case 'delete':

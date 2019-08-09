@@ -4,9 +4,11 @@
 
 class ControllerUsuario{
 
-    public static function nombre_existe($conexion, $nombreU){
+    public static function nombre_existe($nombreU){
         $nombre_existe = true;
-        
+        Conexion::abrirConexion();
+        $conexion = Conexion::obtenerConexion();
+
         if (isset($conexion)) {
             try {
                 $sql = "SELECT * FROM usuario WHERE nombreUsuario = :nombre";
@@ -32,8 +34,10 @@ class ControllerUsuario{
         return $nombre_existe;
     }
 
-    public static function email_existe($conexion, $email){
+    public static function email_existe($email){
         $email_existe = true;
+        Conexion::abrirConexion();
+        $conexion = Conexion::obtenerConexion();
         
         if (isset($conexion)) {
             try {
@@ -242,7 +246,7 @@ class ControllerUsuario{
         $tipo = $salida['@tipo'];
         $usuario = $salida['@id'];
 
-        if ( $tipo!=null && $usuario != null ) {
+        if ($tipo!=null && $usuario != null ) {
            $_SESSION["usuario"] = $usuario;
            $_SESSION["tipo"] = $tipo;
         }

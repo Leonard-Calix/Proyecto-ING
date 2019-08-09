@@ -134,7 +134,7 @@ $(document).ready(function(){
 /*===============================================================*/
 	/*Registrar usuarios al sistema*/
 
-function redireccionar(id, tipo){
+function redireccionar(tipo){
 	
 	if(tipo == 1){
 		document.location.href='main.php';
@@ -146,8 +146,8 @@ function redireccionar(id, tipo){
 		document.location.href='index.php';
 	}
 	
-	
 }
+
 $('#mensaje').hide();
 $('#btn-registro').click(function () {
 	
@@ -216,9 +216,9 @@ $('#btn-sing-in').click(function () {
 		method: 'POST',
 		data: parametros,
 		success:function(respuesta){
-			console.log(respuesta);
-			if(respuesta.usuario !=null){
-				setTimeout(redireccionar(respuesta.usuario, respuesta.tipo), 3000);
+			console.log("resp success "+respuesta);
+			if(respuesta.usuario != NULL){
+				setTimeout(redireccionar(respuesta.tipo), 3000);
 			}else{
 				//alert('Datos incorrectos');
 				$('#error-login').fadeIn(500);
