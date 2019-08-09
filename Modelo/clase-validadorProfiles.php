@@ -67,6 +67,10 @@ class ValidadorProfiles{
             $this -> nombre = $nombre;
         }
 
+        if(is_numeric($nombre)){
+            return "Debes escribir un nombre sin numeros";
+        }
+
         if (strlen($nombre) < 2) {
             return "El nombre debe ser más largo que 2 caracteres.";
         }
@@ -84,6 +88,11 @@ class ValidadorProfiles{
         } else {
             $this -> apellidos = $apellidos;
         }
+
+        if(is_numeric($apellidos)){
+            return "Debes escribir un apellidos sin numeros";
+        }
+        
 
         if (strlen($apellidos) < 3) {
             return "Los apellidos debe ser más largo que 3 caracteres.";
@@ -121,6 +130,10 @@ class ValidadorProfiles{
             $this -> direccion = $direccion;
         }
 
+        if(is_numeric($direccion)){
+            return "Debes escribir una direccion sin numeros";
+        }
+        
         if (strlen($direccion) < 3) {
             return "Las direcciones debe ser más largo que 3 caracteres.";
         }
@@ -157,6 +170,11 @@ class ValidadorProfiles{
             $this -> genero = $genero;
         }
 
+        if(is_numeric($genero)){
+            return "Debes escribir genero sin numeros";
+        }
+        
+
         if (strlen($genero) > 2) {
             return "El genero no puede ocupar más de 2 numeros.";
         }
@@ -171,6 +189,10 @@ class ValidadorProfiles{
             $this -> nombreUsuario = $nombreUser;
         }
 
+        if(is_numeric($nombreUser)){
+            return "Debes escribir un nombre sin numeros";
+        }
+        
         if (strlen($nombreUser) < 3) {
             return "El nombre debe ser más largo que 3 caracteres.";
         }
@@ -192,7 +214,7 @@ class ValidadorProfiles{
         } else {
             $this -> email = $email;
         }
-
+        
         if (ControllerUsuario::email_existe($email)) {
             return "Este email ya está en uso. Por favor, pruebe otro email";
         }
@@ -292,6 +314,66 @@ class ValidadorProfiles{
 
     public function obtener_error_tipoUsuario() {
         return $this -> error_typeUser;
+    }
+
+    public function mostrar_error_nombre() {
+        if ($this -> error_nombre !== "") {
+            echo $this -> aviso_inicio . $this -> error_nombre . $this -> aviso_cierre;
+        }
+    }
+
+    public function mostrar_error_apellidos() {
+        if ($this -> error_nombre !== "") {
+            echo $this -> aviso_inicio . $this -> error_apellidos . $this -> aviso_cierre;
+        }
+    }
+
+    public function mostrar_error_identidad() {
+        if ($this -> error_nombre !== "") {
+            echo $this -> aviso_inicio . $this -> error_identidad . $this -> aviso_cierre;
+        }
+    }
+
+    public function mostrar_error_direccion() {
+        if ($this -> error_nombre !== "") {
+            echo $this -> aviso_inicio . $this -> error_direccion . $this -> aviso_cierre;
+        }
+    }
+
+    public function mostrar_error_telefono() {
+        if ($this -> error_nombre !== "") {
+            echo $this -> aviso_inicio . $this -> error_telefono . $this -> aviso_cierre;
+        }
+    }
+
+    public function mostrar_error_genero() {
+        if ($this -> error_nombre !== "") {
+            echo $this -> aviso_inicio . $this -> error_genero . $this -> aviso_cierre;
+        }
+    }
+
+    public function mostrar_error_nombreUsuario() {
+        if ($this -> error_nombre !== "") {
+            echo $this -> aviso_inicio . $this -> error_nombreUsuario . $this -> aviso_cierre;
+        }
+    }
+
+    public function mostrar_error_correo() {
+        if ($this -> error_nombre !== "") {
+            echo $this -> aviso_inicio . $this -> error_correo . $this -> aviso_cierre;
+        }
+    }
+
+    public function mostrar_error_contrasena() {
+        if ($this -> error_nombre !== "") {
+            echo $this -> aviso_inicio . $this -> error_contrasena . $this -> aviso_cierre;
+        }
+    }
+
+    public function mostrar_error_tipoUsuario() {
+        if ($this -> error_nombre !== "") {
+            echo $this -> aviso_inicio . $this -> error_typeUser . $this -> aviso_cierre;
+        }
     }
 
     public function registro_valido() {

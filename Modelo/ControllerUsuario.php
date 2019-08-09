@@ -203,7 +203,7 @@ class ControllerUsuario{
         $salida = $conexion->query('select @mensaje');
         $mensaje = $salida->fetchColumn();
 
-        if($mensaje!=NULL){
+        if($mensaje!=null){
             return 1;
         }else{
             return 0;
@@ -246,7 +246,7 @@ class ControllerUsuario{
         $tipo = $salida['@tipo'];
         $usuario = $salida['@id'];
 
-        if ($tipo!=null && $usuario != null ) {
+        if ($tipo!= null && $usuario != null ) {
            $_SESSION["usuario"] = $usuario;
            $_SESSION["tipo"] = $tipo;
         }

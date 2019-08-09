@@ -217,7 +217,7 @@ $('#btn-sing-in').click(function () {
 		data: parametros,
 		success:function(respuesta){
 			console.log("resp success "+respuesta);
-			if(respuesta.usuario != NULL){
+			if(respuesta.usuario != null){
 				setTimeout(redireccionar(respuesta.tipo), 3000);
 			}else{
 				//alert('Datos incorrectos');
