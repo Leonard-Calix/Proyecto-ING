@@ -156,7 +156,7 @@ class ValidadorProfiles{
             return "Los numeros de telefono debe ser más largo que 2 numeros.";
         }
 
-        if (strlen($telefono) > 12) {
+        if (strlen($telefono) > 15) {
             return "Los numeros de telefono no puede ocupar más de 12 numeros.";
         }
 
@@ -176,7 +176,7 @@ class ValidadorProfiles{
         
 
         if (strlen($genero) > 2) {
-            return "El genero no puede ocupar más de 2 numeros.";
+            return "El genero no puede ocupar más de 2 letras.";
         }
 
         return "";

@@ -38,11 +38,11 @@
 				$salida = array("resultado" =>"Agregado exitosamente", "codigo" => $usuario_insertado);
 				echo json_encode($salida);
 			}else{
-				$salida = array("resultado" =>"Error. Verfique los datos", "codigo" => 0);
+				$salida = array("resultado" =>"Error. Verifique los datos", "codigo" => 0);
 				echo json_encode($salida);
 			}
 		}else{
-			$salida = array("resultado" =>"Error. Verfique los datos", "codigo" => 0);
+			$salida = array("resultado" =>"Error. Verifique los datos", "codigo" => 0);
 			echo json_encode($salida);
 		}
 			

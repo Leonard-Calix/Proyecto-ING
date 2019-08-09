@@ -134,13 +134,38 @@ function editarGuia(){
 
 }
 
-function NotificarGuia(idGuia){
-  console.log(idGuia +" id del guia a enviar correo para notificar");
-
-  //obtener el correo del administrador
-  //obtener todos los datos a enviar
-  //pintar la informacion del tour en info-tourguia
+function NotificarGuia(guiaid){
+  console.log(guiaid +" id del guia a enviar correo para notificar");
   
+  $.ajax({
+    url: '../Controlador/ajax/gestion-guia.php?accion=obtenerguia_id',
+    method: 'POST',
+    dataType: 'json',
+    data: {guia: guiaid},
+    success:function(resp){
+      console.log(resp);
+    }
 
+  });
+  
 }
 
+function sendEmail(){
+  var datos = {
+    email: $("#emailguia").val(),
+    info: $("#info-tourguia").val()
+  };
+
+  console.log("Datos para enviar correo "+ datos);
+  
+  $.ajax({
+    url: '../Controlador/ajax/gestion-guia.php?accion=datosCorreo',
+    method: 'POST',
+    dataType: 'json',
+    data: datos,
+    success:function(response){
+      console.log(response);
+    }
+  });
+  
+}

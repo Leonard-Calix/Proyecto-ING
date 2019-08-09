@@ -4,7 +4,10 @@
 	include_once('../../Modelo/class-guia.php');
 	include_once('../../Modelo/clase-conexionPDO.php');
 	include_once('../../Modelo/clase-validadorProfiles.php');
+	$id = 16;
+	echo ControllerUsuario::obtenerProfile_id($id);
 	/*
+	
 	$nombre =  "maria fernando";
 		$apellido = "funez mori";
 		$identidad = isset($_POST["identidad"]) ? $_POST["identidad"] : "camnulos";

@@ -39,26 +39,19 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <form>
+      <div class="modal-body">  
           <div class="form-group">
-            <label for="email-guia" class="col-form-label">Email Administrador:</label>
-            <input type="text" class="form-control" id="email-admin">
-            <input type="hidden" name="id-admin">
-          </div>
-          <div class="form-group">
-            <label for="email-guia" class="col-form-label">Email del Guia:</label>
-            <input type="text" class="form-control" id="email-guia">
+            <label for="email-guias" class="col-form-label">Email del Guia:</label>
+            <input type="text" class="form-control" id="emailguia">
           </div>
           <div class="form-group">
             <label for="message-text" class="col-form-label">Message:</label>
             <textarea class="form-control" id="info-tourguia"></textarea>
           </div>
-        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send notifications</button>
+        <button type="button" id="sendemail" onClick="sendEmail();"  class="btn btn-primary">Send notifications</button>
       </div>
     </div>
   </div>

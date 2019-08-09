@@ -30,7 +30,7 @@ INNER JOIN turista t ON t.idUsuario = u.idUsuario;
 
 /*GUIA*/
 CREATE VIEW VIEW_Perfil_Usuario_Guia AS
-SELECT p.idPersona, u.idUsuario, p.nombreCompleto, p.Apellidos, p.numeroIdentidad, p.telefono, p.genero, p.direccion,
+SELECT p.idPersona, u.idUsuario, g.idGuia, p.nombreCompleto, p.Apellidos, p.numeroIdentidad, p.telefono, p.genero, p.direccion,
 	   u.nombreUsuario, u.email
 FROM persona p 
 INNER JOIN usuario u ON p.idPersona = u.idUsuario

@@ -156,8 +156,6 @@ function editar(id) { // solo muestra informacion
 	});
 }
 
-
-
 function detalles(id) {
 	$("#info").html(" ");
 	$("#info").show();
@@ -187,7 +185,6 @@ function detalles(id) {
 	});
 	
 }
-
 
 function agregar() {
 

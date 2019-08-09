@@ -16,13 +16,21 @@ include_once('../../Modelo/class-guia.php');
 		case 'obtenerGuias':
 			Guia::obtenerGuiasOption();
 		break;
-		
-		case 'updateguia':
-			
+
+		case 'obtenerguia_id':
+			$idguia = $_POST['guiaid'];
+			Guia::obtenerTours_por_GuiaID($idguia);
 		break;
+
+		case 'datosCorreo':
+			$email = $_POST['email'];
+			$info = $_POST['info'];
+			Guia::notificaciones($email,$info);
+		break;
+		
 		default:
 			
-			break;
+		break;
 	}
 
 
