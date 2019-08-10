@@ -75,7 +75,7 @@ function agregarUser(){
     var genero = $('#genero').val();
     var direccion = $('#direccion').val();
     var contrasenia = $('#contrasenia').val();
-
+   
     if ($('input[name="typeUser"]').is(':checked')) {
         var typeUser = $('input[name="typeUser"]:checked').val();
     } else {
@@ -101,11 +101,26 @@ function agregarUser(){
             success:function(respuesta){
                 console.log(respuesta);
     
-                if(respuesta.codigo != 0){
-    
+                if(respuesta.error_nombre != null || respuesta.error_apellido != null || respuesta.error_identidad != null
+                  || respuesta.error_direccion != null || respuesta.error_telefono != null || respuesta.error_genero != null
+                  || respuesta.error_nombreUsuario != null || respuesta.error_correo != null || respuesta.error_contrasena != null
+                  || respuesta.error_typeUser != null){
+                    
+                    (respuesta.error_nombre != null) ? $("#nameUser").val(respuesta.error_nombre) : $("#nameUser").val();
+                    (respuesta.error_apellido != null) ? $('#apellidoUser').val(respuesta.error_apellido) : $('#apellidoUser').val();
+                    (respuesta.error_correo != null) ? $('#correo').val(respuesta.error_correo): $('#correo').val();
+                    (respuesta.error_nombreUsuario != null) ? $('#username').val(respuesta.error_nombreUsuario) : $('#username').val();
+                    (respuesta.error_identidad != null) ? $('#identidad').val(respuesta.error_identidad) : $('#identidad').val();
+                    (respuesta.error_telefono != null) ? $('#phone').val(respuesta.error_telefono) : $('#phone').val();
+                    (respuesta.error_genero != null) ? $('#genero').val(respuesta.error_genero) : $('#genero').val();
+                    (respuesta.error_direccion != null) ? $('#direccion').val(respuesta.error_direccion) : $('#direccion').val();
+                    $('#contrasenia').attr('type', 'text');
+                    (respuesta.error_contrasena != null) ? $('#contrasenia').val(respuesta.error_contrasena) : $('#contrasenia').val();
+
+                }else{
                     limpiarInputs();
                     alert("The user profile has been add successfully");
-                    $(document).ajaxStop(function(){ window.location.reload(); });
+                    $(document).ajaxStop(function(){ window.location.reload(); });         
                 }
             }
         });

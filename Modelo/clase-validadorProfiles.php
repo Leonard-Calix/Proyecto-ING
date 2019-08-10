@@ -12,8 +12,6 @@ class ValidadorProfiles{
     private $correo;
     private $contrasena;
     private $typeUser;
-    private $aviso_inicio;
-    private $aviso_cierre;
     private $error_nombre;
 	private $error_apellidos;
 	private $error_identidad;
@@ -28,8 +26,6 @@ class ValidadorProfiles{
     public function __construct($nombreC, $apellidos, $identidad, $direccion, $telefono, $genero,
                                 $nombreUser, $correo, $contrasena, $typeUser)
     {
-        $this -> aviso_inicio = "<br><div class='alert alert-danger' role='alert'>";
-        $this -> aviso_cierre = "</div>";
         $this->nombre = "";
         $this->apellidos = "";
         $this->identidad = "";
@@ -129,10 +125,6 @@ class ValidadorProfiles{
         } else {
             $this -> direccion = $direccion;
         }
-
-        if(is_numeric($direccion)){
-            return "Debes escribir una direccion sin numeros";
-        }
         
         if (strlen($direccion) < 3) {
             return "Las direcciones debe ser más largo que 3 caracteres.";
@@ -146,11 +138,17 @@ class ValidadorProfiles{
     }
 
     private function validar_telefono($telefono) {
+        //$expresion = '/^(?:((?P<p1>(?:\( ?)?+)(?:\+|00)?(504)(?<p2>(?: ?\))?+)(?P<sep>(?:[-.]| (?:[-.] )?)?+)(?:(?&p1)(9)(?&p2)(?&sep))?|(?&p1)(0)(?&p2)(?&sep))?+(?&p1)(11|([23]\d{2}(\d)??|(?(-10)(?(-5)(?!)|[68]\d{2})|(?!))))(?&p2)(?&sep)(?(-5)|(?&p1)(15)(?&p2)(?&sep))?(?:([3-6])(?&sep)|([12789]))(\d(?(-5)|\d(?(-6)|\d)))(?&sep)(\d{4})|(1\d{2}|911))$/D';
+
         if (!$this -> variable_iniciada($telefono)) {
             return "Debes escribir un numero de telefono.";
         } else {
             $this -> telefono = $telefono;
         }
+        
+        /*if(preg_match($expresion, $telefono) != 1){
+            return "Mal formato ejemplo: 504 0000 0000";
+        }*/
 
         if (strlen($telefono) < 2) {
             return "Los numeros de telefono debe ser más largo que 2 numeros.";
@@ -170,11 +168,16 @@ class ValidadorProfiles{
             $this -> genero = $genero;
         }
 
+        if($genero === 'M' || $genero === 'm' || $genero === 'F' || $genero === 'f'){
+            $this -> genero = $genero;
+        }else{
+            return "Debes escribir tu genero. (F o M)";
+        }
+
         if(is_numeric($genero)){
             return "Debes escribir genero sin numeros";
         }
         
-
         if (strlen($genero) > 2) {
             return "El genero no puede ocupar más de 2 letras.";
         }
@@ -215,6 +218,10 @@ class ValidadorProfiles{
             $this -> email = $email;
         }
         
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+            return "Mal formato ejemplo@ejemplo.com";
+        }
+
         if (ControllerUsuario::email_existe($email)) {
             return "Este email ya está en uso. Por favor, pruebe otro email";
         }
@@ -315,67 +322,7 @@ class ValidadorProfiles{
     public function obtener_error_tipoUsuario() {
         return $this -> error_typeUser;
     }
-
-    public function mostrar_error_nombre() {
-        if ($this -> error_nombre !== "") {
-            echo $this -> aviso_inicio . $this -> error_nombre . $this -> aviso_cierre;
-        }
-    }
-
-    public function mostrar_error_apellidos() {
-        if ($this -> error_nombre !== "") {
-            echo $this -> aviso_inicio . $this -> error_apellidos . $this -> aviso_cierre;
-        }
-    }
-
-    public function mostrar_error_identidad() {
-        if ($this -> error_nombre !== "") {
-            echo $this -> aviso_inicio . $this -> error_identidad . $this -> aviso_cierre;
-        }
-    }
-
-    public function mostrar_error_direccion() {
-        if ($this -> error_nombre !== "") {
-            echo $this -> aviso_inicio . $this -> error_direccion . $this -> aviso_cierre;
-        }
-    }
-
-    public function mostrar_error_telefono() {
-        if ($this -> error_nombre !== "") {
-            echo $this -> aviso_inicio . $this -> error_telefono . $this -> aviso_cierre;
-        }
-    }
-
-    public function mostrar_error_genero() {
-        if ($this -> error_nombre !== "") {
-            echo $this -> aviso_inicio . $this -> error_genero . $this -> aviso_cierre;
-        }
-    }
-
-    public function mostrar_error_nombreUsuario() {
-        if ($this -> error_nombre !== "") {
-            echo $this -> aviso_inicio . $this -> error_nombreUsuario . $this -> aviso_cierre;
-        }
-    }
-
-    public function mostrar_error_correo() {
-        if ($this -> error_nombre !== "") {
-            echo $this -> aviso_inicio . $this -> error_correo . $this -> aviso_cierre;
-        }
-    }
-
-    public function mostrar_error_contrasena() {
-        if ($this -> error_nombre !== "") {
-            echo $this -> aviso_inicio . $this -> error_contrasena . $this -> aviso_cierre;
-        }
-    }
-
-    public function mostrar_error_tipoUsuario() {
-        if ($this -> error_nombre !== "") {
-            echo $this -> aviso_inicio . $this -> error_typeUser . $this -> aviso_cierre;
-        }
-    }
-
+ 
     public function registro_valido() {
         if ($this -> error_nombre === "" &&
             $this -> error_apellidos === "" &&

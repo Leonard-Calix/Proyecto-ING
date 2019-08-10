@@ -16,7 +16,7 @@ class Guia{
         Conexion::abrirConexion();
         $conexion = Conexion::obtenerConexion();
 
-        $sql = "SELECT * FROM VW_TOURS_GUIA";
+        $sql = "SELECT * FROM vw_tours_guia";
         $sentencia = $conexion->prepare($sql);
         $sentencia->execute();
 
@@ -33,7 +33,7 @@ class Guia{
         Conexion::abrirConexion();
         $conexion = Conexion::obtenerConexion();
 
-        $sql = "SELECT * FROM VW_TOURS_GUIA WHERE idGuia='$id'";
+        $sql = "SELECT * FROM vw_tours_guia WHERE idGuia='$id'";
         $sentencia = $conexion->prepare($sql);
         $sentencia->execute();
 
@@ -50,7 +50,7 @@ class Guia{
 		Conexion::abrirConexion();
 		$conexion = Conexion::obtenerConexion();
 
-		$sql = "SELECT * FROM VIEW_Perfil_Usuario_Guia";
+		$sql = "SELECT * FROM view_perfil_usuario_guia";
         $sentencia = $conexion->prepare($sql);
         $sentencia->execute();
 		

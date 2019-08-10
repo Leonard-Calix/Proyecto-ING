@@ -42,7 +42,17 @@
 				echo json_encode($salida);
 			}
 		}else{
-			$salida = array("resultado" =>"Error. Verifique los datos", "codigo" => 0);
+			$salida = array("error_nombre" => $validador->obtener_error_nombre(),
+							"error_apellido" => $validador->obtener_error_apellido(),
+							"error_identidad"=> $validador->obtener_error_identidad(),
+							"error_direccion"=> $validador->obtener_error_direccion(),
+							"error_telefono"=> $validador->obtener_error_telefono(),
+							"error_genero"=> $validador->obtener_error_genero(),
+							"error_nombreUsuario"=> $validador->obtener_error_nombreUsuario(),
+							"error_correo"=> $validador->obtener_error_email(),
+							"error_contrasena"=> $validador->obtener_error_contrasena(),
+							"error_typeUser"=> $validador->obtener_error_tipoUsuario());
+
 			echo json_encode($salida);
 		}
 			

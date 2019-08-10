@@ -72,7 +72,7 @@ class ControllerUsuario{
         Conexion::abrirConexion();
         $conexion = Conexion::obtenerConexion();
         
-        $sql = "SELECT * FROM VIEW_Perfil_Usuarios WHERE idUsuario ='$id'";
+        $sql = "SELECT * FROM view_perfil_usuarios WHERE idUsuario ='$id'";
         
         $sentencia = $conexion->prepare($sql);
         $sentencia->execute();
@@ -92,7 +92,7 @@ class ControllerUsuario{
         Conexion::abrirConexion();
         $conexion = Conexion::obtenerConexion();
         
-        $sql = 'SELECT * FROM VIEW_Perfil_Usuarios';
+        $sql = 'SELECT * FROM view_perfil_usuarios';
         
         $sentencia = $conexion->prepare($sql);
         $sentencia->execute();
