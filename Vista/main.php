@@ -1,5 +1,21 @@
 
-<?php include_once('Layouts/header_2.php'); ?>
+<?php 
+
+   session_start();
+   
+    if (isset($_SESSION["usuario"]) ) {
+    
+     $usr = $_SESSION["usuario"];
+
+    }else {
+      header('Location: index.php');
+  }
+
+
+
+  include_once('Layouts/header_2.php'); 
+
+?>
 
 
 <div class="content">

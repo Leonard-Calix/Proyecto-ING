@@ -1,6 +1,21 @@
 
-<?php include_once('Layouts/header_2.php'); ?>
+<?php 
 
+	 session_start();
+   
+  	if (isset($_SESSION["usuario"]) ) {
+    
+     $usr = $_SESSION["usuario"];
+
+    }else {
+      header('Location: index.php');
+  }
+
+
+
+	include_once('Layouts/header_2.php'); 
+
+?>
 
 <div class="content">
 	<div class="row">
@@ -12,7 +27,7 @@
 				<div class="card-body">
 					<div class="author">
 						<img class="avata border-gray" style="width: 140px; height: 140px;" src="../Public/img/perfil.jpg" alt="..."><br><br>
-						<input type="hidden" id="idUsuario" name="" value="1" >
+						<input type="hidden" id="idUsuario" name="" value=" <?php echo $usr ?> " >
 						
 						<div id="div-usuario-email"></div>
 						<div id="div-usuario"></div> 
@@ -51,7 +66,7 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>First Name</label>
-									<input type="text" id="nombre" class="form-control" placeholder="Company" value="Chet">
+									<input type="text" id="nombre" class="form-control" placeholder="Company" value="">
 								</div>
 							</div>
 							<div class="col-md-6">

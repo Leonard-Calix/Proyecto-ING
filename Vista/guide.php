@@ -1,5 +1,21 @@
-<?php include_once ('Layouts/header_2.php'); ?>
 
+<?php 
+
+   session_start();
+   
+    if (isset($_SESSION["usuario"]) ) {
+    
+     $usr = $_SESSION["usuario"];
+
+    }else {
+      header('Location: index.php');
+  }
+
+
+
+  include_once('Layouts/header_2.php'); 
+
+?>
 <!-- Button trigger modal -->
 <br><br><br>
 <button type="button" onclick="" class=" ml-3 btn btn-primary" data-toggle="modal" data-target="#modal-update">
@@ -51,7 +67,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" id="sendemail" onClick="sendEmail();"  class="btn btn-primary">Send notifications</button>
+        <button type="button"  onClick="sendEmail();"  class="btn btn-primary">Send notifications</button>
       </div>
     </div>
   </div>

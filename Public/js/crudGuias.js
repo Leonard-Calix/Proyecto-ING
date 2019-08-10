@@ -135,13 +135,14 @@ function editarGuia(){
 }
 
 function NotificarGuia(guiaid){
+
   console.log(guiaid +" id del guia a enviar correo para notificar");
   
   $.ajax({
     url: '../Controlador/ajax/gestion-guia.php?accion=obtenerguia_id',
     method: 'POST',
     dataType: 'json',
-    data: {guia: guiaid},
+    data: { guia: guiaid },
     success:function(resp){
       console.log(resp);
     }
@@ -151,17 +152,15 @@ function NotificarGuia(guiaid){
 }
 
 function sendEmail(){
-  var datos = {
-    email: $("#emailguia").val(),
-    info: $("#info-tourguia").val()
-  };
 
-  console.log("Datos para enviar correo "+ datos);
+  var datos = { email: $("#emailguia").val(), info: $("#info-tourguia").val() };
+
+  //console.log("Datos para enviar correo "+ datos);
   
   $.ajax({
     url: '../Controlador/ajax/gestion-guia.php?accion=datosCorreo',
     method: 'POST',
-    dataType: 'json',
+    //dataType: 'json',
     data: datos,
     success:function(response){
       console.log(response);
