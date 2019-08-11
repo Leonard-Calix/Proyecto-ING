@@ -9,7 +9,18 @@ class Guia{
         $message = "De: Administracion ToursIndia \n";
         $message .= "Tours: $info";
 
-        mail($email, $asunto, $message);
+        $header = "From: noreply@example.com". "\r\n";
+        $header .= "Reply-To: noreply@example.com". "\r\n";
+        $header .= "X-Mailer: PHP/". phpversion();
+
+        $msgJSON = array();
+        if(mail($email, $asunto, $message, $header)){
+            $msgJSON = array("mensaje"=>"Envio de correo Exitoso", "codigo"=>1);
+            echo json_encode($msgJSON);
+        }else{
+            $msgJSON = array("mensaje"=>"Envio de correo Fallo", "codigo"=>0);
+            echo json_encode($msgJSON);
+        }
     }
 
     public static function obtenerTours_por_Guia(){
