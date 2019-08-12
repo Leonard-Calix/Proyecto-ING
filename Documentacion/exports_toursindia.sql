@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-08-2019 a las 17:33:46
+-- Tiempo de generación: 12-08-2019 a las 14:49:18
 -- Versión del servidor: 10.3.16-MariaDB
 -- Versión de PHP: 7.3.7
 
@@ -560,7 +560,8 @@ INSERT INTO `guia` (`idGuia`, `idUsuario`) VALUES
 (2, 12),
 (3, 13),
 (4, 14),
-(5, 15);
+(5, 15),
+(6, 16);
 
 -- --------------------------------------------------------
 
@@ -586,7 +587,8 @@ INSERT INTO `hotel` (`idHotel`, `nombreHotel`, `descripcion`, `precio`, `idEstad
 (2, 'Hotel Caravan Center', 'Free Parking, Free Breakfast, Free Internet', 728, 2, 2),
 (3, 'Hotel Goa Woodlands', 'Free Internet, Pool, Free Parking, SPA', 486, 3, 3),
 (4, 'Sparsa Resorts Kanyakumari', 'Free Internet, Pool, Free Parking, Free Break', 560, 4, 4),
-(5, 'The Oberoi Rajvilas Jaipur', 'Extremely Clean, Excellent Service, SPA', 372, 5, 5);
+(5, 'The Oberoi Rajvilas Jaipur', 'Extremely Clean, Excellent Service, SPA', 372, 5, 5),
+(6, 'Eros Hotel, Nueva Delhi', 'Colonial style hotel with easy access', 45, 7, 7);
 
 -- --------------------------------------------------------
 
@@ -670,7 +672,8 @@ INSERT INTO `persona` (`idPersona`, `nombreCompleto`, `Apellidos`, `numeroIdenti
 (12, 'Yamir Sarayu', 'Anjali Kapoor', '001-1974-00123', '+0091 3312-1878', 'M', 'India, Nueva Delhi'),
 (13, 'Denali Indira', 'Khan Rao', '001-1975-00124', '+0091 9412-3456', 'F', 'India, Nueva Delhi'),
 (14, 'Yalitza Uma', 'Nehru Nayak', '001-1976-00125', '+0091 9311-2566', 'F', 'India, Nueva Delhi'),
-(15, 'Priya Rania', 'Grover Sharma', '001-1977-00126', '+0091 9212-2667', 'F', 'India, Nueva Delhi');
+(15, 'Priya Rania', 'Grover Sharma', '001-1977-00126', '+0091 9212-2667', 'F', 'India, Nueva Delhi'),
+(16, 'Emanuel Jesus', 'Inaki Angulo', '0801-1994-00666', '+504 9515 4010', 'M', 'Tegugalpa, Honduras');
 
 -- --------------------------------------------------------
 
@@ -723,7 +726,7 @@ INSERT INTO `tours` (`idTours`, `nombre`, `descripcion`, `fechaInicio`, `fechaFi
 (3, 'Goa Beach', 'Exotic Beaches Small excursion from Arambol beach, passing through Kalacha Beach', '2019-07-18 00:00:00', '2019-07-23 00:00:00', 779, 20, 5, 3, 3),
 (4, 'Kanyakumari Tours', 'This place is also known as Cabo Comorin; a place where the Indian Ocean, the Arabian Sea and the Bay of Bengal meet', '2019-07-18 00:00:00', '2019-07-21 00:00:00', 550, 20, 4, 4, 4),
 (5, 'Rajastan Tours', 'Rajasthan called the land of the Kings is one of the most beautiful states of India in its best colorful and exotic. The state hosts an incredible exhibition of art and architecture', '2019-07-18 00:00:00', '2019-07-24 00:00:00', 763, 20, 5, 5, 5),
-(6, 'prueba', 'prueba', '2019-08-06 00:00:00', '2019-08-08 00:00:00', 5, 5, 5, 1, 2);
+(7, 'The Digambar Jain Lal temple', 'The Digambar Jain Lal temple, the oldest Jain sanctuary in the capital of India', '2019-08-09 00:00:00', '2019-08-15 00:00:00', 265, 25, 4, 7, 6);
 
 -- --------------------------------------------------------
 
@@ -815,7 +818,8 @@ INSERT INTO `usuario` (`idUsuario`, `nombreUsuario`, `email`, `contrasena`, `idP
 (12, 'Yamir', 'yamirKapoor@gmail.com', 'guia.234', 12),
 (13, 'Denali', 'IndiraKhan@gmail.com', 'guia.456', 13),
 (14, 'Yalitza', 'UmaNayak@gmail.com', 'guia.789', 14),
-(15, 'Priya', 'raniaSharma@gmail.com', 'guia.101', 15);
+(15, 'Priya', 'raniaSharma@gmail.com', 'guia.101', 15),
+(16, 'Emanuel', 'emsanchez891@gmail.com', 'guia.009', 16);
 
 -- --------------------------------------------------------
 
@@ -864,6 +868,7 @@ CREATE TABLE `view_perfil_usuario_admin` (
 CREATE TABLE `view_perfil_usuario_guia` (
 `idPersona` int(11)
 ,`idUsuario` int(11)
+,`idGuia` int(11)
 ,`nombreCompleto` varchar(55)
 ,`Apellidos` varchar(55)
 ,`numeroIdentidad` varchar(55)
@@ -909,6 +914,23 @@ CREATE TABLE `view_populares` (
 -- --------------------------------------------------------
 
 --
+-- Estructura Stand-in para la vista `vw_tours_guia`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `vw_tours_guia` (
+`idTours` int(11)
+,`nombre` varchar(45)
+,`nombreHotel` varchar(45)
+,`nombreGuia` varchar(111)
+,`email` varchar(45)
+,`idPersona` int(11)
+,`idUsuario` int(11)
+,`idGuia` int(11)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura para la vista `detalles_tours`
 --
 DROP TABLE IF EXISTS `detalles_tours`;
@@ -949,7 +971,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `view_perfil_usuario_guia`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_perfil_usuario_guia`  AS  select `p`.`idPersona` AS `idPersona`,`u`.`idUsuario` AS `idUsuario`,`p`.`nombreCompleto` AS `nombreCompleto`,`p`.`Apellidos` AS `Apellidos`,`p`.`numeroIdentidad` AS `numeroIdentidad`,`p`.`telefono` AS `telefono`,`p`.`genero` AS `genero`,`p`.`direccion` AS `direccion`,`u`.`nombreUsuario` AS `nombreUsuario`,`u`.`email` AS `email` from ((`persona` `p` join `usuario` `u` on(`p`.`idPersona` = `u`.`idUsuario`)) join `guia` `g` on(`g`.`idUsuario` = `u`.`idUsuario`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_perfil_usuario_guia`  AS  select `p`.`idPersona` AS `idPersona`,`u`.`idUsuario` AS `idUsuario`,`g`.`idGuia` AS `idGuia`,`p`.`nombreCompleto` AS `nombreCompleto`,`p`.`Apellidos` AS `Apellidos`,`p`.`numeroIdentidad` AS `numeroIdentidad`,`p`.`telefono` AS `telefono`,`p`.`genero` AS `genero`,`p`.`direccion` AS `direccion`,`u`.`nombreUsuario` AS `nombreUsuario`,`u`.`email` AS `email` from ((`persona` `p` join `usuario` `u` on(`p`.`idPersona` = `u`.`idUsuario`)) join `guia` `g` on(`g`.`idUsuario` = `u`.`idUsuario`)) ;
 
 -- --------------------------------------------------------
 
@@ -968,6 +990,15 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `view_populares`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_populares`  AS  select `t`.`idTours` AS `idTours`,`t`.`nombre` AS `nombre`,`t`.`descripcion` AS `descripcion`,`t`.`calificacion` AS `calificacion` from (`tours` `t` join `populares` `p` on(`p`.`idPopulares` = `t`.`idTours`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `vw_tours_guia`
+--
+DROP TABLE IF EXISTS `vw_tours_guia`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_tours_guia`  AS  select `t`.`idTours` AS `idTours`,`t`.`nombre` AS `nombre`,`h`.`nombreHotel` AS `nombreHotel`,concat(`p`.`nombreCompleto`,' ',`p`.`Apellidos`) AS `nombreGuia`,`u`.`email` AS `email`,`p`.`idPersona` AS `idPersona`,`u`.`idUsuario` AS `idUsuario`,`g`.`idGuia` AS `idGuia` from ((((`persona` `p` join `usuario` `u` on(`p`.`idPersona` = `u`.`idPersona`)) join `guia` `g` on(`g`.`idUsuario` = `u`.`idUsuario`)) join `tours` `t` on(`g`.`idGuia` = `t`.`idGuia`)) join `hotel` `h` on(`h`.`idTours` = `t`.`idTours`)) ;
 
 --
 -- Índices para tablas volcadas
@@ -1093,13 +1124,13 @@ ALTER TABLE `estados`
 -- AUTO_INCREMENT de la tabla `guia`
 --
 ALTER TABLE `guia`
-  MODIFY `idGuia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idGuia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `hotel`
 --
 ALTER TABLE `hotel`
-  MODIFY `idHotel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idHotel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `imagenes`
@@ -1117,7 +1148,7 @@ ALTER TABLE `pagos`
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `populares`
@@ -1129,7 +1160,7 @@ ALTER TABLE `populares`
 -- AUTO_INCREMENT de la tabla `tours`
 --
 ALTER TABLE `tours`
-  MODIFY `idTours` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idTours` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `toursturista`
@@ -1147,7 +1178,7 @@ ALTER TABLE `turista`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Restricciones para tablas volcadas
