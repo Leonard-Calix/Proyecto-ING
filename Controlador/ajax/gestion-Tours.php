@@ -36,9 +36,9 @@
 			Tours::detalleTours($_POST["id"]);
 		break;
 
-		/*case 'infoTours':
+		case 'infoTours':
 			Tours::obtenerTours_editar($_POST["id"]);
-		break;*/
+		break;
 
 		case 'agregarTours':
 			$nombre = $_POST["nombre"];
