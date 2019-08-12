@@ -5,8 +5,8 @@ $(document).ready(function($) {
 			method:'POST',
 			dataType:'json',
 			success:function(res){
-				console.log("respuesta de la tabla de tours");
-				console.log(res);
+				//console.log("respuesta de la tabla de tours");
+				//console.log(res);
 				$('#t-res').html(" ");
 				for (var i = 0; i < res.length; i++) {
 					$('#t-res').append(` 
@@ -24,39 +24,36 @@ $(document).ready(function($) {
 
 		});
 
-/*INFORMACION DE PERFIL DE GUIA*/
+/*INFORMACION DE PERFIL DE GUIA - no funcionaba
+$.ajax({
+	url: '../Controlador/ajax/gestion-Usuario.php?accion=infoProfiles',
+	method: 'post',
+	dataType: 'json',
+	data: { idEdit : $("#idUsuario").val() },
+	success:function(res){
+		//console.log("Usuario");
+		//console.log(res);
+		$("#username").val(res[0].nombreUsuario);
+		$("#email").val(res[0].email);
+		$("#nombre").val(res[0].nombreCompleto);
+		$("#apellido").val(res[0].Apellidos);
+		$("#direccion").val(res[0].direccion);
+		$("#telefono").val(res[0].telefono);
+		$("#identidad").val(res[0].numeroIdentidad);
 
-	$.ajax({
-		url: '../Controlador/ajax/gestion-Usuario.php?accion=infoProfiles',
-		method: 'post',
-		dataType: 'json',
-		data: { idEdit : $("#idUsuario").val() },
-		success:function(res){
-			//console.log("Usuario");
-			//console.log(res);
-			$("#username").val(res[0].nombreUsuario);
-			$("#email").val(res[0].email);
-			$("#nombre").val(res[0].nombreCompleto);
-			$("#apellido").val(res[0].Apellidos);
-			$("#direccion").val(res[0].direccion);
-			$("#telefono").val(res[0].telefono);
-			$("#identidad").val(res[0].numeroIdentidad);
+		$("#div-usuario-email").html(`<p class="description" > <span class="text-primary">Email :</span> ${res[0].email}</p>`);
+		$("#div-usuario").html(`<p class="description" > <span class="text-primary">Username :</span> ${res[0].nombreUsuario}</p>`);
 
-            $("#div-usuario-email").html(`<p class="description" > <span class="text-primary">Email :</span> ${res[0].email}</p>`);
-            $("#div-usuario").html(`<p class="description" > <span class="text-primary">Username :</span> ${res[0].nombreUsuario}</p>`);
+	}
+	});*/
 
-		}
-	});
-
-
-		
 		$.ajax({
 			url:"../Controlador/ajax/gestion-Usuario.php?accion=getGuias",
 			method:'POST',
 			dataType:'json',
 			success:function(res){
-				console.log("respuesta de Guias");
-				console.log(res);
+				//console.log("respuesta de Guias");
+				//console.log(res);
 				for (var i = 0; i < res.length; i++) {
 					$("#guiaOpt").append(`<option value="${res[i].idGuia}" >${res[i].nombreCompleto}</option>`);
 				}		
@@ -68,8 +65,8 @@ $(document).ready(function($) {
 			method:'POST',
 			dataType:'json',
 			success:function(res){
-				console.log("respuesta de Estados");
-				console.log(res);
+				//console.log("respuesta de Estados");
+				//console.log(res);
 				for (var i = 0; i < res.length; i++) {
 					$("#estado").append(`<option value="${res[i].idEstados}" >${res[i].nombre}</option>`);
 				}		
@@ -106,7 +103,7 @@ function cambio() {
 
 
 function eliminar(id) {
-	console.log(id);
+	//console.log(id);
 	
 	$.ajax({
 		url: '../Controlador/ajax/gestion-Tours.php?accion=eliminarTours',
@@ -114,7 +111,7 @@ function eliminar(id) {
 		dataType: 'json',
 		data: {id: id },
 		success:function(res){
-			console.log(res);	
+			//console.log(res);	
 
 			if (res.respuesta==1) {
 				$("#"+id).remove();
@@ -141,7 +138,7 @@ function editar(id) { // solo muestra informacion
 		dataType: 'json',
 		data: {id: id },
 		success:function(res){
-			console.log(res);
+			//console.log(res);
 			$("#idtours").val(res[0].id);
 			$("#calificacion").val(res[0].calificacion);
 			$("#nombre").val(res[0].Nombre_Tour);
@@ -172,7 +169,7 @@ function detalles(id) {
 		data: {id: id },
 		success:function(res){
 			
-			console.log(res);	
+			//console.log(res);	
 			$("#info").append(`<h5 class="card-title"> <span class="text-primary font-weight-bold">Tours</span> ${res[0].Nombre_Tour} </h5>`);
 			$("#info").append(`<h5 class="card-title"> <span class="text-primary font-weight-bold">Estado</span> ${res[0].Nombre_Estado} </h5>`);
 			$("#info").append(`<h5 class="card-title"> <span class="text-primary font-weight-bold">Descripcion</span> ${res[0].descripcion} </h5>`);
@@ -208,7 +205,7 @@ function agregar() {
 		dataType: 'json',
 		data: data,
 		success:function(res){
-			console.log(res);
+			//console.log(res);
 			if (res.respuesta!=0) {
 				$("#t-res").append(`
 				<tr id="${res.respuesta}" >
@@ -251,7 +248,7 @@ function editarReguistro(){
 		dataType: 'json',
 		data: data,
 		success:function(res){
-			console.log(res);
+			//console.log(res);
 			if (res.respuesta==1) {
 				$("#"+data.id).html(`
 				<th scope="row">${data.id}</th>
@@ -265,7 +262,3 @@ function editarReguistro(){
 		}
 	});
 }
-
-
-/*?=======================GUIAS=====================================*/
-

@@ -22,8 +22,8 @@ function fetchGuiaOpt(){
     method:'POST',
     dataType:'json',
     success:function(res){
-      console.log("respuesta de Guias");
-      console.log(res);
+      //console.log("respuesta de Guias");
+      //console.log(res);
       for (var i = 0; i < res.length; i++) {
         $("#guiasOption").append(`<option value="${res[i].idGuia}">${res[i].nombreCompleto}</option>`);
       }		
@@ -67,7 +67,7 @@ function fetchGuideID(idguia){
   $("#btn-addGuia").hide();
   $("#btn-editGuia").show();
 
-  console.log(idguia);
+  //console.log(idguia);
 
   $.ajax({
     url: '../Controlador/ajax/gestion-guia.php?accion=tours_id',
@@ -99,14 +99,14 @@ function editarGuia(){
     guiaCambio: $("#guiasOption").val()
   };
 
-  console.log(datos);
+  //console.log(datos);
   $.ajax({
 		url: '../Controlador/ajax/gestion-guia.php?accion=update',
 		method: 'POST',
 		dataType: 'json',
 		data: datos,
 		success:function(res){
-            console.log(res);
+      //console.log(res);
 			if (res.respuesta==1) {
 				$("#"+datos.idGuia).html(`
 				<th scope="row">${datos.idTours}</th>
@@ -130,7 +130,7 @@ function editarGuia(){
 
 function NotificarGuia(guiaid){
 
-  console.log(guiaid +" id del guia a enviar correo para notificar");
+  //console.log(guiaid +" id del guia a enviar correo para notificar");
   
   $.ajax({
     url: '../Controlador/ajax/gestion-guia.php?accion=obtenerguia_id',
