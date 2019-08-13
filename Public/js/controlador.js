@@ -13,17 +13,23 @@ $(document).ready(function(){
 			method:'POST',
 			dataType:'json',
 			data: param ,
-			success:function(res){
+			success:function(res){}
+			console.log("imf");
 				console.log(res);
 				$('#nombre_tour').append(`<h2  class="text-center mb-4">${res[0].nombre}</h2>`);
 
-				$('#descripcion').append(`<p class="card-text text-muted">${res[0].descripcion}</p><br><br>`)
+				$('#descripcion').append(`<p class="card-text text-muted">${res[0].descripcion}</p><br><br>`);
+
+				$('#img-p').append(`<img style="width: 100%;" src="${img}" alt="App landing" class="img-fluid">`);
+
 			}
 
 		});
 
 		/*===============================================================*/
 		/*Obtener las imgenes por tours*/
+
+		console.log(img);
 
 		$.ajax({
 			url:"../Controlador/ajax/gestion-Tours.php?accion=obtenerImagenes",
@@ -32,7 +38,7 @@ $(document).ready(function(){
 			data: param ,
 			success:function(res){
 				console.log(res);
-				$('#img-p').append(`<img style="width: 100%;" src="${res[0].ruta}" alt="App landing" class="img-fluid">`);
+				$('#img-p').append(`<img style="width: 100%;" src="" alt="App landing" class="img-fluid">`);
 
 			}
 		});

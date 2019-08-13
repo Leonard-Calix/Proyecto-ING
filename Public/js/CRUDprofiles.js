@@ -63,8 +63,11 @@ function fetchProfiles() {
 }    
 
 function agregarUser(){
-    $("#btn-edit").hide();
+
+    $(".ocultar").hide();
     
+
+
     var nombre = $('#nameUser').val();
     var apellido = $('#apellidoUser').val();
     var correo = $('#correo').val();
