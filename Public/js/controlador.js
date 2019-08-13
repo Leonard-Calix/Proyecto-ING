@@ -5,8 +5,11 @@ $(document).ready(function(){
 
 	if ($('#tour').val()!=null) {
 
+		var id = $('#tour').val();
 		var param = 'id='+$('#tour').val();
-		var img = '../Public/img/tours/' + $('#tour').val() + '_01.png';
+		var img = "../Public/img/tours/"+id+"_01.png";
+
+		///console.log(img + " " + id)
 
 		$.ajax({
 			url:"../Controlador/ajax/gestion-Tours.php?accion=obtenerTour",
@@ -19,9 +22,6 @@ $(document).ready(function(){
 				$('#nombre_tour').append(`<h2  class="text-center mb-4">${res[0].nombre}</h2>`);
 
 				$('#descripcion').append(`<p class="card-text text-muted">${res[0].descripcion}</p><br><br>`);
-
-				$('#img-p').append(`<img style="width: 100%;" src="${img}" alt="App landing" class="img-fluid">`);
-
 			}
 
 		});
@@ -29,7 +29,7 @@ $(document).ready(function(){
 		/*===============================================================*/
 		/*Obtener las imagenes por tours*/
 
-		console.log(img);
+		
 
 		$.ajax({
 			url:"../Controlador/ajax/gestion-Tours.php?accion=obtenerImagenes",
@@ -37,8 +37,10 @@ $(document).ready(function(){
 			dataType:'json',
 			data: param ,
 			success:function(res){
-				console.log(res);
-				$('#img-p').append(`<img style="width: 100%;" src="" alt="App landing" class="img-fluid">`);
+
+				
+				console.log(res[0].ruta);
+				$('#img-p').append(`<img style="width: 100%;" src="${res[0].ruta}" alt="Img tours" class="img-fluid">`);
 
 			}
 		});
@@ -58,6 +60,7 @@ $(document).ready(function(){
 			for (var i = 0; i < res.length; i++) {
 
 				img = '../Public/img/tours/' + res[i].idTours + '_01.png';
+
 
 				for (var j = 0; j < res[i].calificacion; j++) {
 					estrella+='<i class="text-primary fas fa-star"></i> ';
@@ -121,8 +124,8 @@ $(document).ready(function(){
 			data: "id="+$('#usuario_registrado').val(),
 			dataType:'json',
 			success:function(res){
-				console.log('Respuesta del servidor para el perfil');
-				console.log(res);
+				//console.log('Respuesta del servidor para el perfil');
+				//console.log(res);
 				$('#nombreUsuario').append(`<h1 class="display-2 text-white">Hello ${res[0].nombreUsuario}</h1>`);
 				$('#usuario').append(`<h5 class="h3">${res[0].nombreUsuario}<span class="font-weight-light"></span></p>`);
                 
@@ -164,7 +167,7 @@ $('#btn-registro').click(function () {
 	var contrasenia = $('#contrasenia').val();
 
 	var parametros = "nombre="+nombre+"&apellido="+apellido+"&correo="+correo+"&usuario="+usuario+"&contrasenia="+contrasenia;
-	console.log(parametros);
+	//console.log(parametros);
 
 	if (nombre==" " || apellido=="" || correo==" " || usuario==" " || contrasenia==" ") {
 		$('#error-login').fadeIn(500);
@@ -214,7 +217,7 @@ $('#btn-sing-in').click(function () {
 
 	var parametros = "correo="+correo+"&contrasenia="+contrasenia;
 
-	console.log(parametros);
+	//console.log(parametros);
 
 	$.ajax({
 		url:"../Controlador/ajax/gestion-Usuario.php?accion=login",
