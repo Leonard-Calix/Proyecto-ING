@@ -205,7 +205,7 @@ function editarUser(){
 		dataType: 'json',
 		data: datos,
 		success:function(res){
-            //console.log(res);
+            console.log(res);
 			if (res.respuesta==1) {
 				$("#"+datos.idUpdate).html(`
 				<th scope="row">${datos.idUpdate}</th>
@@ -226,7 +226,9 @@ function editarUser(){
                 limpiarInputs();
                 alert("The user profile has been updated successfully");
                 $(document).ajaxStop(function(){ window.location.reload(); }); 
-			}
+			}else{
+                console.log("Error");
+            }
             
 		}
 	});

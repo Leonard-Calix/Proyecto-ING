@@ -88,9 +88,9 @@
 			$result = ControllerUsuario::editarUsuario($profiles);
 			
 			if ($result!=null) {
-				echo '{ "respuesta" :  1 }';
+				echo '{ "respuesta" : 1 }';
 			}else{
-				echo '{ "respuesta" :  0 }';
+				echo '{ "respuesta" : 0 }';
 			}
 			
 		break;

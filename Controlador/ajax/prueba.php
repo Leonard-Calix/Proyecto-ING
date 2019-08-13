@@ -1,11 +1,16 @@
 <?php 
-	include_once('../../Modelo/ControllerUsuario.php');
-	include_once('../../Modelo/clase-Profiles.php');
-	include_once('../../Modelo/class-guia.php');
-	include_once('../../Modelo/clase-conexionPDO.php');
-	include_once('../../Modelo/clase-validadorProfiles.php');
-	$id = 16;
-	echo ControllerUsuario::obtenerProfile_id($id);
+	//include_once('../../Modelo/ControllerUsuario.php');
+	//include_once('../../Modelo/clase-Profiles.php');
+	//include_once('../../Modelo/class-guia.php');
+	include_once('../../Modelo/clase-Tours.php');
+	//include_once('../../Modelo/clase-conexionPDO.php');
+	//include_once('../../Modelo/clase-validadorProfiles.php');
+	//$id = 16;
+	//echo ControllerUsuario::obtenerProfile_id($id);
+
+	Tours::tours();
+
+
 	/*
 	
 	$nombre =  "maria fernando";
