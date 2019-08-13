@@ -90,14 +90,12 @@
       <!-- Plugins JS -->
       <script src="../Public/js/bootstrap.bundle.min.js"></script>
       <script src="../Public/js/perfect-scrollbar.jquery.min.js"></script>
-      
       <script src="../Public/js/flickity.pkgd.min.js"></script>
       <script src="../Public/js/flickity-fade.js"></script>
       <script src="../Public/js/parallax.min.js"></script>
       <script src="../Public/js/jquery.waypoints.min.js"></script>
-      <script src="../Public/js/shortcuts/inview.min.js"></script>
-      <script src="../Public/js/vendors/scrolloverflow.min.js"></script>
-      <script src="../Public/js/dist/fullpage.min.js"></script>
+      <script src="../Public/js/inview.min.js"></script>
+      <script src="../Public/js/fullpage.min.js"></script>
       <script src="../Public/js/highlight.pack.min.js"></script>
       <script src="../Public/js/demo.js"></script>
       <script src="../Public/js/poper.js"></script>
