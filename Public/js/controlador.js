@@ -162,7 +162,7 @@ $('#btn-registro').click(function () {
 	var usuario = $('#usuario').val();
 	var contrasenia = $('#contrasenia').val();
 
-	var parametros = "nombre="+nombre+"&apellido="+apellido+"&correo="+correo+"&usuario="+usuario+"&contrasenia="+contrasenia;
+	var parametros = "nombre="+nombre+"&apellido="+apellido+"&correo="+correo+"&usuario="+usuario+"&contrasenia="+contrasenia+"&genero="+"M";
 	//console.log(parametros);
 
 	if (nombre==" " || apellido=="" || correo==" " || usuario==" " || contrasenia==" ") {
@@ -177,8 +177,21 @@ $('#btn-registro').click(function () {
 		success:function(respuesta){
 			console.log(respuesta);
 
-			if(respuesta.codigo != 0){
+			if(respuesta.error_nombre != null 
+				|| respuesta.error_apellido != null 
+				|| respuesta.error_nombreUsuario != null
+				|| respuesta.error_correo != null 
+				|| respuesta.error_contrasena != null
+				|| respuesta.error_typeUser != null){
+				  
+				  $("#nombre").val(respuesta.error_nombre);
+				  $('#apellido').val(respuesta.error_apellido);
+				  $('#correo').val(respuesta.error_correo);
+				  $('#usuario').val(respuesta.error_nombreUsuario);
+				  $('#contrasenia').attr('type', 'text');
+				  $('#contrasenia').val(respuesta.error_contrasena);
 
+			}else{
 				$('#nombre').val("");
 				$('#apellido').val("");
 				$('#nombre').val("");
@@ -186,10 +199,9 @@ $('#btn-registro').click(function () {
 				$('#usuario').val("");
 				$('#contrasenia').val("");
 
-				//setTimeout(redireccionar(respuesta.codigo), 3000);
 				$('#mensaje').fadeIn(500);
-
-			}
+				//setTimeout(redireccionar(document.location.href ="sing-in.php"), 5000);         
+			}			
 		}
 		});
 

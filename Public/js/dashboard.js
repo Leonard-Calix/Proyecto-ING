@@ -24,7 +24,7 @@ $(document).ready(function($) {
 
 		});
 
-//INFORMACION DE PERFIL DE GUIA - no funcionaba
+//INFORMACION DE PERFIL DE GUIA 
 
 $.ajax({
 	url: '../Controlador/ajax/gestion-Usuario.php?accion=infoProfiles',

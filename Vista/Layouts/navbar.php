@@ -4,9 +4,7 @@
 		  
           <!-- Brand -->
           <a class="navbar-brand" href="../Vista/index.php">
-            <svg class="navbar-brand-svg" >
               <img style=" width: 150px;" src="../Public/img/logo.png"> 
-            </svg>
           </a>
 
           <!-- Toggler -->
