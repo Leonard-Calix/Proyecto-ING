@@ -137,7 +137,7 @@
       <div class="modal-footer">
         <button  type="button" onclick="limpiarInputs();"class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button"  id="btn-add" onclick="agregarUser();" class="btn btn-primary">Save changes</button>
-        <button id="btn-edit" onclick="editarUser();" data-dismiss="modal" type="button" class="btn btn-primary">Edit</button>
+        <button id="btn-edite" onclick="editarUser();" data-dismiss="modal" type="button" class="btn btn-primary">Edit</button>
       </div>
     </div>
   </div>

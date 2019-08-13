@@ -15,7 +15,6 @@ function cambioprofiles() {
     limpiarInputs();
 }
 
-
 function limpiarInputs(){
     $('#nameUser').val("");
     $('#apellidoUser').val("");
@@ -64,8 +63,11 @@ function fetchProfiles() {
 }    
 
 function agregarUser(){
-    $("#btn-edit").hide();
+
+    $(".ocultar").hide();
     
+
+
     var nombre = $('#nameUser').val();
     var apellido = $('#apellidoUser').val();
     var correo = $('#correo').val();
@@ -87,7 +89,7 @@ function agregarUser(){
                     "&phone="+phone+"&genero="+genero+"&direccion="+direccion+"&usuario="+usuario+
                     "&correo="+correo+"&contrasenia="+contrasenia+"&typeUser="+typeUser;
     
-    console.log(parametros);
+    //console.log(parametros);
     
     if (nombre==" " || apellido=="" || correo==" " || usuario==" " || contrasenia==" ") {
         alert('Datos Vacios');
@@ -129,7 +131,7 @@ function agregarUser(){
 }
 
 function EliminarUser(idUser){
-    console.log(idUser);
+    //console.log(idUser);
 
     $.ajax({
         url: '../Controlador/ajax/gestion-Usuario.php?accion=delete',
@@ -206,7 +208,7 @@ function editarUser(){
 		dataType: 'json',
 		data: datos,
 		success:function(res){
-            //console.log(res);
+            console.log(res);
 			if (res.respuesta==1) {
 				$("#"+datos.idUpdate).html(`
 				<th scope="row">${datos.idUpdate}</th>
@@ -227,7 +229,9 @@ function editarUser(){
                 limpiarInputs();
                 alert("The user profile has been updated successfully");
                 $(document).ajaxStop(function(){ window.location.reload(); }); 
-			}
+			}else{
+                console.log("Error");
+            }
             
 		}
 	});

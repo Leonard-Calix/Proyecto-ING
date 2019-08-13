@@ -22,8 +22,8 @@ function fetchGuiaOpt(){
     method:'POST',
     dataType:'json',
     success:function(res){
-      console.log("respuesta de Guias");
-      console.log(res);
+      //console.log("respuesta de Guias");
+      //console.log(res);
       for (var i = 0; i < res.length; i++) {
         $("#guiasOption").append(`<option value="${res[i].idGuia}">${res[i].nombreCompleto}</option>`);
       }		
@@ -50,10 +50,6 @@ function fetchGuides() {
               <td>${response[i].nombreGuia}</td>
               <td>${response[i].email}</td>
               <td>
-                <button onclick="fetchGuideID(${response[i].idGuia});" type="button" class="btn btn-secondary" data-toggle="modal" 
-                data-target="#modal-update">Edit</button>
-              </td>
-              <td>
                 <button onclick="NotificarGuia(${response[i].idGuia});" type="button" class="btn btn-info" data-toggle="modal"
                  data-target="#modal-notific">Notificar</button>
               </td>
@@ -71,7 +67,7 @@ function fetchGuideID(idguia){
   $("#btn-addGuia").hide();
   $("#btn-editGuia").show();
 
-  console.log(idguia);
+  //console.log(idguia);
 
   $.ajax({
     url: '../Controlador/ajax/gestion-guia.php?accion=tours_id',
@@ -103,23 +99,21 @@ function editarGuia(){
     guiaCambio: $("#guiasOption").val()
   };
 
-  console.log(datos);
+  //console.log(datos);
   $.ajax({
 		url: '../Controlador/ajax/gestion-guia.php?accion=update',
 		method: 'POST',
 		dataType: 'json',
 		data: datos,
 		success:function(res){
-            console.log(res);
+      //console.log(res);
 			if (res.respuesta==1) {
 				$("#"+datos.idGuia).html(`
 				<th scope="row">${datos.idTours}</th>
           		<td>${ $("#nameTour").val() }</td>
                 <td>${ $("#hotel").val() }</td>
                 <td>${ $("#nameguide").val() }</td>
-                <td>${ $("#correo").val() }</td>
-              <td scope="col"> <button onclick="fetchGuideID(${datos.idGuia});" 
-              class="btn btn-outline-success" data-toggle="modal" data-target="#modal-update" >Edit</button> </td>      
+                <td>${ $("#correo").val() }</td>      
               <td scope="col"> <button onclick="NotificarGuia(${datos.idGuia})";" 
               class="btn btn-outline-danger" data-toggle="modal" data-target="#modal-notific" >Notificar</button> </td>
         `);
@@ -136,7 +130,7 @@ function editarGuia(){
 
 function NotificarGuia(guiaid){
 
-  console.log(guiaid +" id del guia a enviar correo para notificar");
+  //console.log(guiaid +" id del guia a enviar correo para notificar");
   
   $.ajax({
     url: '../Controlador/ajax/gestion-guia.php?accion=obtenerguia_id',
@@ -145,6 +139,9 @@ function NotificarGuia(guiaid){
     data: { guia: guiaid },
     success:function(resp){
       console.log(resp);
+      $("#emailguia").val(resp[0].email);
+      $("#info-tourguia").val('Name Tour: '+resp[0].nombre + '\n'+
+                              'Name Hotel: '+resp[0].nombreHotel);
     }
 
   });
@@ -155,15 +152,20 @@ function sendEmail(){
 
   var datos = { email: $("#emailguia").val(), info: $("#info-tourguia").val() };
 
-  //console.log("Datos para enviar correo "+ datos);
+  //console.log("Datos para enviar correo "+ datos.email);
   
   $.ajax({
     url: '../Controlador/ajax/gestion-guia.php?accion=datosCorreo',
     method: 'POST',
-    //dataType: 'json',
+    dataType: 'json',
     data: datos,
     success:function(response){
-      console.log(response);
+      //console.log(response);
+      if(response.codigo == 1){
+        console.log(response.mensaje);
+      }else{
+        console.log(response.mensaje);
+      }
     }
   });
   
