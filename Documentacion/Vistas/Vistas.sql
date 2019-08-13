@@ -39,8 +39,8 @@ INNER JOIN guia g ON g.idUsuario = u.idUsuario;
 
 /*VISTAS DEL DASHBOARD*/
 CREATE VIEW tours_dashboard  AS 
-SELECT t.idtours id, t.nombre Nombre_Tour, t.precio Precio_Tours FROM tours t 
-INNER JOIN hotel h ON h.idtours=t.idtours;
+SELECT t.idtours id, t.nombre Nombre_Tour, t.precio Precio_Tours FROM 
+tours t INNER JOIN estados e ON e.idEstados=t.idestados;
 
 
 /*SELECT t.idtours id, t.nombre Nombre_Tour, t.precio Precio_Tours FROM 
