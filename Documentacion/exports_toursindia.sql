@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-08-2019 a las 14:49:18
+-- Tiempo de generación: 13-08-2019 a las 16:13:47
 -- Versión del servidor: 10.3.16-MariaDB
 -- Versión de PHP: 7.3.7
 
@@ -607,11 +607,19 @@ CREATE TABLE `imagenes` (
 --
 
 INSERT INTO `imagenes` (`idImagenes`, `ruta`, `idTours`) VALUES
-(1, '../Public/img/tours/t1_01.jpg', 1),
-(2, '../Public/img/tours/t1_02.jpg', 1),
-(3, '../Public/img/tours/t1_03.png', 1),
-(4, '../Public/img/tours/t1_04.jpg', 1),
-(5, '../Public/img/tours/t1_05.jpg', 1);
+(1, '../Public/img/tours/1_01.png', 1),
+(2, '../Public/img/tours/1_02.png', 1),
+(3, '../Public/img/tours/1_03.png', 1),
+(4, '../Public/img/tours/2_01.png', 2),
+(5, '../Public/img/tours/2_02.png', 2),
+(6, '../Public/img/tours/2_03.png', 2),
+(7, '../Public/img/tours/3_01.png', 3),
+(8, '../Public/img/tours/3_02.png', 3),
+(9, '../Public/img/tours/4_01.png', 3),
+(10, '../Public/img/tours/4_02.png', 4),
+(11, '../Public/img/tours/4_03.png', 4),
+(12, '../Public/img/tours/5_01.png', 5),
+(13, '../Public/img/tours/5_02.png', 5);
 
 -- --------------------------------------------------------
 
@@ -726,7 +734,7 @@ INSERT INTO `tours` (`idTours`, `nombre`, `descripcion`, `fechaInicio`, `fechaFi
 (3, 'Goa Beach', 'Exotic Beaches Small excursion from Arambol beach, passing through Kalacha Beach', '2019-07-18 00:00:00', '2019-07-23 00:00:00', 779, 20, 5, 3, 3),
 (4, 'Kanyakumari Tours', 'This place is also known as Cabo Comorin; a place where the Indian Ocean, the Arabian Sea and the Bay of Bengal meet', '2019-07-18 00:00:00', '2019-07-21 00:00:00', 550, 20, 4, 4, 4),
 (5, 'Rajastan Tours', 'Rajasthan called the land of the Kings is one of the most beautiful states of India in its best colorful and exotic. The state hosts an incredible exhibition of art and architecture', '2019-07-18 00:00:00', '2019-07-24 00:00:00', 763, 20, 5, 5, 5),
-(7, 'The Digambar Jain Lal temple', 'The Digambar Jain Lal temple, the oldest Jain sanctuary in the capital of India', '2019-08-09 00:00:00', '2019-08-15 00:00:00', 265, 25, 4, 7, 6);
+(7, 'The Digambar Jain Lal temple', 'The Digambar Jain Lal temple, the oldest Jain sanctuary in the capital of India', '1970-01-01 00:00:00', '1970-01-01 00:00:00', 267, 4, 4, 7, 6);
 
 -- --------------------------------------------------------
 
@@ -1136,7 +1144,7 @@ ALTER TABLE `hotel`
 -- AUTO_INCREMENT de la tabla `imagenes`
 --
 ALTER TABLE `imagenes`
-  MODIFY `idImagenes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idImagenes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `pagos`
