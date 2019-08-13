@@ -27,7 +27,7 @@ $(document).ready(function(){
 		});
 
 		/*===============================================================*/
-		/*Obtener las imgenes por tours*/
+		/*Obtener las imagenes por tours*/
 
 		console.log(img);
 

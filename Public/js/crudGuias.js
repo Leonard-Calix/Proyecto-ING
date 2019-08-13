@@ -39,7 +39,7 @@ function fetchGuides() {
       success: function(response) {
         //console.log(response);
         let template = '';
-        console.log(response[0].idTours);
+        //console.log(response[0].idTours);
 
         for (var i=0; i<response.length; i++){
             template += `
@@ -138,7 +138,7 @@ function NotificarGuia(guiaid){
     dataType: 'json',
     data: { guia: guiaid },
     success:function(resp){
-      console.log(resp);
+      //console.log(resp);
       $("#emailguia").val(resp[0].email);
       $("#info-tourguia").val('Name Tour: '+resp[0].nombre + '\n'+
                               'Name Hotel: '+resp[0].nombreHotel);
