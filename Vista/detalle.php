@@ -11,14 +11,7 @@
           <div class="row justify-content-center">
            <div class="col-md-8 col-lg-6">
              <!-- Heading -->
-             <div id="nombre_tour" >
-
-             </div>
-             
-             <!-- Subheading -->
-             <p class="text-muted text-center mb-5">
-               Incline comes with several professionally designed landing pages that can be easily adapted for any project.
-             </p>
+             <div id="nombre_tour" ></div>
            </div>
          </div> <!-- / .row -->
 

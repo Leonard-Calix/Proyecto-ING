@@ -37,10 +37,7 @@ function fetchGuides() {
       method: 'POST',
       dataType:'json',
       success: function(response) {
-        //console.log(response);
         let template = '';
-        //console.log(response[0].idTours);
-
         for (var i=0; i<response.length; i++){
             template += `
             <tr>
@@ -75,7 +72,7 @@ function fetchGuideID(idguia){
     dataType: 'json',
     data: {idguia: idguia},
     success:function(resp){
-      console.log(resp);
+      //console.log(resp);
       $("#idTours").val(resp[0].idTour);
       $("#nameTour").val(resp[0].nombre);
       $("#hotel").val(resp[0].nombreHotel);

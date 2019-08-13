@@ -29,16 +29,12 @@ $(document).ready(function(){
 		/*===============================================================*/
 		/*Obtener las imagenes por tours*/
 
-		
-
 		$.ajax({
 			url:"../Controlador/ajax/gestion-Tours.php?accion=obtenerImagenes",
 			method:'POST',
 			dataType:'json',
-			data: param ,
+			data: param,
 			success:function(res){
-
-				
 				console.log(res[0].ruta);
 				$('#img-p').append(`<img style="width: 100%;" src="${res[0].ruta}" alt="Img tours" class="img-fluid">`);
 
