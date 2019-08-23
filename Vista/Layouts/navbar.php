@@ -66,40 +66,7 @@
             </a>
           </li> 
 
-            <!-- Social -->
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item-divider">
-                <span class="nav-link">
-                  <span></span>
-                </span>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fab fa-github"></i> 
-                  <span class="d-xl-none ml-2">
-                    Facebook
-                  </span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fab fa-twitter"></i> 
-                  <span class="d-xl-none ml-2">
-                    Twitter
-                  </span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fab fa-instagram"></i> 
-                  <span class="d-xl-none ml-2">
-                    Instagram
-                  </span>
-                </a>
-              </li>
-            </ul>
-
-
+          
           <?php if ( isset($_SESSION["usuario"]) ) {
             echo '<li class="nav-item">
             <a href="../Vista/perfil-user.php" class="nav-link">
