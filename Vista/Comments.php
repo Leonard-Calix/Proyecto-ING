@@ -18,9 +18,9 @@
 
 <!-- Page Comentarios -->
 <div class="container mt-3">
-    <section class="navbar-nav ml-auto">
-        <input name="search" id="search" class="form-control" type="text" placeholder="Search">
-    </section>
+    <div class="col-md-6">
+        <input name="search" id="search" class="form-control mb-2" type="text" placeholder="Search">
+    </div>
 
     <table class="table">
         <thead class="thead-dark">
