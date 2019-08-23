@@ -10,8 +10,8 @@ BEGIN
 SELECT COUNT(*) INTO existeID FROM comentarios WHERE idcomentarios = pIdComentarios;
 
 IF existeID >0 THEN
-DELETE FROM comentarios WHERE idComentarios = pIdComentarios;
-SET pMensaje =1;
+	DELETE FROM comentarios WHERE idComentarios = pIdComentarios;
+	SET pMensaje =1;
 ELSE
 	SET pMensaje =0;
 
