@@ -45,13 +45,12 @@ function fetchProfiles() {
               <td>${response[i].Apellidos}</td>
               <td>${response[i].nombreUsuario}</td>
               <td>${response[i].email}</td>
-              <td>${response[i].direccion}</td>
               <td>
-                <button onclick="fetchEditar(${response[i].idUsuario});" type="button" class="btn btn-secondary" data-toggle="modal" 
+                <button onclick="fetchEditar(${response[i].idUsuario});" type="button" class="btn btn-outline-success" data-toggle="modal" 
                 data-target="#exampleModal">Edit</button>
               </td>
               <td>
-                <button onclick="EliminarUser(${response[i].idUsuario});" type="button" class="btn btn-danger" data-toggle="modal"
+                <button onclick="EliminarUser(${response[i].idUsuario});" type="button" class="btn btn-outline-danger" data-toggle="modal"
                  data-target="#exampleModal2">Delete</button>
               </td>
             </tr>
@@ -64,9 +63,8 @@ function fetchProfiles() {
 
 function agregarUser(){
 
-    $(".ocultar").hide();
-    
-
+    $("#btn-add").show();
+    $("#btn-edit").hide();
 
     var nombre = $('#nameUser').val();
     var apellido = $('#apellidoUser').val();

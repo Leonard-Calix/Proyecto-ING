@@ -113,6 +113,9 @@
 
 
 
+      <script src="../Public/js/CRUDcomentarios.js"></script>
+
+
       <script type="text/javascript">
        $(document).ready(function() {
           // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
@@ -120,8 +123,6 @@
       });
 
       </script>
-
-
 
 </body>
 </html>

@@ -63,7 +63,7 @@
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="Comments.php">
               <i class="nc-icon nc-single-02"></i>
               <p class="text-white" >Comments</p>
             </a>

@@ -1,4 +1,3 @@
-
 <?php 
 
    session_start();
@@ -10,8 +9,6 @@
     }else {
       header('Location: index.php');
   }
-
-
 
   include_once('Layouts/header_2.php'); 
 
@@ -30,10 +27,10 @@
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
-      <th scope="col">First name</th>
-      <th scope="col">Last</th>
+      <th scope="col">Name</th>
+      <th scope="col">Surnames</th>
       <th scope="col">User name</th>
-      <th scope="col">email</th>
+      <th scope="col">Email</th>
       <th scope="col">Address</th>
       <th scope="col">Action</th>
       <th scope="col"></th>
@@ -137,14 +134,12 @@
       <div class="modal-footer">
         <button  type="button" onclick="limpiarInputs();"class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button"  id="btn-add" onclick="agregarUser();" class="btn btn-primary">Save changes</button>
-        <button id="btn-edite" onclick="editarUser();" data-dismiss="modal" type="button" class="btn btn-primary">Edit</button>
+        <button id="btn-edit" onclick="editarUser();" data-dismiss="modal" type="button" class="btn btn-primary">Edit</button>
       </div>
     </div>
   </div>
 </div>
 </div>
-
-        
 
 <?php include_once('Layouts/footer.php'); ?>
 </div>
