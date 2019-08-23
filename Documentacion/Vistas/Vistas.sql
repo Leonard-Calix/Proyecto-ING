@@ -67,3 +67,10 @@ INNER JOIN usuario u ON p.idPersona = u.idPersona
 INNER JOIN guia g ON g.idUsuario = u.idUsuario
 INNER JOIN tours t ON g.idGuia = t.idGuia
 INNER JOIN hotel h ON h.idTours = t.idTours;
+
+/*VISTA DE COMENTARIOS*/
+CREATE VIEW view_comentarios
+AS
+	SELECT C.idComentarios, C.idUsuario, C.idTours, C.Comentario, T.nombre, U.nombreUsuario FROM comentarios C 
+	INNER JOIN tours T on C.idTours = T.idTours
+	INNER JOIN usuario U on U.idUsuario = C.idUsuario;
