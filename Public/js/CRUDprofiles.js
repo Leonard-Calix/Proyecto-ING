@@ -101,7 +101,7 @@ function agregarUser(){
             method: 'POST',
             data: parametros,
             success:function(respuesta){
-                console.log(respuesta);
+                //console.log(respuesta);
     
                 if(respuesta.error_nombre != null || respuesta.error_apellido != null || respuesta.error_identidad != null
                   || respuesta.error_direccion != null || respuesta.error_telefono != null || respuesta.error_genero != null
@@ -208,7 +208,7 @@ function editarUser(){
 		dataType: 'json',
 		data: datos,
 		success:function(res){
-            console.log(res);
+            //console.log(res);
 			if (res.respuesta==1) {
 				$("#"+datos.idUpdate).html(`
 				<th scope="row">${datos.idUpdate}</th>

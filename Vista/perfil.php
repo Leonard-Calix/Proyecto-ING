@@ -2,16 +2,12 @@
   session_start();
    
   if (isset($_SESSION["usuario"]) ) {
-    
      $usr = $_SESSION["usuario"];
-
-
     }else {
-      //header('Location: index.php');
+      header('Location: index.php');
   }
 
  ?>
-
 
 <!DOCTYPE html>
 <!-- saved from url=(0078)https://demos.creative-tim.com/argon-dashboard-pro/pages/examples/profile.html -->

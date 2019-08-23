@@ -5,8 +5,8 @@ $(document).ready(function($) {
 			method:'POST',
 			dataType:'json',
 			success:function(res){
-				console.log("respuesta de la tabla de tours");
-				console.log(res);
+				//console.log("respuesta de la tabla de tours");
+				//console.log(res);
 				$('#t-res').html(" ");
 				for (var i = 0; i < res.length; i++) {
 					$('#t-res').append(` 
@@ -33,7 +33,7 @@ $.ajax({
 	data: { idEdit : $("#idUsuario").val() },
 	success:function(res){
 		//console.log("Usuario");
-		console.log(res);
+		//console.log(res);
 		$("#username").val(res[0].nombreUsuario);
 		$("#email").val(res[0].email);
 		$("#nombre").val(res[0].nombreCompleto);
@@ -139,7 +139,7 @@ function editar(id) { // solo muestra informacion
 		dataType: 'json',
 		data: {id: id },
 		success:function(res){
-			console.log(res);
+			//console.log(res);
 			$("#idtours").val(res[0].id);
 			$("#calificacion").val(res[0].calificacion);
 			$("#nombre").val(res[0].Nombre_Tour);
@@ -198,7 +198,7 @@ function agregar() {
 		cupos : $("#cupos").val()
 	};
 
-	console.log(data);
+	//console.log(data);
 
 	$.ajax({
 		url: '../Controlador/ajax/gestion-Tours.php?accion=agregarTours',
@@ -241,7 +241,7 @@ function editarReguistro(){
 		cupos : $("#cupos").val()
 };
 
-	console.log(data);
+	//console.log(data);
 
 	$.ajax({
 		url: '../Controlador/ajax/gestion-Tours.php?accion=editarTours',
@@ -249,7 +249,7 @@ function editarReguistro(){
 		dataType: 'json',
 		data: data,
 		success:function(res){
-			console.log(res);
+			//console.log(res);
 			if (res.respuesta==1) {
 				$("#"+data.id).html(`
 				<th scope="row">${data.id}</th>

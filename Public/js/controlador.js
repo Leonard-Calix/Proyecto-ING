@@ -17,7 +17,7 @@ $(document).ready(function(){
 			dataType:'json',
 			data: param ,
 			success:function(res){
-			console.log("imf");
+			//console.log("imf");
 				console.log(res);
 				$('#nombre_tour').append(`<h2  class="text-center mb-4">${res[0].nombre}</h2>`);
 
@@ -35,7 +35,7 @@ $(document).ready(function(){
 			dataType:'json',
 			data: param,
 			success:function(res){
-				console.log(res[0].ruta);
+				//console.log(res[0].ruta);
 				$('#img-p').append(`<img style="width: 100%;" src="${res[0].ruta}" alt="Img tours" class="img-fluid">`);
 
 			}
@@ -50,7 +50,7 @@ $(document).ready(function(){
 			url:"../Controlador/ajax/gestion-Tours.php?accion=mostrar",
 			dataType:'json',
 			success:function(res){
-			console.log(res);
+			//console.log(res);
 			var estrella='';
 			var img = '';
 			for (var i = 0; i < res.length; i++) {
@@ -175,7 +175,7 @@ $('#btn-registro').click(function () {
 		method: 'POST',
 		data: parametros,
 		success:function(respuesta){
-			console.log(respuesta);
+			//console.log(respuesta);
 
 			if(respuesta.error_nombre != null 
 				|| respuesta.error_apellido != null 
