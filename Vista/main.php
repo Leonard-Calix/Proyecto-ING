@@ -11,8 +11,6 @@
       header('Location: index.php');
   }
 
-
-
   include_once('Layouts/header_2.php'); 
 
 ?>
@@ -127,8 +125,6 @@
                   </div>
 
                 </div>
-
-
 
                 <?php include_once('Layouts/footer.php'); ?>
               </div>

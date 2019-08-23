@@ -39,7 +39,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="https://www.instagram.com/" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="fab fa-instagram"></i> 
                   <span class="d-xl-none ml-2">
                     Instagram

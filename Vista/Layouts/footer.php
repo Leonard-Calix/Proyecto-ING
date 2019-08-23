@@ -106,9 +106,7 @@
       <script src="../Public/js/CRUDprofiles.js"></script>
       <script src="../Public/js/dashboard.js"></script>
       <script src="../Public/js/crudGuias.js"></script>
-
-
-
+      <script src="../Public/js/CRUDcomentarios.js"></script>
 
       <script type="text/javascript">
        $(document).ready(function() {
@@ -117,8 +115,6 @@
       });
 
       </script>
-
-
 
 </body>
 </html>
