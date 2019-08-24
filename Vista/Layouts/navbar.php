@@ -1,4 +1,4 @@
-<?php // session_start(); ?>
+<?php session_start(); ?>
 
 <!-- NAVBAR ================================================= -->
 <nav class="navbar navbar-expand-xl navbar-dark  navbar-togglable fixed-top">
