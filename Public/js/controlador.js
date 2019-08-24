@@ -1,5 +1,5 @@
 $(document).ready(function(){	
-/*===============================================================*/
+	/*===============================================================*/
 	/*Detalle de tour*/
 	if ($('#tour').val()!=null) {
 
@@ -66,44 +66,44 @@ function showTours(){
 		dataType:'json',
 		success:function(res){
 		//console.log(res);
-			var estrella='';
-			var img = '';
-			for (var i = 0; i < res.length; i++) {
-				img = '../Public/img/tours/' + res[i].idTours + '_01.png';
+		var estrella='';
+		var img = '';
+		for (var i = 0; i < res.length; i++) {
+			img = '../Public/img/tours/' + res[i].idTours + '_01.png';
 
-				for (var j = 0; j < res[i].calificacion; j++) {
-					estrella+='<i class="text-primary fas fa-star"></i> ';
-				}
+			for (var j = 0; j < res[i].calificacion; j++) {
+				estrella+='<i class="text-primary fas fa-star"></i> ';
+			}
 
-				$('#respuesta').append(`
-					<div class="col-md-4">
-						<!-- Item -->
-					  	<a  href="detalle.php?id=${res[i].idTours}" class="card border-0 mb-3 mb-md-0">
-						<!-- Image -->
-						<div class="card-img-top">
-							  <img src="${img}" alt="App landing" class="img-fluid">
-						</div>
+			$('#respuesta').append(`
+				<div class="col-md-4">
+				<!-- Item -->
+				<a  href="detalle.php?id=${res[i].idTours}" class="card border-0 mb-3 mb-md-0">
+				<!-- Image -->
+				<div class="card-img-top">
+				<img src="${img}" alt="App landing" class="img-fluid">
+				</div>
 
-						<!-- Body -->
-						<div class="card-body">
+				<!-- Body -->
+				<div class="card-body">
 
-						  <!-- Title -->
-						  <h4 class="card-title">${res[i].nombre}</h4>
+				<!-- Title -->
+				<h4 class="card-title">${res[i].nombre}</h4>
 
-						  <!-- Body -->
-						  <p style="color: black;" >${res[i].descripcion}</p>
-						  <p class="card-text text-muted">Calificacion ${estrella}</p>
-						
-						</div>
+				<!-- Body -->
+				<p style="color: black;" >${res[i].descripcion}</p>
+				<p class="card-text text-muted">Calificacion ${estrella}</p>
 
-					  </a> <!-- / .card -->
+				</div>
+
+				</a> <!-- / .card -->
 
 				</div>`);
-				estrella='';
-				img='';
-			}
+			estrella='';
+			img='';
 		}
-	});
+	}
+});
 }
 
 //Funcion para obtener estados
@@ -112,8 +112,9 @@ function getEstados(){
 		url:"../Controlador/ajax/gestion-Tours.php?accion=obtenerEstado",
 		dataType:'json',
 		success:function(res){
+			console.log(res);
 			for (var i = 0; i < res.length; i++) {
-				$('#estados').append(`<option>${res[i].nombre}</option>`)
+				$('#estados').append(`<option value="${res[i].idEstados}" >${res[i].nombre}</option>`)
 			}
 		}
 
@@ -132,13 +133,13 @@ function infoPerfil(usuario_registrado){
 			console.log(res);
 			$('#nombreUsuario').append(`<h3 class="display-3 text-white">Hello ${res[0].nombreUsuario}</h3>`);
 			$('#usuario').append(`<h5 class="h3">${res[0].nombreUsuario}<span class="font-weight-light"></span></p>`);
-            
+
 		}
 	});
 }
 
 /*===============================================================*/
-	/*Registrar usuarios al sistema*/
+/*Registrar usuarios al sistema*/
 
 function redireccionar(tipo){
 	
@@ -173,26 +174,26 @@ $('#btn-registro').click(function () {
 	}else{
 
 		$.ajax({
-		url:"../Controlador/ajax/gestion-Usuario.php?accion=agregar",
-		dataType:'json',
-		method: 'POST',
-		data: parametros,
-		success:function(respuesta){
-			console.log(respuesta);
+			url:"../Controlador/ajax/gestion-Usuario.php?accion=agregar",
+			dataType:'json',
+			method: 'POST',
+			data: parametros,
+			success:function(respuesta){
+				console.log(respuesta);
 
-			if(respuesta.error_nombre != null 
-				|| respuesta.error_apellido != null 
-				|| respuesta.error_nombreUsuario != null
-				|| respuesta.error_correo != null 
-				|| respuesta.error_contrasena != null
-				|| respuesta.error_typeUser != null){
-				  
-				  $("#nombre").val(respuesta.error_nombre);
-				  $('#apellido').val(respuesta.error_apellido);
-				  $('#correo').val(respuesta.error_correo);
-				  $('#usuario').val(respuesta.error_nombreUsuario);
-				  $('#contrasenia').attr('type', 'text');
-				  $('#contrasenia').val(respuesta.error_contrasena);
+				if(respuesta.error_nombre != null 
+					|| respuesta.error_apellido != null 
+					|| respuesta.error_nombreUsuario != null
+					|| respuesta.error_correo != null 
+					|| respuesta.error_contrasena != null
+					|| respuesta.error_typeUser != null){
+
+					$("#nombre").val(respuesta.error_nombre);
+				$('#apellido').val(respuesta.error_apellido);
+				$('#correo').val(respuesta.error_correo);
+				$('#usuario').val(respuesta.error_nombreUsuario);
+				$('#contrasenia').attr('type', 'text');
+				$('#contrasenia').val(respuesta.error_contrasena);
 
 			}else{
 				$('#nombre').val("");
@@ -206,7 +207,7 @@ $('#btn-registro').click(function () {
 				//setTimeout(redireccionar(document.location.href ="sing-in.php"), 5000);         
 			}			
 		}
-		});
+	});
 	}	
 });
 
@@ -252,3 +253,34 @@ $('#btn-comentar').click(function () {
 	document.location.href='sing-in.php';
 });
 
+
+/*================================================================================*/
+
+function selecionarEstado(){
+
+	console.log("estado : =>", $("#estados").val());
+
+
+	if ($("#estados").val()==0) {
+
+		$("#comenta").fadeIn(500);
+		$("#resEstados").fadeOut(500);
+
+		$("#respuesta").fadeIn(500);
+
+	}else{
+
+		$("#comenta").fadeOut(500);
+		$("#respuesta").fadeOut(500);
+
+		$("#esta").html($("#estados").val());
+
+
+		$("#resEstados").fadeOut(500);
+		$("#resEstados").fadeIn(500);
+	}
+
+
+
+
+} 

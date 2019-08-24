@@ -134,10 +134,11 @@
       <section class="section" id="pages">
         <!-- SELECT DE ESTADOS -->
         <div class="container">
-         <select class="form-control" id="estados">
+         <select class="form-control" id="estados" onchange="selecionarEstado();" >
+          <option value="0">- Select a state -</option>
         </select>
         <br><br>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" id="comenta">
           <div class="col-md-8 col-lg-6">
             <!-- Heading -->
             <h2 class="text-center mb-4">
@@ -156,6 +157,8 @@
         <div  class="row" id="respuesta">
 
         </div> <!-- / .row -->
+        <div  class="row" id="resEstados">
+            <h1>Respuestas de los estados de <span id="esta" ></span> </h1>
       </div> <!-- / .container -->
 
     </section>
