@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+
 
 <!-- NAVBAR ================================================= -->
 <nav class="navbar navbar-expand-xl navbar-dark  navbar-togglable fixed-top">
@@ -64,9 +64,19 @@
             </a>
           </li> 
 
-          <?php if ( isset($_SESSION["usuario"]) ) {
+          <?php 
+
+          if ( isset($_SESSION["usuario"]) && isset($_SESSION["tipo"]) ) {
+
+            if($_SESSION["tipo"]==2){
+              $ruta="../Vista/perfil-user.php";
+            }
+            if($_SESSION["tipo"]==3){
+              $ruta="../Vista/perfil-guide.php";
+            }
+
             echo '<li class="nav-item">
-            <a href="../Vista/perfil-user.php" class="nav-link">
+            <a href="'.$ruta.'" class="nav-link">
             MY ACCOUNT
             </a>
             </li>';
@@ -78,12 +88,15 @@
             </li>';
 
           }else{
+
             echo '<li class="nav-item">
             <a href="../Vista/sign-in.php" class="nav-link">
             SIGN IN
             </a>
             </li>';
-          } ?>
+          } 
+
+          ?>
 
         </ul>            
       </ul>

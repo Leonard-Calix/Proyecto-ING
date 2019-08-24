@@ -89,6 +89,24 @@ class Guia{
         echo json_encode($guide);
     }
 
+    public static function toursAsignadosPorGuia($idUsuario){
+        Conexion::abrirConexion();
+        $conexion = Conexion::obtenerConexion();
+
+        $sql = "SELECT t.idtours, t.nombre, t.descripcion, e.nombre estado, t.calificacion, t.precio, t.cupos, DATEDIFF( t.fechaFin, t.fechaInicio ) dias,    CONVERT(t.fechaInicio, DATE) fechaInicio, CONVERT(t.fechaFin, DATE) fechaFin 
+            FROM tours t 
+            INNER JOIN estados e ON e.idEstados=t.idEstados WHERE idGuia = ( SELECT idGuia FROM guia WHERE idUsuario='$idUsuario')";
+        $sentencia = $conexion->prepare($sql);
+        $sentencia->execute();
+
+        $tours = array();
+        foreach ($sentencia as $row){
+            $tours[] = $row;
+        }
+        echo json_encode($tours);
+    }
+    
+
 }
 
 ?>

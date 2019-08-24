@@ -108,11 +108,14 @@ class ControllerUsuario{
         Conexion::cerrarConexion();
     }
 
+
     public static function obtenerUsuario($id){
         Conexion::abrirConexion();
         $conexion = Conexion::obtenerConexion();
 
-        $sql = "SELECT * FROM usuario WHERE idusuario= :id";
+        $sql = "SELECT * FROM usuario u 
+                INNER JOIN persona p ON p.idPersona=u.idPersona
+                WHERE idusuario= :id";
 
         $sentencia = $conexion->prepare($sql);
         $sentencia->execute(array("id" => $id));
@@ -126,6 +129,7 @@ class ControllerUsuario{
 
         Conexion::cerrarConexion();
     }
+
 
     public static function login($email, $contrasena){
 

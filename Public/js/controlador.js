@@ -129,8 +129,8 @@ function infoPerfil(usuario_registrado){
 		dataType:'json',
 		success:function(res){
 			//console.log('Respuesta del servidor para el perfil');
-			//console.log(res);
-			$('#nombreUsuario').append(`<h1 class="display-2 text-white">Hello ${res[0].nombreUsuario}</h1>`);
+			console.log(res);
+			$('#nombreUsuario').append(`<h3 class="display-3 text-white">Hello ${res[0].nombreUsuario}</h3>`);
 			$('#usuario').append(`<h5 class="h3">${res[0].nombreUsuario}<span class="font-weight-light"></span></p>`);
             
 		}
@@ -145,9 +145,11 @@ function redireccionar(tipo){
 	if(tipo == 1){
 		document.location.href='main.php';
 	}else if(tipo == 2){
-		document.location.href='perfil.php';
+		//Turista
+		document.location.href='perfil-user.php';
 	}else if(tipo == 3){
-		document.location.href='perfil.php';
+		//GUIA
+		document.location.href='perfil-guide.php';
 	}else{
 		document.location.href='index.php';
 	}

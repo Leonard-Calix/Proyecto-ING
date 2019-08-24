@@ -50,16 +50,25 @@
 			$guia = intval($_POST["guia"]);
 			$fechaI = date("Y-m-d", strtotime( $_POST["fechaI"] ));
 			$fechaF = date("Y-m-d", strtotime( $_POST["fechaF"] ));
-		
-			$tours = new Tours(null, $nombre, $descripcion, $fechaI, $fechaF, $precio, $cupos, $calificacion, $estado, $guia ); 
-											  
-			$idtours = $tours->agregar();
 
-			if ($idtours!=null) {
-				echo json_encode(array("respuesta" => $idtours));
+			if ( TOURS::validarFecha( $_POST["fechaI"], $_POST["fechaF"] ) ) {
+
+				$tours = new Tours(null, $nombre, $descripcion, $fechaI, $fechaF, $precio, $cupos, $calificacion, $estado, $guia ); 
+											  
+				$idtours = $tours->agregar();
+
+				if ($idtours!=null) {
+					echo json_encode(array("respuesta" => $idtours));
+				}else{
+					echo '{ "respuesta" :  0 }';
+				}
+
 			}else{
-				echo '{ "respuesta" :  0 }';
+
+				echo '{ "respuesta" :  -1 , "mensaje" : "Fechas incorrectas" }';
 			}
+		
+			
 			
 		break;
 
@@ -75,16 +84,25 @@
 			$guia = intval($_POST["guia"]);
 			$fechaI = date("Y-m-d", strtotime( $_POST["fechaI"] ));
 			$fechaF = date("Y-m-d", strtotime( $_POST["fechaF"] ));
-		
-			$tours = new Tours($id, $nombre, $descripcion, $fechaI, $fechaF, $precio, $cupos, $calificacion, $estado, $guia ); 
-											  
-			$res = $tours->editarTours();
 
-			if ($res!=null) {
-				echo '{ "respuesta" :  1 }';
+			if ( TOURS::validarFecha( $_POST["fechaI"], $_POST["fechaF"] ) ) {
+				
+				$tours = new Tours($id, $nombre, $descripcion, $fechaI, $fechaF, $precio, $cupos, $calificacion, $estado, $guia ); 
+											  
+				$res = $tours->editarTours();
+
+				if ($res!=null) {
+					echo '{ "respuesta" :  1 }';
+				}else{
+					echo '{ "respuesta" :  0 }';
+				}
+
 			}else{
-				echo '{ "respuesta" :  0 }';
+				echo '{ "respuesta" :  -1 , "mensaje" : "Fechas incorrectas" }';
 			}
+
+		
+			
 			
 		break;
 

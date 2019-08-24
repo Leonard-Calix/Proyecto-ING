@@ -1,13 +1,21 @@
-
-<?php include_once ('Layouts/header.php'); ?>
-<?php include_once ('Layouts/navbar.php'); ?>
 <?php 
-if (isset($_SESSION["usuario"]) ) {
-	$usr = $_SESSION["usuario"];
-}else {
-        //header('Location: index.php');
-} 
+
+	session_start();
+
+
+	if ( isset($_SESSION["usuario"]) && $_SESSION["tipo"]==2 ) {
+		$usr = $_SESSION["usuario"];
+	}else {
+    	 header('Location: index.php');
+    	 
+	} 
+
+
+ 	include_once ('Layouts/header.php'); 
+ 	include_once ('Layouts/navbar.php');
+
 ?>
+
 <br><br><br><br><br>
 <div class="container">
 	<div class="card text-white">
@@ -43,28 +51,15 @@ if (isset($_SESSION["usuario"]) ) {
 <section id="vista-tours" class="p-2" style="display: none;">
 	<div class="container">
 		<div class="card">
+			<input type="hidden" id="idt" value=" <?php echo $usr ?> ">
+			<input type="hidden" id="userGuide" value=" <?php echo $usr ?> ">
+
 			<div class="p-3 card-header text-uppercase text-info">
 				MY Tours
 			</div>
 			<div class="card-body">
-				<div class="my-3 p-3 rounded box-shadow">
-					<div class="media text-muted">
-						<img data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt="" class="mr-2 rounded">
-						<p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-							<strong class="d-block text-gray-dark">@Nombre Tours</strong>
-							<strong class="d-block text-gray-dark">@Guia</strong>
-							Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-						</p>
-					</div>
-					<div class="media text-muted">
-						<img data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt="" class="mr-2 rounded">
-						<p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-							<strong class="d-block text-gray-dark">@Nombre Tours</strong>
-							<strong class="d-block text-gray-dark">@Guia</strong>
-							Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-						</p>
-					</div>
-					
+				<div class="rounded box-shadow m-0" id="res-tours-turista">
+				
 				</div>
 			</div>
 		</div>

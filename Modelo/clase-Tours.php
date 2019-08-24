@@ -126,7 +126,8 @@ class Tours	{
 		Conexion::abrirConexion();
 		$conexion = Conexion::obtenerConexion();
 
-		$sql = "SELECT * FROM tours_dashboard";
+		$sql = "SELECT t.idtours id, t.nombre Nombre_Tour, t.precio Precio_Tours FROM tours t 
+				INNER JOIN estados e ON e.idEstados=t.idestados;";
 		$resultado = $conexion->prepare($sql);
 		$resultado ->execute();
 
@@ -370,6 +371,25 @@ class Tours	{
 		}
 
 		echo json_encode($guias);
+	}
+
+	public static function validarFecha($fechaInicio, $fechafin){
+		$todayh = getdate();
+
+		$d = $todayh["mday"];
+		$m = $todayh["mon"];
+		$y = $todayh["year"];
+	
+		$fechaActual = date( "Y-m-d", strtotime($d-$m-$y) );
+		$fecha1 = date( "Y-m-d", strtotime($fechaInicio) );
+		$fecha2 = date( "Y-m-d", strtotime($fechafin) );
+
+		if ( $fecha1 > $fechaActual && $fecha2 > $fecha1 ) {
+			return 1;
+		}else{
+			return 0;
+		}
+
 	}
 
 

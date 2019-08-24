@@ -1,5 +1,5 @@
 $(document).ready(function($) {
-	console.log("listo");
+	
 
 	$.ajax({
 		url:"../Controlador/ajax/gestion-turista.php?accion=tours_turista",
@@ -8,7 +8,20 @@ $(document).ready(function($) {
 		data: { id : $("#idt").val() },
 		success:function(res){
 			//console.log("respuesta de la tabla de tours");
-			//console.log(res);
+			console.log(res);
+			for (var i = 0; i < res.length; i++) {
+				$("#res-tours-turista").append(`
+					<div class="media text-muted p-2">
+						<p class="media-body mb-3 mb-0 small lh-125 border-bottom border-gray">
+							<strong class="d-block"><span class="text-info">Tour Name :</span> ${res[i].nombreTours} </strong>
+							<strong class="d-block"><span class="text-info">Price :</span> ${res[i].precio}</strong>
+							<strong class="d-block"><span class="text-info">Date :</span> ${res[i].fechaInicio} - ${res[i].fechaFin}</strong>
+							<strong class="d-block"><span class="text-info">Days :</span> ${res[i].dias}</strong>
+							<strong class="d-block"><span class="text-info">Description :</span> ${res[i].descripcion}</strong>
+							${res[i].descripcion}
+						</p>
+					</div>`);
+			}
 
 		}
 

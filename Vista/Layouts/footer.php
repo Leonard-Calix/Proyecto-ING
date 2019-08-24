@@ -108,6 +108,8 @@
       <script src="../Public/js/dashboard.js"></script>
       <script src="../Public/js/crudGuias.js"></script>
       <script src="../Public/js/perfil-user.js"></script>
+      <script src="../Public/js/perfil-guide.js"></script>
+
       
       <script src="../Public/js/CRUDcomentarios.js"></script>
 

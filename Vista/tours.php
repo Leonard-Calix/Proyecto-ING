@@ -140,8 +140,8 @@
 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button id="btn-G" onclick="agregar();"  data-dismiss="modal" type="button" class="btn btn-primary">Add</button>
-            <button id="btn-E" onclick="editarReguistro();" data-dismiss="modal" type="button" class="btn btn-primary">Save</button>
+            <button id="btn-G" onclick="agregar();" type="button" class="btn btn-primary">Add</button>
+            <button id="btn-E" onclick="editarReguistro();" type="button" class="btn btn-primary">Save</button>
           </div>
 
         </div>

@@ -26,6 +26,8 @@
   <link rel="stylesheet" href="../Public/css/fullpage.min.css">
   <link rel="stylesheet" href="../Public/css/codepen-embed.css">
   <link rel="stylesheet" href="../Public/css/all.min.css">
+  <link rel="stylesheet" href="../Public/css/nucleo.css">
+  <link rel="stylesheet" href="../Public/css/argom.min.css">
   <link rel="stylesheet" href="../Public/css/style.min.css">
   <link rel="stylesheet" href="../Public/css/estilos.css"> 
   <!-- Theme CSS -->

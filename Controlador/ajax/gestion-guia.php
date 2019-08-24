@@ -27,6 +27,13 @@ include_once('../../Modelo/class-guia.php');
 			$info = $_POST['info'];
 			Guia::notificaciones($email,$info);
 		break;
+
+
+		case 'toursPorGuia':
+			$id = $_POST['idguia'];
+			Guia::toursAsignadosPorGuia($id);
+		break;
+		
 		
 		default:
 			

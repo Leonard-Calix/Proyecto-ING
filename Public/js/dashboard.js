@@ -116,6 +116,7 @@ function eliminar(id) {
 
 			if (res.respuesta==1) {
 				$("#"+id).remove();
+				alert("Tours successfully removed");
 			}
 		}
 	});
@@ -206,8 +207,8 @@ function agregar() {
 		dataType: 'json',
 		data: data,
 		success:function(res){
-			console.log(res);
-			if (res.respuesta!=0) {
+			//console.log(res);
+			if (res.respuesta!=0 && res.respuesta!=-1) {
 				$("#t-res").append(`
 				<tr id="${res.respuesta}" >
 					<th scope="row">${res.respuesta}</th>
@@ -217,10 +218,14 @@ function agregar() {
           			<td scope="col"> <button onclick="editar(${res.respuesta});" class="btn btn-outline-success" data-toggle="modal" data-target="#modal-video" >Edit</button> </td>
           			<td scope="col"> <button onclick="eliminar(${res.respuesta})";" class="btn btn-outline-danger" >Remove</button> </td>
 				</tr>`);
+				$("#modal-video").modal('hide');
+				alert("Tours added successfully");
 
-			}else{
 
-			}	
+			}
+			if (res.respueta==-1) {
+				alert("Wrong dates");
+			}
 		}
 	});
 	//$("#fechaI").val("2019-07-20");
@@ -250,7 +255,7 @@ function editarReguistro(){
 		data: data,
 		success:function(res){
 			//console.log(res);
-			if (res.respuesta==1) {
+			if (res.respuesta==1 && res.respuesta!=-1) {
 				$("#"+data.id).html(`
 				<th scope="row">${data.id}</th>
           		<td>${ $("#nombre").val() }</td>
@@ -259,6 +264,10 @@ function editarReguistro(){
           		<td scope="col"> <button onclick="editar(${data.id});" class="btn btn-outline-success" data-toggle="modal" data-target="#modal-video" >Edit</button> </td>
           		<td scope="col"> <button onclick="eliminar(${data.id})";" class="btn btn-outline-danger" >Remove</button> </td>
 				`);
+				$("#modal-video").modal('hide');
+				alert("Tours edited successfully");
+			}else{
+				alert("Wrong dates");
 			}
 		}
 	});

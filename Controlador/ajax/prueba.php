@@ -1,21 +1,21 @@
 <?php 
-	//include_once('../../Modelo/ControllerUsuario.php');
+	include_once('../../Modelo/ControllerUsuario.php');
 	//include_once('../../Modelo/clase-Profiles.php');
 	//include_once('../../Modelo/class-guia.php');
 	//include_once('../../Modelo/clase-Tours.php');
 
-	include_once('../../Modelo/clase-turista.php');
+	//include_once('../../Modelo/clase-turista.php');
 
 	//include_once('../../Modelo/clase-conexionPDO.php');
 	//include_once('../../Modelo/clase-validadorProfiles.php');
 	//$id = 16;
 	//echo ControllerUsuario::obtenerProfile_id($id);
-	include_once('../../Modelo/clase-Comentarios.php');
+	//include_once('../../Modelo/clase-Comentarios.php');
 
 
 	                   // 42
 
-	Turista::informacion(7);
+	//Turista::informacion(7);
 	//var_dump($datos);
 
 
@@ -153,4 +153,22 @@
 
 	$result = ControllerUsuario::borrarUsuario($idBorrar);
 
-	echo $result;*/
+	echo $result;
+
+	$todayh = getdate();
+
+
+	$d = $todayh["mday"];
+	$m = $todayh["mon"];
+	$y = $todayh["year"];
+	//echo "$d-$m-$y"; //getdate converted day
+
+	$fechaActual = date( "Y-m-d", strtotime($d-$m-$y) ); 
+
+	//echo $fechaActual;
+
+	echo TOURS::validarFecha("2019-08-22","2019-08-25");
+
+	*/
+
+	ControllerUsuario::obtenerUsuario(16);

@@ -8,8 +8,8 @@ class Turista{
         Conexion::abrirConexion();
         $conexion = Conexion::obtenerConexion();
 
-        $sql = "SELECT t.idUsuario idUsuario, tu.idTours idTours, tu.idTurista idTurista, p.nombreCompleto nombre, u.nombreUsuario usuario, tou.fechaFin fecha, 
-                tou.descripcion FROM toursturista tu
+        $sql = "SELECT tou.nombre nombreTours, tou.precio, CONVERT(tou.fechaInicio, DATE) fechaInicio, CONVERT(tou.fechaFin, DATE) fechaFin, 
+                 DATEDIFF( tou.fechaFin, tou.fechaInicio ) dias, t.idUsuario idUsuario, tu.idTours idTours, tu.idTurista idTurista, p.nombreCompleto nombre, u.nombreUsuario usuario, tou.descripcion FROM toursturista tu
                 INNER JOIN tours tou ON tou.idTours=tu.idTours
                 INNER JOIN turista t ON t.idTurista=tu.idTurista
                 INNER JOIN usuario u ON u.idUsuario=t.idUsuario

@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <?php include_once ('Layouts/header.php'); ?>
 <?php include_once ('Layouts/navbar.php'); ?>
     <!-- SLIDERS
