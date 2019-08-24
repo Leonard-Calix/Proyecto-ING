@@ -99,6 +99,7 @@
       <script src="../Public/js/highlight.pack.min.js"></script>
       <script src="../Public/js/demo.js"></script>
       <script src="../Public/js/popper.min.js"></script>
+      <script src="../Public/js/popper.js"></script>
       <script src="../Public/js/theme.min.js"></script>
       <script src="../Public/js/paper-dashboard.js"></script>
       <script src="../Public/js/controlador.js"></script>
@@ -108,11 +109,6 @@
       <script src="../Public/js/crudGuias.js"></script>
       <script src="../Public/js/perfil-user.js"></script>
       
-      
-
-
-
-
       <script src="../Public/js/CRUDcomentarios.js"></script>
 
 

@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+<?php // session_start(); ?>
 
 <!-- NAVBAR ================================================= -->
 <nav class="navbar navbar-expand-xl navbar-dark  navbar-togglable fixed-top">
@@ -51,22 +51,19 @@
       </ul>
 
       <!-- Links -->
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item dropdown">
-          <a class="nav-link " href="../Vista/index.php" id="navbarWelcome">
-            Home
-          </a>
-
-
-        </li>
+               
         <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link " href="../Vista/index.php" id="navbarWelcome">
+              Home
+            </a>
+          </li>
           <li class="nav-item dropdown">
             <a class="nav-link " href="../Vista/index.php" id="navbarWelcome">
               Popular tours  
             </a>
           </li> 
 
-          
           <?php if ( isset($_SESSION["usuario"]) ) {
             echo '<li class="nav-item">
             <a href="../Vista/perfil-user.php" class="nav-link">
@@ -75,7 +72,7 @@
             </li>';
 
             echo '<li class="nav-item">
-            <a href="../Vista/perfil-user.php" class="nav-link">
+            <a href="../Vista/logout.php" class="nav-link">
             LOGOUT
             </a>
             </li>';
@@ -87,6 +84,7 @@
             </a>
             </li>';
           } ?>
+
         </ul>            
       </ul>
     </div> <!-- / .navbar-collapse -->
