@@ -24,6 +24,45 @@ class Comentarios{
         Conexion::cerrarConexion();
     }
 
+    //Funcion para obtener un comentario especifico
+    public static function obtenerComentario($tour, $usuario){
+        Conexion::abrirConexion();
+        $conexion = Conexion::obtenerConexion();
+
+        $sql = "SELECT * FROM view_comentarios WHERE idTours='$tour' AND idUsuario='$usuario'";
+        $resultado = $conexion ->prepare($sql);
+        $resultado -> execute();
+
+        $comentarios = array();
+
+        foreach($resultado as $comentario){
+            $comentarios[] = $comentario;
+        }
+
+        echo json_encode($comentarios);
+
+        Conexion::cerrarConexion();
+    }
+
+    //Funcion para obtener comentarios por tour
+   public static function obtenerComentarioTour($tourID){
+        Conexion::abrirConexion();
+        $conexion = Conexion::obtenerConexion();
+
+        $sql = "SELECT * FROM view_comentarios WHERE idTours='$tourID'";
+        $resultado = $conexion ->prepare($sql);
+        $resultado -> execute();
+
+        $comentariosTour = array();
+
+        foreach($resultado as $comentario){
+            $comentariosTour[] = $comentario;
+        }
+
+        echo json_encode($comentariosTour);
+
+        Conexion::cerrarConexion();
+   }
     //Funcion para buscar un comentario especifico
     public static function searchComentario($search){
         Conexion::abrirConexion();
@@ -48,6 +87,32 @@ class Comentarios{
         echo json_encode($comentarios);
 
         Conexion::cerrarConexion();
+    }
+
+    //Funcion para agregar comentarios
+    public static function addComentarios($idUsuario, $idTour, $comentario){
+        Conexion::abrirConexion();
+        $conexion = Conexion::obtenerConexion();
+
+        $sql = 'CALL ADD_COMENTARIOS(:comentario, :idusuario, :idtour, @mensaje)';
+        $resultado = $conexion -> prepare($sql);
+        
+        $resultado -> bindParam(':comentario',$comentario, PDO::PARAM_STR,600);
+        $resultado -> bindParam(':idusuario',$idUsuario, PDO::PARAM_INT);
+        $resultado -> bindParam(':idtour',$idTour, PDO::PARAM_INT);
+
+        $resultado -> execute();
+        $resultado -> closeCursor();
+
+        $salida = $conexion -> query('SELECT @mensaje');
+        $mensaje = $salida -> fetchColumn();
+
+        if($mensaje != 0){
+            return 1;
+        }else{
+            return 0;
+        }
+
     }
 
     //Funcion para eliminar comentarios

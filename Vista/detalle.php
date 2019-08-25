@@ -1,4 +1,13 @@
-<?php session_start(); ?>
+<?php 
+session_start();
+   
+if (isset($_SESSION["usuario"]) ) {
+  $usr = $_SESSION["usuario"];
+}else{
+  $usr = null;
+}
+
+?>
 <?php include_once ('Layouts/header.php'); ?>
 <?php include_once ('Layouts/navbar.php'); ?>
     <!-- SECTIONS
@@ -28,8 +37,6 @@
               <!-- Body -->
               <div id="descripcion"></div>
 
-           
-              
               <!-- / .Input Comentarios -->
               <div class="row" id="imput-cometarios" >
                <div class="col-md-1 col-sm-1 col-xs-1 col-1">
@@ -41,6 +48,7 @@
                    <input type="text" class="input-comentari form-control" id="comentario" placeholder="Escribe un comentario...">
                  </div>
                  <div class="col-md-2 col-sm-12 m-2">
+                 <input type="hidden" id="sesion" value="<?php echo $usr ?> ">
                    <button id="btn-comentar" class="btn btn-outline-primary btn-comentar" type="button">Comentar</button>
                  </div>
                </div>
@@ -49,19 +57,9 @@
            <!-- / .Imput Comentarios -->
            <hr>
            <!-- / .Comentarios -->
-           <div class="row" id="comentarios">
-             <div class="col-md-1 col-1 mr-1">
-              <span><img class="rounded-circle foto-perfil mr-2" src="../Public/img/1.jpg"></span>
+            <div class="row" id="comentarios">   
             </div>
-            <div class="col-md-10  col-10">
-              <div class="p-2 mb-2 color-comentario" >
-                <small class="text-muted">
-                 <span class="text-primary"><b>Lio Messi</b></span> 
-                 Muy buen sitio
-               </small>			
-             </div>
-           </div>
-         </div>
+         
          <!-- / .Comentarios -->
        </div>
      </div>

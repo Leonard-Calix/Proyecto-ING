@@ -6,10 +6,30 @@ switch ($_GET['accion']){
     case 'getComentarios':
         Comentarios::obtenerComentarios();
     break;
+    
+    case 'getComentario':
+        $tour = $_POST['tour'];
+        $usuario = $_POST['usuario'];
+        Comentarios::obtenerComentario($tour, $usuario);
+    break; 
 
+    case 'ComentarioporTour':
+        $tourID = $_POST['tourID'];
+        Comentarios::obtenerComentarioTour($tourID);
+    break;
+    
     case 'buscar':
         $search = $_POST['search'];
         Comentarios::searchComentario($search);
+    break;
+
+    case 'agregarComentarios':
+        $idTour = $_POST['tour'];
+        $idUsuario = $_POST['idusuario'];
+        $comentario = $_POST['comentario'];
+
+        $salida = Comentarios::addComentarios($idUsuario, $idTour, $comentario);
+        echo json_encode(array('resp' => $salida));
     break;
 
     case 'borrar':

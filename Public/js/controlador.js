@@ -247,13 +247,6 @@ $('#btn-sing-in').click(function () {
 	});
 });
 
-
-$('#btn-comentar').click(function () {
-	alert('Debes iniciar sesion para poder comentar');
-	document.location.href='sing-in.php';
-});
-
-
 /*================================================================================*/
 
 function selecionarEstado(){
@@ -279,8 +272,5 @@ function selecionarEstado(){
 		$("#resEstados").fadeOut(500);
 		$("#resEstados").fadeIn(500);
 	}
-
-
-
 
 } 
