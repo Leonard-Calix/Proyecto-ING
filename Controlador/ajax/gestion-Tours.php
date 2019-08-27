@@ -40,6 +40,10 @@
 			Tours::obtenerTours_editar($_POST["id"]);
 		break;
 
+		case 'detalle':
+			Tours::obtenerToursDetalle($_POST["idTours"]);
+		break;	
+
 		case 'agregarTours':
 			$nombre = $_POST["nombre"];
 			$descripcion = $_POST["descripcion"];

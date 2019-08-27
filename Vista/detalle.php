@@ -33,12 +33,16 @@ if (isset($_SESSION["usuario"]) ) {
             <!-- Body -->
             <div class="card-body">
               <!-- Title -->
-              <h4 class="card-title"></h4> 
+              <h4 class="card-title text-info" id="nombre"></h4>
+              <div id="estrellas"></div> 
+              <div id="info"></div>
               <!-- Body -->
-              <div id="descripcion"></div>
+              <div id="descripcion" ></div>
+
+
 
               <!-- / .Input Comentarios -->
-              <div class="row" id="imput-cometarios" >
+              <div class="row mt-5" id="imput-cometarios" >
                <div class="col-md-1 col-sm-1 col-xs-1 col-1">
                 <span><img class="rounded-circle foto-perfil" src="../Public/img/1.jpg"></span>
               </div>
@@ -59,6 +63,11 @@ if (isset($_SESSION["usuario"]) ) {
            <!-- / .Comentarios -->
             <div class="row" id="comentarios">   
             </div>
+
+           <button  type="button" class="ml-4 btn btn-primary" data-toggle="modal" data-target="#galeria">
+            Galeria
+          </button>
+
          
          <!-- / .Comentarios -->
        </div>
@@ -66,4 +75,36 @@ if (isset($_SESSION["usuario"]) ) {
    </div> <!-- / .row -->
  </div> <!-- / .container -->
 </section>
+
+<div class="modal fade" id="galeria" tabindex="-1" role="dialog" aria-labelledby="modal-video-header" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header" >
+
+        <!-- Title -->
+        <h4 class="modal-title text-uppercase" id="modal-video-header"> <span id="detalle-tour" >Galeria</span> </h4>
+        <!-- Close -->
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body ">
+
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner" id="carousel">
+            
+          </div>
+      </div>
+
+
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+        </div>
+      </div> <!-- / .modal-content -->
+    </div> <!-- / .modal-dialog -->
+</div> <!-- / .modal -->
 <?php include_once('Layouts/footer.php');?>

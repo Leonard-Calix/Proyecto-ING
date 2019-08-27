@@ -393,6 +393,33 @@ class Tours	{
 	}
 
 
+	public static function obtenerToursDetalle($id){
+
+		Conexion::abrirConexion();
+		$conexion = Conexion::obtenerConexion();
+
+		$sql = "SELECT t.idtours, T.nombre tours, T.descripcion, T.cupos, DATEDIFF(T.fechaFin, T.fechaInicio) duracion, CONVERT(t.fechaInicio, DATE) fecha1,      CONVERT(t.fechaFin, DATE) fecha2, T.precio, T.calificacion, 
+			E.nombre estado, P.nombreCompleto nombreGuia, P.Apellidos  		
+		FROM TOURS T 
+		INNER JOIN GUIA G ON G.idGuia = T.idGuia 
+		INNER JOIN estados E ON E.idEstados = T.idEstados
+		INNER JOIN usuario U ON U.idUsuario = G.idUsuario
+		INNER JOIN persona P ON P.idPersona = U.idPersona
+		WHERE t.idtours='$id'";
+
+        $sentencia = $conexion->prepare($sql);
+        $sentencia->execute();
+		
+		$tour = array();
+
+		foreach ($sentencia as $row) {
+			$tour[] = $row; 
+		}
+
+		echo json_encode($tour);
+
+	}
+
 	public function toString(){
 			return "IdTours: " . $this->idTours . 
 				" Nombre: " . $this->nombre . 
@@ -407,4 +434,9 @@ class Tours	{
 		}
 
 }
+
+
+	
+
+
 ?>

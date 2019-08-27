@@ -1,6 +1,55 @@
 $(document).ready(function(){
 	ComentariosporTour();
+
+	console.log("tours " + $("#tour").val() );
+
+	obtenerTours( $("#tour").val() );
+
+
 });
+
+
+
+
+function obtenerTours(id){
+	//console.log("nhjjhk");
+
+	$.ajax({
+			url: "../Controlador/ajax/gestion-Tours.php?accion=detalle",
+			dataType: 'json',
+			method: 'POST',
+			data: { idTours : id },
+			success: function(response){
+				console.log(response);
+				$("#info").append( `<p>Star/End Date ${response[0].fecha1} / ${response[0].fecha2}  <br> 
+						Duration  ${response[0].duration} <br> 
+						Price  ${response[0].precio} <br> 
+						Guide  ${response[0].nombreGuia}  ${response[0].Apellidos}
+					</p>`);	
+				$("#nombre").html(response[0].tours);
+
+				$("#descripcion").append(` <button class="btn btn-primary" onclick="comprar( ${response[0].idtours});" >Buy</button> `);
+
+			}		
+		});
+
+	for (var i = 0; i < 4 ; i++) {
+		$("#carousel").append(` <div class="carousel-item active">
+              <img class="d-block w-100" src="${response[0].ruta}" alt="First slide">
+            </div> `);
+	}
+}
+
+function comprar(id){
+
+	alert("se va a comprar el tour " + id );
+
+
+
+
+}
+
+
 
 //Agregar Comentarios 
 $('#btn-comentar').click(function() {
@@ -11,7 +60,7 @@ $('#btn-comentar').click(function() {
 	let comentario = $('#comentario').val();
 	let tour = $('#tour').val();
 	let parametros = "idusuario="+sesion+"&tour="+tour+"&comentario="+comentario;
-	if(comentario == '' || tour == ''){
+	if(comentario=='' || tour==''){
 		alert('Debes comentar algo');
 	}else{
 		
@@ -26,7 +75,7 @@ $('#btn-comentar').click(function() {
 					ComentariosporTour();
 				}else{
 					alert('Debes iniciar sesion para poder comentar');
-					document.location.href='sign-in.php';
+					//document.location.href='sign-in.php';
 				}
 			}		
 		});
