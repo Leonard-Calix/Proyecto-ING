@@ -33,6 +33,12 @@ include_once('../../Modelo/class-guia.php');
 			$id = $_POST['idguia'];
 			Guia::toursAsignadosPorGuia($id);
 		break;
+
+		case 'informacionGuia':
+			$id = $_POST['idguia'];
+			Guia::informacionGuia($id);
+		break;
+		
 		
 		
 		default:

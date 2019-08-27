@@ -102,6 +102,7 @@
       <script src="../Public/js/popper.js"></script>
       <script src="../Public/js/theme.min.js"></script>
       <script src="../Public/js/paper-dashboard.js"></script>
+      <script src="../Public/js/jquery-ui.js"></script>
       <script src="../Public/js/controlador.js"></script>
       <script src="../Public/js/dashboard.js"></script>
       <script src="../Public/js/CRUDprofiles.js"></script>

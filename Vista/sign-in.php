@@ -13,7 +13,7 @@
         <!-- Subheading -->
         <p class="text-center text-muted mb-5">Please fill out the form below to sign in to your account.</p>
         <!-- COMENTARIO -->
-        <div id="error-login" class="alert alert-danger"><br><p>Datos incorrectos</p></div>
+        <div id="error-login" class="alert alert-danger" style="display: none;"><br><p>Datos incorrectos</p></div>
         <!-- FORMULARIO -->
       <div class="form-group">
         <!-- Email -->

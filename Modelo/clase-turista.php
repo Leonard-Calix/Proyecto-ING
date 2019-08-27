@@ -67,6 +67,28 @@ class Turista{
 
     }
 
+    public static function turistaPorTours($id){
+        Conexion::abrirConexion();
+        $conexion = Conexion::obtenerConexion();
+
+        $sql = "SELECT p.nombreCompleto, p.Apellidos, u.email FROM toursTurista tt
+                INNER JOIN turista t on tt.idTurista=t.idTurista
+                INNER JOIN usuario u ON u.idUsuario=t.idUsuario
+                INNER JOIN persona p ON p.idPersona=u.idPersona
+                WHERE tt.idTours='$id'";
+
+        $sentencia = $conexion->prepare($sql);
+        $sentencia->execute();
+
+        $turistas = array();
+
+        foreach ($sentencia as $t){
+            $turistas[] = $t;
+        }
+
+        echo json_encode($turistas);
+    } 
+
     
 }
 

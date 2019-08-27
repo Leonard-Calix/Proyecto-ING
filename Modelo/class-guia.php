@@ -105,8 +105,31 @@ class Guia{
         }
         echo json_encode($tours);
     }
-    
 
+    public static function informacionGuia($Usuario){
+        Conexion::abrirConexion();
+        $conexion = Conexion::obtenerConexion();
+
+        $sql = "SELECT p.nombreCompleto, p.Apellidos, p.numeroIdentidad, p.telefono, p.genero, p.direccion, u.nombreUsuario, u.email FROM guia g
+                INNER JOIN usuario u ON u.idUsuario=g.idUsuario
+                INNER JOIN persona p ON p.idPersona=u.idPersona
+                WHERE g.idUsuario='$Usuario'";
+                
+
+        $sentencia = $conexion->prepare($sql);
+        $sentencia->execute();
+
+        $guia = array();
+
+        foreach ($sentencia as $row){
+            $guia[] = $row;
+        }
+
+        echo json_encode($guia);
+
+
+    }
+    
 }
 
 ?>

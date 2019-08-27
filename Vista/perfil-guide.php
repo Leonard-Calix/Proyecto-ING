@@ -14,55 +14,7 @@ include_once ('Layouts/header.php');
 include_once ('Layouts/navbar.php');
 
 ?>
- <!--
-<br><br><br><br><br>
-<div class="container">
-	<div class="card text-white">
-		<img src="../Public/img/portada.jpeg" class="img-fluid card-img" alt="...">
-		<div class="card-img-overlay">
-			<img src="../Public/img/user.jpg" class="card-img-top img-fluid rounded-circle " alt="..." style="width: 150px; height: 150px; margin-top: 260px;" >
-		</div>
-		<ul class="nav justify-content-center ">
-			<li class="nav-item">
-				<button id="btn-i" class="nav-link btn btn-defaul text-secondary" onclick="informacion();">Informacion</button>
-			</li>
-			<li class="nav-item">
-				<button id="btn-t" class="nav-link active btn btn-defaul text-secondary" onclick="tours();">My Tours</button>
-			</li>
-		</ul>
-	</div>
-</div>
 
-<section id="informacion" class="p-2">
-	<div class="container">
-		<div class="card">
-			<div class="p-3 card-header text-uppercase text-info">
-				Informacion
-			</div>
-			<div class="card-body">
-				
-			</div>
-		</div>
-	</div>
-</section>
-
-
-<section id="vista-tours" class="p-2" style="display: none;">
-	<div class="container">
-		<div class="card">
-			<input type="hidden" id="idGuide" value=" <?php echo $usr ?> ">
-			<div class="p-3 card-header text-uppercase text-info">
-				MY Tours
-			</div>
-			<div class="card-body">
-				<div class="rounded box-shadow m-0" id="res-tours-turista">
-				
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
--->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="main-content" id="panel">
@@ -106,23 +58,24 @@ include_once ('Layouts/navbar.php');
 							<div class="col">
 								<div class="card-profile-stats d-flex justify-content-center">
 									<div>
-										<input type="hidden" id="usuario_registrado" value="<?php echo $usr; ?>">
+										<input type="hidden" id="guia_registrado" value="<?php echo $usr; ?>">
 									</div>
 								</div>
 							</div>
 						</div>
 
+
+
 						<div class="text-center">
-							<div id="usuario"></div>
+							<div class="h5 font-weight-300" id="usuario">
+							
+						</div>
 						</h5>
-						<div class="h5 font-weight-300">
-							<i class="ni location_pin mr-2"></i>Tegucigalpa, Honduras
+						<div class="h5 font-weight-300" id="direccion">
+							
 						</div>
-						<div class="h5 mt-4">
-							<i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer
-						</div>
-						<div>
-							<i class="ni education_hat mr-2"></i>University UNAH
+						<div class="h5 mt-4" id="correo">
+							
 						</div>
 					</div>
 					<div class="d-flex justify-content-between">
@@ -205,23 +158,23 @@ include_once ('Layouts/navbar.php');
 							<div class="row">
 								<div class="col-lg-4">
 									<div class="form-group">
-										<label class="form-control-label" for="input-city">Phone</label>
-										<input type="text" id="input-city" class="form-control" placeholder="City" value="+504 0000-0000">
+										<label class="form-control-label" for="input-phone">Phone</label>
+										<input type="text" id="input-phone" class="form-control" placeholder="City" value="+504 0000-0000">
 									</div>
 								</div>
 								<div class="col-lg-4">
 									<div class="form-group">
-										<label class="form-control-label" for="input-country">Id</label>
-										<input type="text" id="input-country" class="form-control" placeholder="Country" value="0801-0000-0000">
+										<label class="form-control-label" for="input-id">Id</label>
+										<input type="text" id="input-id" class="form-control" placeholder="Country" value="0801-0000-0000">
 									</div>
 								</div>
 								<div class="col-lg-4">
 									<div class="form-group">
-										<label class="form-control-label" for="input-country">Gender</label>
-										<select class="form-control" placeholder="Genere">
+										<label class="form-control-label" for="input-genero">Gender</label>
+										<select class="form-control" placeholder="Genere"  id="input-genero">
 											<option value="M" >Select gender</option>
-											<option value="M" >M</option>
-											<option value="F" >F</option>
+											<option value="1" >M</option>
+											<option value="2" >F</option>
 										</select>
 									</div>
 								</div>
@@ -233,14 +186,14 @@ include_once ('Layouts/navbar.php');
 			</div> 
 
 			<section id="vista-tours" class="p-2" style="display: none;">
-				<div class="container">
+				<div class="container-fluid">
 					<div class="card">
-						<div class="p-3 card-header text-uppercase text-info">
+						<div class="card-header text-uppercase text-info">
 							MY Tours
 						</div>
 						<div class="card-body">
-							<div class="rounded box-shadow m-0" id="res-tours-Guide">
-
+							<div class="box-shadow m-0" id="res-tours-Guide">
+								
 							</div>
 						</div>
 					</div>
@@ -253,6 +206,40 @@ include_once ('Layouts/navbar.php');
 </div>
 </div>
 
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalCenterTitle">List of tourists</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<table class="table table-borderless">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">First namne</th>
+							<th scope="col">Last name</th>
+							<th scope="col">Email</th>
+						</tr>
+					</thead>
+					<tbody id="table-turis">
+						<tr>
+							<td></td>
+						</tr>
+						
+					</tbody>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
 
 
 
