@@ -1,7 +1,7 @@
 <?php 
 	//include_once('../../Modelo/ControllerUsuario.php');
 	//include_once('../../Modelo/clase-Profiles.php');
-	include_once('../../Modelo/class-guia.php');
+	//include_once('../../Modelo/class-guia.php');
 	//include_once('../../Modelo/clase-Tours.php');
 
 	//include_once('../../Modelo/clase-turista.php');
@@ -10,7 +10,7 @@
 	//include_once('../../Modelo/clase-validadorProfiles.php');
 	//$id = 16;
 	//echo ControllerUsuario::obtenerProfile_id($id);
-	//include_once('../../Modelo/clase-Comentarios.php');
+	include_once('../../Modelo/clase-Comentarios.php');
 	//include_once('./gestionComentarios.php');
 	//Turista::informacion(7);
 	//var_dump($datos);
@@ -173,4 +173,9 @@
 
 	/*ControllerUsuario::obtenerUsuario(16);*/
 
-	Guia::informacionGuia(15);
+	//Guia::informacionGuia(15);
+
+	Comentarios::obtenerComentarios();
+
+
+

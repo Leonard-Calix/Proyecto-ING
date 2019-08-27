@@ -59,10 +59,28 @@ if (isset($_SESSION["usuario"]) ) {
              </div>
            </div>
            <!-- / .Imput Comentarios -->
-           <hr>
+           
            <!-- / .Comentarios -->
-            <div class="row" id="comentarios">   
-            </div>
+           <table class="table">
+            <thead>
+            </thead>
+              <tbody id="res-comentario">
+                
+              </tbody>
+            </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
            <button  type="button" class="ml-4 btn btn-primary" data-toggle="modal" data-target="#galeria">
             Galeria
