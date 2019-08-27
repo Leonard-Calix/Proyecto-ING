@@ -112,7 +112,7 @@ function getEstados(){
 		url:"../Controlador/ajax/gestion-Tours.php?accion=obtenerEstado",
 		dataType:'json',
 		success:function(res){
-			console.log(res);
+			//console.log(res);
 			for (var i = 0; i < res.length; i++) {
 				$('#estados').append(`<option value="${res[i].idEstados}" >${res[i].nombre}</option>`)
 			}
@@ -130,7 +130,7 @@ function infoPerfil(usuario_registrado){
 		dataType:'json',
 		success:function(res){
 			//console.log('Respuesta del servidor para el perfil');
-			console.log(res);
+			//console.log(res);
 			$('#nombreUsuario').append(`<h3 class="display-3 text-white">Hello ${res[0].nombreUsuario}</h3>`);
 			$('#usuario').append(`<h5 class="h3">${res[0].nombreUsuario}<span class="font-weight-light"></span></p>`);
 
@@ -234,7 +234,7 @@ $('#btn-sing-in').click(function () {
 		method: 'POST',
 		data: parametros,
 		success:function(respuesta){
-			console.log("resp success "+respuesta);
+			//console.log("resp success "+respuesta);
 			if(respuesta.usuario != null){
 				setTimeout(redireccionar(respuesta.tipo), 3000);
 			}else{

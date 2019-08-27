@@ -54,7 +54,7 @@ $(document).ready(function($) {
 
 
 function informacion() {
-	$("#vista-tours").hide(500);
+	$("#vista-tours").fadeOut(500);
 	$("#informacion").fadeIn(500);
 	$("#btn-i").addClass('text-info');
 	$("#btn-t").removeClass('text-info');
@@ -63,7 +63,7 @@ function informacion() {
 }
 
 function tours() {
-	$("#informacion").hide(500);
+	$("#informacion").fadeOut(500);
 	$("#vista-tours").fadeIn(500);
 	$("#btn-i").removeClass('text-info');
 	$("#btn-t").addClass('text-info');

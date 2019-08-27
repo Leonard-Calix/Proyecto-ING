@@ -48,7 +48,7 @@ if (isset($_SESSION["usuario"]) ) {
                    <input type="text" class="input-comentari form-control" id="comentario" placeholder="Escribe un comentario...">
                  </div>
                  <div class="col-md-2 col-sm-12 m-2">
-                 <input type="hidden" id="sesion" value="<?php echo $usr ?> ">
+                 <input type="hidden" id="sesion" value="<?php echo $usr ?>">
                    <button id="btn-comentar" class="btn btn-outline-primary btn-comentar" type="button">Comentar</button>
                  </div>
                </div>
