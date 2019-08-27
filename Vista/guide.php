@@ -8,7 +8,7 @@
 
     }else {
       header('Location: index.php');
-  }
+    }
 
   include_once('Layouts/header_2.php'); 
 
