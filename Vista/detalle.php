@@ -44,7 +44,7 @@ if (isset($_SESSION["usuario"]) ) {
               <!-- / .Input Comentarios -->
               <div class="row mt-5" id="imput-cometarios" >
                <div class="col-md-1 col-sm-1 col-xs-1 col-1">
-                <span><img class="rounded-circle foto-perfil" src="../Public/img/1.jpg"></span>
+                <span><img class="rounded-circle foto-perfil" src="../Public/img/user.jpg"></span>
               </div>
               <div class="col-md-10 col-sm-10 col-xs-10 col-10">
                <div class="row">
@@ -58,34 +58,15 @@ if (isset($_SESSION["usuario"]) ) {
                </div>
              </div>
            </div>
+
+           <hr>
            <!-- / .Imput Comentarios -->
-           
-           <!-- / .Comentarios -->
-           <table class="table">
-            <thead>
-            </thead>
-              <tbody id="res-comentario">
-                
-              </tbody>
-            </table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+           <div class="row mt-5" id="comentarios"></div>
+          <!-- 
            <button  type="button" class="ml-4 btn btn-primary" data-toggle="modal" data-target="#galeria">
             Galeria
           </button>
-
+          -->
          
          <!-- / .Comentarios -->
        </div>

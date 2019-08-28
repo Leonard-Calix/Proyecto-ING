@@ -175,7 +175,7 @@
 
 	//Guia::informacionGuia(15);
 
-	Comentarios::obtenerComentarios();
+	Comentarios::addComentarios(7, 1, "Hola");
 
 
 

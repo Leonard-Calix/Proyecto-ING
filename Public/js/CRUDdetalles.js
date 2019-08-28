@@ -20,7 +20,7 @@ function obtenerTours(id){
 			method: 'POST',
 			data: { idTours : id },
 			success: function(response){
-				console.log(response);
+				//console.log(response);
 				$("#info").append( `<p>Star/End Date ${response[0].fecha1} / ${response[0].fecha2}  <br> 
 						Duration  ${response[0].duration} <br> 
 						Price  ${response[0].precio} <br> 
@@ -57,9 +57,16 @@ $('#btn-comentar').click(function() {
 	let sesion = $('#sesion').val();
 	console.log('sesion:'+sesion);
 
+/*
+	if (sesion==null) {
+		alert('Debes iniciar sesion para poder comentar');
+		return;
+	}
+*/
 	let comentario = $('#comentario').val();
 	let tour = $('#tour').val();
 	let parametros = "idusuario="+sesion+"&tour="+tour+"&comentario="+comentario;
+
 	if(comentario=='' || tour==''){
 		alert('Debes comentar algo');
 	}else{
@@ -93,6 +100,7 @@ function ComentariosporTour(){
 		dataType: 'json',
 		data: {tourID: tourID},
         success: function(response){
+        	console.log(response);
             let template = '';
             console.log(response);
             for(let i=0; i<response.length; i++){
@@ -105,8 +113,8 @@ function ComentariosporTour(){
               		<div class="p-2 mb-2 color-comentario" id="insert_comentario">
                 		<small class="text-muted">
                  			<span class="text-primary"><b>${response[i].nombreUsuario}</b></span> 
-							 ${response[i].Comentario}
-							 
+							 ${response[i].Comentario} <span style="font-size: 14px;" class="float-right mr-2" onclick="deleteCommentDetalles(${response[i].idComentarios});" ><i class="fas fa-trash text-danger "></i></span>
+
                			</small>			
              		</div>
 				</div>	
@@ -118,4 +126,38 @@ function ComentariosporTour(){
 			
         }
     });
+}
+
+
+
+//Funcion para borrar comentarios
+function deleteCommentDetalles(idComment){
+    console.log(idComment);
+
+    if ( $('#sesion').val()!=null) {
+
+    	$.ajax({
+        url: '../Controlador/ajax/gestionComentarios.php?accion=borrar',
+        method: 'POST',
+        dataType: 'json',
+        data: {idComment: idComment},
+        success: function(response){
+            console.log(response);
+            if(response.resp==1){
+                
+                $("#"+idComment).remove();
+                alert("The Comment has been deleted successfully");
+                $(document).ajaxStop(function(){ window.location.reload(); }); 
+            }
+        }
+    });
+
+
+    } else {
+        alert("Cannot be deleted");
+
+    }
+
+    
+
 }
