@@ -75,7 +75,7 @@ $('#btn-comentar').click(function() {
 					ComentariosporTour();
 				}else{
 					alert('Debes iniciar sesion para poder comentar');
-					//document.location.href='sign-in.php';
+					document.location.href='sign-in.php';
 				}
 			}		
 		});
