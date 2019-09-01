@@ -37,6 +37,7 @@ include_once ('Layouts/navbar.php');
       </div>
       <div class="card-body">
         <div id="info"></div>
+        
       </div>
     </div>
   </div>
@@ -75,5 +76,4 @@ include_once ('Layouts/navbar.php');
   </div>
 </section>
 
-      
 <?php include_once('Layouts/footer.php');?>

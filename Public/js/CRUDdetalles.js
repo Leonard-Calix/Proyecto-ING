@@ -3,6 +3,10 @@ $(document).ready(function(){
 	obtenerTours( $("#tour").val() );
 });
 
+function obtenerOfertas(){
+	
+}
+
 function obtenerTours(id){
 	$.ajax({
 		url: "../Controlador/ajax/gestion-Tours.php?accion=detalle",
@@ -11,11 +15,32 @@ function obtenerTours(id){
 		data: { idTours : id },
 		success: function(response){
 			//console.log(response);
-			$("#info").append( `<p>Star/End Date ${response[0].fecha1} / ${response[0].fecha2}  <br> 
-					Duration  ${response[0].duration} <br> 
-					Price  ${response[0].precio} <br> 
-					Guide  ${response[0].nombreGuia}  ${response[0].Apellidos}
-				</p>`);	
+			let fechaInicio = new Date(response[0].fecha1);
+			let fechaFin =  new Date(response[0].fecha2);
+			var duration = fechaFin.getTime() - fechaInicio.getTime();
+			duration = duration / (1000*60*60*24);
+
+			let options = {weekday: "long", month: "long", day: "numeric"};
+			fechaInicio = fechaInicio.toLocaleDateString("es-ES", options);
+			fechaFin = fechaFin.toLocaleDateString("es-ES", options);
+
+			let template = `
+				<div class="col-md-4">
+					<div class="price-box popular">
+						<h2 class="pricing-plan">${response[0].tours}</h2>
+						<div class="price"><sup class="currency">$</sup>${response[0].precio}</div>
+							<p id="descripcion"></p>
+						<hr>
+						<ul class="pricing-info">
+							<li><strong>Date init</strong> ${fechaInicio}</li>
+							<li><strong>Date Finish</strong> ${fechaFin}</li>
+							<li><strong>Guide</strong> ${response[0].nombreGuia}  ${response[0].Apellidos}</li>
+							<li><strong>Duration</strong> ${duration} days</li>
+						</ul>
+					</div>
+				</div>`;
+			
+			$("#info").append(template);	
 			$("#nombre").html(response[0].tours);
 			$("#descripcion").append(` <button class="btn btn-primary" onclick="comprar( ${response[0].idtours});" >Buy</button> `);
 		}		
@@ -104,25 +129,24 @@ function ComentariosporTour(){
 function deleteCommentDetalles(idComment){
     console.log($('#sesion').val());
 
-    if ( $('#sesion').val()!=null) {
+	let usuario = $('#sesion').val();
+    if (usuario != null) {
 
     	$.ajax({
-        url: '../Controlador/ajax/gestionComentarios.php?accion=borrar',
-        method: 'POST',
-        dataType: 'json',
-        data: {idComment: idComment},
-        success: function(response){
-            console.log(response);
-            if(response.resp==1){
-                
-                $("#"+idComment).remove();
-                alert("The Comment has been deleted successfully");
-                $(document).ajaxStop(function(){ window.location.reload(); }); 
-            }
-        }
-    });
-
-
+        	url: '../Controlador/ajax/gestionComentarios.php?accion=borrar',
+        	method: 'POST',
+        	dataType: 'json',
+        	data: {idComment: idComment},
+        	success: function(response){
+        	    console.log(response);
+        	    if(response.resp==1){
+				
+        	        $("#"+idComment).remove();
+        	        alert("The Comment has been deleted successfully");
+        	        $(document).ajaxStop(function(){ window.location.reload(); }); 
+        	    }
+        	}
+    	});
     } else {
         alert("Cannot be deleted");
 
