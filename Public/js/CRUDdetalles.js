@@ -1,52 +1,29 @@
 $(document).ready(function(){
 	ComentariosporTour();
-
-	console.log("tours " + $("#tour").val() );
-
 	obtenerTours( $("#tour").val() );
-
-
 });
 
-
-
-
 function obtenerTours(id){
-	//console.log("nhjjhk");
-
 	$.ajax({
-			url: "../Controlador/ajax/gestion-Tours.php?accion=detalle",
-			dataType: 'json',
-			method: 'POST',
-			data: { idTours : id },
-			success: function(response){
-				//console.log(response);
-				$("#info").append( `<p>Star/End Date ${response[0].fecha1} / ${response[0].fecha2}  <br> 
-						Duration  ${response[0].duration} <br> 
-						Price  ${response[0].precio} <br> 
-						Guide  ${response[0].nombreGuia}  ${response[0].Apellidos}
-					</p>`);	
-				$("#nombre").html(response[0].tours);
-
-				$("#descripcion").append(` <button class="btn btn-primary" onclick="comprar( ${response[0].idtours});" >Buy</button> `);
-
-			}		
-		});
-
-	for (var i = 0; i < 4 ; i++) {
-		$("#carousel").append(` <div class="carousel-item active">
-              <img class="d-block w-100" src="${response[0].ruta}" alt="First slide">
-            </div> `);
-	}
+		url: "../Controlador/ajax/gestion-Tours.php?accion=detalle",
+		dataType: 'json',
+		method: 'POST',
+		data: { idTours : id },
+		success: function(response){
+			//console.log(response);
+			$("#info").append( `<p>Star/End Date ${response[0].fecha1} / ${response[0].fecha2}  <br> 
+					Duration  ${response[0].duration} <br> 
+					Price  ${response[0].precio} <br> 
+					Guide  ${response[0].nombreGuia}  ${response[0].Apellidos}
+				</p>`);	
+			$("#nombre").html(response[0].tours);
+			$("#descripcion").append(` <button class="btn btn-primary" onclick="comprar( ${response[0].idtours});" >Buy</button> `);
+		}		
+	});
 }
 
 function comprar(id){
-
 	alert("se va a comprar el tour " + id );
-
-
-
-
 }
 
 
@@ -57,12 +34,6 @@ $('#btn-comentar').click(function() {
 	let sesion = $('#sesion').val();
 	console.log('sesion:'+sesion);
 
-/*
-	if (sesion==null) {
-		alert('Debes iniciar sesion para poder comentar');
-		return;
-	}
-*/
 	let comentario = $('#comentario').val();
 	let tour = $('#tour').val();
 	let parametros = "idusuario="+sesion+"&tour="+tour+"&comentario="+comentario;
@@ -110,7 +81,7 @@ function ComentariosporTour(){
               		<span><img class="rounded-circle foto-perfil mr-2" src="../Public/img/user.jpg"></span>
             	</div>
             	<div class="col-md-10  col-10">
-              		<div class="p-2 mb-2 color-comentario" id="insert_comentario">
+              		<div class="p-2 mb-2 color-comentario">
                 		<small class="text-muted">
                  			<span class="text-primary"><b>${response[i].nombreUsuario}</b></span> 
 							 ${response[i].Comentario} <span style="font-size: 14px;" class="float-right mr-2" onclick="deleteCommentDetalles(${response[i].idComentarios});" ><i class="fas fa-trash text-danger "></i></span>
@@ -129,10 +100,9 @@ function ComentariosporTour(){
 }
 
 
-
 //Funcion para borrar comentarios
 function deleteCommentDetalles(idComment){
-    console.log(idComment);
+    console.log($('#sesion').val());
 
     if ( $('#sesion').val()!=null) {
 
@@ -157,7 +127,5 @@ function deleteCommentDetalles(idComment){
         alert("Cannot be deleted");
 
     }
-
-    
 
 }
