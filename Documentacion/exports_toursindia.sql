@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-08-2019 a las 16:13:47
+-- Tiempo de generación: 07-09-2019 a las 20:18:26
 -- Versión del servidor: 10.3.16-MariaDB
 -- Versión de PHP: 7.3.7
 
@@ -26,6 +26,43 @@ DELIMITER $$
 --
 -- Procedimientos
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ADD_COMENTARIOS` (IN `pcomentario` VARCHAR(600), IN `pidUsuario` INT, IN `pidTours` INT, OUT `pMensaje` INT)  BEGIN
+	DECLARE pError VARCHAR(600);
+	DECLARE existeTour INT;
+	DECLARE existeUsuario INT;
+
+	SET pError = '';
+	SET existeTour = 0;
+	SET existeUsuario = 0;
+
+	IF pcomentario = '' THEN
+		SET pError = CONCAT(pError, ' ','Comentario vacio');
+	END IF;
+	
+	SELECT COUNT(*) INTO existeTour FROM tours WHERE idTours = pidTours;
+	SELECT COUNT(*) INTO existeUsuario FROM turista WHERE idUsuario = pidUsuario;
+
+	IF existeTour = 0 THEN
+		SET pError = CONCAT(pError, ' ', 'ID de tour no existe');
+	END IF;
+
+	IF existeUsuario = 0 THEN
+		SET pError = CONCAT(pError, ' ', 'ID de usuario no existe');
+	END IF;
+
+	IF pError = '' AND existeTour = 1 AND existeUsuario = 1 THEN
+
+		INSERT INTO comentarios(idComentarios,comentario, fechaComentario, horaComentario, idUsuario, idTours )
+						 VALUES(null,pcomentario, CURDATE(), curTime(),  pidUsuario, pidTours);
+
+		SET pMensaje = 1;
+	ELSE
+
+		SET pMensaje = 0;
+
+	END IF;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `ADD_TOURS` (IN `pnombre` VARCHAR(45), IN `pdescripcion` VARCHAR(255), IN `pfechaInicio` DATE, IN `pfechaFin` DATE, IN `pprecio` DOUBLE, IN `pcupos` INT(11), IN `pcalificacion` INT(11), IN `pidEstados` INT(11), IN `pidGuia` INT(11), OUT `pidInsertado` INT, OUT `pMensaje` VARCHAR(45))  BEGIN
 	DECLARE pError VARCHAR(45);
 	DECLARE existetours INT;
@@ -76,6 +113,22 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `ADD_TOURS` (IN `pnombre` VARCHAR(45
 		SET pMensaje = 'Fallo. Verifique sus datos a almacenar';
 
 	END IF;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `DELETE_COMENTARIOS` (IN `pIdComentarios` INT, OUT `pMensaje` INT)  BEGIN
+	DECLARE existeID INT;
+	SET existeID = 0;
+
+SELECT COUNT(*) INTO existeID FROM comentarios WHERE idcomentarios = pIdComentarios;
+
+IF existeID >0 THEN
+	DELETE FROM comentarios WHERE idComentarios = pIdComentarios;
+	SET pMensaje = 1;
+ELSE
+	SET pMensaje = 0;
+
+END IF;	
+		
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `DELETE_TOURS` (IN `pidBorrar` INT, OUT `pMensaje` VARCHAR(55))  BEGIN
@@ -266,6 +319,88 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ASIGNA_HOTEL` (IN `pidTours` INT
 	END IF;	
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_COMPRAR_TOURS` (IN `nidTours` INT(11), IN `nidUsuario` INT(11), IN `nidHotel` INT(11), IN `nTuristas` INT(11), OUT `nmontoPagar` INT, OUT `resultado` INT, OUT `pMensaje` VARCHAR(45))  BEGIN
+	DECLARE existeTour, esTurista, precioTour, existeHotel, existeCupo, turista INT;
+    DECLARE error VARCHAR(45);
+	SET existeTour = 0;
+	SET esTurista = 0;
+	SET existeHotel = 0;
+	SET turista= 0;
+    SET existeCupo=0;
+    SET error='';
+    
+		SELECT COUNT(*) INTO existeTour FROM tours WHERE idTours = nidTours;
+		SELECT COUNT(*) INTO esTurista FROM turista WHERE idUsuario = nidUsuario;
+		SELECT COUNT(*) INTO existeHotel FROM hotel WHERE idHotel = nidHotel;
+        SELECT idTurista INTO turista FROM turista WHERE idUsuario = nidUsuario;
+        	IF existeTour = 0 THEN
+				SET error = CONCAT(error, ' ', 'El Tours no existe');
+			END IF;
+            IF esTurista = 0 THEN
+				SET error = CONCAT(error, ' ', 'Ese id no es de turista');
+			END IF;
+            IF existeHotel = 0 THEN
+				SET error = CONCAT(error, ' ', 'El Hotel no existe');
+			END IF;
+            
+/*Comproba si nTuristas es menor a cero, si lo es actualizar error*/
+		If nTuristas = 0 THEN
+        	SET error = CONCAT(error, ' ', 'El numero de turistas ingresado no es valido');
+        END IF;
+		
+/*Comproba en la tabla tours si hay cupos suficientes 
+(Si los cupos son menos que la cantidad de turistas no pueden comprar el tour)
+Select cupos from tours;*/
+		SELECT cupos INTO existeCupo FROM tours WHERE idTours = nidTours;
+        If nTuristas > existeCupo THEN
+        	SET error = CONCAT(error, ' ', 'El tours no cuenta con esa cantidad de cupos');
+        END IF;
+  
+ /*Si existeTour = 1 AND existeHotel = 1 AND esTurista = 1 AND cupos < nTuristas entonces*/
+  /*Hace un update de tours para disminuir los cupos (cupos - nTuristas) con el idTours
+	
+	Saca el id del turista de la tabla turista con el idUsuario y se lo asignas a Turista
+	Haces un insert a la tabla toursturista*/
+ 		IF error = ' ' THEN
+        INSERT INTO toursturista(idTours, idTurista) VALUES(nidTours, turista);
+        UPDATE tours t SET t.cupos = (t.cupos-nTuristas) WHERE T.idTours = nidTours;
+        SET pMensaje = 'Todo esta bien';
+        SET resultado = 1;
+        ELSE
+        SET pMensaje =CONCAT('tiene los siguientes errores',' ',error);
+        SET resultado = 0;
+        END IF;
+ 
+ 	/*Haces un insert a la tabla pagos*/
+	        INSERT INTO pagos(impuestoSV, idTours, idHotel) VALUES(20,nidTours, nidHotel);
+    
+	/*Si nTurista es 1 el montoPagar es igual al precio del tour
+	Si nTurista es 2 el montoPagar es igual al precio del tour + (un valor que te parezca)
+	Si nTurista es mayor a 4 el montoPagar es igual al precio del tour + (otro valor que te parezca xd)
+	
+	Lo ideal seria hacer el calculo pero si lo ves muy cumplicado mejor no
+	
+	retornas el mensaje (1) si todo ha ido bien, y el montoPagar
+	
+De lo contrario
+	retornas el mensaje (0) o los errores*/
+
+	SELECT precio INTO precioTour FROM tours WHERE idTours = nidTours;
+    IF nTuristas = 1 THEN
+    SET nmontoPagar = precioTour;
+    END IF;
+    
+    IF nTuristas = 2 THEN
+    SET nmontoPagar = (precioTour*1.5);
+    END IF;
+    
+    IF nTuristas > 2 THEN
+    SET nmontoPagar = (precioTour * (2 +(nTuristas*0.2)));
+    END IF;
+    
+
+    END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_DELETE_USER` (IN `pidBorrar` INT, OUT `pMensaje` VARCHAR(55))  BEGIN
 	DECLARE existeID INT;
 	DECLARE idUser INT;
@@ -341,6 +476,32 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LOGIN` (IN `pemail` VARCHAR(45),
 
 	END IF;
 
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MONTO_A_PAGAR` (IN `P_idPagos` INT)  BEGIN
+	DECLARE existePago, id_Hotel, idTour, impuesto INT;
+	DECLARE precioTours, precioHotel, totalPagar DOUBLE;
+	SET existePago = 0;
+	SET idTour = 0;
+	SET id_Hotel = 0;
+	SET impuesto = 0;
+	SET precioTours = 0.0;
+	SET precioHotel = 0.0;
+	SET totalPagar = 0.0;
+	
+	SELECT COUNT(*) INTO existePago FROM Pagos WHERE idPagos = P_idPagos;
+	
+	IF existePago > 0 THEN
+		SELECT idTours INTO idTour FROM Pagos WHERE idPagos = P_idPagos;
+		SELECT idHotel INTO id_Hotel FROM Pagos WHERE idPagos = P_idPagos;
+		SELECT impuestoSV INTO impuesto FROM Pagos WHERE idPagos = P_idPagos;
+		
+		SELECT precio INTO precioTours FROM Tours WHERE idTours = idTour;
+		SELECT precio INTO precioHotel FROM Hotel WHERE idHotel = id_Hotel;
+		
+		SET totalPagar = (precioTours + precioHotel) * (1+(impuesto/100));
+
+	END IF;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_UPDATE_PERSON_USER` (IN `pnombreC` VARCHAR(55), IN `papellidos` VARCHAR(55), IN `pnumeroId` VARCHAR(55), IN `ptelefono` VARCHAR(55), IN `pgenero` VARCHAR(55), IN `pDireccion` VARCHAR(55), IN `pnombreUsuario` VARCHAR(55), IN `pemail` VARCHAR(55), IN `ptipoUserCambiar` INT, IN `pidActualizar` INT, OUT `pMensaje` VARCHAR(45))  BEGIN
@@ -486,11 +647,11 @@ CREATE TABLE `comentarios` (
 --
 
 INSERT INTO `comentarios` (`idComentarios`, `Comentario`, `fechaComentario`, `horaComentario`, `idUsuario`, `idTours`) VALUES
-(1, 'Excelente lugar, lo envuelve una gran historia', '2019-08-07', '2019-08-07 14:05:41.00', 6, 1),
-(2, 'Clima extremo, grandioso contemplar el everest', '2019-08-07', '2019-08-07 14:05:41.00', 7, 2),
-(3, 'Playas exoticas, paraiso soleado', '2019-08-07', '2019-08-07 14:05:41.00', 8, 3),
-(4, 'Bahia Bengala, grandioso sitio', '2019-08-07', '2019-08-07 14:05:41.00', 9, 4),
-(5, 'Excelente exhibicion de arte y arquitectura', '2019-08-07', '2019-08-07 14:05:41.00', 10, 5);
+(1, 'Excelente lugar, lo envuelve una gran historia', '2019-09-07', '2019-09-07 18:11:02.00', 6, 1),
+(2, 'Clima extremo, grandioso contemplar el everest', '2019-09-07', '2019-09-07 18:11:02.00', 7, 2),
+(3, 'Playas exoticas, paraiso soleado', '2019-09-07', '2019-09-07 18:11:02.00', 8, 3),
+(4, 'Bahia Bengala, grandioso sitio', '2019-09-07', '2019-09-07 18:11:02.00', 9, 4),
+(5, 'Excelente exhibicion de arte y arquitectura', '2019-09-07', '2019-09-07 18:11:02.00', 10, 5);
 
 -- --------------------------------------------------------
 
@@ -560,8 +721,7 @@ INSERT INTO `guia` (`idGuia`, `idUsuario`) VALUES
 (2, 12),
 (3, 13),
 (4, 14),
-(5, 15),
-(6, 16);
+(5, 15);
 
 -- --------------------------------------------------------
 
@@ -587,8 +747,7 @@ INSERT INTO `hotel` (`idHotel`, `nombreHotel`, `descripcion`, `precio`, `idEstad
 (2, 'Hotel Caravan Center', 'Free Parking, Free Breakfast, Free Internet', 728, 2, 2),
 (3, 'Hotel Goa Woodlands', 'Free Internet, Pool, Free Parking, SPA', 486, 3, 3),
 (4, 'Sparsa Resorts Kanyakumari', 'Free Internet, Pool, Free Parking, Free Break', 560, 4, 4),
-(5, 'The Oberoi Rajvilas Jaipur', 'Extremely Clean, Excellent Service, SPA', 372, 5, 5),
-(6, 'Eros Hotel, Nueva Delhi', 'Colonial style hotel with easy access', 45, 7, 7);
+(5, 'The Oberoi Rajvilas Jaipur', 'Extremely Clean, Excellent Service, SPA', 372, 5, 5);
 
 -- --------------------------------------------------------
 
@@ -615,7 +774,7 @@ INSERT INTO `imagenes` (`idImagenes`, `ruta`, `idTours`) VALUES
 (6, '../Public/img/tours/2_03.png', 2),
 (7, '../Public/img/tours/3_01.png', 3),
 (8, '../Public/img/tours/3_02.png', 3),
-(9, '../Public/img/tours/4_01.png', 3),
+(9, '../Public/img/tours/4_01.png', 4),
 (10, '../Public/img/tours/4_02.png', 4),
 (11, '../Public/img/tours/4_03.png', 4),
 (12, '../Public/img/tours/5_01.png', 5),
@@ -680,8 +839,7 @@ INSERT INTO `persona` (`idPersona`, `nombreCompleto`, `Apellidos`, `numeroIdenti
 (12, 'Yamir Sarayu', 'Anjali Kapoor', '001-1974-00123', '+0091 3312-1878', 'M', 'India, Nueva Delhi'),
 (13, 'Denali Indira', 'Khan Rao', '001-1975-00124', '+0091 9412-3456', 'F', 'India, Nueva Delhi'),
 (14, 'Yalitza Uma', 'Nehru Nayak', '001-1976-00125', '+0091 9311-2566', 'F', 'India, Nueva Delhi'),
-(15, 'Priya Rania', 'Grover Sharma', '001-1977-00126', '+0091 9212-2667', 'F', 'India, Nueva Delhi'),
-(16, 'Emanuel Jesus', 'Inaki Angulo', '0801-1994-00666', '+504 9515 4010', 'M', 'Tegugalpa, Honduras');
+(15, 'Priya Rania', 'Grover Sharma', '001-1977-00126', '+0091 9212-2667', 'F', 'India, Nueva Delhi');
 
 -- --------------------------------------------------------
 
@@ -733,8 +891,7 @@ INSERT INTO `tours` (`idTours`, `nombre`, `descripcion`, `fechaInicio`, `fechaFi
 (2, 'Flying over the Himalayas', 'Being close to the largest mountain in the world and contemplating it, in the region of Leh Kashmir', '2019-07-17 00:00:00', '2019-07-19 00:00:00', 791, 5, 4, 2, 2),
 (3, 'Goa Beach', 'Exotic Beaches Small excursion from Arambol beach, passing through Kalacha Beach', '2019-07-18 00:00:00', '2019-07-23 00:00:00', 779, 20, 5, 3, 3),
 (4, 'Kanyakumari Tours', 'This place is also known as Cabo Comorin; a place where the Indian Ocean, the Arabian Sea and the Bay of Bengal meet', '2019-07-18 00:00:00', '2019-07-21 00:00:00', 550, 20, 4, 4, 4),
-(5, 'Rajastan Tours', 'Rajasthan called the land of the Kings is one of the most beautiful states of India in its best colorful and exotic. The state hosts an incredible exhibition of art and architecture', '2019-07-18 00:00:00', '2019-07-24 00:00:00', 763, 20, 5, 5, 5),
-(7, 'The Digambar Jain Lal temple', 'The Digambar Jain Lal temple, the oldest Jain sanctuary in the capital of India', '1970-01-01 00:00:00', '1970-01-01 00:00:00', 267, 4, 4, 7, 6);
+(5, 'Rajastan Tours', 'Rajasthan called the land of the Kings is one of the most beautiful states of India in its best colorful and exotic. The state hosts an incredible exhibition of art and architecture', '2019-07-18 00:00:00', '2019-07-24 00:00:00', 763, 20, 5, 5, 5);
 
 -- --------------------------------------------------------
 
@@ -826,8 +983,22 @@ INSERT INTO `usuario` (`idUsuario`, `nombreUsuario`, `email`, `contrasena`, `idP
 (12, 'Yamir', 'yamirKapoor@gmail.com', 'guia.234', 12),
 (13, 'Denali', 'IndiraKhan@gmail.com', 'guia.456', 13),
 (14, 'Yalitza', 'UmaNayak@gmail.com', 'guia.789', 14),
-(15, 'Priya', 'raniaSharma@gmail.com', 'guia.101', 15),
-(16, 'Emanuel', 'emsanchez891@gmail.com', 'guia.009', 16);
+(15, 'Priya', 'raniaSharma@gmail.com', 'guia.101', 15);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `view_comentarios`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `view_comentarios` (
+`idComentarios` int(11)
+,`idUsuario` int(11)
+,`idTours` int(11)
+,`Comentario` varchar(255)
+,`nombre` varchar(45)
+,`nombreUsuario` varchar(45)
+);
 
 -- --------------------------------------------------------
 
@@ -952,7 +1123,16 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `tours_dashboard`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `tours_dashboard`  AS  select `t`.`idTours` AS `id`,`t`.`nombre` AS `Nombre_Tour`,`t`.`precio` AS `Precio_Tours` from (`tours` `t` join `hotel` `h` on(`h`.`idTours` = `t`.`idTours`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `tours_dashboard`  AS  select `t`.`idTours` AS `id`,`t`.`nombre` AS `Nombre_Tour`,`t`.`precio` AS `Precio_Tours` from (`tours` `t` join `estados` `e` on(`e`.`idEstados` = `t`.`idEstados`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `view_comentarios`
+--
+DROP TABLE IF EXISTS `view_comentarios`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_comentarios`  AS  select `c`.`idComentarios` AS `idComentarios`,`c`.`idUsuario` AS `idUsuario`,`c`.`idTours` AS `idTours`,`c`.`Comentario` AS `Comentario`,`t`.`nombre` AS `nombre`,`u`.`nombreUsuario` AS `nombreUsuario` from ((`comentarios` `c` join `tours` `t` on(`c`.`idTours` = `t`.`idTours`)) join `usuario` `u` on(`u`.`idUsuario` = `c`.`idUsuario`)) ;
 
 -- --------------------------------------------------------
 
@@ -1132,13 +1312,13 @@ ALTER TABLE `estados`
 -- AUTO_INCREMENT de la tabla `guia`
 --
 ALTER TABLE `guia`
-  MODIFY `idGuia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idGuia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `hotel`
 --
 ALTER TABLE `hotel`
-  MODIFY `idHotel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idHotel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `imagenes`
@@ -1156,7 +1336,7 @@ ALTER TABLE `pagos`
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `populares`
@@ -1168,7 +1348,7 @@ ALTER TABLE `populares`
 -- AUTO_INCREMENT de la tabla `tours`
 --
 ALTER TABLE `tours`
-  MODIFY `idTours` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idTours` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `toursturista`
@@ -1186,7 +1366,7 @@ ALTER TABLE `turista`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Restricciones para tablas volcadas
