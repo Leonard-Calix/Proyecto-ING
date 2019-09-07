@@ -399,9 +399,10 @@ class Tours	{
 		$conexion = Conexion::obtenerConexion();
 
 		$sql = "SELECT t.idtours, T.nombre tours, T.descripcion, T.cupos, DATEDIFF(T.fechaFin, T.fechaInicio) duracion, CONVERT(t.fechaInicio, DATE) fecha1,      CONVERT(t.fechaFin, DATE) fecha2, T.precio, T.calificacion, 
-			E.nombre estado, P.nombreCompleto nombreGuia, P.Apellidos  		
+		E.nombre estado, H.idHotel, H.nombreHotel, P.nombreCompleto nombreGuia, P.Apellidos  		
 		FROM TOURS T 
-		INNER JOIN GUIA G ON G.idGuia = T.idGuia 
+		INNER JOIN hotel H ON H.idTours = T.idTours
+		INNER JOIN guia G ON G.idGuia = T.idGuia 
 		INNER JOIN estados E ON E.idEstados = T.idEstados
 		INNER JOIN usuario U ON U.idUsuario = G.idUsuario
 		INNER JOIN persona P ON P.idPersona = U.idPersona
