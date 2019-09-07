@@ -101,6 +101,7 @@ function ComentariosporTour(){
             for(let i=0; i<response.length; i++){
 				template += `
 				<input type="hidden" id="idComment" value="${response[i].idComentarios}">
+				<input type="hidden" id="idUser" value="${response[i].idUsuario}">
 				<div class="col-md-1 col-1 mr-1">
               		<span><img class="rounded-circle foto-perfil mr-2" src="../Public/img/user.jpg"></span>
             	</div>
@@ -126,10 +127,19 @@ function ComentariosporTour(){
 
 //Funcion para borrar comentarios
 function deleteCommentDetalles(idComment){
-	let usuario = $('#sesion').val();
-	//console.log("usuario: " + usuario);
+	let usuarioSesion = $('#sesion').val();
+	let usuarioComment = $('#idUser').val();
+
+	console.log('usuario comentario: '+usuarioComment);
+	console.log("usuario sesion: " + usuarioSesion);
+	console.log(typeof usuarioSesion === 'string');
+	console.log(typeof usuarioComment === 'string');
+	console.log(usuarioSesion.trim() == usuarioComment.trim());
+
+	usuarioSesion = usuarioSesion.trim();
+	usuarioComment = usuarioComment.trim();
 	
-    if (usuario > 0) {
+    if (usuarioComment === usuarioSesion) {
 
     	$.ajax({
         	url: '../Controlador/ajax/gestionComentarios.php?accion=borrar',
