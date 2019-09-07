@@ -136,4 +136,36 @@ class Comentarios{
             return 0;
         }
     }
+
+    //Funcion para comprar tours
+    public static function comprarTour($idTour, $idUsuario, $idHotel, $turistas){
+        Conexion::abrirConexion();
+        $conexion = Conexion::obtenerConexion();
+
+        $sql = 'CALL SP_COMPRAR_TOURS(:idtour, :idusuario, :idhotel, :nturistas, @monto, @resultado, @mensaje)';
+        $resultado = $conexion -> prepare($sql);
+
+        $resultado -> bindParam(':idtour', $idTour, PDO::PARAM_INT);
+        $resultado -> bindParam(':idusuario', $idUsuario, PDO::PARAM_INT);
+        $resultado -> bindParam(':idhotel', $idHotel, PDO::PARAM_INT);
+        $resultado -> bindParam(':nturistas', $turistas, PDO::PARAM_INT);
+        
+        $resultado -> execute();
+        $resultado -> closeCursor();
+
+        $salida = $conexion ->query('SELECT @monto, @resultado, @mensaje') -> fetch();
+        $monto = $salida['@monto'];
+        $result = $salida['@resultado'];
+        $mensaje = $salida['@mensaje'];
+
+        $data = array(
+            "monto" => $monto,
+            "resultado" => $result,
+            "mensaje" => $mensaje
+        );
+
+        echo json_encode($data);
+
+        Conexion::cerrarConexion();
+    }
 }

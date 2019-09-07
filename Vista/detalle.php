@@ -79,4 +79,81 @@ include_once ('Layouts/navbar.php');
   </div>
 </section>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Additional Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div id="info">
+
+        </div>
+
+        <div id="registro_compra">
+        <div class="row">
+          <div class="col-md-6">
+              <span class="list-inline">
+                 <img src="../Public/img/tarjetas/cards-cc_diners_club.svg" alt="">
+                 <img src="../Public/img/tarjetas/cards-cc_master_card.svg" alt="">
+                 <img src="../Public/img/tarjetas/cards-cc_visa.svg" alt="">
+              </span>
+              <hr>
+          </div>
+          <br>
+          <div class="col-md-6">
+            <input type="hidden" name="" id="idUser">
+              <div class="form-group">
+               <input type="text" id="nameTarjeta" data-validation="alphanumeric" class="form-control"
+               placeholder="Nombre en la tarjeta">
+             </div>
+          </div>
+          
+          <div class="col-md-6">
+             <div class="form-group">
+               <input type="text" id="numeroTarjeta" data-validation="alphanumeric" class="form-control"
+               placeholder="Numero de Tarjeta">
+             </div>
+          </div>
+          <div class="col-md-6">
+             <div class="form-group">
+               <input type="text" id="fechaCaducidad" data-validation="alphanumeric" class="form-control"
+               placeholder="Fecha de Caducidad">
+             </div>
+          </div>
+
+          <div class="col-md-6">
+             <div class="form-group">
+               <input type="text" id="pais" data-validation="alphanumeric" class="form-control"
+               placeholder="País">
+             </div>
+          </div>
+          <div class="col-md-6">
+             <div class="form-group">
+               <input type="text" id="codigoPostal" data-validation="alphanumeric" class="form-control"
+               placeholder="Código Postal">
+             </div>
+          </div>
+          <div class="col-md-6">
+              <div class="form-group">
+               <input type="number" id="numTuristas" data-validation="alphanumeric" class="form-control"
+               placeholder="Numero de Turistas">
+             </div>
+          </div>
+        
+      </div> 
+      <div class="modal-footer">
+        <button  type="button" onclick="limpiarInputs();"class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button"  id="btn-add" onclick="comprobarPago();" class="btn btn-primary">Pay Tour</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
 <?php include_once('Layouts/footer.php');?>

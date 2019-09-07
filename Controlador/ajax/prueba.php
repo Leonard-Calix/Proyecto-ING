@@ -21,6 +21,7 @@
 	//echo Comentarios::obtenerComentarioTour($idTours);
 
 	
+	//echo Comentarios::comprarTour(1, 6, 1, 5);
 	/*$salida = Comentarios::deleteComentario(7);
 	echo $salida;
 	*/

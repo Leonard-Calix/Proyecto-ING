@@ -36,5 +36,14 @@ switch ($_GET['accion']){
         $idComentario = intval($_POST['idComment']);
         $salida = Comentarios::deleteComentario($idComentario);
         echo json_encode(array("resp" => $salida));
-    break;    
+    break; 
+    
+    case 'comprarTour':
+        $idTour = $_POST['idTour'];
+        $idUsuario = $_POST['usuario'];
+        $idHotel = $_POST['idHotel'];
+        $turistas = $_POST['numeroTuristas'];
+
+        Comentarios::comprarTour($idTour, $idUsuario, $idHotel, $turistas);
+    break;
 }

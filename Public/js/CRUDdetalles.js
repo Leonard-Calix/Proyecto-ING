@@ -3,10 +3,6 @@ $(document).ready(function(){
 	obtenerTours( $("#tour").val() );
 });
 
-function obtenerOfertas(){
-	
-}
-
 function obtenerTours(id){
 	$.ajax({
 		url: "../Controlador/ajax/gestion-Tours.php?accion=detalle",
@@ -27,6 +23,8 @@ function obtenerTours(id){
 			let template = `
 				<div class="col-md-4">
 					<div class="price-box popular">
+						<input type="hidden" id="idTour" value="${response[0].idtours}">
+						<input type="hidden" id="idHotel" value="${response[0].idHotel}"> 
 						<h2 class="pricing-plan">${response[0].tours}</h2>
 						<div class="price"><sup class="currency">$</sup>${response[0].precio}</div>
 							<p id="descripcion"></p>
@@ -34,6 +32,7 @@ function obtenerTours(id){
 						<ul class="pricing-info">
 							<li><strong>Date init</strong> ${fechaInicio}</li>
 							<li><strong>Date Finish</strong> ${fechaFin}</li>
+							<li><strong>Hotel</strong> ${response[0].nombreHotel}</li>
 							<li><strong>Guide</strong> ${response[0].nombreGuia}  ${response[0].Apellidos}</li>
 							<li><strong>Duration</strong> ${duration} days</li>
 						</ul>
@@ -42,16 +41,65 @@ function obtenerTours(id){
 			
 			$("#info").append(template);	
 			$("#nombre").html(response[0].tours);
-			$("#descripcion").append(` <button class="btn btn-primary" onclick="comprar( ${response[0].idtours});" >Buy</button> `);
+			$("#descripcion").append(`<button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Buy</button> `);
 		}		
 	});
 }
 
-function comprar(id){
-	alert("se va a comprar el tour " + id );
+function comprobarPago(){
+	let nameTarjeta = $('#nameTarjeta').val();
+	let numeroTarjeta = $('#numeroTarjeta').val();
+	let fechaCaducidad = $('#fechaCaducidad').val();
+	let pais = $('#pais').val();
+	let codigoPostal = $('#codigoPostal').val();
+	let numeroTuristas = $('#numTuristas').val();
+	let usuario = $('#sesion').val();
+	let idTour = $('#idTour').val();
+	let idHotel = $('#idHotel').val();
+
+	let parametros = "nameTarjeta="+nameTarjeta+"&numeroTarjeta="+numeroTarjeta+"&fechaCaduridad="
+						+fechaCaducidad+"&pais="+pais+"&codigoPostal="+codigoPostal+"&numeroTuristas="+numeroTuristas
+						+"&usuario="+usuario+"&idTour="+idTour+"&idHotel="+idHotel;
+
+	if(usuario > 0){
+		console.log(parametros);
+		if(nameTarjeta=="" && numeroTarjeta=="" && fechaCaducidad=="" && pais=="" && codigoPostal == "" &&
+		   numeroTuristas < 0 && idTour < 0 && idHotel < 0){
+			   alert('Campos vacios');
+		}else{
+			$.ajax({
+				url: '../Controlador/ajax/gestionComentarios.php?accion=comprarTour',
+				dataType: 'json',
+				method: 'POST',
+				data: parametros,
+				success: function(response){
+					console.log(response);
+					if(response.resultado == 1){
+						let monto = response.monto;
+						console.log(monto);
+						limpiarInputs();
+						comprar(monto);
+					}
+				}
+			});
+		}
+	}else{
+		alert('Debes iniciar sesion para poder comprar');
+	}
 }
 
+function limpiarInputs(){
+	$('#nameTarjeta').val("");
+	$('#numeroTarjeta').val("");
+	$('#fechaCaducidad').val("");
+	$('#pais').val("");
+	$('#codigoPostal').val("");
+	$('#numTuristas').val("");
+}
 
+function comprar(monto){
+	alert('Compra del tour por '+monto);	
+}
 
 //Agregar Comentarios 
 $('#btn-comentar').click(function(e) {
@@ -138,7 +186,7 @@ function deleteCommentDetalles(idComment){
 
 	usuarioSesion = usuarioSesion.trim();
 	usuarioComment = usuarioComment.trim();
-	
+
     if (usuarioComment === usuarioSesion) {
 
     	$.ajax({
