@@ -54,11 +54,10 @@ function comprar(id){
 
 
 //Agregar Comentarios 
-$('#btn-comentar').click(function() {
+$('#btn-comentar').click(function(e) {
 
 	let sesion = $('#sesion').val();
-	console.log('sesion:'+sesion);
-
+	e.preventDefault();
 	let comentario = $('#comentario').val();
 	let tour = $('#tour').val();
 	let parametros = "idusuario="+sesion+"&tour="+tour+"&comentario="+comentario;
@@ -109,7 +108,8 @@ function ComentariosporTour(){
               		<div class="p-2 mb-2 color-comentario">
                 		<small class="text-muted">
                  			<span class="text-primary"><b>${response[i].nombreUsuario}</b></span> 
-							 ${response[i].Comentario} <span style="font-size: 14px;" class="float-right mr-2" onclick="deleteCommentDetalles(${response[i].idComentarios});" ><i class="fas fa-trash text-danger "></i></span>
+							 ${response[i].Comentario} 
+							 <span style="font-size: 14px;" class="float-right mr-2" id="btn-delete" onclick="deleteCommentDetalles(${response[i].idComentarios});" ><i class="fas fa-trash text-danger "></i></span>
 
                			</small>			
              		</div>
@@ -124,13 +124,12 @@ function ComentariosporTour(){
     });
 }
 
-
 //Funcion para borrar comentarios
 function deleteCommentDetalles(idComment){
-    console.log($('#sesion').val());
-
 	let usuario = $('#sesion').val();
-    if (usuario != null) {
+	//console.log("usuario: " + usuario);
+	
+    if (usuario > 0) {
 
     	$.ajax({
         	url: '../Controlador/ajax/gestionComentarios.php?accion=borrar',
@@ -138,8 +137,8 @@ function deleteCommentDetalles(idComment){
         	dataType: 'json',
         	data: {idComment: idComment},
         	success: function(response){
-        	    console.log(response);
-        	    if(response.resp==1){
+        	    //console.log(response);
+        	    if(response.resp == 1){
 				
         	        $("#"+idComment).remove();
         	        alert("The Comment has been deleted successfully");
@@ -149,7 +148,6 @@ function deleteCommentDetalles(idComment){
     	});
     } else {
         alert("Cannot be deleted");
-
     }
 
 }
