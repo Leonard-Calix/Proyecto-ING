@@ -79,7 +79,7 @@ include_once ('Layouts/navbar.php');
   </div>
 </section>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="compraModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -121,30 +121,31 @@ include_once ('Layouts/navbar.php');
           </div>
           <div class="col-md-6">
              <div class="form-group">
-               <input type="text" id="fechaCaducidad" data-validation="alphanumeric" class="form-control"
+               <input type="date" id="fechaCaducidad" data-date-format="DD MMMM YYYY" class="form-control"
                placeholder="Fecha de Caducidad">
              </div>
           </div>
-
           <div class="col-md-6">
              <div class="form-group">
-               <input type="text" id="pais" data-validation="alphanumeric" class="form-control"
-               placeholder="País">
+               <input type="number" id="cvc" class="form-control" placeholder="CVC">
              </div>
           </div>
           <div class="col-md-6">
              <div class="form-group">
-               <input type="text" id="codigoPostal" data-validation="alphanumeric" class="form-control"
-               placeholder="Código Postal">
+               <input type="text" id="pais" class="form-control" placeholder="País">
+             </div>
+          </div>
+          <div class="col-md-6">
+             <div class="form-group">
+               <input type="text" id="codigoPostal" class="form-control" placeholder="Código Postal">
              </div>
           </div>
           <div class="col-md-6">
               <div class="form-group">
-               <input type="number" id="numTuristas" data-validation="alphanumeric" class="form-control"
-               placeholder="Numero de Turistas">
+               <input type="number" id="numTuristas" class="form-control" placeholder="Numero de Turistas">
              </div>
           </div>
-        
+
       </div> 
       <div class="modal-footer">
         <button  type="button" onclick="limpiarInputs();"class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -41,14 +41,62 @@ function obtenerTours(id){
 			
 			$("#info").append(template);	
 			$("#nombre").html(response[0].tours);
-			$("#descripcion").append(`<button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Buy</button> `);
+			$("#descripcion").append(`<button class="btn btn-primary" data-toggle="modal" data-target="#compraModal">Buy</button> `);
 		}		
 	});
+}
+
+//Funcion para validar el formato de la fecha
+function validarFormatoFecha(fecha) {
+	let RegExPattern = /^\d{1,2}\/\d{1,2}\/\d{2,4}$/;
+	if ((fecha.match(RegExPattern)) && (fecha!='')) {
+		  return true;
+	} else {
+		  return false;
+	}
+}
+
+// Función para validar si la fecha introducida es real, es decir, que corresponde al calendario
+function existeFecha(fecha){
+	let fechaf = fecha.split("/");
+	let day = fechaf[0];
+	let month = fechaf[1];
+	let year = fechaf[2];
+	let date = new Date(year,month,'0');
+	if((day-0)>(date.getDate()-0)){
+		  return false;
+	}
+	return true;
+}
+
+//Funcion para validar si la fecha introducida es anterior o menor a la actual
+function validarFechaMenorActual(date){
+	let x = new Date();
+	let fecha = date.split("/");
+	x.setFullYear(fecha[2],fecha[1]-1,fecha[0]);
+	let today = new Date();
+	
+	if (x >= today)
+	  return false;
+	else
+	  return true;
+}
+
+//Funcion para cambiar el formato de la fecha
+function DateInputs(fecha) { 
+	date = fecha.split('-');
+	dia = date[2];
+	mes = date[1];
+	year = date[0];
+
+	date = dia+'/'+mes+'/'+year;
+	return date;
 }
 
 function comprobarPago(){
 	let nameTarjeta = $('#nameTarjeta').val();
 	let numeroTarjeta = $('#numeroTarjeta').val();
+	let cvc = $('#cvc').val();
 	let fechaCaducidad = $('#fechaCaducidad').val();
 	let pais = $('#pais').val();
 	let codigoPostal = $('#codigoPostal').val();
@@ -57,15 +105,66 @@ function comprobarPago(){
 	let idTour = $('#idTour').val();
 	let idHotel = $('#idHotel').val();
 
-	let parametros = "nameTarjeta="+nameTarjeta+"&numeroTarjeta="+numeroTarjeta+"&fechaCaduridad="
+	let parametros = "nameTarjeta="+nameTarjeta+"&numeroTarjeta="+numeroTarjeta+"&fechaCaduridad="+"&cvc="+cvc
 						+fechaCaducidad+"&pais="+pais+"&codigoPostal="+codigoPostal+"&numeroTuristas="+numeroTuristas
 						+"&usuario="+usuario+"&idTour="+idTour+"&idHotel="+idHotel;
 
 	if(usuario > 0){
-		console.log(parametros);
-		if(nameTarjeta=="" && numeroTarjeta=="" && fechaCaducidad=="" && pais=="" && codigoPostal == "" &&
-		   numeroTuristas < 0 && idTour < 0 && idHotel < 0){
-			   alert('Campos vacios');
+		//console.log(parametros);
+		let error = [];
+		fechaCaducidad = DateInputs(fechaCaducidad);	
+		
+		if(nameTarjeta == ""){
+			error.push(1); //error de nombre de tarjeta
+		}
+
+		if(numeroTarjeta < 16){
+			error.push(2); //para error de tarjeta
+		}
+
+		if(codigoPostal < 5){
+			error.push(3); //error para codigo postal
+		}
+
+		if(validarFormatoFecha(fechaCaducidad) == false){
+			error.push(4); //mal formato de fecha
+		}
+
+		if(existeFecha(fechaCaducidad) == false){
+			error.push(5); //fecha no existe
+		}
+
+		if(validarFechaMenorActual(fechaCaducidad) == true){
+			error.push(6); //fecha menor a la actual
+		}
+
+		if(numeroTuristas == 0){	
+			error.push(7); //error turistas
+		}
+
+		if(pais == ""){
+			error.push(8);
+		}
+
+		if(cvc < 3){
+			error.push(9);
+		}
+		console.log(error); 
+
+		if(error.length > 0){
+			limpiarInputs();
+			error.forEach(function(err){
+				if(err == 1){ $('#nameTarjeta').attr('placeholder', 'Campo nombre Vacío'); }
+				if(err == 2){ $('#numeroTarjeta').attr('placeholder', 'Mínimo 16 dígitos'); }
+				if(err == 3){ $('#codigoPostal').attr('placeholder', 'Mínimo 5 dígitos'); }
+				if(err == 4){ $('#fechaCaducidad').attr('placeholder', 'Mal formato de fecha'); }
+				if(err == 5){ $('#fechaCaducidad').attr('placeholder', 'La fecha no existe'); }
+				if(err == 6){ $('#fechaCaducidad').attr('placeholder', 'Fecha menor a la actual'); }
+				if(err == 7){ $("#numTuristas").attr('placeholder', 'Turista mayor a 0'); }
+				if(err == 8){ $("#pais").attr('placeholder', 'Campo país vacío'); }
+				if(err == 9){ $("#cvc").attr('placeholder', 'Mínimo 3 dígitos'); }
+			});
+			limpiarInputs();
 		}else{
 			$.ajax({
 				url: '../Controlador/ajax/gestionComentarios.php?accion=comprarTour',
@@ -76,8 +175,9 @@ function comprobarPago(){
 					console.log(response);
 					if(response.resultado == 1){
 						let monto = response.monto;
-						console.log(monto);
+						//console.log(monto);
 						limpiarInputs();
+						$('#compraModal').modal('hide');
 						comprar(monto);
 					}
 				}
@@ -95,6 +195,7 @@ function limpiarInputs(){
 	$('#pais').val("");
 	$('#codigoPostal').val("");
 	$('#numTuristas').val("");
+	$("#cvc").val("");
 }
 
 function comprar(monto){
