@@ -158,7 +158,7 @@
 
         </div> <!-- / .row -->
         <div  class="row" id="resEstados">
-            <h1>Respuestas de los estados de <span id="esta" ></span> </h1>
+            
       </div> <!-- / .container -->
 
     </section>

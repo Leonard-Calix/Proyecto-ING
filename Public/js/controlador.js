@@ -65,7 +65,7 @@ function showTours(){
 		url:"../Controlador/ajax/gestion-Tours.php?accion=mostrar",
 		dataType:'json',
 		success:function(res){
-		//console.log(res);
+		console.log(res);
 		var estrella='';
 		var img = '';
 		for (var i = 0; i < res.length; i++) {
@@ -251,8 +251,9 @@ $('#btn-sing-in').click(function () {
 
 function selecionarEstado(){
 
-	console.log("estado : =>", $("#estados").val());
+	console.log("estado  => ", $("#estados").val());
 
+	$('#resEstados').html("");
 
 	if ($("#estados").val()==0) {
 
@@ -272,5 +273,56 @@ function selecionarEstado(){
 		$("#resEstados").fadeOut(500);
 		$("#resEstados").fadeIn(500);
 	}
+
+
+	$.ajax({
+		url:"../Controlador/ajax/gestion-Tours.php?accion=obtenerTourEstado",
+		method: "POST",
+		data : {idEstados: $("#estados").val() },
+		dataType:'json',
+		success:function(res){
+		console.log(res);
+		var estrella='';
+		var img = '';
+
+		
+			img = '../Public/img/tours/' + res[0].idTours + '_01.png';
+
+			for (var j = 0; j < res[0].calificacion; j++) {
+				estrella+='<i class="text-primary fas fa-star"></i> ';
+			}
+
+			$('#resEstados').append(`
+				<div class="col-md-4">
+				<!-- Item -->
+				<a  href="detalle.php?id=${res[0].idTours}" class="card border-0 mb-3 mb-md-0">
+				<!-- Image -->
+				<div class="card-img-top">
+				<img src="${img}" alt="App landing" class="img-fluid">
+				</div>
+
+				<!-- Body -->
+				<div class="card-body">
+
+				<!-- Title -->
+				<h4 class="card-title">${res[0].nombre}</h4>
+
+				<!-- Body -->
+				<p style="color: black;" >${res[0].descripcion}</p>
+				<p class="card-text text-muted">Calificacion ${estrella}</p>
+
+				</div>
+
+				</a> <!-- / .card -->
+
+				</div>`);
+			estrella='';
+			img=''; 
+		
+	}
+});
+
+
+
 
 } 

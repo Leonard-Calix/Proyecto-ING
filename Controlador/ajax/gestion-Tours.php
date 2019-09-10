@@ -42,6 +42,10 @@
 
 		case 'detalle':
 			Tours::obtenerToursDetalle($_POST["idTours"]);
+		break;
+
+		case 'obtenerTourEstado':
+			Tours::obtenerToursEstados($_POST["idEstados"]);
 		break;	
 
 		case 'agregarTours':

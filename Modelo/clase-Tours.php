@@ -105,6 +105,26 @@ class Tours	{
 		echo json_encode($tours);
 	}
 
+
+	public static function obtenerToursEstados($idEstado){
+		Conexion::abrirConexion();
+		$conexion = Conexion::obtenerConexion();
+
+		$sql = "SELECT * FROM view_populares WHERE estado='$idEstado'";
+		$resultado = $conexion->prepare($sql);
+		$resultado ->execute();
+
+		$tours = array();
+
+		foreach ($resultado as $tour) {
+			$tours[] = $tour; 
+		}
+
+		echo json_encode($tours);
+	}
+
+
+
 	public static function obtenerHoteles(){
 		Conexion::abrirConexion();
 		$conexion = Conexion::obtenerConexion();
