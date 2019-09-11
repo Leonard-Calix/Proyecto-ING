@@ -80,6 +80,7 @@ $.ajax({
 function cambio() {
 	$("#new-tour").show();
 	$("#registro_tours").show();
+	$("#div-asignaHotel").hide();
 
 	$("#detalle-tour").hide(); 
 	$("#info").hide();
@@ -131,6 +132,8 @@ function editar(id) { // solo muestra informacion
 	$("#idT").val(id);
 	$("#btn-G").hide();
 	$("#btn-E").show();
+	$("#div-asignaHotel").hide();
+
 	
 	//console.log(id);
 
@@ -162,6 +165,8 @@ function detalles(id) {
 	$("#new-tour").hide();
 	$("#edite-tour").hide();
 	$("#registro_tours").hide();
+	$("#div-asignaHotel").hide();
+
 
 
 	$.ajax({
@@ -280,6 +285,7 @@ function AsignarHotel(){
 
 	$("#asignarHoteles").val('');
 	$("#asignarTours").val(0);
+	$("#div-asignaHotel").show();
 
 	tourSinHoteles();
 

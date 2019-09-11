@@ -86,7 +86,7 @@
 
         </div>
 
-        <div class="asignaHotel" >
+        <div id="div-asignaHotel" >
           <div class="row">
             <div class="col-6">
                <h5>Select Tours</h5>
