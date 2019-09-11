@@ -53,7 +53,8 @@
 		break;	
 
 		case 'asignarHotel':
-			echo "listo";
+			$res = Tours::asignarHotel( $_POST["idHotel"], $_POST["idTours"] );
+			echo json_encode( array('codigo' => $res ) );
 		break;
 
 		case 'agregarTours':

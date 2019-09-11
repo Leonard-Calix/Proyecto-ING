@@ -11,7 +11,7 @@ $(document).ready(function($) {
 				for (var i = 0; i < res.length; i++) {
 					$('#t-res').append(` 
 					<tr id="${res[i].id}" >
-          				<th scope="row">${res[i].id}</th>
+          				<th scope="row">${ i + 1 }</th>
           				<td>${res[i].Nombre_Tour}</td>
           				<td>${res[i].Precio_Tours}</td>
           				<td scope="col"> <button onclick="detalles(${res[i].id});" class="btn btn-outline-warning"  data-toggle="modal" data-target="#modal-video">Detalle</button> </td>
@@ -113,11 +113,13 @@ function eliminar(id) {
 		dataType: 'json',
 		data: {id: id },
 		success:function(res){
-			//console.log(res);	
+			console.log(res);	
 
 			if (res.respuesta==1) {
 				$("#"+id).remove();
-				alert("Tours successfully removed");
+				//alert("Tours successfully removed");
+				$("#alert-eliminarTours").fadeIn(500);
+				setTimeout(function(){ $("#alert-eliminarTours").fadeOut(500); }, 3000);
 			}
 		}
 	});
@@ -212,7 +214,7 @@ function agregar() {
 		dataType: 'json',
 		data: data,
 		success:function(res){
-			//console.log(res);
+			console.log(res);
 			if (res.respuesta!=0 && res.respuesta!=-1) {
 				$("#t-res").append(`
 				<tr id="${res.respuesta}" >
@@ -224,16 +226,18 @@ function agregar() {
           			<td scope="col"> <button onclick="eliminar(${res.respuesta})";" class="btn btn-outline-danger" >Remove</button> </td>
 				</tr>`);
 				$("#modal-video").modal('hide');
-				alert("Tours added successfully");
+				//alert("Tours added successfully");
 
-
+				$("#alert-agregarTours").fadeIn(500);
+				setTimeout(function(){ $("#alert-agregarTours").fadeOut(500); }, 3000);
+			
 			}
 			if (res.respueta==-1) {
 				alert("Wrong dates");
 			}
 		}
 	});
-	//$("#fechaI").val("2019-07-20");
+	
 }
 function editarReguistro(){
 	//console.log("Funciona")
@@ -270,7 +274,9 @@ function editarReguistro(){
           		<td scope="col"> <button onclick="eliminar(${data.id})";" class="btn btn-outline-danger" >Remove</button> </td>
 				`);
 				$("#modal-video").modal('hide');
-				alert("Tours edited successfully");
+				//alert("Tours edited successfully");
+				$("#alert-editarTours").fadeIn(500);
+				setTimeout(function(){ $("#alert-editarTours").fadeOut(500); }, 3000);
 			}else{
 				alert("Wrong dates");
 			}
@@ -342,16 +348,18 @@ function tourSinHoteles(){
 
 function asignaHotel(){
 
-	console.log( $("#asignarTours").val() + " " + $("#asignarHoteles").val() + " Hola" );
+	//console.log( $("#asignarTours").val() + " " + $("#asignarHoteles").val() + " Hola" );
 
 	$.ajax({
 		url: '../Controlador/ajax/gestion-Tours.php?accion=asignarHotel',
 		method: 'post',
 		data: { idHotel: $("#asignarHoteles").val(), idTours: $("#asignarTours").val() },
-		//dataType: 'json',
+		dataType: 'json',
 		success:function(res){
 			console.log(res);
-			
+			$("#alert-asignaHotel").fadeIn(500);
+			setTimeout(function(){ $("#alert-asignaHotel").fadeOut(500); }, 3000);
+			$("#modal-video").modal('hide');
 		}
 	});
 

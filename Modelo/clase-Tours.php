@@ -370,27 +370,27 @@ class Tours	{
 	}
 
 
-	public static function asignarHotel($idTours, $estado){
+	public static function asignarHotel($idHotel, $idTours){
 		Conexion::abrirConexion();
 		$conexion = Conexion::obtenerConexion();
 
-		$sql = 'CALL SP_ASIGNA_HOTEL(:pidTours, :pidEstados, @pMensaje, @res)';
+		$sql = 'CALL SP_ASIGNA_HOTEL(:_idHotel, :_idTours, @_mensaje)';
 		$resultado = $conexion->prepare($sql);
 
-		$resultado->bindParam(':pidTours', $estado, PDO::PARAM_INT);
-		$resultado->bindParam(':pidEstados', $idTours, PDO::PARAM_INT);
+		$resultado->bindParam(':_idHotel', $idHotel, PDO::PARAM_INT);
+		$resultado->bindParam(':_idTours', $idTours, PDO::PARAM_INT);
 
 		$resultado->execute();
 		$resultado->closeCursor(); 
 
-		$salida = $conexion->query('select @pMensaje, @res')->fetch();
-        $mensaje = $salida['@pMensaje'];
-        $res = $salida['@res'];
+		$salida = $conexion->query('select @_mensaje');
+        $mensaje = $salida->fetchColumn();
+   
 
-        if ($mensaje!=null && $res!=null ) {
-        	return $res;
+        if ($mensaje!=null) {
+        	return $mensaje;
         }else{
-        	return 0;
+        	return -1;
         }
 		
 	} 
