@@ -23,6 +23,9 @@
 <button onclick="cambio();" type="button" class="ml-4 btn btn-primary" data-toggle="modal" data-target="#modal-video">
   New
 </button>
+<button type="button" onclick="AsignarHotel();" class="ml-4 btn btn-primary" data-toggle="modal" data-target="#modal-video">
+  Asignar Hotel
+</button>
 
 <div class="container-fluid mt-5 mb-5">
   <div class="table-responsive">
@@ -81,6 +84,29 @@
         <div id="info" class="p-3">
 
 
+        </div>
+
+        <div class="asignaHotel" >
+          <div class="row">
+            <div class="col-6">
+               <h5>Select Tours</h5>
+                <select class="form-control" onchange="obtenerHoteles();" id="asignarTours">
+                  <option value="0" >Select</option>
+                </select>
+                <br>
+              <button onclick="asignaHotel()" class="btn btn-outline-info" >Asign hotel</button>
+
+            </div>
+            <div class="col-6">
+               <h5>Select Hotel </h5>
+               <select class="form-control" id="asignarHoteles" >
+               </select>
+               <br>
+
+            </div>
+
+            
+          </div>
         </div>
 
         <div id="registro_tours" >

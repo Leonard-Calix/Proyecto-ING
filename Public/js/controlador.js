@@ -282,7 +282,9 @@ function selecionarEstado(){
 		dataType:'json',
 		success:function(res){
 		console.log(res);
-		var estrella='';
+
+		if (res.length > 0) {
+			var estrella='';
 		var img = '';
 
 		
@@ -318,6 +320,14 @@ function selecionarEstado(){
 				</div>`);
 			estrella='';
 			img=''; 
+
+		} else {    
+                  
+			$('#resEstados').html(` <h5 class="text-primary text-uppercase">No existe tour registrado</h5>  `);
+
+		}
+
+		
 		
 	}
 });

@@ -20,12 +20,16 @@
 			Tours::obtenerEstados();
 		break;
 
+		case 'obtenerTourSinHoteles':
+			Tours::obtenerTourSinHotel();
+			break;
+
 		case 'tours':
 			Tours::tours();
 		break;
 
 		case 'obtenerHoteles':
-			Tours::obtenerHoteles();
+			Tours::obtenerHoteles( $_POST["idTours"] );
 		break;
 
 		case 'getGuias':
@@ -47,6 +51,10 @@
 		case 'obtenerTourEstado':
 			Tours::obtenerToursEstados($_POST["idEstados"]);
 		break;	
+
+		case 'asignarHotel':
+			echo "listo";
+		break;
 
 		case 'agregarTours':
 			$nombre = $_POST["nombre"];

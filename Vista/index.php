@@ -158,7 +158,6 @@
 
         </div> <!-- / .row -->
         <div  class="row" id="resEstados">
-            
       </div> <!-- / .container -->
 
     </section>

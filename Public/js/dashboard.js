@@ -272,3 +272,88 @@ function editarReguistro(){
 		}
 	});
 }
+
+// ASIGNACION DE HOTELES
+
+
+function AsignarHotel(){
+
+	$("#asignarHoteles").val('');
+	$("#asignarTours").val(0);
+
+	tourSinHoteles();
+
+	$("#info").hide();
+	$("#new-tour").hide();
+	$("#detalle-tour").hide();
+	$("#edite-tour").hide();
+	$("#registro_tours").hide();
+
+}
+
+function obtenerHoteles(){
+
+		$("#asignarHoteles").empty();
+
+
+		$.ajax({
+		url: '../Controlador/ajax/gestion-Tours.php?accion=obtenerHoteles',
+		method: 'POST',
+		data: { idTours: $("#asignarTours").val()  },
+		dataType: 'json',
+		success:function(res){
+			console.log(res);
+
+			for (var i = 0; i < res.length; i++) {
+				$("#asignarHoteles").append(`<option value="${res[i].idHotel}" >${res[i].nombreHotel}</option>`);
+			}
+			
+		}
+	});
+
+}
+
+
+
+
+function tourSinHoteles(){
+
+		$.ajax({
+		url: '../Controlador/ajax/gestion-Tours.php?accion=obtenerTourSinHoteles',
+		method: 'post',
+		dataType: 'json',
+		success:function(res){
+			console.log(res);
+			for (var i = 0; i < res.length; i++) {
+				$("#asignarTours").append(`<option value="${res[i].idTours}" >${res[i].nombre}</option>`);
+			}
+			
+		}
+	});
+
+}
+
+
+function asignaHotel(){
+
+	console.log( $("#asignarTours").val() + " " + $("#asignarHoteles").val() + " Hola" );
+
+	$.ajax({
+		url: '../Controlador/ajax/gestion-Tours.php?accion=asignarHotel',
+		method: 'post',
+		data: { idHotel: $("#asignarHoteles").val(), idTours: $("#asignarTours").val() },
+		//dataType: 'json',
+		success:function(res){
+			console.log(res);
+			
+		}
+	});
+
+
+
+}
+
+
+
+
+

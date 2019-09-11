@@ -125,11 +125,30 @@ class Tours	{
 
 
 
-	public static function obtenerHoteles(){
+	public static function obtenerHoteles($id){
 		Conexion::abrirConexion();
 		$conexion = Conexion::obtenerConexion();
 
-		$sql = "SELECT idhotel, nombreHotel FROM hoteles";
+		$sql = "SELECT h.nombreHotel, h.idHotel FROM hotel h 
+				WHERE h.idEstados = (SELECT t.idEstados FROM tours t WHERE t.idTours='$id' )";
+				
+		$resultado = $conexion->prepare($sql);
+		$resultado ->execute();
+
+		$tours = array();
+
+		foreach ($resultado as $tour) {
+			$tours[] = $tour; 
+		}
+
+		echo json_encode($tours);
+	}
+
+	public static function obtenerTourSinHotel(){
+		Conexion::abrirConexion();
+		$conexion = Conexion::obtenerConexion();
+
+		$sql = "SELECT idTours, nombre FROM tours t WHERE t.idTours NOT IN ( SELECT h.idTours FROM hotel h )";
 		$resultado = $conexion->prepare($sql);
 		$resultado ->execute();
 
