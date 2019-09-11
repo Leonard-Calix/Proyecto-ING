@@ -232,7 +232,7 @@ function agregar() {
 				setTimeout(function(){ $("#alert-agregarTours").fadeOut(500); }, 3000);
 			
 			}
-			if (res.respueta==-1) {
+			if (res.respuesta==-1) {
 				alert("Wrong dates");
 			}
 		}
