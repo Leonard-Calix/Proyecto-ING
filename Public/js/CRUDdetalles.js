@@ -21,7 +21,7 @@ function obtenerTours(id){
 			fechaFin = fechaFin.toLocaleDateString("es-ES", options);
 
 			let template = `
-				<div class="col-md-4">
+				<div class="col-xl-4 col-md-6 col-xs-12 col-12">
 					<div class="price-box popular">
 						<input type="hidden" id="idTour" value="${response[0].idtours}">
 						<input type="hidden" id="idHotel" value="${response[0].idHotel}"> 
@@ -42,6 +42,11 @@ function obtenerTours(id){
 			$("#info").append(template);	
 			$("#nombre").html(response[0].tours);
 			$("#descripcion").append(`<button class="btn btn-primary" data-toggle="modal" data-target="#compraModal">Buy</button> `);
+
+			var imgTemporal = '../Public/img/tours/' + response[0].idtours + '_01.png';
+			console.log("img :" + imgTemporal);
+
+			$("#foto_tour").append(`<img class="img-fluid card-img" src="${imgTemporal}" alt="...">`);
 		}		
 	});
 }

@@ -15,8 +15,8 @@ include_once ('Layouts/navbar.php');
 <br><br><br><br><br>
 <div class="container">
   <div class="card text-white">
-    <div id="nombre_tour" ></div>
-    <img class="img-fluid card-img" id="img-p" alt="...">
+    <div id="nombre_tour" class="mt-5"></div>
+    <div id="foto_tour" ></div>
     <ul class="nav justify-content-center ">
       <li class="nav-item">
         <button id="btn-i" class="nav-link btn btn-defaul text-secondary" onclick="informacion();">Details</button>
@@ -30,18 +30,19 @@ include_once ('Layouts/navbar.php');
 
 <section id="informacion" class="p-2">
   <input type="hidden" id="tour" value=" <?php echo $_GET["id"] ?> ">
-  <div class="container">
+  <div class="container-fluid p-2">
     <div class="card">
       <div class="p-3 card-header text-uppercase text-info">
         Details Tour
       </div>
       <div class="card-body">
-        <div class="container p-4" id="info"></div>
+        <div class="containe" id="info"></div>
         
       </div>
     </div>
   </div>
 </section>
+
 
 <section id="vista-tours" class="p-2" style="display: none;">
   <div class="container">

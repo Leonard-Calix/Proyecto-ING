@@ -21,7 +21,7 @@ function fetchComments(){
         dataType: 'json',
         success: function(response){
             let template = '';
-
+            //console.log(response)
             for(let i=0; i<response.length;i++){
                 template += `
                     <tr>

@@ -35,7 +35,7 @@ function getTours(param){
 		data: param ,
 		success:function(res){
 			//console.log("imf");
-			//console.log(res);
+			console.log(res);
 			$('#nombre_tour').append(`<h2  class="text-center mb-4">${res[0].nombre}</h2>`);
 
 			$('#descripcion').append(`<p class="card-text text-muted">${res[0].descripcion}</p><br><br>`);
