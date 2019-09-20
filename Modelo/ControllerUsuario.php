@@ -1,5 +1,5 @@
 <?php
-    include_once 'clase-conexionPDO.php';
+    require_once 'clase-conexionPDO.php';
     session_start();
 
 class ControllerUsuario{
@@ -155,7 +155,7 @@ class ControllerUsuario{
 
         $data = array("usuario" => $usuario, "tipo" => $tipo);
 
-        return json_encode($data);
+        return $data;
         
         Conexion::cerrarConexion();
     }

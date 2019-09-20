@@ -190,6 +190,7 @@ function comprobarPago(){
 		}
 	}else{
 		alert('Debes iniciar sesion para poder comprar');
+		document.location.href='sign-in.php?idTour='+idTour.trim();
 	}
 }
 
@@ -211,6 +212,7 @@ function comprar(monto){
 $('#btn-comentar').click(function(e) {
 
 	let sesion = $('#sesion').val();
+	console.log(sesion);
 	e.preventDefault();
 	let comentario = $('#comentario').val();
 	let tour = $('#tour').val();
@@ -219,30 +221,32 @@ $('#btn-comentar').click(function(e) {
 	if(comentario=='' || tour==''){
 		alert('Debes comentar algo');
 	}else{
+		if (sesion > 0){
+			$.ajax({
+				url: "../Controlador/ajax/gestionComentarios.php?accion=agregarComentarios",
+				dataType: 'json',
+				method: 'POST',
+				data: parametros,
+				success: function(response){
+					console.log(response);
+					if(response.resp == 1){
+						ComentariosporTour();
+					}
+				}		
+			});
+		}else{
+			alert('Debes iniciar sesion para poder comentar');
+			
+			document.location.href='sign-in.php?idTour='+tour.trim();
+		}
 		
-		$.ajax({
-			url: "../Controlador/ajax/gestionComentarios.php?accion=agregarComentarios",
-			dataType: 'json',
-			method: 'POST',
-			data: parametros,
-			success: function(response){
-				console.log(response);
-				if(response.resp == 1){
-					ComentariosporTour();
-				}else{
-					alert('Debes iniciar sesion para poder comentar');
-					document.location.href='sign-in.php';
-				}
-			}		
-		});
 	}	
 });
 
 //Funcion para obtener el comentario por tour
 function ComentariosporTour(){
 	let tourID = $('#tour').val();
-	console.log(tourID);
-
+	//console.log(tourID);
 	$.ajax({
         url: '../Controlador/ajax/gestionComentarios.php?accion=ComentarioporTour',
         method: 'POST',
