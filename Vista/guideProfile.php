@@ -1,19 +1,14 @@
-
 <?php 
-
 session_start();
 
- if (isset($_SESSION["usuario"]) ) {
-
-$usr = $_SESSION["usuario"];
-
+if(isset($_SESSION["usuario"]) && $_SESSION["tipo"]==3) {
+	$usr = $_SESSION["usuario"];
 }else {
- header('Location: index.php');
+	header('Location: index.php');
 }
 
 include_once('Layouts/headerGuide.php');
-include_once('Layouts/navbarGuide.php'); 
-
+include_once('Layouts/navbarGuide.php');
 ?>
 
 <div class="content">
@@ -26,12 +21,8 @@ include_once('Layouts/navbarGuide.php');
            <div class="card-body">
                <div class="author">
                    <img class="avata border-gray" style="width: 140px; height: 140px;" src="../Public/img/perfil.jpg" alt="..."><br><br>
-                   <input type="hidden" id="idUsuario" name="" value=" <?php echo $usr ?> " >
-                   <input type="hidden" id="guia_registrado" name="" value=" <?php echo $usr ?> " >
+                   <input type="hidden" id="idUsuario" value=" <?php echo $usr ?> " >
                    
-                   <div id="div-usuario-email"></div>
-                   <div id="div-usuario"></div> 
-
                </div>
                
            </div>
@@ -45,7 +36,7 @@ include_once('Layouts/navbarGuide.php');
    <div class="col-xl-8 col-md-8 col-sm-12">
        <div class="card card-user">
            <div class="card-header">
-               <h5 class="card-title text-primary text-center font-weight-bold">Information Guide</h5>
+               <h5 class="card-title text-primary text-center font-weight-bold">Account Details</h5>
            </div>
            <div class="card-body">
                    <div class="row">

@@ -1,19 +1,14 @@
 <?php 
-
 	session_start();
 
-
-	if ( isset($_SESSION["usuario"]) && $_SESSION["tipo"]==2 ) {
+	if (isset($_SESSION["usuario"]) && $_SESSION["tipo"]==2 ) {
 		$usr = $_SESSION["usuario"];
 	}else {
-    	 header('Location: index.php');
-    	 
+    	 header('Location: index.php');    	 
 	} 
-
 
  	include_once ('Layouts/header.php'); 
  	include_once ('Layouts/navbar.php');
-
 ?>
 
 <br><br><br><br><br>
@@ -25,7 +20,7 @@
 		</div>
 		<ul class="nav justify-content-center ">
 			<li class="nav-item">
-				<button id="btn-i" class="nav-link btn btn-defaul text-secondary" onclick="informacion();">Informacion</button>
+				<button id="btn-i" class="nav-link btn btn-defaul text-secondary" onclick="informacion();">Informacion </button>
 			</li>
 			<li class="nav-item">
 				<button id="btn-t" class="nav-link active btn btn-defaul text-secondary" onclick="tours();">My Tours</button>
@@ -38,7 +33,7 @@
 	<div class="container">
 		<div class="card">
 			<div class="p-3 card-header text-uppercase text-info">
-				Informacion
+				Information
 			</div>
 			<div class="card-body">
 				

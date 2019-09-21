@@ -1,7 +1,7 @@
 <?php 
 session_start();
 
-if ( isset($_SESSION["usuario"]) && $_SESSION["tipo"]==3) {
+if (isset($_SESSION["usuario"]) && $_SESSION["tipo"]==3) {
 	$usr = $_SESSION["usuario"];
 }else {
 	header('Location: index.php');
@@ -10,7 +10,6 @@ if ( isset($_SESSION["usuario"]) && $_SESSION["tipo"]==3) {
 include_once('Layouts/headerGuide.php');
 include_once('Layouts/navbarGuide.php');
 ?>
-
 <br>
 <br>
 <br>

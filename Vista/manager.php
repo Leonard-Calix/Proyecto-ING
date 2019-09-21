@@ -2,13 +2,13 @@
 
    session_start();
    
-    if (isset($_SESSION["usuario"]) ) {
+    if (isset($_SESSION["usuario"])) {
     
-     $usr = $_SESSION["usuario"];
+      $usr = $_SESSION["usuario"];
 
-    }else {
+    }else{
       header('Location: index.php');
-  }
+    }
 
   include_once('Layouts/header_2.php'); 
 
