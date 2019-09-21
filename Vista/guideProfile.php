@@ -3,6 +3,7 @@ session_start();
 
 if(isset($_SESSION["usuario"]) && $_SESSION["tipo"]==3) {
 	$usr = $_SESSION["usuario"];
+  echo $usr;
 }else {
 	header('Location: index.php');
 }
@@ -21,7 +22,7 @@ include_once('Layouts/navbarGuide.php');
            <div class="card-body">
                <div class="author">
                    <img class="avata border-gray" style="width: 140px; height: 140px;" src="../Public/img/perfil.jpg" alt="..."><br><br>
-                   <input type="hidden" id="idUsuario" value=" <?php echo $usr ?> " >
+                   <input type="text" id="idGuia" value=" <?php echo $usr ?> " >
                    
                </div>
                
@@ -99,4 +100,5 @@ include_once('Layouts/navbarGuide.php');
    </div>
 </div>
 </div>
-
+ 
+ <?php include_once 'Layouts/footer.php'; ?>

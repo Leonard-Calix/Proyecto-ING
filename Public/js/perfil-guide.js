@@ -2,10 +2,11 @@ $(document).ready(function(){
 	getGuideID();
 });
 
+
 function getGuideID(){	
-	let idguia = $("#idUsuario").val();
+	let idguia = $("#idGuia").val();
 	
-	console.log('usuario: '+idguia);
+	console.log('usuario: '+ idguia);
 	$.ajax({
 		url: '../Controlador/ajax/gestion-guia.php?accion=informacionGuia',
 		method: 'POST',
@@ -17,5 +18,7 @@ function getGuideID(){
 		}
 	});
 }
+
+
 
 
