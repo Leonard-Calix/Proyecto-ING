@@ -3,7 +3,6 @@ include_once('clase-conexionPDO.php');
 
 class Turista{
     
-
     public static function obtenerTours_por_Turista($id){
         Conexion::abrirConexion();
         $conexion = Conexion::obtenerConexion();
@@ -71,11 +70,13 @@ class Turista{
         Conexion::abrirConexion();
         $conexion = Conexion::obtenerConexion();
 
-        $sql = "SELECT p.nombreCompleto, p.Apellidos, u.email FROM toursTurista tt
-                INNER JOIN turista t on tt.idTurista=t.idTurista
-                INNER JOIN usuario u ON u.idUsuario=t.idUsuario
-                INNER JOIN persona p ON p.idPersona=u.idPersona
-                WHERE tt.idTours='$id'";
+        $sql = "SELECT t.idTours, t.nombre, t.precio, h.nombreHotel, p.nombreCompleto, p.Apellidos FROM toursturista tt
+                INNER JOIN tours t ON t.idTours = tt.idTours
+                INNER JOIN hotel h ON h.idTours = t.idTours
+                INNER JOIN turista tu ON tu.idTurista = tt.idTurista
+                INNER JOIN usuario u ON u.idUsuario = tu.idUsuario
+                INNER JOIN persona p ON p.idPersona = u.idPersona
+                WHERE t.idGuia = (SELECT idGuia FROM guia WHERE idUsuario='$id')";
 
         $sentencia = $conexion->prepare($sql);
         $sentencia->execute();
@@ -89,7 +90,6 @@ class Turista{
         echo json_encode($turistas);
     } 
 
-    
 }
 
 ?>

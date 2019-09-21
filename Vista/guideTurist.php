@@ -21,12 +21,10 @@ include_once('Layouts/navbarGuide.php');
           <th scope="col">#</th>
           <th scope="col">Name Tour</th>
           <th scope="col">Name Hotel</th>
-          <th scope="col">Stage</th>
-          <th scope="col">Price</th>
-          <th scope="col">Duration</th>
+          <th scope="col">Name Turist</th>
         </tr>
       </thead>
-      <tbody id="tourGuide">
+      <tbody id="turistGuide">
 
       </tbody>
     </table>

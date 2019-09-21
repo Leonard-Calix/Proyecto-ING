@@ -21,7 +21,7 @@
             			</a>
 					</li>
     				<li>
-            			<a href="#">
+            			<a href="guideTurist.php">
             		  		<i class="nc-icon nc-tag-content"></i>
             		  		<p class="text-white">Turists Assigned</p>
             			</a>

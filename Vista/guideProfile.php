@@ -3,7 +3,6 @@ session_start();
 
 if(isset($_SESSION["usuario"]) && $_SESSION["tipo"]==3) {
 	$usr = $_SESSION["usuario"];
-  echo $usr;
 }else {
 	header('Location: index.php');
 }
@@ -21,15 +20,15 @@ include_once('Layouts/navbarGuide.php');
            </div>
            <div class="card-body">
                <div class="author">
-                   <img class="avata border-gray" style="width: 140px; height: 140px;" src="../Public/img/perfil.jpg" alt="..."><br><br>
-                   <input type="text" id="idGuia" value=" <?php echo $usr ?> " >
-                   
+                    <img class="avata border-gray" style="width: 140px; height: 140px;" src="../Public/img/perfil.jpg" alt="..."><br><br>
+                    <input type="hidden" id="idGuia" value=" <?php echo $usr ?> " >
+                    <div id="guide-usuario-email"></div>
+				    <div id="guide-usuario"></div>                  
                </div>
                
            </div>
            <div class="card-footer">
-               <hr>
-               
+               <hr>          
            </div>
        </div>
 
@@ -58,7 +57,7 @@ include_once('Layouts/navbarGuide.php');
                        <div class="col-md-6">
                            <div class="form-group">
                                <label>First Name</label>
-                               <input type="text" id="input-first-name" class="form-control" placeholder="Company" value="">
+                               <input type="text" id="input-first-name" class="form-control" placeholder="first-name" value="">
                            </div>
                        </div>
                        <div class="col-md-6">
@@ -101,4 +100,4 @@ include_once('Layouts/navbarGuide.php');
 </div>
 </div>
  
- <?php include_once 'Layouts/footer.php'; ?>
+ <?php include_once('Layouts/footer.php'); ?>
