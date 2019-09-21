@@ -30,7 +30,9 @@
   <link rel="stylesheet" href="../Public/css/argom.min.css">
   <link rel="stylesheet" href="../Public/css/style.min.css">
   <link rel="stylesheet" href="../Public/css/jquery-ui.css">
-  <link rel="stylesheet" href="../Public/css/estilos.css"> 
+  <link rel="stylesheet" href="../Public/css/fontello.css">
+  <link rel="stylesheet" href="../Public/css/estilos.css">
+  
   <!-- Theme CSS -->
   <link rel="stylesheet" href="../Public/css/theme.min.css">
 

@@ -15,7 +15,6 @@
 
 ?>
 
-
 <div class="content">
   <div class="row">
     <div class="col-lg-3 col-md-6 col-sm-6">
@@ -30,11 +29,10 @@
             <div class="col-7 col-md-8">
               <div class="numbers">
                 <p class="card-category">Tours</p>
-                <p class="card-title">20
-                  <p>
-                  </div>
-                </div>
+                <p class="card-title">20<p>
               </div>
+            </div>
+            </div>
             </div>
             <div class="card-footer ">
               <hr>

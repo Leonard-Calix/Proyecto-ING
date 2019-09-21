@@ -8,14 +8,15 @@ $(document).ready(function($) {
 		success:function(res){
 			//console.log(res);
 			for (var i = 0; i < res.length; i++) {
-				$("#res-tours-Guide").append(`<div class="card">
-  												<div class="card-body">
-										    		<h5 class="card-title">${res[i].nombre}</h5>
-										    		<p class="card-text"><span class="text-primary" >Descripcion</span> ${res[i].descripcion}</p>
-										    		<p class="card-text"><span class="text-primary" >Fecha</span> ${res[i].fechaInicio}</p>
-										    		<button onclick="getTuristas(${res[i].idtours});" class="btn btn-outline-primary">List turist</button>
-										 	 	</div>
-											</div>`);
+				$("#res-tours-Guide").append(
+					`<div class="card">
+  						<div class="card-body">
+							<h5 class="card-title">${res[i].nombre}</h5>
+							<p class="card-text"><span class="text-primary" >Descripcion</span> ${res[i].descripcion}</p>
+							<p class="card-text"><span class="text-primary" >Fecha</span> ${res[i].fechaInicio}</p>
+							<button onclick="getTuristas(${res[i].idtours});" class="btn btn-outline-primary">List turist</button>
+						</div>
+					</div>`);
 			}
 		}
 	});
@@ -36,31 +37,20 @@ $(document).ready(function($) {
 			$("#input-phone").val(res[0].telefono);
 			$("#input-id").val(res[0].numeroIdentidad);
 
-			$("#nombreUsuario").html(`<h1 class="display-3 text-white"> Hello ${res[0].nombreUsuario} </h1>`);
+			//$("#nombreUsuario").html(`<h1 class="display-3 text-white"> Hello ${res[0].nombreUsuario} </h1>`);
 
-			$("#usuario").html(res[0].nombreUsuario);
-			$("#direccion").html(res[0].direccion);
-			$("#correo").html(res[0].email);
-
-
-
-		
-
+			//$("#usuario").html(res[0].nombreUsuario);
+			//$("#direccion").html(res[0].direccion);
+			//$("#correo").html(res[0].email);
 
 			if(res[0].genero=='M'){
 				$("#input-genero").val(1);
 			}
 			if (res[0].genero=='F') {
 				$("#input-genero").val(2);
-			}
-
-
-			
+			}			
 		}
 	});
-
-
-
 });
 
 function getTuristas(id) {

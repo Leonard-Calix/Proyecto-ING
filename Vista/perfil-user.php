@@ -66,9 +66,6 @@
 	</div>
 </section>
 
-
-
-
 <?php include_once ('Layouts/footer.php'); ?>
 
 
