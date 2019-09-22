@@ -289,6 +289,25 @@ class ControllerUsuario{
         
         Conexion::cerrarConexion();
     }
+
+    public static function getAdministradores(){
+        Conexion::abrirConexion();
+        $conexion = Conexion::obtenerConexion();
+        
+        $sql = 'SELECT * FROM view_perfil_usuario_admin';
+        $sentencia = $conexion->prepare($sql);
+        $sentencia->execute();
+
+        $admins = array();
+    
+        foreach ($sentencia as $admin) {
+            $admins[] = $admin; 
+        }
+
+        echo json_encode($admins);
+        
+        Conexion::cerrarConexion();
+    }
  
 }
 ?>

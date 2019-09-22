@@ -115,6 +115,10 @@
 		case 'getGuias':
 			 ControllerUsuario::obtenerGuias();
 		break;
+
+		case 'admin':
+			ControllerUsuario::getAdministradores();
+		break;
 	
 	
 	}

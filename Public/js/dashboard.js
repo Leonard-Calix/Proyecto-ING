@@ -345,7 +345,6 @@ function tourSinHoteles(){
 
 }
 
-
 function asignaHotel(){
 
 	//console.log( $("#asignarTours").val() + " " + $("#asignarHoteles").val() + " Hola" );
@@ -362,8 +361,6 @@ function asignaHotel(){
 			$("#modal-video").modal('hide');
 		}
 	});
-
-
 
 }
 

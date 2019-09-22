@@ -2,6 +2,7 @@ $(document).ready(function(){
 	getGuideID();
 	getTours();
 	getTurist();
+	getEmailAdmin();
 });
 
 
@@ -82,4 +83,24 @@ function getTurist(){
 		}
 	});
 }
+
+function getEmailAdmin(){
+	$.ajax({
+		url:"../Controlador/ajax/gestion-Usuario.php?accion=admin",
+		method:'POST',
+		dataType:'json',
+		success:function(res){
+			for (var i = 0; i < res.length; i++) {
+				$("#asigEmail").append(`<option value="${res[i].idUsuario}">${res[i].email}</option>`);
+			}		
+		}
+	});
+}
+
+function enviarEmail(){
+	let emailAdmin = $('#asigEmail option:selected').text();
+	let asunto = $('#asunto').val();
+	let message = $('message').val();
+
+}	
 

@@ -5,7 +5,7 @@
   <meta charset="utf-8" name='viewport' />
   <link rel="icon" type="image/png" href="../Public/img/favicon-32x32.png">
   
-  <title> GUIDE </title>
+  <title> Guide </title>
   
   <!--     Fonts and icons     -->
   <link href="../Public/css/font-montserrat.css" rel="stylesheet"/>
