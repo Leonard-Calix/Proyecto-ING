@@ -1,7 +1,6 @@
 
 $(document).ready(function(){
     fetchProfiles();
-
 });
 
 function cambioprofiles() {
@@ -233,7 +232,6 @@ function editarUser(){
             
 		}
 	});
-
 }
 
 

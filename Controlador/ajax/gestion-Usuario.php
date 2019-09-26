@@ -98,9 +98,14 @@
 		case 'login':
 			$email = $_POST['correo'];
 			$contrasena = $_POST['contrasenia'];
-
+			
+			$tour = isset($_POST['idTour']) ? $_POST['idTour'] : 0;
+			
 			$login = ControllerUsuario::login($email, $contrasena);
-			echo $login;
+			
+			$login['idTour'] = $tour;
+			
+			echo json_encode($login);
 		break;
 
 		case 'obtenerUsuario':
@@ -109,6 +114,10 @@
 
 		case 'getGuias':
 			 ControllerUsuario::obtenerGuias();
+		break;
+
+		case 'admin':
+			ControllerUsuario::getAdministradores();
 		break;
 	
 	

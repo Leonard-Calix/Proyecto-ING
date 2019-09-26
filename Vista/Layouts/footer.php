@@ -99,10 +99,10 @@
       <script src="../Public/js/highlight.pack.min.js"></script>
       <script src="../Public/js/demo.js"></script>
       <script src="../Public/js/popper.min.js"></script>
-      <script src="../Public/js/popper.js"></script>
       <script src="../Public/js/theme.min.js"></script>
       <script src="../Public/js/paper-dashboard.js"></script>
       <script src="../Public/js/jquery-ui.js"></script>
+       <!-- Controladores JS -->
       <script src="../Public/js/controlador.js"></script>
       <script src="../Public/js/dashboard.js"></script>
       <script src="../Public/js/CRUDprofiles.js"></script>
@@ -110,19 +110,9 @@
       <script src="../Public/js/crudGuias.js"></script>
       <script src="../Public/js/CRUDdetalles.js"></script>
       <script src="../Public/js/perfil-user.js"></script>
-      <script src="../Public/js/perfil-guide.js"></script>
-
-      
+      <script src="../Public/js/perfil-guide.js"></script>   
       <script src="../Public/js/CRUDcomentarios.js"></script>
 
-
-      <script type="text/javascript">
-       $(document).ready(function() {
-          // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
-          demo.initChartsPages();
-      });
-
-      </script>
 
 </body>
 </html>

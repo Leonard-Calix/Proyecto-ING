@@ -3,8 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="img/apple-icon.png">
-  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="icon" type="image/png" href="../Public/img/favicon-32x32.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
     Manager
@@ -17,7 +16,7 @@
   <link href="../Public/css/bootstrap.css" rel="stylesheet" />
   <link href="../Public/css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="../Public/demo.cs" rel="stylesheet" />
+  <link href="../Public/demo.css" rel="stylesheet" />
   <!-- CSS THEME-->
   <link href="../Public/css/theme.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />

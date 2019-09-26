@@ -113,11 +113,11 @@ include_once('Layouts/header_2.php');
         <div id="div-asignaHotel" >
           <div class="row">
             <div class="col-6">
-             <h5>Select Tours</h5>
-             <select class="form-control" onchange="obtenerHoteles();" id="asignarTours">
-              <option value="0" >Select</option>
-            </select>
-            <br>
+              <h5>Select Tours</h5>
+              <select class="form-control" onchange="obtenerHoteles();" id="asignarTours">
+                <option value="0">Select</option>
+              </select>
+              <br>
             <button onclick="asignaHotel()" class="btn btn-outline-info" >Asign hotel</button>
 
           </div>

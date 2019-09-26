@@ -93,9 +93,13 @@ class Guia{
         Conexion::abrirConexion();
         $conexion = Conexion::obtenerConexion();
 
-        $sql = "SELECT t.idtours, t.nombre, t.descripcion, e.nombre estado, t.calificacion, t.precio, t.cupos, DATEDIFF( t.fechaFin, t.fechaInicio ) dias,    CONVERT(t.fechaInicio, DATE) fechaInicio, CONVERT(t.fechaFin, DATE) fechaFin 
-            FROM tours t 
-            INNER JOIN estados e ON e.idEstados=t.idEstados WHERE idGuia = ( SELECT idGuia FROM guia WHERE idUsuario='$idUsuario')";
+        $sql = "SELECT t.idtours, t.nombre, h.nombreHotel, t.descripcion, e.nombre estado, t.calificacion,
+                       t.precio, t.cupos, DATEDIFF( t.fechaFin, t.fechaInicio ) dias, 
+                       CONVERT(t.fechaInicio, DATE) fechaInicio, CONVERT(t.fechaFin, DATE) fechaFin 
+                FROM tours t 
+                INNER JOIN hotel h ON h.idTours = t.idTours
+                INNER JOIN estados e ON e.idEstados=t.idEstados 
+                WHERE idGuia = ( SELECT idGuia FROM guia WHERE idUsuario='$idUsuario')";
         $sentencia = $conexion->prepare($sql);
         $sentencia->execute();
 
@@ -126,8 +130,6 @@ class Guia{
         }
 
         echo json_encode($guia);
-
-
     }
     
 }

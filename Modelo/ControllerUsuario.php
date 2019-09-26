@@ -1,5 +1,5 @@
 <?php
-    include_once 'clase-conexionPDO.php';
+    require_once 'clase-conexionPDO.php';
     session_start();
 
 class ControllerUsuario{
@@ -155,7 +155,7 @@ class ControllerUsuario{
 
         $data = array("usuario" => $usuario, "tipo" => $tipo);
 
-        return json_encode($data);
+        return $data;
         
         Conexion::cerrarConexion();
     }
@@ -286,6 +286,25 @@ class ControllerUsuario{
         }else{
             return 0;
         }
+        
+        Conexion::cerrarConexion();
+    }
+
+    public static function getAdministradores(){
+        Conexion::abrirConexion();
+        $conexion = Conexion::obtenerConexion();
+        
+        $sql = 'SELECT * FROM view_perfil_usuario_admin';
+        $sentencia = $conexion->prepare($sql);
+        $sentencia->execute();
+
+        $admins = array();
+    
+        foreach ($sentencia as $admin) {
+            $admins[] = $admin; 
+        }
+
+        echo json_encode($admins);
         
         Conexion::cerrarConexion();
     }

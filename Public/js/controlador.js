@@ -189,21 +189,21 @@ $('#btn-registro').click(function () {
 					|| respuesta.error_typeUser != null){
 
 					$("#nombre").val(respuesta.error_nombre);
-				$('#apellido').val(respuesta.error_apellido);
-				$('#correo').val(respuesta.error_correo);
-				$('#usuario').val(respuesta.error_nombreUsuario);
-				$('#contrasenia').attr('type', 'text');
-				$('#contrasenia').val(respuesta.error_contrasena);
+					$('#apellido').val(respuesta.error_apellido);
+					$('#correo').val(respuesta.error_correo);
+					$('#usuario').val(respuesta.error_nombreUsuario);
+					$('#contrasenia').attr('type', 'text');
+					$('#contrasenia').val(respuesta.error_contrasena);
 
-			}else{
-				$('#nombre').val("");
-				$('#apellido').val("");
-				$('#nombre').val("");
-				$('#correo').val("");
-				$('#usuario').val("");
-				$('#contrasenia').val("");
+				}else{
+					$('#nombre').val("");
+					$('#apellido').val("");
+					$('#nombre').val("");
+					$('#correo').val("");
+					$('#usuario').val("");
+					$('#contrasenia').val("");
 
-				$('#mensaje').fadeIn(500);
+					$('#mensaje').fadeIn(500);
 				//setTimeout(redireccionar(document.location.href ="sing-in.php"), 5000);         
 			}			
 		}
@@ -218,14 +218,29 @@ $('#btn-sing-in').click(function () {
 	var correo = $('#correo').val();
 	var contrasenia = $('#contrasenia').val();
 
+	var getUrlParameter = function getUrlParameter(sParam) {
+		var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+			sURLVariables = sPageURL.split('&'),
+			sParameterName,
+			i;
+	
+		for (i = 0; i < sURLVariables.length; i++) {
+			sParameterName = sURLVariables[i].split('=');
+	
+			if (sParameterName[0] === sParam) {
+				return sParameterName[1] === undefined ? true : sParameterName[1];
+			}
+		}
+	};
+
 	if(correo==" " && contrasenia==" "){
 		alert('Datos vacios');
 		return;
 	}
 
-
-	var parametros = "correo="+correo+"&contrasenia="+contrasenia;
-
+	var idTour = getUrlParameter('idTour');
+	
+	var parametros = "correo="+correo+"&contrasenia="+contrasenia+'&idTour='+idTour;
 	//console.log(parametros);
 
 	$.ajax({
@@ -234,13 +249,19 @@ $('#btn-sing-in').click(function () {
 		method: 'POST',
 		data: parametros,
 		success:function(respuesta){
-			//console.log("resp success "+respuesta);
+			console.log("resp success "+respuesta.usuario);
 			if(respuesta.usuario != null){
-				setTimeout(redireccionar(respuesta.tipo), 3000);
+				let tour = respuesta.idTour;
+				if(tour > 0){
+					let url = 'detalle.php?id='+tour;
+					setTimeout(window.location=url, 3000);
+				}else{
+					setTimeout(redireccionar(respuesta.tipo), 3000);
+				}
+				
 			}else{
 				//alert('Datos incorrectos');
 				$('#error-login').fadeIn(500);
-
 			}
 
 		}

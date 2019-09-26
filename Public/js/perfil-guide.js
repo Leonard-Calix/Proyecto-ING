@@ -1,93 +1,106 @@
-$(document).ready(function($) {
-	
+$(document).ready(function(){
+	getGuideID();
+	getTours();
+	getTurist();
+	getEmailAdmin();
+});
+
+
+function getGuideID(){	
+	let idguia = $("#idGuia").val();
+
 	$.ajax({
-		url:"../Controlador/ajax/gestion-guia.php?accion=toursPorGuia",
-		method:'POST',
-		dataType:'json',
-		data: { idguia : $("#guia_registrado").val() },
-		success:function(res){
-			//console.log(res);
-			for (var i = 0; i < res.length; i++) {
-				$("#res-tours-Guide").append(`<div class="card">
-  												<div class="card-body">
-										    		<h5 class="card-title">${res[i].nombre}</h5>
-										    		<p class="card-text"><span class="text-primary" >Descripcion</span> ${res[i].descripcion}</p>
-										    		<p class="card-text"><span class="text-primary" >Fecha</span> ${res[i].fechaInicio}</p>
-										    		<button onclick="getTuristas(${res[i].idtours});" class="btn btn-outline-primary">List turist</button>
-										 	 	</div>
-											</div>`);
-			}
+		url: '../Controlador/ajax/gestion-guia.php?accion=informacionGuia',
+		method: 'POST',
+	  	dataType: 'json',
+	  	data: {idguia: idguia},
+	  	success:function(resp){
+			console.log(resp);
+			$('#input-username').val(resp[0].nombreUsuario);
+			$('#input-email').val(resp[0].email);
+			$('#input-first-name').val(resp[0].nombreCompleto);
+			$('#input-last-name').val(resp[0].Apellidos);
+			$('#direccion').val(resp[0].direccion);
+			$('#input-phone').val(resp[0].telefono);
+			$('#input-id').val(resp[0].numeroIdentidad);
+
+			$('#guide-usuario').append(resp[0].nombreUsuario);
+			$('#guide-usuario-email').append(resp[0].email);	
 		}
 	});
+}
 
+
+function getTours(){
+	let idguia = $("#idGuia").val();
+	//console.log(idguia);
 	$.ajax({
-		url:"../Controlador/ajax/gestion-guia.php?accion=informacionGuia",
-		method:'POST',
-		dataType:'json',
-		data: { idguia : $("#guia_registrado").val() },
-		success:function(res){
-			//console.log(res);
-
-			$("#input-username").val(res[0].nombreUsuario);
-			$("#input-email").val(res[0].email);
-			$("#input-first-name").val(res[0].nombreCompleto);
-			$("#input-last-name").val(res[0].Apellidos);
-			$("#input-address").val(res[0].direccion);
-			$("#input-phone").val(res[0].telefono);
-			$("#input-id").val(res[0].numeroIdentidad);
-
-			$("#nombreUsuario").html(`<h1 class="display-3 text-white"> Hello ${res[0].nombreUsuario} </h1>`);
-
-			$("#usuario").html(res[0].nombreUsuario);
-			$("#direccion").html(res[0].direccion);
-			$("#correo").html(res[0].email);
-
-
-
-		
-
-
-			if(res[0].genero=='M'){
-				$("#input-genero").val(1);
+		url:'../Controlador/ajax/gestion-guia.php?accion=toursPorGuia',
+		method: 'POST',
+		dataType: 'json',
+		data: {idguia: idguia},
+		success: function(response){
+			console.log(response);
+			let template = '';
+			for (var i=0; i<response.length; i++){
+				template += `
+				<tr>
+				  <th idUser="${response[i].idtours}" scope="row">${i+1}</th>
+				  <td>${response[i].nombre}</td>
+				  <td>${response[i].nombreHotel}</td>
+				  <td>${response[i].estado}</td>
+				  <td>${response[i].precio} $</td>
+				  <td>${response[i].dias} days</td>  
+				`
 			}
-			if (res[0].genero=='F') {
-				$("#input-genero").val(2);
-			}
-
-
+			$('#tourGuide').append(template);
 			
 		}
 	});
+}
 
-
-
-});
-
-function getTuristas(id) {
-	//alert(id);
-	$("#table-turis").html("");
-	$('#exampleModalCenter').modal('show');
+function getTurist(){
+	let idguia = $('#idGuia').val();
 
 	$.ajax({
-		url:"../Controlador/ajax/gestion-turista.php?accion=turistaPorTours",
-		method:'POST',
-		dataType:'json',
-		data: { idTors : id },
-		success:function(res){
-			//console.log(res[0].email);
-
-			for (var i = 0; i < res.length; i++) {
-
-				$("#table-turis").append(`<tr>
-											<td>${ i+1 }</td>
-											<td>${ res[i].nombreCompleto }</td>
-											<td>${ res[i].Apellidos }</td>
-											<td>${ res[i].email }</td>
-										</tr>`);	
-	
+		url:'../Controlador/ajax/gestion-turista.php?accion=turistaPorTours',
+		method: 'POST',
+		dataType: 'json',
+		data: {idguia: idguia},
+		success: function(response){
+			console.log(response);
+			let template = '';
+			for (var i=0; i<response.length; i++){
+				template += `
+				<tr>
+				  <th idUser="${response[i].idtours}" scope="row">${i+1}</th>
+				  <td>${response[i].nombre}</td>
+				  <td>${response[i].nombreHotel}</td>
+				  <td>${response[i].nombreCompleto}  ${response[i].Apellidos}</td>		   
+				`
 			}
-					
+			$('#turistGuide').append(template);	
 		}
 	});
-
 }
+
+function getEmailAdmin(){
+	$.ajax({
+		url:"../Controlador/ajax/gestion-Usuario.php?accion=admin",
+		method:'POST',
+		dataType:'json',
+		success:function(res){
+			for (var i = 0; i < res.length; i++) {
+				$("#asigEmail").append(`<option value="${res[i].idUsuario}">${res[i].email}</option>`);
+			}		
+		}
+	});
+}
+
+function enviarEmail(){
+	let emailAdmin = $('#asigEmail option:selected').text();
+	let asunto = $('#asunto').val();
+	let message = $('message').val();
+
+}	
+
