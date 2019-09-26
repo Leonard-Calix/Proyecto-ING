@@ -73,7 +73,10 @@
             }
             if($_SESSION["tipo"]==3){
               $ruta="../Vista/perfil-guide.php";
+            }if ($_SESSION["tipo"]==1) {
+              $ruta="../Vista/user.php";
             }
+            
 
             echo '<li class="nav-item">
             <a href="'.$ruta.'" class="nav-link">
