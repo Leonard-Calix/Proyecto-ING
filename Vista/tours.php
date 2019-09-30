@@ -8,7 +8,7 @@ if (isset($_SESSION["usuario"]) ) {
  $usr = $_SESSION["usuario"];
 
 }else {
-  header('Location: index.php');
+  //header('Location: index.php');
 }
 
 

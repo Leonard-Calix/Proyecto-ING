@@ -7,6 +7,18 @@
 		case 'mostrar':
 			Tours::mostrarTours();
 		break;
+
+		case 'obtenerToursFavoritos':
+			Tours::toursFavoritos($_GET["id"]);
+		break;		
+
+		case 'addFavoritos':
+			Tours::addFavoritos($_GET["id"]);
+		break;	
+
+		case 'removeFavoritos':
+			Tours::removeFavoritos($_GET["id"]);
+		break;	
 		
 		case 'obtenerTour':
 			Tours::obtenerTours($_POST["id"]);

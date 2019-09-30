@@ -67,6 +67,12 @@
               <p class="text-white" >Comments</p>
             </a>
           </li>
+          <li>
+            <a href="favorito.php">
+              <i class="nc-icon nc-single-02"></i>
+              <p class="text-white" >Add favorites</p>
+            </a>
+          </li>
 
         </ul>
       </div>
