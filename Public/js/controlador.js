@@ -1,5 +1,4 @@
 $(document).ready(function(){	
-	/*===============================================================*/
 	/*Detalle de tour*/
 	if ($('#tour').val()!=null) {
 
@@ -20,7 +19,7 @@ $(document).ready(function(){
 	/*===============================================================*/
 	/*Consulta para la informaciond del perfil*/
 	if ( $('#usuario_registrado').val()!=null) {
-		let usuario_registrado = $('#usuario_registrado').val();
+		var usuario_registrado = $('#usuario_registrado').val();
 		infoPerfil(usuario_registrado);
 	}
 
@@ -306,7 +305,7 @@ function selecionarEstado(){
 
 		if (res.length > 0) {
 			var estrella='';
-		var img = '';
+			var img = '';
 
 		
 			img = '../Public/img/tours/' + res[0].idTours + '_01.png';
@@ -346,14 +345,8 @@ function selecionarEstado(){
                   
 			$('#resEstados').html(` <h5 class="text-primary text-uppercase">No existe tour registrado</h5>  `);
 
-		}
-
-		
-		
+		}		
 	}
 });
-
-
-
 
 } 

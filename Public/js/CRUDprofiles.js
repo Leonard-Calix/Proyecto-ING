@@ -6,11 +6,10 @@ $(document).ready(function(){
 function cambioprofiles() {
 	$(".detalle").hide(); 
 	$(".edite").hide();
-	$("#info").hide();
 	$(".new").show();
 	$("#registro_profiles").show();
-	$("#btn-edit").hide();
-    $("#btn-add").show();
+	$("#btnedit").hide();
+    $("#btnadd").show();
     limpiarInputs();
 }
 
@@ -32,7 +31,6 @@ function fetchProfiles() {
       method: 'POST',
       dataType:'json',
       success: function(response) {
-        //const profiles = JSON.parse(response);
         let template = '';
         //console.log(response[0].idUsuario);
 
@@ -55,6 +53,7 @@ function fetchProfiles() {
             </tr>
             `
         }
+        limpiarInputs();
         $('#res').append(template);
       }
     });
@@ -62,8 +61,9 @@ function fetchProfiles() {
 
 function agregarUser(){
 
-    $("#btn-add").show();
-    $("#btn-edit").hide();
+    $("#btnadd").show();
+    $("#btnedit").hide();
+    limpiarInputs();
 
     var nombre = $('#nameUser').val();
     var apellido = $('#apellidoUser').val();
@@ -129,7 +129,6 @@ function agregarUser(){
 
 function EliminarUser(idUser){
     //console.log(idUser);
-
     $.ajax({
         url: '../Controlador/ajax/gestion-Usuario.php?accion=delete',
         method: 'POST',
@@ -149,13 +148,13 @@ function EliminarUser(idUser){
 }
 
 function fetchEditar(idEdit){
-    $("#info").hide();
+    limpiarInputs();
     $("#registro_profiles").show();
     $("#idUser").val(idEdit);
-    $("#btn-add").hide();
-    $("#btn-edit").show();
+    $("#btnadd").hide();
+    $("#btnedit").show();
     //console.log("ID = " + idEdit );
-
+    
     $.ajax({
         url: '../Controlador/ajax/gestion-Usuario.php?accion=infoProfiles',
         method: 'POST',
@@ -181,8 +180,8 @@ function fetchEditar(idEdit){
 
 function editarUser(){
 
-    $("#btn-add").hide();
-    $("#btn-edit").show();
+    $("#btnadd").hide();
+    $("#btnedit").show();
     
     var datos = {
         idUpdate: $('#idUser').val(),
@@ -233,5 +232,4 @@ function editarUser(){
 		}
 	});
 }
-
 

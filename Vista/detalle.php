@@ -19,16 +19,16 @@ include_once ('Layouts/navbar.php');
     <div id="foto_tour" ></div>
     <ul class="nav justify-content-center ">
       <li class="nav-item">
-        <button id="btn-i" class="nav-link btn btn-defaul text-secondary" onclick="informacion();">Details</button>
+        <button id="btn-details" class="nav-link btn btn-defaul text-secondary" onclick="details();">Details</button>
       </li>
       <li class="nav-item">
-        <button id="btn-t" class="nav-link active btn btn-defaul text-secondary" onclick="tours();">Commets</button>
+        <button id="btn-commets" class="nav-link active btn btn-defaul text-secondary" onclick="commets();">Commets</button>
       </li>
     </ul>
   </div>
 </div>
 
-<section id="informacion" class="p-2">
+<section id="information" class="p-2">
   <input type="hidden" id="tour" value=" <?php echo $_GET["id"] ?> ">
   <div class="container-fluid p-2">
     <div class="card">
@@ -36,7 +36,7 @@ include_once ('Layouts/navbar.php');
         Details Tour
       </div>
       <div class="card-body">
-        <div class="containe" id="info"></div>
+        <div class="container" id="infoTour"></div>
         
       </div>
     </div>
@@ -44,7 +44,7 @@ include_once ('Layouts/navbar.php');
 </section>
 
 
-<section id="vista-tours" class="p-2" style="display: none;">
+<section id="view-commets" class="p-2" style="display: none;">
   <div class="container">
     <div class="card">
       
@@ -56,7 +56,7 @@ include_once ('Layouts/navbar.php');
 					<div class="row justify-content-center">
 						<div class="col-auto foto">
 							<a href="#">
-								<img src="../Public/img/user.jpg" alt="">
+								<img src="../Public/img/user.jpg" alt="user">
 							</a>
 						</div>
 						<div class="col">

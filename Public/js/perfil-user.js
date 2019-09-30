@@ -1,6 +1,4 @@
 $(document).ready(function($) {
-	
-
 	$.ajax({
 		url:"../Controlador/ajax/gestion-turista.php?accion=tours_turista",
 		method:'POST',
@@ -22,9 +20,7 @@ $(document).ready(function($) {
 						</p>
 					</div>`);
 			}
-
 		}
-
 	});
 
 	$.ajax({
@@ -38,17 +34,13 @@ $(document).ready(function($) {
 			$("#nombre").html(res[0].nombreCompleto);
 			$("#apellidos").html(res[0].Apellidos);
 			$("#correo").html(res[0].email);
-
-
 		}
-
 	});
 
 
 	$("#informacion").show();
 	//$("#vista-tours").hide();
 	$("#btn-i").addClass('text-info');
-
 
 });
 
@@ -59,7 +51,6 @@ function informacion() {
 	$("#btn-i").addClass('text-info');
 	$("#btn-t").removeClass('text-info');
 
-
 }
 
 function tours() {
@@ -67,5 +58,4 @@ function tours() {
 	$("#vista-tours").fadeIn(500);
 	$("#btn-i").removeClass('text-info');
 	$("#btn-t").addClass('text-info');
-
 }

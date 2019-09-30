@@ -1,8 +1,25 @@
 $(document).ready(function(){
 	ComentariosporTour();
-	obtenerTours( $("#tour").val() );
+	let idtour = $("#tour").val() 
+	obtenerTours(idtour);
 });
 
+function details() {
+	$("#view-commets").fadeOut(500);
+	$("#information").fadeIn(500);
+	$("#btn-details").addClass('text-info');
+	$("#btn-commets").removeClass('text-info');
+
+}
+
+function commets() {
+	$("#information").fadeOut(500);
+	$("#view-commets").fadeIn(500);
+	$("#btn-details").removeClass('text-info');
+	$("#btn-commets").addClass('text-info');
+}
+
+//Funcion para mostrar card del tour
 function obtenerTours(id){
 	$.ajax({
 		url: "../Controlador/ajax/gestion-Tours.php?accion=detalle",
@@ -39,12 +56,12 @@ function obtenerTours(id){
 					</div>
 				</div>`;
 			
-			$("#info").append(template);	
+			$("#infoTour").append(template);	
 			$("#nombre").html(response[0].tours);
 			$("#descripcion").append(`<button class="btn btn-primary" data-toggle="modal" data-target="#compraModal">Buy</button> `);
 
 			var imgTemporal = '../Public/img/tours/' + response[0].idtours + '_01.png';
-			console.log("img :" + imgTemporal);
+			//console.log("img :" + imgTemporal);
 
 			$("#foto_tour").append(`<img class="img-fluid card-img" src="${imgTemporal}" alt="...">`);
 		}		
@@ -253,9 +270,7 @@ function ComentariosporTour(){
 		dataType: 'json',
 		data: {tourID: tourID},
         success: function(response){
-        	console.log(response);
             let template = '';
-            console.log(response);
             for(let i=0; i<response.length; i++){
 				template += `
 				<input type="hidden" id="idComment" value="${response[i].idComentarios}">
@@ -268,7 +283,7 @@ function ComentariosporTour(){
                 		<small class="text-muted">
                  			<span class="text-primary"><b>${response[i].nombreUsuario}</b></span> 
 							 ${response[i].Comentario} 
-							 <span style="font-size: 14px;" class="float-right mr-2" id="btn-delete" onclick="deleteCommentDetalles(${response[i].idComentarios});" ><i class="fas fa-trash text-danger "></i></span>
+							 <span style="font-size: 14px;" class="float-right mr-2" id="btn-delete" onclick="deleteCommentDetalles(${response[i].idComentarios}, ${response[i].idUsuario});" ><i class="fas fa-trash text-danger "></i></span>
 
                			</small>			
              		</div>
@@ -284,20 +299,20 @@ function ComentariosporTour(){
 }
 
 //Funcion para borrar comentarios
-function deleteCommentDetalles(idComment){
+function deleteCommentDetalles(idComment, idUser){
 	let usuarioSesion = $('#sesion').val();
-	let usuarioComment = $('#idUser').val();
+	let usuarioComment = idUser;
 
-	console.log('usuario comentario: '+usuarioComment);
+	/*console.log('usuario comentario: '+usuarioComment);
 	console.log("usuario sesion: " + usuarioSesion);
 	console.log(typeof usuarioSesion === 'string');
 	console.log(typeof usuarioComment === 'string');
-	console.log(usuarioSesion.trim() == usuarioComment.trim());
-
+	console.log(usuarioSesion.trim() == usuarioComment);*/
+	
+	//Remover espacios vacios
 	usuarioSesion = usuarioSesion.trim();
-	usuarioComment = usuarioComment.trim();
-
-    if (usuarioComment === usuarioSesion) {
+	
+    if (usuarioComment == usuarioSesion) {
 
     	$.ajax({
         	url: '../Controlador/ajax/gestionComentarios.php?accion=borrar',

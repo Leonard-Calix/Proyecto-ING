@@ -1,12 +1,11 @@
 
-
 <!-- NAVBAR ================================================= -->
 <nav class="navbar navbar-expand-xl navbar-dark  navbar-togglable fixed-top">
   <div class="container">
 
     <!-- Brand -->
     <a class="navbar-brand" href="../Vista/index.php">
-      <img style=" width: 150px;" src="../Public/img/logo.png"> 
+      <img style="width: 150px;" src="../Public/img/logo.png" alt="INDIATOURS">
     </a>
 
     <!-- Toggler -->
