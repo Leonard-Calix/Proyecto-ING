@@ -305,8 +305,6 @@ class Tours	{
         }else{
         	return 0;
         }
-
-     
 	}
 
 	public function editarTours(){
@@ -461,22 +459,17 @@ class Tours	{
 	}
 
 	public function toString(){
-			return "IdTours: " . $this->idTours . 
-				" Nombre: " . $this->nombre . 
-				" Descripcion: " . $this->descripcion . 
-				" FechaInicio: " . $this->fechaInicio . 
-				" FechaFin: " . $this->fechaFin . 
-				" Precio: " . $this->precio . 
-				" Cupos: " . $this->cupos . 
-				" Calificacion: " . $this->calificacion . 
-				" iDEstados: " . $this->IdEstados . 
-				" iDGuia: " . $this->idGuia;
-		}
-
+		return "IdTours: " . $this->idTours . 
+			" Nombre: " . $this->nombre . 
+			" Descripcion: " . $this->descripcion . 
+			" FechaInicio: " . $this->fechaInicio . 
+			" FechaFin: " . $this->fechaFin . 
+			" Precio: " . $this->precio . 
+			" Cupos: " . $this->cupos . 
+			" Calificacion: " . $this->calificacion . 
+			" iDEstados: " . $this->IdEstados . 
+			" iDGuia: " . $this->idGuia;
+	}
 }
-
-
-	
-
 
 ?>

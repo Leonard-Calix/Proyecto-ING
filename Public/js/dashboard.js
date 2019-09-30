@@ -1,80 +1,77 @@
 $(document).ready(function($) {
 
-		$.ajax({
-			url:"../Controlador/ajax/gestion-Tours.php?accion=tours",
-			method:'POST',
-			dataType:'json',
-			success:function(res){
-				//console.log("respuesta de la tabla de tours");
-				//console.log(res);
-				$('#t-res').html(" ");
-				for (var i = 0; i < res.length; i++) {
-					$('#t-res').append(` 
-					<tr id="${res[i].id}" >
-          				<th scope="row">${ i + 1 }</th>
-          				<td>${res[i].Nombre_Tour}</td>
-          				<td>${res[i].Precio_Tours}</td>
-          				<td scope="col"> <button onclick="detalles(${res[i].id});" class="btn btn-outline-warning"  data-toggle="modal" data-target="#modal-video">Detalle</button> </td>
-          				<td scope="col"> <button onclick="editar(${res[i].id});" class="btn btn-outline-success" data-toggle="modal" data-target="#modal-video" >Edit</button> </td>
-          				<td scope="col"> <button onclick="eliminar(${res[i].id})";" class="btn btn-outline-danger" >Remove</button> </td>
-        			</tr>`);
-				}
-				
+	$.ajax({
+		url:"../Controlador/ajax/gestion-Tours.php?accion=tours",
+		method:'POST',
+		dataType:'json',
+		success:function(res){
+			//console.log("respuesta de la tabla de tours");
+			//console.log(res);
+			$('#t-res').html(" ");
+			for (var i = 0; i < res.length; i++) {
+				$('#t-res').append(` 
+				<tr id="${res[i].id}" >
+        			<th scope="row">${ i + 1 }</th>
+        			<td>${res[i].Nombre_Tour}</td>
+        			<td>${res[i].Precio_Tours}</td>
+        			<td scope="col"> <button onclick="detalles(${res[i].id});" class="btn btn-outline-warning"  data-toggle="modal" data-target="#modal-video">Detalle</button> </td>
+        			<td scope="col"> <button onclick="editar(${res[i].id});" class="btn btn-outline-success" data-toggle="modal" data-target="#modal-video" >Edit</button> </td>
+        			<td scope="col"> <button onclick="eliminar(${res[i].id})";" class="btn btn-outline-danger" >Remove</button> </td>
+        		</tr>`);
 			}
+			
+		}
 
-		});
-
-//INFORMACION DE PERFIL DE GUIA 
-
-$.ajax({
-	url: '../Controlador/ajax/gestion-Usuario.php?accion=infoProfiles',
-	method: 'post',
-	dataType: 'json',
-	data: { idEdit : $("#idUsuario").val() },
-	success:function(res){
-		//console.log("Usuario");
-		//console.log(res);
-		$("#username").val(res[0].nombreUsuario);
-		$("#email").val(res[0].email);
-		$("#nombre").val(res[0].nombreCompleto);
-		$("#apellido").val(res[0].Apellidos);
-		$("#direccion").val(res[0].direccion);
-		$("#telefono").val(res[0].telefono);
-		$("#identidad").val(res[0].numeroIdentidad);
-
-		$("#div-usuario-email").html(`<p class="description" > <span class="text-primary">Email :</span> ${res[0].email}</p>`);
-		$("#div-usuario").html(`<p class="description" > <span class="text-primary">Username :</span> ${res[0].nombreUsuario}</p>`);
-
-	}
 	});
 
-		$.ajax({
-			url:"../Controlador/ajax/gestion-Usuario.php?accion=getGuias",
-			method:'POST',
-			dataType:'json',
-			success:function(res){
-				//console.log("respuesta de Guias");
-				//console.log(res);
-				for (var i = 0; i < res.length; i++) {
-					$("#guiaOpt").append(`<option value="${res[i].idGuia}" >${res[i].nombreCompleto}</option>`);
-				}		
-			}
-		});
+	//INFORMACION DE PERFIL DE GUIA 
+	$.ajax({
+		url: '../Controlador/ajax/gestion-Usuario.php?accion=infoProfiles',
+		method: 'post',
+		dataType: 'json',
+		data: { idEdit : $("#idUsuario").val() },
+		success:function(res){
+			//console.log("Usuario");
+			//console.log(res);
+			$("#username").val(res[0].nombreUsuario);
+			$("#email").val(res[0].email);
+			$("#nombre").val(res[0].nombreCompleto);
+			$("#apellido").val(res[0].Apellidos);
+			$("#direccion").val(res[0].direccion);
+			$("#telefono").val(res[0].telefono);
+			$("#identidad").val(res[0].numeroIdentidad);
 
-		$.ajax({
-			url:"../Controlador/ajax/gestion-Tours.php?accion=obtenerEstado",
-			method:'POST',
-			dataType:'json',
-			success:function(res){
-				//console.log("respuesta de Estados");
-				//console.log(res);
-				for (var i = 0; i < res.length; i++) {
-					$("#estado").append(`<option value="${res[i].idEstados}" >${res[i].nombre}</option>`);
-				}		
-			}
-		});
+			$("#div-usuario-email").html(`<p class="description" > <span class="text-primary">Email :</span> ${res[0].email}</p>`);
+			$("#div-usuario").html(`<p class="description" > <span class="text-primary">Username :</span> ${res[0].nombreUsuario}</p>`);
 
+		}
+	});
 
+	$.ajax({
+		url:"../Controlador/ajax/gestion-Usuario.php?accion=getGuias",
+		method:'POST',
+		dataType:'json',
+		success:function(res){
+			//console.log("respuesta de Guias");
+			//console.log(res);
+			for (var i = 0; i < res.length; i++) {
+				$("#guiaOpt").append(`<option value="${res[i].idGuia}" >${res[i].nombreCompleto}</option>`);
+			}		
+		}
+	});
+
+	$.ajax({
+		url:"../Controlador/ajax/gestion-Tours.php?accion=obtenerEstado",
+		method:'POST',
+		dataType:'json',
+		success:function(res){
+			//console.log("respuesta de Estados");
+			//console.log(res);
+			for (var i = 0; i < res.length; i++) {
+				$("#estado").append(`<option value="${res[i].idEstados}" >${res[i].nombre}</option>`);
+			}		
+		}
+	});
 });
 
 function cambio() {
@@ -89,8 +86,7 @@ function cambio() {
 	
 	$("#btn-E").hide();
 	$("#btn-G").show();
-	//$("#fechaI").val("2019-07-20");
-	//$("#estado").val('2');
+
 	$("#idtours").val("");
 	$("#nombre").val("");
 	$("#descripcion").val("");
@@ -135,10 +131,7 @@ function editar(id) { // solo muestra informacion
 	$("#btn-G").hide();
 	$("#btn-E").show();
 	$("#div-asignaHotel").hide();
-
-	
 	//console.log(id);
-
 	$.ajax({
 		url: '../Controlador/ajax/gestion-Tours.php?accion=infoTours',
 		method: 'post',
@@ -168,8 +161,6 @@ function detalles(id) {
 	$("#edite-tour").hide();
 	$("#registro_tours").hide();
 	$("#div-asignaHotel").hide();
-
-
 
 	$.ajax({
 		url: '../Controlador/ajax/gestion-Tours.php?accion=detalleTours',
@@ -239,10 +230,10 @@ function agregar() {
 	});
 	
 }
+
 function editarReguistro(){
 	//console.log("Funciona")
-
-		var data = {
+	var data = {
 		id : $("#idtours").val(),
 		nombre : $("#nombre").val(),
 		descripcion : $("#descripcion").val(),
@@ -253,7 +244,7 @@ function editarReguistro(){
 		fechaF : $("#fechaF").val(),
 		calificacion : $("#calificacion").val(),
 		cupos : $("#cupos").val()
-};
+	};
 
 	//console.log(data);
 
@@ -285,8 +276,6 @@ function editarReguistro(){
 }
 
 // ASIGNACION DE HOTELES
-
-
 function AsignarHotel(){
 
 	$("#asignarHoteles").val('');
@@ -305,10 +294,9 @@ function AsignarHotel(){
 
 function obtenerHoteles(){
 
-		$("#asignarHoteles").empty();
+	$("#asignarHoteles").empty();
 
-
-		$.ajax({
+	$.ajax({
 		url: '../Controlador/ajax/gestion-Tours.php?accion=obtenerHoteles',
 		method: 'POST',
 		data: { idTours: $("#asignarTours").val()  },
@@ -325,12 +313,8 @@ function obtenerHoteles(){
 
 }
 
-
-
-
 function tourSinHoteles(){
-
-		$.ajax({
+	$.ajax({
 		url: '../Controlador/ajax/gestion-Tours.php?accion=obtenerTourSinHoteles',
 		method: 'post',
 		dataType: 'json',
@@ -348,7 +332,6 @@ function tourSinHoteles(){
 function asignaHotel(){
 
 	//console.log( $("#asignarTours").val() + " " + $("#asignarHoteles").val() + " Hola" );
-
 	$.ajax({
 		url: '../Controlador/ajax/gestion-Tours.php?accion=asignarHotel',
 		method: 'post',
@@ -363,8 +346,3 @@ function asignaHotel(){
 	});
 
 }
-
-
-
-
-

@@ -1,7 +1,6 @@
 $(document).ready(function () {
   fetchGuides();
   fetchGuiaOpt();
-
 });
 
 function limpiarInput(){
@@ -146,10 +145,8 @@ function NotificarGuia(guiaid){
 }
 
 function sendEmail(){
-
   var datos = { email: $("#emailguia").val(), info: $("#info-tourguia").val() };
-  let template = '';
-
+  
   $.ajax({
     url: '../Controlador/ajax/gestion-guia.php?accion=datosCorreo',
     method: 'POST',

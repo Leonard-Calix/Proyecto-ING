@@ -37,7 +37,6 @@
     
         </tbody>
     </table>
-
 </div>
 
 <?php include_once('Layouts/footer.php'); ?>
