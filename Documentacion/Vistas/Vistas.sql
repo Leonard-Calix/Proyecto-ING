@@ -1,6 +1,6 @@
 /*VISTAS DE LOS TOUR POPULARES*/
 CREATE view view_populares as 
-SELECT t.idEstados estado, t.idTours, t.nombre, t.descripcion, t.calificacion,  
+SELECT  t.idEstados estado, t.idTours, t.nombre, t.descripcion, t.calificacion  
 FROM tours t inner join populares p oN p.idpopulares=t.idtours;
 
 /*VISTA DE LOS PERFILES DE USUARIO*/

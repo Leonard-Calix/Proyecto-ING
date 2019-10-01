@@ -110,7 +110,7 @@ class Tours	{
 		Conexion::abrirConexion();
 		$conexion = Conexion::obtenerConexion();
 
-		$sql = "SELECT * FROM view_populares WHERE estado='$idEstado'";
+		$sql = "SELECT * FROM tours WHERE idEstados='$idEstado'";
 		$resultado = $conexion->prepare($sql);
 		$resultado ->execute();
 
@@ -457,6 +457,82 @@ class Tours	{
 		echo json_encode($tour);
 
 	}
+
+	public static function toursFavoritos(){
+		Conexion::abrirConexion();
+		$conexion = Conexion::obtenerConexion();
+
+		$sql = "SELECT t.idtours, t.nombre FROM tours t";
+
+        $sentencia = $conexion->prepare($sql);
+        $sentencia->execute();
+		
+		$tour = array();
+
+		foreach ($sentencia as $row) {
+			$tour[] = $row; 
+		}
+
+		echo json_encode($tour);
+	}
+
+	public static function removeFavoritos($id){
+		Conexion::abrirConexion();
+		$conexion = Conexion::obtenerConexion();
+
+		$sql = 'CALL SP_REMOVE_FAVORITOS(:pidTour, @resultado, @mensaje)';
+		
+		$resultado = $conexion->prepare($sql);
+
+        // enviando parametros al procedimiento
+		$resultado->bindParam(':pidTour', $id, PDO::PARAM_INT);
+		
+		$resultado->execute();
+		$resultado->closeCursor(); 
+
+      
+        $salida = $conexion->query('select @resultado, @mensaje')->fetch();
+        $res = $salida['@resultado'];
+        $mensaje = $salida['@mensaje'];
+
+     
+        if ($mensaje!= null && $res!=null) {
+        	return json_encode( array("mensaje" => $mensaje, "resultado" => $res ) );
+        }else{
+        	return 0;
+        }
+ 
+	}
+
+	public static function AddFavoritos($id){
+		Conexion::abrirConexion();
+		$conexion = Conexion::obtenerConexion();
+
+		$sql = 'CALL SP_ADD_FAVORITOS(:pidTour, @resultado, @mensaje)';
+		
+		$resultado = $conexion->prepare($sql);
+
+        // enviando parametros al procedimiento
+		$resultado->bindParam(':pidTour', $id, PDO::PARAM_INT);
+		
+		$resultado->execute();
+		$resultado->closeCursor(); 
+
+      
+        $salida = $conexion->query('select @resultado, @mensaje')->fetch();
+        $res = $salida['@resultado'];
+        $mensaje = $salida['@mensaje'];
+
+     
+        if ($mensaje!= null && $res!=null) {
+        	return json_encode( array("mensaje" => $mensaje, "resultado" => $res ) );
+        }else{
+        	return 0;
+        }
+ 
+	}
+
+
 
 	public function toString(){
 		return "IdTours: " . $this->idTours . 

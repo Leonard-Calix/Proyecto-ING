@@ -64,7 +64,7 @@ function showTours(){
 		url:"../Controlador/ajax/gestion-Tours.php?accion=mostrar",
 		dataType:'json',
 		success:function(res){
-		console.log(res);
+		//console.log(res);
 		var estrella='';
 		var img = '';
 		for (var i = 0; i < res.length; i++) {
