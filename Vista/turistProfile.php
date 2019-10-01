@@ -1,14 +1,14 @@
 <?php 
 session_start();
 
-if(isset($_SESSION["usuario"]) && $_SESSION["tipo"]==3) {
+if(isset($_SESSION["usuario"]) && $_SESSION["tipo"]==2) {
 	$usr = $_SESSION["usuario"];
 }else {
 	header('Location: index.php');
 }
 
-include_once('Layouts/headerGuide.php');
-include_once('Layouts/navbarGuide.php');
+include_once('Layouts/headerTurist.php');
+include_once('Layouts/navbarTurist.php');
 ?>
 
 <div class="content">
@@ -20,10 +20,10 @@ include_once('Layouts/navbarGuide.php');
            </div>
            <div class="card-body">
                <div class="author">
-                    <img class="avata border-gray" style="width: 140px; height: 140px;" src="../Public/img/perfil.jpg" alt="..."><br><br>
-                    <input type="hidden" id="idGuia" value=" <?php echo $usr ?> " >
-                    <div id="guide-usuario-email"></div>
-				    <div id="guide-usuario"></div>                  
+                    <img class="avata border-gray" style="width: 140px; height: 140px;" src="../Public/img/user.jpg" alt="..."><br><br>
+                    <input type="hidden" id="idTurista" value=" <?php echo $usr ?> " >
+                    <div id="turist-usuario-email"></div>
+				    <div id="turist-usuario"></div>                  
                </div>
                
            </div>
@@ -57,7 +57,7 @@ include_once('Layouts/navbarGuide.php');
                        <div class="col-md-6">
                            <div class="form-group">
                                <label>First Name</label>
-                               <input type="text" id="input-first-name" class="form-control" placeholder="First-name" value="">
+                               <input type="text" id="input-first-name" class="form-control" placeholder="first-name" value="">
                            </div>
                        </div>
                        <div class="col-md-6">
@@ -71,7 +71,7 @@ include_once('Layouts/navbarGuide.php');
                        <div class="col-md-12">
                            <div class="form-group">
                                <label>Address</label>
-                               <input type="text" id="direccion" class="form-control" placeholder="Address" value="">
+                               <input type="text" id="direccion" class="form-control" placeholder="Home Address" value="">
                            </div>
                        </div>
                    </div>
@@ -79,13 +79,13 @@ include_once('Layouts/navbarGuide.php');
                        <div class="col-md-6">
                            <div class="form-group">
                                <label>Phone</label>
-                               <input type="text" id="input-phone" class="form-control" placeholder="Telephone" value="">
+                               <input type="text" id="input-phone" class="form-control" placeholder="City" value="">
                            </div>
                        </div>
                        <div class="col-md-6">
                            <div class="form-group">
                                <label>ID</label>
-                               <input type="text" id="input-id" class="form-control" placeholder="ID" value="">
+                               <input type="text" id="input-id" class="form-control" placeholder="Country" value="">
                            </div>
                        </div>
                    </div>
