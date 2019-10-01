@@ -11,8 +11,6 @@ if (isset($_SESSION["usuario"]) ) {
   header('Location: index.php');
 }
 
-
-
 include_once('Layouts/header_2.php'); 
 
 ?>

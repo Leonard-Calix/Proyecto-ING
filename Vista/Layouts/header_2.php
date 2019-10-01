@@ -107,7 +107,7 @@
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="user.php">Perfil</a>
+                  <a class="dropdown-item" href="user.php">Profile</a>
                   <a class="dropdown-item" href="logout.php">Logout</a>
                 </div>
               </li>

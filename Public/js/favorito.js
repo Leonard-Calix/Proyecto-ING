@@ -24,11 +24,7 @@ function removeFavorites(id) {
 				$("#alert-add").fadeIn(500);
 				setTimeout(function(){ $("#alert-add").fadeOut(500);  }, 2000);
 
-			}
-
-			
-			
-				
+			}				
 		}		
 	});
 }
@@ -86,18 +82,3 @@ function obtenerToursF() {
 		}		
 	});
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

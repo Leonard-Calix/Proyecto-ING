@@ -1,18 +1,13 @@
-
 <?php 
-
 	session_start();
    
-  	if (isset($_SESSION["usuario"]) ) {
+  	if (isset($_SESSION["usuario"]) && $_SESSION['tipo']==1) {
     
     	$usr = $_SESSION["usuario"];
-
     }else {
       header('Location: index.php');
   	}
-
 	include_once('Layouts/header_2.php'); 
-
 ?>
 
 <div class="content">
