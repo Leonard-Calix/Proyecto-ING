@@ -145,7 +145,7 @@ function NotificarGuia(guiaid){
 }
 
 function sendEmail(){
-  var datos = { email: $("#emailguia").val(), info: $("#info-tourguia").val() };
+  var datos = { email: $("#emailguia").val(), asunto: $("#asunto").val(), info: $("#info-tourguia").val() };
   
   $.ajax({
     url: '../Controlador/ajax/gestion-guia.php?accion=datosCorreo',

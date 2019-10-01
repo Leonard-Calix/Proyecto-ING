@@ -64,7 +64,8 @@ include_once('Layouts/navbarGuide.php');
             <br>
             <div class="col-md-6">
               <div class="form-group">
-                <textarea name="message" id="message" placeholder="  message" cols="55" rows="5"></textarea>
+                <label for="message-text" class="col-form-label">Message:</label>
+                <textarea class="form-control" id="info-tourguia"></textarea>
               </div>
             </div>
           </div>
@@ -72,7 +73,7 @@ include_once('Layouts/navbarGuide.php');
       </div>
       <div class="modal-footer">
         <button  type="button" onclick="limpiarInputs();"class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" id="btn-send" onclick="enviarEmail();" class="btn btn-primary">Send Email</button>
+        <button type="button" id="btn-send" onclick="sendEmail();" class="btn btn-primary">Send Email</button>
       </div>
     </div>
   </div>

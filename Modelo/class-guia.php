@@ -3,8 +3,8 @@ include_once('clase-conexionPDO.php');
 
 class Guia{
     
-    public static function notificaciones($email,$info){
-        $asunto = "Notificacion de los tours Asignados";
+    public static function notificaciones($email, $asunto, $info){
+        $asunto .= "Notificacion de los tours Asignados";
 
         $message = "De: Administracion ToursIndia \n";
         $message .= "Tours: $info";
