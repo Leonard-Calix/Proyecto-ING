@@ -1,6 +1,7 @@
 <?php 
-include_once('clase-conexionPDO.php');
 
+include_once('clase-conexionPDO.php');
+  
 class Turista{
     
     public static function obtenerTours_por_Turista($id){
@@ -90,6 +91,7 @@ class Turista{
 
         echo json_encode($turistas);
     } 
+
 
 }
 
