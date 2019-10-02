@@ -33,7 +33,7 @@ function removeFavorites(id) {
 
 function addFavorites(id) {
 	
-	//console.log(id);
+	console.log(id);
 
 	$.ajax({
 		url: "../Controlador/ajax/gestion-Tours.php?accion=addFavoritos",
