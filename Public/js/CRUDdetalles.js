@@ -38,7 +38,7 @@ function obtenerTours(id){
 			fechaFin = fechaFin.toLocaleDateString("es-ES", options);
 
 			let template = `
-				<div class="col-xl-4 col-md-6 col-xs-12 col-12">
+				<div class="">
 					<div class="price-box popular">
 						<input type="hidden" id="idTour" value="${response[0].idtours}">
 						<input type="hidden" id="idHotel" value="${response[0].idHotel}"> 
@@ -222,7 +222,18 @@ function limpiarInputs(){
 }
 
 function comprar(monto){
-	alert('Compra del tour por '+monto);	
+	
+	//alert('Compra del tour por '+monto);	
+
+	$("#factura").append(`
+		<div style="display: none" id="fac" class="alert alert-info p-5 text-center">
+           <h3>Acquired a tour, for the cost of ${monto} $.</h3>
+        </div>`);
+
+	$("#fac").fadeIn(500);
+	setTimeout(function(){ $("#fac").fadeOut(500); }, 3000);
+
+	
 }
 
 //Agregar Comentarios 

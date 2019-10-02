@@ -36,7 +36,12 @@ include_once ('Layouts/navbar.php');
         Details Tour
       </div>
       <div class="card-body">
-        <div class="container" id="infoTour"></div>
+        <div class="row container">
+          <div class="col-xl-6 col-md-6 col-xs-12 col-12" id="infoTour"></div>
+          <div class="col-md-6" id="factura">
+            
+          </div>
+        </div>
         
       </div>
     </div>

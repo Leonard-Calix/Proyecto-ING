@@ -5,7 +5,7 @@ BEGIN
 	DECLARE conteo INT;
 	SET conteo = 0;
    
-	SELECT COUNT(*) INTO conteo FROM populares WHERE idtours = pidTours;
+	SELECT COUNT(*) INTO conteo FROM populares WHERE idtours = pidTour;
     
 	IF conteo > 0 THEN
 		
