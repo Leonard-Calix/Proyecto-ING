@@ -1,61 +1,73 @@
-$(document).ready(function($) {
+$(document).ready(function() {
+	tourTurist();
+	getTuristID();
+});
+
+function getTuristID(){	
+	let idTurista = $("#idTurista").val();
+
+	$.ajax({
+		url: '../Controlador/ajax/gestion-turista.php?accion=informacion',
+		method: 'POST',
+	  	dataType: 'json',
+	  	data: {idTurista: idTurista},
+	  	success:function(resp){
+			console.log(resp);
+			$('#input-username').val(resp[0].nombreUsuario);
+			$('#input-email').val(resp[0].email);
+			$('#input-first-name').val(resp[0].nombreCompleto);
+			$('#input-last-name').val(resp[0].Apellidos);
+			$('#direccion').val(resp[0].direccion);
+			$('#input-phone').val(resp[0].telefono);
+			$('#input-id').val(resp[0].numeroIdentidad);
+
+			$('#turist-usuario').append(resp[0].nombreUsuario);
+			$('#turist-usuario-email').append(resp[0].email);	
+		}
+	});
+}
+
+
+function tourTurist(){
 	$.ajax({
 		url:"../Controlador/ajax/gestion-turista.php?accion=tours_turista",
 		method:'POST',
 		dataType:'json',
-		data: { id : $("#idt").val() },
+		data: { id : $("#idTurista").val() },
 		success:function(res){
 			//console.log("respuesta de la tabla de tours");
 			console.log(res);
+
+			let fechaInicio = new Date(res[0].fechaInicio);
+			let fechaFin =  new Date(res[0].fechaFin);
+			var duration = fechaFin.getTime() - fechaInicio.getTime();
+			duration = duration / (1000*60*60*24);
+
+			let options = {weekday: "long", month: "long", day: "numeric"};
+			fechaInicio = fechaInicio.toLocaleDateString("es-ES", options);
+			fechaFin = fechaFin.toLocaleDateString("es-ES", options);
+
+			
 			for (var i = 0; i < res.length; i++) {
 				$("#res-tours-turista").append(`
-					<div class="media text-muted p-2">
-						<p class="media-body mb-3 mb-0 small lh-125 border-bottom border-gray">
-							<strong class="d-block"><span class="text-info">Tour Name :</span> ${res[i].nombreTours} </strong>
-							<strong class="d-block"><span class="text-info">Price :</span> ${res[i].precio}</strong>
-							<strong class="d-block"><span class="text-info">Date :</span> ${res[i].fechaInicio} - ${res[i].fechaFin}</strong>
-							<strong class="d-block"><span class="text-info">Days :</span> ${res[i].dias}</strong>
-							<strong class="d-block"><span class="text-info">Description :</span> ${res[i].descripcion}</strong>
-							${res[i].descripcion}
-						</p>
-					</div>`);
+					<div class="col-xl-4 col-md-6 col-xs-12 col-12">
+						<div class="price-box popular">
+							<input type="hidden" id="idTour" value="${res[i].idtours}"> 
+							<h2 class="pricing-plan">${res[i].nombreTours}</h2>
+							<div class="price"><sup class="currency">$</sup>${res[i].precio}</div>
+								<p id="descripcion">
+									${res[i].descripcion}
+								</p>
+							<hr>
+							<ul class="pricing-info">
+								<li><strong>Date init</strong> ${fechaInicio}</li>
+								<li><strong>Date Finish</strong> ${fechaFin}</li>
+								<li><strong>Duration</strong> ${duration} days</li>
+							</ul>
+						</div>
+					</div>				
+				`);
 			}
 		}
 	});
-
-	$.ajax({
-		url:"../Controlador/ajax/gestion-turista.php?accion=informacion",
-		method:'POST',
-		dataType:'json',
-		data: { id : $("#idt").val() },
-		success:function(res){
-			//console.log("respuesta de la tabla de tours");
-			console.log(res);
-			$("#nombre").html(res[0].nombreCompleto);
-			$("#apellidos").html(res[0].Apellidos);
-			$("#correo").html(res[0].email);
-		}
-	});
-
-
-	$("#informacion").show();
-	//$("#vista-tours").hide();
-	$("#btn-i").addClass('text-info');
-
-});
-
-
-function informacion() {
-	$("#vista-tours").fadeOut(500);
-	$("#informacion").fadeIn(500);
-	$("#btn-i").addClass('text-info');
-	$("#btn-t").removeClass('text-info');
-
-}
-
-function tours() {
-	$("#informacion").fadeOut(500);
-	$("#vista-tours").fadeIn(500);
-	$("#btn-i").removeClass('text-info');
-	$("#btn-t").addClass('text-info');
 }

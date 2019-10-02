@@ -49,7 +49,8 @@ class Turista{
          Conexion::abrirConexion();
         $conexion = Conexion::obtenerConexion();
 
-        $sql = "SELECT p.nombreCompleto, p.Apellidos, u.nombreUsuario, u.email FROM turista t
+        $sql = "SELECT p.nombreCompleto, p.Apellidos, p.numeroIdentidad, p.telefono, p.direccion,
+                u.nombreUsuario, u.email FROM turista t
                 INNER JOIN usuario u ON u.idUsuario=t.idUsuario
                 INNER JOIN persona p ON p.idPersona=u.idPersona
                 WHERE u.idUsuario='$id'";

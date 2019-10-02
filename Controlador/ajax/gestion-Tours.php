@@ -2,8 +2,21 @@
 
 	include_once('../../Modelo/clase-Tours.php');
 
+
 	switch ($_GET["accion"]) {
 		
+		case 'obtenerToursFavoritos':
+			Tours::toursFavoritos();
+		break;		
+
+		case 'addFavoritos':
+			echo Tours::addFavoritos($_POST["id"]);
+		break;	
+
+		case 'removeFavoritos':
+			echo Tours::removeFavoritos($_POST["id"]);
+		break;
+
 		case 'mostrar':
 			Tours::mostrarTours();
 		break;

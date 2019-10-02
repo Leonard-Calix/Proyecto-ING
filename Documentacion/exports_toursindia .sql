@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-09-2019 a las 20:18:26
--- Versión del servidor: 10.3.16-MariaDB
--- Versión de PHP: 7.3.7
+-- Tiempo de generación: 01-10-2019 a las 06:41:51
+-- Versión del servidor: 10.4.6-MariaDB
+-- Versión de PHP: 7.3.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -201,6 +201,27 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `EDITAR_TOURS` (IN `pidActualizar` I
 		SET pMensaje = 'Fallo. Verifique sus datos a almacenar';
 		
 	END IF;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ADD_FAVORITOS` (IN `pidTour` INT, OUT `resultado` INT, OUT `mensaje` VARCHAR(2500))  BEGIN
+	DECLARE conteo INT;
+	SET conteo = 0;
+   
+	SELECT COUNT(*) INTO conteo FROM populares WHERE idtours = pidTours;
+    
+	IF conteo > 0 THEN
+		
+        INSERT INTO populares (idPopulares, idTours ) VALUES (null, pidtours);
+        SET mensaje = 'successfully added';
+        SET resultado = 1;
+	
+	ELSE 
+    	
+        SET mensaje = 'already added';
+        SET resultado = 1;
+    
+	END IF;
+
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ADD_PERSON` (IN `pnombreC` VARCHAR(55), IN `papellidos` VARCHAR(55), IN `pnumeroId` VARCHAR(55), IN `ptelefono` VARCHAR(55), IN `pgenero` VARCHAR(55), IN `pDireccion` VARCHAR(55), OUT `pidInsertado` INT, OUT `pMensaje` VARCHAR(45))  BEGIN
@@ -502,6 +523,26 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MONTO_A_PAGAR` (IN `P_idPagos` I
 		SET totalPagar = (precioTours + precioHotel) * (1+(impuesto/100));
 
 	END IF;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REMOVE_FAVORITOS` (IN `pidTour` INT, OUT `resultado` INT, OUT `mensaje` VARCHAR(2500))  BEGIN
+	DECLARE conteo INT;
+	SET conteo = 0;
+   
+	SELECT COUNT(*) INTO conteo FROM populares WHERE idtours = pidTours;
+    
+	IF conteo > 0 THEN
+
+        SET mensaje = 'not added';
+        SET resultado = 0;
+	
+	ELSE 
+    	DELETE FROM populares WHERE idTours=pidTour; 
+        SET mensaje = 'successfully removed';
+        SET resultado = 1;
+    
+	END IF;
+
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_UPDATE_PERSON_USER` (IN `pnombreC` VARCHAR(55), IN `papellidos` VARCHAR(55), IN `pnumeroId` VARCHAR(55), IN `ptelefono` VARCHAR(55), IN `pgenero` VARCHAR(55), IN `pDireccion` VARCHAR(55), IN `pnombreUsuario` VARCHAR(55), IN `pemail` VARCHAR(55), IN `ptipoUserCambiar` INT, IN `pidActualizar` INT, OUT `pMensaje` VARCHAR(45))  BEGIN
@@ -1084,7 +1125,8 @@ CREATE TABLE `view_perfil_usuario_turista` (
 -- (Véase abajo para la vista actual)
 --
 CREATE TABLE `view_populares` (
-`idTours` int(11)
+`estado` int(11)
+,`idTours` int(11)
 ,`nombre` varchar(45)
 ,`descripcion` varchar(255)
 ,`calificacion` int(11)
@@ -1177,7 +1219,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `view_populares`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_populares`  AS  select `t`.`idTours` AS `idTours`,`t`.`nombre` AS `nombre`,`t`.`descripcion` AS `descripcion`,`t`.`calificacion` AS `calificacion` from (`tours` `t` join `populares` `p` on(`p`.`idPopulares` = `t`.`idTours`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_populares`  AS  select `t`.`idEstados` AS `estado`,`t`.`idTours` AS `idTours`,`t`.`nombre` AS `nombre`,`t`.`descripcion` AS `descripcion`,`t`.`calificacion` AS `calificacion` from (`tours` `t` join `populares` `p` on(`p`.`idPopulares` = `t`.`idTours`)) ;
 
 -- --------------------------------------------------------
 

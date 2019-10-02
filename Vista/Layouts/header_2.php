@@ -67,6 +67,12 @@
               <p class="text-white" >Comments</p>
             </a>
           </li>
+          <li>
+            <a href="favorito.php">
+              <i class="nc-icon nc-favourite-28"></i>
+              <p class="text-white" >Add favorites</p>
+            </a>
+          </li>
 
         </ul>
       </div>
@@ -101,7 +107,7 @@
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="user.php">Perfil</a>
+                  <a class="dropdown-item" href="user.php">Profile</a>
                   <a class="dropdown-item" href="logout.php">Logout</a>
                 </div>
               </li>

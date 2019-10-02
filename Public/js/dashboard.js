@@ -24,7 +24,7 @@ $(document).ready(function($) {
 
 	});
 
-	//INFORMACION DE PERFIL DE GUIA 
+	//INFORMACION DE PERFIL DE ADMIN 
 	$.ajax({
 		url: '../Controlador/ajax/gestion-Usuario.php?accion=infoProfiles',
 		method: 'post',

@@ -14,6 +14,11 @@ include_once('../../Modelo/clase-turista.php');
 			Turista::turistaPorTours($id);
 		break;
 
+		case 'informacion':
+			$id = $_POST['idTurista'];
+			Turista::informacion($id);
+			break;
+
 		default:
 			
 		break;

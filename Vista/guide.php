@@ -57,6 +57,9 @@
             <input type="text" class="form-control" id="emailguia">
           </div>
           <div class="form-group">
+            <input type="text" class="form-control" placeholder="Asunto" name="asunt" id="asunto">
+          </div>
+          <div class="form-group">
             <label for="message-text" class="col-form-label">Message:</label>
             <textarea class="form-control" id="info-tourguia"></textarea>
           </div>
