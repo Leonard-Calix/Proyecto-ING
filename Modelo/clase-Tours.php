@@ -92,7 +92,9 @@ class Tours	{
 		Conexion::abrirConexion();
 		$conexion = Conexion::obtenerConexion();
 
-		$sql = "SELECT * FROM view_populares";
+		$sql = "SELECT t.idTours, t.nombre, t.descripcion, t.calificacion, t.idEstados estado FROM populares p 
+				INNER  JOIN tours t ON p.idTours=t.idTours";
+
 		$resultado = $conexion->prepare($sql);
 		$resultado ->execute();
 

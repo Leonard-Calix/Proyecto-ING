@@ -60,11 +60,12 @@ function getImages(param){
 
 //Funcion para mostrar los tours
 function showTours(){
+	$('#respuesta').html("");
 	$.ajax({
 		url:"../Controlador/ajax/gestion-Tours.php?accion=mostrar",
 		dataType:'json',
 		success:function(res){
-		//console.log(res);
+		console.log(res);
 		var estrella='';
 		var img = '';
 		for (var i = 0; i < res.length; i++) {
@@ -281,6 +282,8 @@ function selecionarEstado(){
 		$("#resEstados").fadeOut(500);
 
 		$("#respuesta").fadeIn(500);
+
+		showTours();
 
 	}else{
 
