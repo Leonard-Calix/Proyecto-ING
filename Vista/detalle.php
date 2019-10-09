@@ -30,18 +30,17 @@ include_once ('Layouts/navbar.php');
 
 <section id="information" class="p-2">
   <input type="hidden" id="tour" value=" <?php echo $_GET["id"] ?> ">
-  <div class="container-fluid p-2">
+  <div class="container">
     <div class="card">
       <div class="p-3 card-header text-uppercase text-info">
         Details Tour
       </div>
       <div class="card-body">
-        <div class="row container">
-          <div class="col-xl-6 col-md-6 col-xs-12 col-12" id="infoTour"></div>
-          <div class="col-md-6" id="factura">
+        <div class="row justify-content-center" id="infoTour"></div>
+        <div class="col-md-6" id="factura">
             
-          </div>
         </div>
+       
         
       </div>
     </div>
