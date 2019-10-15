@@ -45,7 +45,7 @@
 
                   <!-- Heading -->
                   <h1 class="text-white text-center mb-4">
-                     Indian Tours
+                     India Tours
                   </h1>
 
                   <!-- Subheading -->

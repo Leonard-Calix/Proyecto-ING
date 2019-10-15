@@ -369,7 +369,6 @@ class Tours	{
 
 	}
 
-
 	public static function asignarHotel($idHotel, $idTours){
 		Conexion::abrirConexion();
 		$conexion = Conexion::obtenerConexion();

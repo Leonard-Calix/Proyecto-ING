@@ -61,7 +61,7 @@ function obtenerTours(id){
 			$("#descripcion").append(`<button class="btn btn-primary" data-toggle="modal" data-target="#compraModal">Buy</button> `);
 
 			var imgTemporal = '../Public/img/tours/' + response[0].idtours + '_01.png';
-			//console.log("img :" + imgTemporal);
+			console.log("img :" + imgTemporal);
 
 			$("#foto_tour").append(`<img class="img-fluid card-img" src="${imgTemporal}" alt="...">`);
 		}		
@@ -223,8 +223,6 @@ function limpiarInputs(){
 
 function comprar(monto){
 	
-	//alert('Compra del tour por '+monto);	
-
 	$("#factura").append(`
 		<div style="display: none" id="fac" class="alert alert-info p-5 text-center">
            <h3>Acquired a tour, for the cost of ${monto} $.</h3>
@@ -233,7 +231,6 @@ function comprar(monto){
 	$("#fac").fadeIn(500);
 	setTimeout(function(){ $("#fac").fadeOut(500); }, 3000);
 
-	
 }
 
 //Agregar Comentarios 

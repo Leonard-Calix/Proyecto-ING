@@ -16,7 +16,7 @@ include_once ('Layouts/navbar.php');
 <div class="container">
   <div class="card text-white">
     <div id="nombre_tour" class="mt-5"></div>
-    <div id="foto_tour" ></div>
+    <div id="foto_tour"></div>
     <ul class="nav justify-content-center ">
       <li class="nav-item">
         <button id="btn-details" class="nav-link btn btn-defaul text-secondary" onclick="details();">Details</button>
@@ -37,7 +37,7 @@ include_once ('Layouts/navbar.php');
       </div>
       <div class="card-body">
         <div class="row justify-content-center" id="infoTour"></div>
-        <div class="col-md-6" id="factura">
+        <div class="col justify-content-rigth" id="factura">
             
         </div>
        
@@ -46,7 +46,6 @@ include_once ('Layouts/navbar.php');
     </div>
   </div>
 </section>
-
 
 <section id="view-commets" class="p-2" style="display: none;">
   <div class="container">

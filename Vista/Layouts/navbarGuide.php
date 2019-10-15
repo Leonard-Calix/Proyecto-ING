@@ -9,12 +9,6 @@
 			<div class="sidebar-wrapper bg-dark">
     			<ul class="nav">
 					<li>
-            			<a href="guideMessages.php">
-              				<i class="nc-icon nc-email-85"></i>
-              				<p class="text-white">Messages</p>
-            			</a>
-					</li>
-					<li>
             			<a href="guideTours.php">
               				<i class="nc-icon nc-sun-fog-29"></i>
               				<p class="text-white">Tours Assigned</p>

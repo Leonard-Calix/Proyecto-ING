@@ -2,7 +2,7 @@
 	//include_once('../../Modelo/ControllerUsuario.php');
 	//include_once('../../Modelo/clase-Profiles.php');
 	//include_once('../../Modelo/class-guia.php');
-	include_once('../../Modelo/clase-Tours.php');
+	include_once('../../Modelo/class-guia.php');
 
 	//include_once('../../Modelo/clase-turista.php');
 
@@ -19,7 +19,11 @@
 	//$accion = $_GET['ComentarioporTour'];
 	//$idTours = 4;
 	//echo Comentarios::obtenerComentarioTour($idTours);
+	$email = 'emsanchez891@gmail.com';
+	$asunto = 'prueba';
+	$info = 'info de prueba';
 
+	Guia::notificaciones($email, $asunto, $info);
 	
 	//echo Comentarios::comprarTour(1, 6, 1, 5);
 	/*$salida = Comentarios::deleteComentario(7);
@@ -178,6 +182,6 @@
 
 	//Comentarios::addComentarios(7, 1, "Hola");
 
-	echo Tours::asignarHotel(1,1);
+	//echo Tours::asignarHotel(1,1);
 
 

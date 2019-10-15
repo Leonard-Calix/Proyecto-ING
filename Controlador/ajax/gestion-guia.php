@@ -23,8 +23,8 @@ include_once('../../Modelo/class-guia.php');
 		break;
 
 		case 'datosCorreo':
-			$email = $_POST['email'];
-			$info = $_POST['info'];
+			$email = $_POST['emailguia'];
+			$info = $_POST['infotourguia'];
 			$asunto = $_POST['asunto'];
 			Guia::notificaciones($email, $asunto, $info);
 		break;

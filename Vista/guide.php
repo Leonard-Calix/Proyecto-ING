@@ -61,7 +61,7 @@
           </div>
           <div class="form-group">
             <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="info-tourguia"></textarea>
+            <textarea class="form-control" id="infotourguia"></textarea>
           </div>
       </div>
       <div class="modal-footer">

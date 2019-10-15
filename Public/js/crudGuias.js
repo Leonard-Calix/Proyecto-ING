@@ -136,7 +136,7 @@ function NotificarGuia(guiaid){
     success:function(resp){
       //console.log(resp);
       $("#emailguia").val(resp[0].email);
-      $("#info-tourguia").val('Name Tour: '+resp[0].nombre + '\n'+
+      $("#infotourguia").val('Name Tour: '+resp[0].nombre + '\n'+
                               'Name Hotel: '+resp[0].nombreHotel);
     }
 
@@ -145,7 +145,12 @@ function NotificarGuia(guiaid){
 }
 
 function sendEmail(){
-  var datos = { email: $("#emailguia").val(), asunto: $("#asunto").val(), info: $("#info-tourguia").val() };
+  let emailguia = $("#emailguia").val();
+  let asunto = $("#asunto").val();
+  let infotourguia = $("#infotourguia").val();
+
+  var datos = 'emailguia=' +emailguia+'asunto='+asunto+'info='+infotourguia;
+  console.log(datos);
   
   $.ajax({
     url: '../Controlador/ajax/gestion-guia.php?accion=datosCorreo',
@@ -153,11 +158,11 @@ function sendEmail(){
     dataType: 'json',
     data: datos,
     success:function(response){
-      //console.log(response);
+      console.log(response);
       if(response.codigo == 1){
-        console.log(response.mensaje);
+        alert(response.mensaje);
       }else{
-        console.log(response.mensaje);
+        alert(response.mensaje);
       }
     }
   });

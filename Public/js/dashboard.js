@@ -32,7 +32,7 @@ $(document).ready(function($) {
 		data: { idEdit : $("#idUsuario").val() },
 		success:function(res){
 			//console.log("Usuario");
-			//console.log(res);
+			console.log(res);
 			$("#username").val(res[0].nombreUsuario);
 			$("#email").val(res[0].email);
 			$("#nombre").val(res[0].nombreCompleto);
@@ -138,7 +138,7 @@ function editar(id) { // solo muestra informacion
 		dataType: 'json',
 		data: {id: id },
 		success:function(res){
-			//console.log(res);
+			console.log(res);
 			$("#idtours").val(res[0].id);
 			$("#calificacion").val(res[0].calificacion);
 			$("#nombre").val(res[0].Nombre_Tour);
@@ -184,7 +184,7 @@ function detalles(id) {
 }
 
 function agregar() {
-
+	
 	var data = {
 		nombre : $("#nombre").val(),
 		descripcion : $("#descripcion").val(),
